@@ -12,3 +12,4 @@
 -beer
 -orange
 -pop corn
+-sprite
