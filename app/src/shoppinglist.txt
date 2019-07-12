@@ -9,3 +9,4 @@
 -strawberry
 -pizza
 -FullHD TV
+-beer
