@@ -1,6 +1,8 @@
 -kinder bueno
 -ice cream
 -cola
+- pepsi
+- apple
 -blue potato
 -water
 -strawberry
