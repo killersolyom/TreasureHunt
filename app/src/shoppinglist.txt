@@ -11,3 +11,7 @@
 -strawberry
 -pizza
 -FullHD TV
+-beer
+-orange
+-pop corn
+-sprite
