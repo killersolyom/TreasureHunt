@@ -3,4 +3,4 @@
 -cola
 -blue potato
 -water
--gumimaci
+-sprite
