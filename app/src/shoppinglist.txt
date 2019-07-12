@@ -3,3 +3,5 @@
 -cola
 -blue potato
 -water
+-strawberry
+-pizza
