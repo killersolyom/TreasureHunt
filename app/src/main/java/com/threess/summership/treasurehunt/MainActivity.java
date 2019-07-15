@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.threess.summership.treasurehunt.fragment.LoginRegistrationFragment;
+
 
 public class MainActivity extends AppCompatActivity {
 

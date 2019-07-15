@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt;
+package com.threess.summership.treasurehunt.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,20 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.threess.summership.treasurehunt.R;
 
 
-public class ProfileFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    public static String TAG = "profile_fragment";
+    public static String TAG = "home_fragment";
 
-    public ProfileFragment() {
+    public HomeFragment() {
         // constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
         // Do not modify!
     }
 

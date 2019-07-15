@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt;
+package com.threess.summership.treasurehunt.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,19 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.threess.summership.treasurehunt.R;
 
-public class TopListFragment extends Fragment {
 
-    public static String TAG = "top_list_fragment";
+public class RegistrationFragment extends Fragment {
 
-    public TopListFragment() {
+    public static String TAG = "registration_fragment";
+
+    public RegistrationFragment() {
         // constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_toplist, container, false);
+        return inflater.inflate(R.layout.fragment_registration, container, false);
         // Do not modify!
     }
 
@@ -32,3 +34,6 @@ public class TopListFragment extends Fragment {
 
     }
 }
+
+
+
