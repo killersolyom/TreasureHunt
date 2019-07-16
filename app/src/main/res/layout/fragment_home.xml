@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/home_treasures_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="674dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintStart_toStartOf="parent"></FrameLayout>

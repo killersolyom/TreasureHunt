@@ -27,6 +27,7 @@ public class HomeFragment extends Fragment {
                 case R.id.navigation_recent:
                     return true;
                 case R.id.navigation_favoites:
+                    loadFavoriteTreasureList();
                     return true;
                 case R.id.navigation_map:
                     loadTreasureMap();
@@ -49,11 +50,18 @@ public class HomeFragment extends Fragment {
         BottomNavigationView navView = view.findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.getMenu().getItem(1).setChecked(true);
+        loadFavoriteTreasureList();
     }
 
     private void loadTreasureMap(){
         Fragment mapViewFragment = new MapViewFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
+    }
+
+    private void loadFavoriteTreasureList(){
+        FavoriteTreasureFragment favoriteTreasureFragment = new FavoriteTreasureFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_treasures_fragment_container, favoriteTreasureFragment).commit();
     }
 }
