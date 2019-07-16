@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 
@@ -18,8 +23,10 @@ public class LoginFragment extends Fragment {
 
     public static String TAG = "login_fragment";
     private EditText nameText, passwordText;
+    private TextView createAccountLabel;
     private Switch rememberMeSwitch, autoLoginSwitch;
     private SavedData dataManager;
+    private String userName,userPassword;
 
     public LoginFragment() {
         // constructor
@@ -40,5 +47,65 @@ public class LoginFragment extends Fragment {
         passwordText = view.findViewById(R.id.loginPassword);
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
+        createAccountLabel = view.findViewById(R.id.createAccount);
+        userName = dataManager.readStringData("UserName");
+        userPassword = dataManager.readStringData("UserPassword");
+        loadSettings();
+
+        rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dataManager.writeBooleanData(isChecked,"RememberMeSwitch");
+            }
+        });
+        autoLoginSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dataManager.writeBooleanData(isChecked,"AutoLoginSwitch");
+            }
+        });
+        passwordText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            public void afterTextChanged(Editable s) {
+                dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
+            }
+        });
+        nameText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            public void afterTextChanged(Editable s) {
+                dataManager.writeStringData(nameText.getText().toString(),"UserName");
+            }
+        });
+        createAccountLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.replaceFragment(new RegistrationFragment(),RegistrationFragment.TAG);
+            }
+        });
+
+
+
+    }
+
+    private void loadSettings(){
+        if(dataManager.readBooleanData("RememberMeSwitch")){
+            rememberMeSwitch.setChecked(true);
+            nameText.setText(userName);
+            passwordText.setText(userPassword);
+        }
+        if(dataManager.readBooleanData("AutoLoginSwitch")){
+            autoLoginSwitch.setChecked(true);
+            //TODO database querry
+        }
     }
 }
