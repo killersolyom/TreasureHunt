@@ -6,11 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toolbar;
 
 
 import com.threess.summership.treasurehunt.R;
@@ -28,6 +32,7 @@ public class ClaimTreasureFragment extends Fragment {
     private EditText myEditText;
     private Button myConfirmButton;
     private String passcode;
+    private ImageView imageView;
 
     public ClaimTreasureFragment() {
         // constructor
@@ -49,6 +54,24 @@ public class ClaimTreasureFragment extends Fragment {
         setMyTestDatas();
 
         confirmPasscode(view);
+
+        imageView=view.findViewById(R.id.imageView2);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment fr = new HomeFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.add(R.id.fragment_claim_treasure_id, fr);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+
+
 
 
     }
