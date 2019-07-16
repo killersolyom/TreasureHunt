@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Switch;
 
 import com.threess.summership.treasurehunt.R;
 
@@ -14,6 +16,8 @@ import com.threess.summership.treasurehunt.R;
 public class LoginFragment extends Fragment {
 
     public static String TAG = "login_fragment";
+    private EditText nameText, passwordText;
+    private Switch rememberMeSwitch, autoLoginSwitch;
 
     public LoginFragment() {
         // constructor
@@ -29,7 +33,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        nameText = view.findViewById(R.id.loginName);
+        passwordText = view.findViewById(R.id.loginPassword);
+        rememberMeSwitch = view.findViewById(R.id.remember);
+        autoLoginSwitch = view.findViewById(R.id.autologin);
         // TODO
 
     }
