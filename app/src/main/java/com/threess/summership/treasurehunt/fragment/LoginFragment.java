@@ -121,28 +121,33 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
-                UserRetrofitService service = retrofit.create(UserRetrofitService.class);
-                service.loginUser(user).enqueue(new Callback<Object>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
-                        //200 jo
-                        if (response.code()==200){
-                            Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<Object> call, Throwable t) {
-                        Log.e(TAG, "Host failure", t);
-                    }
-                });
+                login();
             }
         });
 
+    }
+
+    private void login(){
+        user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
+        UserRetrofitService service = retrofit.create(UserRetrofitService.class);
+        service.loginUser(user).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
+                //200 jo
+                if (response.code()==200){
+                    Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
+                } else {
+                    Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, Throwable t) {
+                Log.e(TAG, "Host failure", t);
+            }
+        });
     }
 
     private void loadSettings(){
@@ -153,7 +158,7 @@ public class LoginFragment extends Fragment {
         }
         if(dataManager.readBooleanData("AutoLoginSwitch")){
             autoLoginSwitch.setChecked(true);
-            //TODO database querry
+            login();
         }
     }
 }
