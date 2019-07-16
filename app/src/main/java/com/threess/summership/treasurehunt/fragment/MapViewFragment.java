@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
 
@@ -63,8 +65,15 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng mures = new LatLng(46.544595, 24.561126);
-        googleMap.addMarker(new MarkerOptions().position(mures).title("Marker in Mures"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(mures));
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(46.544595, 24.561126));
+        googleMap.moveCamera( changeFocus(marker));
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 15.0f ) );
     }
+
+    private CameraUpdate changeFocus(MarkerOptions position){
+        LatLngBounds.Builder builder = new LatLngBounds.Builder().include(position.getPosition());
+        LatLngBounds bounds = builder.build();
+        return CameraUpdateFactory.newLatLngBounds(bounds, 0);
+    }
+
 }
