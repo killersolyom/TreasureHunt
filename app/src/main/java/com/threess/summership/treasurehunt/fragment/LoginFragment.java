@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
 
 
 public class LoginFragment extends Fragment {
@@ -18,6 +19,7 @@ public class LoginFragment extends Fragment {
     public static String TAG = "login_fragment";
     private EditText nameText, passwordText;
     private Switch rememberMeSwitch, autoLoginSwitch;
+    private SavedData dataManager;
 
     public LoginFragment() {
         // constructor
@@ -33,11 +35,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dataManager = new SavedData(getContext());
         nameText = view.findViewById(R.id.loginName);
         passwordText = view.findViewById(R.id.loginPassword);
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
-        // TODO
-
     }
 }
