@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.logic.ApiCallback;
 import com.threess.summership.treasurehunt.logic.ApiController;
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Init Fragment manger:
         fragmentManager = getSupportFragmentManager();
-
         MainActivity.addFragment(new LoginFragment(),LoginFragment.TAG);
 
     }
+
 
     /**
      * This method calls the presenters method which replaces the fragment on top of the stack.
