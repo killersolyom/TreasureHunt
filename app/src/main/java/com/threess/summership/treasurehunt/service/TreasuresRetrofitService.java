@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface TreasuresRetrofitService {
-    /*String BASE_URL = "http://5.254.125.248:3000/";
+    String BASE_URL = "http://5.254.125.248:3000/";
 
     //GET All existing treasures: /treasures
     @GET("/treasures")
@@ -25,9 +25,9 @@ public interface TreasuresRetrofitService {
 
 
     //TODO POST Create a treasure: /treasures/create
-    /*
+
     @POST("/treasures/create")
     Call<Treasure> createdTreasure (@Body Treasure treasure);
-    */
+
 
 }

@@ -1,12 +1,27 @@
 package com.threess.summership.treasurehunt;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
+import com.threess.summership.treasurehunt.logic.ApiCallback;
+import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Init Fragment manger:
         fragmentManager = getSupportFragmentManager();
+
         MainActivity.addFragment(new LoginFragment(),LoginFragment.TAG);
 
     }
-
 
     /**
      * This method calls the presenters method which replaces the fragment on top of the stack.
@@ -58,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
      * @param fragment new fragment
      * @param fragment_tag string tag
      */
-    private static void addFragment(Fragment fragment, String fragment_tag){
+    public static void addFragment(Fragment fragment, String fragment_tag){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment, fragment_tag);
         fragmentTransaction.addToBackStack(null);
@@ -69,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
      * Removes the fragment from fragment stack.
      * @param fragment fragment which should be removed
      */
-    private void removeFragment(Fragment fragment){
+    public static void removeFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.remove(fragment);
         fragmentTransaction.commit();
