@@ -100,7 +100,7 @@ public class RegistrationFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
-                        Snackbar snackbar = Snackbar.make(getView(),response.body().toString(),Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(),"Registration successful!",Snackbar.LENGTH_LONG);
                         snackbar.show();
                     } else {
                         Snackbar snackbar = Snackbar.make(getView(),"Registration failed!",Snackbar.LENGTH_LONG);
