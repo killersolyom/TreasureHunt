@@ -16,16 +16,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
 
+
     private static final String TAG = "ApiController";
 
-    public static void getAllTreasures(final ApiCallback<ArrayList<Treasure>> callback){
+    public static void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
 
+        // TODO: INIT ONLY ONCE & move to class field: mRetrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl( TreasuresRetrofitService.BASE_URL )
                 .build();
+        // TODO: move to class field: mTreasureService
         TreasuresRetrofitService service = retrofit.create(TreasuresRetrofitService.class);
 
+        service.allExistingTreasureList().enqueue( callback );
+        /*
         service.allExistingTreasureList().enqueue(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayList<Treasure>> call, @NonNull Response<ArrayList<Treasure>> response) {
@@ -42,6 +47,7 @@ public class ApiController {
                 callback.Error(-1);
             }
         });
+        */
 
     }
 

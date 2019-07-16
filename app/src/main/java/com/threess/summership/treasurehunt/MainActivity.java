@@ -24,6 +24,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//
+//
+//  TODO: MOVE add/remove/replace fragment into Navigation singleton class (getInstance)
+//
+//  TODO: in ApiController use Call instead of ApiCallback !
+//
 
 public class MainActivity extends AppCompatActivity {
 
