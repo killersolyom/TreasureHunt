@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.threess.summership.treasurehunt.fragment.LoginFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginRegistrationFragment;
 
 
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Init Fragment manger:
         fragmentManager = getSupportFragmentManager();
-        MainActivity.addFragment(new LoginRegistrationFragment(),LoginRegistrationFragment.TAG);
+        MainActivity.addFragment(new LoginFragment(),LoginRegistrationFragment.TAG);
 
     }
 
