@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Init Fragment manger:
         fragmentManager = getSupportFragmentManager();
+
         MainActivity.addFragment(new LoginRegistrationFragment(),LoginRegistrationFragment.TAG);
+
 
     }
 
@@ -61,19 +63,13 @@ public class MainActivity extends AppCompatActivity {
     private static void addFragment(Fragment fragment, String fragment_tag){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment, fragment_tag);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }
 
-    /**
-     * Removes the fragment from fragment stack.
-     * @param fragment fragment which should be removed
-     */
-    private void removeFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragment);
-        fragmentTransaction.commit();
+
     }
 
 
 }
+
+
+
