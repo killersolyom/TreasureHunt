@@ -19,6 +19,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,7 +67,7 @@ public class RegistrationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideKeyboard();
+                Util.hideKeyboard(getContext());
                 getFragmentManager().popBackStack();
             }
         });
@@ -75,13 +76,10 @@ public class RegistrationFragment extends Fragment {
 
     }
 
-    private void hideKeyboard(){
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
-    }
+
 
     private void validateUser (String username, String password, String confirm_password){
-        hideKeyboard();
+        Util.hideKeyboard(getContext());
         String errors = checkUsername(username);
         errors += checkPassword(password);
         errors += checkConfirmPassword(password,confirm_password);
