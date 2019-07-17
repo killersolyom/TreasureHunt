@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.navigation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 
 public class FragmentNavigation extends Fragment{
 
@@ -73,9 +75,17 @@ public class FragmentNavigation extends Fragment{
         }
     }
 
+    public void showProfileFragmentInHomeFragment(){
+        // Show inside of the HomeFragment:
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+            replaceFragment(new ProfileFragment(), R.id.home_treasures_fragment_container);
+        }
+    }
+
     public void showTopListFragment(){
         replaceFragment(new TopListFragment(), R.id.fragment_container);
     }
+
 
     /**
      * This method adds a new fragment on top of the stack.

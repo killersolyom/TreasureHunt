@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
@@ -26,6 +25,9 @@ public class HomeFragment extends Fragment {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_profile:
+                    FragmentNavigation.getInstance(getContext()).showProfileFragmentInHomeFragment();
+                    return true;
                 case R.id.navigation_recent:
                     return true;
                 case R.id.navigation_favoites:
@@ -51,8 +53,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = view.findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navView.getMenu().getItem(1).setChecked(true);
-        FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
+        navView.getMenu().getItem(0).setChecked(true);
     }
 
 }
