@@ -7,7 +7,6 @@ import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static MainActivity sInstance;
     public static String TAG = "main_activity";
 
     @Override

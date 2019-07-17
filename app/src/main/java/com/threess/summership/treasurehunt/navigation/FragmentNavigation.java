@@ -22,7 +22,6 @@ public class FragmentNavigation extends Fragment{
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
     private static FragmentTransaction mFragmentTransaction;
-    private static Activity activity;
 
 
 
