@@ -3,7 +3,9 @@ package com.threess.summership.treasurehunt.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,7 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
@@ -135,12 +136,16 @@ public class LoginFragment extends Fragment {
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
                 if (response.code()==200){
-                    Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Snackbar snackbar = Snackbar.make(getView(),"Successful", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
                     MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
                 } else {
-                    Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
+                    Snackbar snackbar = Snackbar.make(getView(),"User not found", Snackbar.LENGTH_LONG);
+                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
+                    snackbar.show();
                 }
-
             }
 
             @Override
