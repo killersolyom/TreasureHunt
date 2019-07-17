@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.navigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
@@ -66,10 +66,16 @@ public class FragmentNavigation extends Fragment{
         }
     }
 
+    public void showFavoriteTreasureListFragmentInHomeFragment(){
+        // Show inside of the HomeFragment:
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+            replaceFragment(new FavoriteTreasureFragment(), R.id.home_treasures_fragment_container);
+        }
+    }
+
     public void showTopListFragment(){
         replaceFragment(new TopListFragment(), R.id.fragment_container);
     }
-
 
     /**
      * This method adds a new fragment on top of the stack.

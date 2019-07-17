@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
@@ -28,10 +29,10 @@ public class HomeFragment extends Fragment {
                 case R.id.navigation_recent:
                     return true;
                 case R.id.navigation_favoites:
-                    loadFavoriteTreasureList();
+                    FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
                     return true;
                 case R.id.navigation_map:
-                    loadTreasureMap();
+                    FragmentNavigation.getInstance( getContext() ).showMapViewFragmentInHomeFragment();
                     return true;
             }
             return false;
@@ -51,19 +52,7 @@ public class HomeFragment extends Fragment {
         BottomNavigationView navView = view.findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.getMenu().getItem(1).setChecked(true);
-        loadFavoriteTreasureList();
+        FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
     }
 
-    private void loadTreasureMap(){
-        FragmentNavigation.getInstance( getContext() ).showMapViewFragmentInHomeFragment();
-        // Fragment mapViewFragment = new MapViewFragment();
-        // FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        // transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
-    }
-
-    private void loadFavoriteTreasureList(){
-        FavoriteTreasureFragment favoriteTreasureFragment = new FavoriteTreasureFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_treasures_fragment_container, favoriteTreasureFragment).commit();
-    }
 }
