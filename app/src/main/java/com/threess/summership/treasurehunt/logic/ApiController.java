@@ -18,7 +18,7 @@ public class ApiController {
     private static String BASE_URL = "http://5.254.125.248:3000/";
     private static Retrofit mRetrofit;
     private TreasuresRetrofitService mTreasureService;
-    private UserRetrofitService mUserService = mRetrofit.create(UserRetrofitService.class);
+    private UserRetrofitService mUserService;
 
     /**
      * Returns the ApiController instance.
@@ -50,13 +50,14 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
+        mUserService = mRetrofit.create(UserRetrofitService.class);
         mUserService.loginUser(user).enqueue(callback);
     }
 
     public void registerUser(final User user, final Callback<Object> callback){
+        mUserService = mRetrofit.create(UserRetrofitService.class);
         mUserService.createUser(user).enqueue(callback);
     }
 
-    // TODO: user service
 
 }
