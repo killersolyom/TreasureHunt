@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.threess.summership.treasurehunt.MainActivity;
+
 import com.threess.summership.treasurehunt.R;
 
 

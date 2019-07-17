@@ -1,20 +1,55 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textsize_H1">24sp</dimen>
+
+
     <dimen name="star_botton_width">48dp</dimen>
     <dimen name="star_botton_height">43dp</dimen>
     <dimen name="star_botton_marginStar">8dp</dimen>
-    <dimen name="star_botton_marginTop">8dp</dimen>
-    <dimen name="star_botton_marginEnd">8dp</dimen>
-    <dimen name="star_botton_marginBottom">8dp</dimen>
-    <dimen name="home_width">132dp</dimen>
-    <dimen name="home_height">60dp</dimen>
-    <dimen name="logout_width">122dp</dimen>
-    <dimen name="logout_height">64dp</dimen>
-    <dimen name="update_width">219dp</dimen>
-    <dimen name="update_height">45dp</dimen>
-    <dimen name="profile_image_view_width">237dp</dimen>
-    <dimen name="profile_image_view_height">213dp</dimen>
-    <dimen name="score_width">114dp</dimen>
-    <dimen name="score_height">44dp</dimen>
+    <dimen name="star_botton_marginTop">28dp</dimen>
+    <dimen name="star_botton_marginEnd">48dp</dimen>
+
+    <dimen name="home_width">145dp</dimen>
+    <dimen name="home_height">79dp</dimen>
+
+    <dimen name="home_botton_marginStar">44dp</dimen>
+    <dimen name="home_botton_marginTop">32dp</dimen>
+    <dimen name="home_botton_marginBottom">8dp</dimen>
+
+    <dimen name="logout_width">147dp</dimen>
+    <dimen name="logout_height">77dp</dimen>
+    <dimen name="logout_botton_marginStar">8dp</dimen>
+    <dimen name="logout_botton_marginTop">32dp</dimen>
+    <dimen name="logout_botton_marginEnd">8dp</dimen>
+    <dimen name="logout_botton_marginBottom">8dp</dimen>
+
+    <dimen name="Treasures_discovered_marginStar">8dp</dimen>
+    <dimen name="Treasures_discovered_marginTop">28dp</dimen>
+    <dimen name="Treasures_discovered_marginEnd">8dp</dimen>
+
+    <dimen name="username_marginStar">8dp</dimen>
+    <dimen name="username_marginTop">24dp</dimen>
+
+    <dimen name="Treasures_hidden_marginStar">8dp</dimen>
+    <dimen name="Treasures_hidden_marginTop">28dp</dimen>
+    <dimen name="Treasures_hidden_marginEnd">8dp</dimen>
+
+    <dimen name="update_width">250dp</dimen>
+    <dimen name="update_height">69dp</dimen>
+
+    <dimen name="update_botton_marginStar">8dp</dimen>
+    <dimen name="update_botton_marginTop">24dp</dimen>
+    <dimen name="update_botton_marginEnd">8dp</dimen>
+
+    <dimen name="profile_image_view_width">246dp</dimen>
+    <dimen name="profile_image_view_height">216dp</dimen>
+    <dimen name="profile_image_view_marginStar">8dp</dimen>
+    <dimen name="profile_image_view_marginTop">36dp</dimen>
+    <dimen name="profile_image_view_marginEnd">32dp</dimen>
+
+
+    <dimen name="score_width">172dp</dimen>
+    <dimen name="score_height">43dp</dimen>
+    <dimen name="score_marginStar">96dp</dimen>
+    <dimen name="score_marginTop">28dp</dimen>
 </resources>
