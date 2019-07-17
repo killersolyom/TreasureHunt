@@ -34,7 +34,6 @@ public class SplashScreenFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         splashScreenProgressBar = view.findViewById(R.id.splashScreenProgressBar);
         splashScreenProgressBar.setEnabled(false);
-        initialization();
     }
 
     @Override
