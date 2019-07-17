@@ -133,13 +133,13 @@ public class LoginFragment extends Fragment {
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
                 if (response.code()==200){
-                    Snackbar snackbar = Snackbar.make(getView(),"Successful", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_LONG);
                     snackbar.show();
                     //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
-                    Snackbar snackbar = Snackbar.make(getView(),"User not found", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(getView(),R.string.login_failed, Snackbar.LENGTH_LONG);
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
                     snackbar.show();
                 }

@@ -55,13 +55,10 @@ public class RegistrationFragment extends Fragment {
         cancel = view.findViewById(R.id.cancel);
         dataManager = new SavedData(getContext());
 
-        usernameText.setText("");
-        passwordText.setText("");
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateUser(usernameText.getText().toString(), passwordText.getText().toString(), confirm_passwordText.getText().toString());
+                validateUser(usernameText.getText().toString().trim(), passwordText.getText().toString().trim(), confirm_passwordText.getText().toString().trim());
             }
         });
 
@@ -99,10 +96,10 @@ public class RegistrationFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
-                        Snackbar snackbar = Snackbar.make(getView(),"Registration successful!",Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(),R.string.successful,Snackbar.LENGTH_LONG);
                         snackbar.show();
                     } else {
-                        Snackbar snackbar = Snackbar.make(getView(),"Registration failed!",Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG);
                         snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
                         snackbar.show();
                     }
@@ -116,21 +113,21 @@ public class RegistrationFragment extends Fragment {
 
     private String checkUsername(String username){
         if (username.length() < 5 || username.length() > 10 || username.contains(" ")){
-            return "Invalid username ";
+            return getString(R.string.invalid_username) + " ";
         }
         return "";
     }
 
     private String checkPassword(String password){
         if (password.length() < 6 || password.length() > 16){
-            return "Invalid password ";
+            return getString(R.string.invalid_password) + " ";
         }
         return "";
     }
 
     private String checkConfirmPassword (String password, String confirm_password){
         if (!confirm_password.equals(password)){
-            return "The passwords do not match!";
+            return getString(R.string.invalid_passwordconfirm) + " ";
         }
         return "";
     }
