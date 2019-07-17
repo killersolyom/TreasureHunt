@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+
+import java.util.NavigableMap;
 
 
 public class LoginFragment extends Fragment {
@@ -89,7 +92,7 @@ public class LoginFragment extends Fragment {
         createAccountLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.replaceFragment(new RegistrationFragment(),RegistrationFragment.TAG);
+                FragmentNavigation.getInstance().replaceFragment(new RegistrationFragment());
             }
         });
 

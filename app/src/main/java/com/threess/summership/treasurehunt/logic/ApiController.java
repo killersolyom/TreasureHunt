@@ -1,55 +1,51 @@
 package com.threess.summership.treasurehunt.logic;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
-
+import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import java.util.ArrayList;
-
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
 
-
+    private static ApiController sInstance = null;
     private static final String TAG = "ApiController";
+    private static String BASE_URL = "http://5.254.125.248:3000/";
+    private static Retrofit mRetrofit;
+    private TreasuresRetrofitService mTreasureService;
+    private UserRetrofitService mUserService;
 
-    public static void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
+    /**
+     * Returns the ApiController instance.
+     * @return ApiController instance
+     */
+    public static ApiController getInstance(){
+        if( sInstance == null ){
 
-        // TODO: INIT ONLY ONCE & move to class field: mRetrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl( TreasuresRetrofitService.BASE_URL )
-                .build();
-        // TODO: move to class field: mTreasureService
-        TreasuresRetrofitService service = retrofit.create(TreasuresRetrofitService.class);
+            sInstance = new ApiController();
 
-        service.allExistingTreasureList().enqueue( callback );
-        /*
-        service.allExistingTreasureList().enqueue(new Callback<ArrayList<Treasure>>() {
-            @Override
-            public void onResponse(@NonNull Call<ArrayList<Treasure>> call, @NonNull Response<ArrayList<Treasure>> response) {
-                Log.d(TAG, "Response: " + response);
+            mRetrofit = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl( BASE_URL )
+                    .build();
+        }
 
-                ArrayList<Treasure> treasures = response.body();
-                callback.Call( treasures );
-
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                Log.e(TAG, "Failure: ", t);
-
-                callback.Error(-1);
-            }
-        });
-        */
-
+        return sInstance;
     }
 
+
+    /**
+     * This method gets all treasures from the API.
+     * @param callback callback with the list of the treasures
+     */
+    public void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
+
+        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
+        mTreasureService.allExistingTreasureList().enqueue( callback );
+    }
+
+    // TODO: user service
 
 }
