@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 public class HomeFragment extends Fragment {
@@ -54,9 +55,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadTreasureMap(){
-        Fragment mapViewFragment = new MapViewFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
+        FragmentNavigation.getInstance( getContext() ).showMapViewFragmentInHomeFragment();
+        // Fragment mapViewFragment = new MapViewFragment();
+        // FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        // transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
     }
 
     private void loadFavoriteTreasureList(){
