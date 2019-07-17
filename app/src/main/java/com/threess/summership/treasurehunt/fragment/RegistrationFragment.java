@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,7 +94,7 @@ public class RegistrationFragment extends Fragment {
         } else {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User();
+            User user = new User("","");
             user.setUsername(username);
             user.setPassword(password);
             service.createUser(user).enqueue(new Callback<Object>() {
@@ -103,6 +104,7 @@ public class RegistrationFragment extends Fragment {
                         Snackbar snackbar = Snackbar.make(getView(),"Registration successful!",Snackbar.LENGTH_LONG);
                         snackbar.show();
                     } else {
+                        Log.e(TAG,String.valueOf(response.code()));
                         Snackbar snackbar = Snackbar.make(getView(),"Registration failed!",Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
