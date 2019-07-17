@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,9 @@ public class HomeFragment extends Fragment {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_profile:
+                    FragmentNavigation.getInstance(getContext()).showProfileFragmentInHomeFragment();
+                    return true;
                 case R.id.navigation_recent:
                     return true;
                 case R.id.navigation_favoites:
@@ -49,13 +51,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = view.findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navView.getMenu().getItem(1).setChecked(true);
+        navView.getMenu().getItem(0).setChecked(true);
     }
 
     private void loadTreasureMap(){
         FragmentNavigation.getInstance( getContext() ).showMapViewFragmentInHomeFragment();
-        // Fragment mapViewFragment = new MapViewFragment();
-        // FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        // transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
     }
 }
