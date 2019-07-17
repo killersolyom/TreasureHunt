@@ -21,6 +21,7 @@ import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
 import retrofit2.Call;
@@ -114,7 +115,7 @@ public class LoginFragment extends Fragment {
         createAccountLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.replaceFragment(new RegistrationFragment(),RegistrationFragment.TAG);
+                FragmentNavigation.getInstance(getContext()).showRegisterFragment();
             }
         });
 
@@ -136,7 +137,7 @@ public class LoginFragment extends Fragment {
                 //200 jo
                 if (response.code()==200){
                     Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
-                    MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
+                    FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
                 }

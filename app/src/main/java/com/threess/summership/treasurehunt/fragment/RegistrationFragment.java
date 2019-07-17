@@ -93,9 +93,7 @@ public class RegistrationFragment extends Fragment {
         } else {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
+            User user = new User(username,password);
             service.createUser(user).enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
