@@ -6,8 +6,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.threess.summership.treasurehunt.MainActivity;
-import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
@@ -30,7 +28,7 @@ public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... voids) {
         for(int i=0; i<100; i+=2){
             publishProgress(i);
-            SystemClock.sleep(45);
+            SystemClock.sleep(35);
         }
         return null;
     }
