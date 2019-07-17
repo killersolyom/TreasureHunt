@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
-            android:text="Claim Tresure"
+            android:text="@string/claim_tresure"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorText2"
@@ -59,12 +59,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Write here the items passcode!"
+        android:text="@string/write_passcode"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorText"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,19 +94,17 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorButton0"
-        android:text="Confirm and claim treasure!"
+        android:text="@string/confirm_and_claim"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorText2"
         android:textColorHighlight="@color/colorText"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-
 
 
 </android.support.constraint.ConstraintLayout>

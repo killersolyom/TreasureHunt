@@ -1,25 +1,25 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,8 +34,6 @@ public class RegistrationFragment extends Fragment {
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button  register, cancel;
     private SavedData dataManager;
-    private Retrofit retrofit;
-    private UserRetrofitService service;
 
     public RegistrationFragment() {
         // constructor
@@ -58,16 +56,10 @@ public class RegistrationFragment extends Fragment {
         cancel = view.findViewById(R.id.cancel);
         dataManager = new SavedData(getContext());
 
-        retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(UserRetrofitService.BASE_URL).build();
-        service = retrofit.create(UserRetrofitService.class);
-
-        usernameText.setText("");
-        passwordText.setText("");
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateUser(usernameText.getText().toString(), passwordText.getText().toString(), confirm_passwordText.getText().toString());
+                validateUser(usernameText.getText().toString().trim(), passwordText.getText().toString().trim(), confirm_passwordText.getText().toString().trim());
             }
         });
 
@@ -75,6 +67,7 @@ public class RegistrationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Util.hideKeyboard(getContext());
                 getFragmentManager().popBackStack();
             }
         });
@@ -83,7 +76,10 @@ public class RegistrationFragment extends Fragment {
 
     }
 
+
+
     private void validateUser (String username, String password, String confirm_password){
+        Util.hideKeyboard(getContext());
         String errors = checkUsername(username);
         errors += checkPassword(password);
         errors += checkConfirmPassword(password,confirm_password);
@@ -93,17 +89,16 @@ public class RegistrationFragment extends Fragment {
         } else {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User("un", "1234");
-            user.setUsername(username);
-            user.setPassword(password);
-            service.createUser(user).enqueue(new Callback<Object>() {
+            User user = new User(username,password);
+            ApiController.getInstance().registerUser(user,new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
-                        Snackbar snackbar = Snackbar.make(getView(),"Registration successful!",Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(),R.string.successful,Snackbar.LENGTH_LONG);
                         snackbar.show();
                     } else {
-                        Snackbar snackbar = Snackbar.make(getView(),"Registration failed!",Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG);
+                        snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
                         snackbar.show();
                     }
                 }
@@ -116,21 +111,21 @@ public class RegistrationFragment extends Fragment {
 
     private String checkUsername(String username){
         if (username.length() < 5 || username.length() > 10 || username.contains(" ")){
-            return "Invalid username ";
+            return getString(R.string.invalid_username) + " ";
         }
         return "";
     }
 
     private String checkPassword(String password){
         if (password.length() < 6 || password.length() > 16){
-            return "Invalid password ";
+            return getString(R.string.invalid_password) + " ";
         }
         return "";
     }
 
     private String checkConfirmPassword (String password, String confirm_password){
         if (!confirm_password.equals(password)){
-            return "The passwords do not match!";
+            return getString(R.string.invalid_passwordconfirm) + " ";
         }
         return "";
     }

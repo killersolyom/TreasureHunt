@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt.fragment;
+package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
