@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
@@ -140,8 +141,6 @@ public class LoginFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(getView(),"Successful", Snackbar.LENGTH_LONG);
                     snackbar.show();
                     //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
-                    MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
-                    Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
