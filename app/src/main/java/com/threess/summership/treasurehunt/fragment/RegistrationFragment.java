@@ -93,7 +93,7 @@ public class RegistrationFragment extends Fragment {
         } else {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User();
+            User user = new User("test", "Test"); //todo replace dummy data
             user.setUsername(username);
             user.setPassword(password);
             service.createUser(user).enqueue(new Callback<Object>() {

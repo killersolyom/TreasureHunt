@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.home.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
@@ -134,7 +135,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
-                if (response.code()==200){
+                if (response.code()==200 ){
                     Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
                     MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
                 } else {

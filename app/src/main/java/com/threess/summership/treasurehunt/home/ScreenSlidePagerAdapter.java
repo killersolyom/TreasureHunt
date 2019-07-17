@@ -1,11 +1,16 @@
-package com.threess.summership.treasurehunt;
+package com.threess.summership.treasurehunt.home;
 
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+import com.threess.summership.treasurehunt.favourite.FavouriteFragment;
+import com.threess.summership.treasurehunt.location.LocationFragment;
+import com.threess.summership.treasurehunt.recent.RecentFragment;
+
+
+public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
     public ScreenSlidePagerAdapter(FragmentManager fm) {
         super(fm);
