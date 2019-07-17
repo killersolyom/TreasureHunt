@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,9 +89,8 @@ public class RegistrationFragment extends Fragment {
         } else {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User("","");
-            user.setUsername(username);
-            user.setPassword(password);
+            User user = new User(username,password);
+
             service.createUser(user).enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
@@ -99,6 +99,7 @@ public class RegistrationFragment extends Fragment {
                         snackbar.show();
                     } else {
                         Snackbar snackbar = Snackbar.make(getView(),"Registration failed!",Snackbar.LENGTH_LONG);
+                        snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
                         snackbar.show();
                     }
                 }
