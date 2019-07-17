@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,10 +10,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
@@ -30,8 +33,6 @@ public class RegistrationFragment extends Fragment {
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button  register, cancel;
     private SavedData dataManager;
-    private Retrofit retrofit;
-    private UserRetrofitService service;
 
     public RegistrationFragment() {
         // constructor
@@ -54,9 +55,6 @@ public class RegistrationFragment extends Fragment {
         cancel = view.findViewById(R.id.cancel);
         dataManager = new SavedData(getContext());
 
-        retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(UserRetrofitService.BASE_URL).build();
-        service = retrofit.create(UserRetrofitService.class);
-
         usernameText.setText("");
         passwordText.setText("");
 
@@ -71,6 +69,7 @@ public class RegistrationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 getFragmentManager().popBackStack();
             }
         });
@@ -79,7 +78,13 @@ public class RegistrationFragment extends Fragment {
 
     }
 
+    private void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
+    }
+
     private void validateUser (String username, String password, String confirm_password){
+        hideKeyboard();
         String errors = checkUsername(username);
         errors += checkPassword(password);
         errors += checkConfirmPassword(password,confirm_password);
@@ -90,7 +95,7 @@ public class RegistrationFragment extends Fragment {
             dataManager.writeStringData(usernameText.getText().toString(),"UserName");
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
             User user = new User(username,password);
-            service.createUser(user).enqueue(new Callback<Object>() {
+            ApiController.getInstance().registerUser(user,new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){

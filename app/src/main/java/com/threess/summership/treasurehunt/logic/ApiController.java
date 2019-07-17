@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.logic;
 
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
@@ -46,6 +47,16 @@ public class ApiController {
 
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mTreasureService.allExistingTreasureList().enqueue( callback );
+    }
+
+    public void loginUser(final User user, final Callback<Object> callback){
+        mUserService = mRetrofit.create(UserRetrofitService.class);
+        mUserService.loginUser(user).enqueue(callback);
+    }
+
+    public void registerUser(final User user, final Callback<Object> callback){
+        mUserService = mRetrofit.create(UserRetrofitService.class);
+        mUserService.createUser(user).enqueue(callback);
     }
 
     // TODO: user service
