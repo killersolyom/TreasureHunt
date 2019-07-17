@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.MapViewFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 
 
 /**
