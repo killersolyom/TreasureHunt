@@ -3,7 +3,6 @@ package com.threess.summership.treasurehunt;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,16 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sInstance = this;
 
-        // Init. FragmentNavigation:
-        FragmentNavigation.getInstance( );
-
-        // Show start page:
-        FragmentNavigation.getInstance().addFragment(new LoginFragment());
+        // FragmentNavigation.getInstance( this ).showSplashScreenFragment(); // Use this when Splash screen is ready.
+        FragmentNavigation.getInstance( this ).showLoginFragment();
     }
 
-    public static MainActivity getContext (){
-        return sInstance;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

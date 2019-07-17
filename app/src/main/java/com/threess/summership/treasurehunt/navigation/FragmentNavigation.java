@@ -8,8 +8,14 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
-
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
+import com.threess.summership.treasurehunt.fragment.LoginFragment;
+import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
+import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
+import com.threess.summership.treasurehunt.fragment.TopListFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 
 public class FragmentNavigation extends Fragment{
 
@@ -20,14 +26,49 @@ public class FragmentNavigation extends Fragment{
 
 
 
-    public static FragmentNavigation getInstance(){
+    public static FragmentNavigation getInstance(Context context){
 
         if( sInstance == null ){
             sInstance = new FragmentNavigation();
-            mFragmentManager =  MainActivity.getContext().getSupportFragmentManager();
+            mFragmentManager =  ((MainActivity) context).getSupportFragmentManager();
         }
 
         return sInstance;
+    }
+
+    public void showHomeFragment(){
+        replaceFragment(new HomeFragment(), R.id.fragment_container);
+    }
+
+    public void showSplashScreenFragment(){
+        replaceFragment(new SplashScreenFragment(), R.id.fragment_container);
+    }
+
+    public void showLoginFragment(){
+        replaceFragment(new LoginFragment(), R.id.fragment_container);
+    }
+
+    public void showRegisterFragment(){
+        replaceFragment(new RegistrationFragment(), R.id.fragment_container);
+    }
+
+    public void showClaimTreasureFragment(){
+        replaceFragment(new ClaimTreasureFragment(), R.id.fragment_container);
+    }
+
+    public void showHideTreasureFragment(){
+        replaceFragment(new HideTreasureFragment(), R.id.fragment_container);
+    }
+
+    public void showMapViewFragmentInHomeFragment(){
+        // Show inside of the HomeFragment:
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+            replaceFragment(new MapViewFragment(), R.id.home_treasures_fragment_container);
+        }
+    }
+
+    public void showTopListFragment(){
+        replaceFragment(new TopListFragment(), R.id.fragment_container);
     }
 
 
@@ -35,9 +76,9 @@ public class FragmentNavigation extends Fragment{
      * This method adds a new fragment on top of the stack.
      * @param fragment new fragment
      */
-    public void addFragment(Fragment fragment){
+    private void addFragment(Fragment fragment, int container){
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.add(R.id.fragment_container, fragment, fragment.getTag());
+        mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
@@ -46,7 +87,7 @@ public class FragmentNavigation extends Fragment{
      * This method removes the fragment from fragment stack.
      * @param fragment fragment which should be removed
      */
-    public void removeFragment(Fragment fragment){
+    private void removeFragment(Fragment fragment){
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.remove(fragment);
         mFragmentTransaction.commit();
@@ -56,15 +97,15 @@ public class FragmentNavigation extends Fragment{
      * This method replaces the fragment on top of the stack.
      * @param fragment new fragment
      */
-    public void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment, int container){
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        Fragment topFragment = mFragmentManager.findFragmentById(R.id.fragment_container);
+        Fragment topFragment = mFragmentManager.findFragmentById(container);
         if( topFragment == null ){
             // if there is nothing to replace, then add a new one:
-            addFragment(fragment);
+            addFragment(fragment, container);
         }else{
             // if there is fragment to replace, then replace it:
-            mFragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getTag());
+            mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
             mFragmentTransaction.commit();
         }
@@ -74,8 +115,8 @@ public class FragmentNavigation extends Fragment{
      * This method returns the current fragment.
      * @return current fragment.
      */
-    public Fragment getCurrentFragment(){
-        return mFragmentManager.findFragmentById(R.id.fragment_container);
+    private Fragment getCurrentFragment(int container){
+        return mFragmentManager.findFragmentById(container);
     }
 
 }

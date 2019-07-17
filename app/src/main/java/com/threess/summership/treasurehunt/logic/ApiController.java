@@ -3,7 +3,9 @@ package com.threess.summership.treasurehunt.logic;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
+
 import java.util.ArrayList;
+
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -3,11 +3,17 @@ package com.threess.summership.treasurehunt.model;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    public static String uname;
 
     @SerializedName("username")
     private String username;
     @SerializedName("password")
     private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
