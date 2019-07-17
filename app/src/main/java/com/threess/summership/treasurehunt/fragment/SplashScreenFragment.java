@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.logic.CustomProgressBar;
+import com.threess.summership.treasurehunt.logic.SplashProgressTask;
 
 
 public class SplashScreenFragment extends Fragment {
 
     public static String TAG = "splash_screen_fragment";
     private ProgressBar splashScreenProgressBar;
+    private SplashProgressTask loadingProgress;
 
     public SplashScreenFragment() {
         // constructor
@@ -33,10 +34,25 @@ public class SplashScreenFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         splashScreenProgressBar = view.findViewById(R.id.splashScreenProgressBar);
         splashScreenProgressBar.setEnabled(false);
-        CustomProgressBar loadingProgress = new CustomProgressBar();
+        initialization();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        loadingProgress.cancel(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initialization();
+    }
+
+    private void initialization() {
+        loadingProgress = new SplashProgressTask();
         loadingProgress.setProgressBar(splashScreenProgressBar);
         loadingProgress.execute();
     }
-
 
 }

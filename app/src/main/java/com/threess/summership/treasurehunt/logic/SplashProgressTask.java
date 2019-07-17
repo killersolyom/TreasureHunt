@@ -8,14 +8,12 @@ import android.widget.ProgressBar;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 
-public class CustomProgressBar extends AsyncTask<Void, Integer, Void> {
+public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
 
     private ProgressBar splashScreenProgressBar;
 
     @Override
     protected void onPreExecute() {
-        splashScreenProgressBar.setVisibility(View.VISIBLE);
-        splashScreenProgressBar.setProgress(0);
         splashScreenProgressBar.setVisibility(View.VISIBLE);
         splashScreenProgressBar.setProgress(0);
     }
@@ -36,7 +34,6 @@ public class CustomProgressBar extends AsyncTask<Void, Integer, Void> {
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        splashScreenProgressBar.setProgress(values[0]);
         splashScreenProgressBar.setProgress(values[0]);
     }
 
