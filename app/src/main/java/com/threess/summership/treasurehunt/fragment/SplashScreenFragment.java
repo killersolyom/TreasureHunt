@@ -50,7 +50,7 @@ public class SplashScreenFragment extends Fragment {
 
     private void initialization() {
         loadingProgress = new SplashProgressTask();
-        loadingProgress.setProgressBar(splashScreenProgressBar);
+        loadingProgress.setProgressData(splashScreenProgressBar,getContext());
         loadingProgress.execute();
     }
 
