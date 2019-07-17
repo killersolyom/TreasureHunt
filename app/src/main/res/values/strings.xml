@@ -1,13 +1,23 @@
 <resources>
+    <string name="app_name">TreasureHunt</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello Summership!</string>
+    <string name="remember_me">Remember me</string>
+    <string name="auto_login">Auto login</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create account</string>
+
     <string name="Recent">TreasureHunt</string>
     <string name="ic_favourite_black">Settings</string>
     <string name="Map">Hello Summership!</string>
     <string name="menu_favourite">Favourite</string>
     <string name="menu_recent">"Recent"</string>
     <string name="menu_map">Show on map</string>
-    <string name="app_name">App name</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
