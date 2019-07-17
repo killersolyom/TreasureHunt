@@ -13,7 +13,7 @@ public interface UserRetrofitService {
     Call<User> createUser(@Body User user);
 
     @POST("/users/login")
-    Call<User> loginUser(@Body User user);
+    Call<Object> loginUser(@Body User user);
 
 
 
