@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,13 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.home.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
 import retrofit2.Call;
@@ -118,7 +116,7 @@ public class LoginFragment extends Fragment {
         createAccountLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.replaceFragment(new RegistrationFragment(),RegistrationFragment.TAG);
+                FragmentNavigation.getInstance(getContext()).showRegisterFragment();
             }
         });
 
@@ -142,7 +140,7 @@ public class LoginFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(getView(),"Successful", Snackbar.LENGTH_LONG);
                     snackbar.show();
                     //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
-                    MainActivity.replaceFragment(new HomeFragment(),HomeFragment.TAG);
+                    FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
                     Snackbar snackbar = Snackbar.make(getView(),"User not found", Snackbar.LENGTH_LONG);
