@@ -14,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // FragmentNavigation.getInstance( this ).showSplashScreenFragment(); // Use this when Splash screen is ready.
-        FragmentNavigation.getInstance( this ).showLoginFragment();
+        FragmentNavigation.getInstance( this ).showSplashScreenFragment();
     }
 
     @Override
