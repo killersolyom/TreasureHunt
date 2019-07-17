@@ -57,9 +57,6 @@ public class RegistrationFragment extends Fragment {
         retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(UserRetrofitService.BASE_URL).build();
         service = retrofit.create(UserRetrofitService.class);
 
-        usernameText.setText("");
-        passwordText.setText("");
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
