@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
-            android:text="@string/claim_tresure"
+            android:text="@string/claim_treasure"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorText2"
