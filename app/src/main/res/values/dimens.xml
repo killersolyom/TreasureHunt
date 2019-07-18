@@ -34,8 +34,8 @@
     <dimen name="Treasures_hidden_marginTop">28dp</dimen>
     <dimen name="Treasures_hidden_marginEnd">8dp</dimen>
 
-    <dimen name="update_width">250dp</dimen>
-    <dimen name="update_height">69dp</dimen>
+    <dimen name="update_width">253dp</dimen>
+    <dimen name="update_height">35dp</dimen>
 
     <dimen name="update_botton_marginStar">8dp</dimen>
     <dimen name="update_botton_marginTop">24dp</dimen>
