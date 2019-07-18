@@ -25,6 +25,14 @@
     <string name="profile">Profile</string>
     <string name="description">Description</string>
 
+    <string name="Recent">TreasureHunt</string>
+    <string name="ic_favourite_black">Settings</string>
+    <string name="Map">Hello Summership!</string>
+    <string name="menu_favourite">Favourite</string>
+    <string name="menu_recent">"Recent"</string>
+    <string name="menu_map">Show on map</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
