@@ -1,6 +1,9 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +35,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private MapView mMapView;
     public static String TAG = "MapView_fragment";
     private ArrayList<Treasure> treasures = new ArrayList<>();
+    private GoogleMap googleMap = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         return rootView;
     }
 
-    private void drawMap(){
+    private void drawMap() {
         mMapView.getMapAsync(this);
     }
 
@@ -80,12 +84,14 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
         changeFocus(googleMap);
         drawMarkers(googleMap);
+        getCurrentLocation(googleMap);
     }
 
-    private void drawMarkers(GoogleMap googleMap){
-        for(Treasure it: treasures){
+    private void drawMarkers(GoogleMap googleMap) {
+        for (Treasure it : treasures) {
             googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocation_lat(),
                     it.getLocation_lon())).title(it.getDescription()))
                     .setIcon(BitmapDescriptorFactory
@@ -94,16 +100,26 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private void changeFocus(GoogleMap googleMap){
+    private void changeFocus(GoogleMap googleMap) {
         MarkerOptions marker = new MarkerOptions().position(new LatLng(46.544595, 24.561126));
-        googleMap.moveCamera( changeFocus(marker));
-        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 15.0f ) );
+        googleMap.moveCamera(changeFocus(marker));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
     }
 
-    private CameraUpdate changeFocus(MarkerOptions position){
+    private CameraUpdate changeFocus(MarkerOptions position) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder().include(position.getPosition());
         LatLngBounds bounds = builder.build();
         return CameraUpdateFactory.newLatLngBounds(bounds, 0);
+    }
+
+    private void getCurrentLocation(GoogleMap googleMap) {
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
     }
 
     private void getTreasures(){
@@ -114,12 +130,16 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
                 treasures.addAll(response.body());
                 drawMap();
             }
-
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
             }
         });
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    }
+
 
 }
