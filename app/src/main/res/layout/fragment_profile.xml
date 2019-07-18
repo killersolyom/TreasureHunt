@@ -47,7 +47,7 @@
         android:ems="10"
         android:hint=""
         android:text="@string/Treasures_discovered"
-        android:textColor="@color/Black"
+        android:textColor="@color/alb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +60,8 @@
         android:layout_height="@dimen/update_height"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:textColor="@color/alb"
         android:text="@string/Username"
-        android:textColor="@color/Black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update" />
@@ -74,9 +74,8 @@
 
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:textColor="@color/alb"
         android:text="@string/Treasures_hidden"
-        android:textColor="@color/Black"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
@@ -95,11 +94,11 @@
 
     <ImageView
         android:id="@+id/profile_image_view"
-        android:layout_width="@dimen/profile_image_view_width"
-        android:layout_height="@dimen/profile_image_view_height"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_width"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,13 +107,12 @@
         android:layout_width="172dp"
         android:layout_height="39dp"
 
-        android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/score"
-        android:textColor="@color/Black"
+        android:textColorHighlight="@color/alb"
         app:layout_constraintEnd_toStartOf="@+id/star_button"
-        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 

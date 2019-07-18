@@ -46,6 +46,7 @@ public class SplashScreenFragment extends Fragment {
     public void onPause() {
         super.onPause();
         loadingProgress.cancel(true);
+        Glide.with(getContext()).clear(splashScreenBackground);
     }
 
     @Override
