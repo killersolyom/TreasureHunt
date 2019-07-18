@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,14 +16,11 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RegistrationFragment extends Fragment {
@@ -67,7 +62,7 @@ public class RegistrationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Util.hideKeyboard(getContext());
+                Util.hideKeyboard(getContext(),cancel);
                 getFragmentManager().popBackStack();
             }
         });
@@ -79,7 +74,7 @@ public class RegistrationFragment extends Fragment {
 
 
     private void validateUser (String username, String password, String confirm_password){
-        Util.hideKeyboard(getContext());
+        Util.hideKeyboard(getContext(),register);
         String errors = checkUsername(username);
         errors += checkPassword(password);
         errors += checkConfirmPassword(password,confirm_password);
@@ -95,6 +90,7 @@ public class RegistrationFragment extends Fragment {
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
                         Snackbar snackbar = Snackbar.make(getView(),R.string.successful,Snackbar.LENGTH_LONG);
+                        snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.green));
                         snackbar.show();
                     } else {
                         Snackbar snackbar = Snackbar.make(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG);
