@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
-            android:text="@string/claim_treasure"
+            android:text="@string/claim_tresure"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorText2"
@@ -55,24 +55,21 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="244dp"
-        android:layout_height="73dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/write_passcode"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorText"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="@+id/image_succsesfull_icon"
-        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.67" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <EditText
         android:id="@+id/editText"
@@ -108,20 +105,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-    <ImageView
-
-        android:id="@+id/image_succsesfull_icon"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
-        android:layout_height="485dp"
-        android:src="@drawable/sucsesfull_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>
