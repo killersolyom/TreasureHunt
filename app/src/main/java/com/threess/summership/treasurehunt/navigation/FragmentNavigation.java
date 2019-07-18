@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.navigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
@@ -17,7 +17,6 @@ import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
-import com.threess.summership.treasurehunt.home.fragment.HomeFragment;
 
 public class FragmentNavigation extends Fragment{
 
@@ -62,22 +61,19 @@ public class FragmentNavigation extends Fragment{
     }
 
     public void showMapViewFragmentInHomeFragment(){
-        // Show inside of the HomeFragment:
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
             replaceFragment(new MapViewFragment(), R.id.home_treasures_fragment_container);
         }
     }
 
     public void showFavoriteTreasureListFragmentInHomeFragment(){
-        // Show inside of the HomeFragment:
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
             replaceFragment(new FavoriteTreasureFragment(), R.id.home_treasures_fragment_container);
         }
     }
 
     public void showProfileFragmentInHomeFragment(){
-        // Show inside of the HomeFragment:
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment ) {
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
             replaceFragment(new ProfileFragment(), R.id.home_treasures_fragment_container);
         }
     }

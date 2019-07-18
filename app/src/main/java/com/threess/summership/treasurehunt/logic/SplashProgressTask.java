@@ -28,7 +28,7 @@ public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... voids) {
         for(int i=0; i<100; i+=2){
             publishProgress(i);
-            SystemClock.sleep(15);
+            SystemClock.sleep(35);
         }
         return null;
     }
