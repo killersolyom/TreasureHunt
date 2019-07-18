@@ -1,8 +1,5 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +12,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -23,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 
@@ -89,23 +86,13 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     private void drawMarkers(GoogleMap googleMap){
         for(Treasure it: treasures){
-            googleMap.addMarker(
-                    new MarkerOptions().position(
-                            new LatLng(it.getLocation_lat(),
-                                    it.getLocation_lon())).title(it.getDescription()))
-                    .setIcon(BitmapDescriptorFactory.fromBitmap(getDrawableImage()));
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocation_lat(),
+                    it.getLocation_lon())).title(it.getDescription()))
+                    .setIcon(BitmapDescriptorFactory
+                            .fromBitmap(Util.getDrawableImageForMap(getContext())));
         }
     }
 
-    private Bitmap getDrawableImage(){
-        return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.app_icon),100,100,false);
-    }
-
-    private BitmapDescriptor getMarkerIcon(String color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(Color.parseColor(color), hsv);
-        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
-    }
 
     private void changeFocus(GoogleMap googleMap){
         MarkerOptions marker = new MarkerOptions().position(new LatLng(46.544595, 24.561126));

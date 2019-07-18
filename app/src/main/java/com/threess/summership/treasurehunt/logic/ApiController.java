@@ -33,7 +33,6 @@ public class ApiController {
             sInstance.mUserService = mRetrofit.create(UserRetrofitService.class);
             sInstance.mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         }
-
         return sInstance;
     }
 
