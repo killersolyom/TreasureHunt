@@ -1,10 +1,10 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
@@ -113,14 +115,20 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void getCurrentLocation(GoogleMap googleMap) {
+        Log.e("3ss"," getCurrentLocation");
         if (ActivityCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    10);
             return;
         }
         googleMap.setMyLocationEnabled(true);
     }
+
 
     private void getTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
@@ -135,10 +143,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
     }
 
 
