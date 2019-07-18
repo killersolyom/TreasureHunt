@@ -16,9 +16,12 @@ public class ApiController {
     private static ApiController sInstance = null;
     private static final String TAG = "ApiController";
     private static String BASE_URL = "http://5.254.125.248:3000/";
-    private static Retrofit mRetrofit;
+    private static Retrofit  mRetrofit = new Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl( BASE_URL )
+            .build();
     private TreasuresRetrofitService mTreasureService;
-    private UserRetrofitService mUserService = mRetrofit.create(UserRetrofitService.class);
+    private UserRetrofitService mUserService = mRetrofit.create(UserRetrofitService.class);;
 
     /**
      * Returns the ApiController instance.
@@ -28,11 +31,10 @@ public class ApiController {
         if( sInstance == null ){
 
             sInstance = new ApiController();
-
-            mRetrofit = new Retrofit.Builder()
+            /*mRetrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl( BASE_URL )
-                    .build();
+                    .build();*/
         }
 
         return sInstance;
