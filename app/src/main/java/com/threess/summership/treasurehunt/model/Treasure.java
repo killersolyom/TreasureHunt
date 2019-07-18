@@ -17,6 +17,14 @@ public class Treasure {
     private double location_lon;
     @SerializedName("prize_points")
     private double prize_points;
+    @SerializedName("claimed")
+    private boolean claimed;
+    @SerializedName("claimed_by")
+    private String claimed_by;
+    @SerializedName("createdAt")
+    private String createdAt;
+    @SerializedName("updatedAt")
+    private String updatedAt;
 
     public String getUsername() {
         return username;
@@ -72,5 +80,38 @@ public class Treasure {
 
     public void setPrize_points(double prize_points) {
         this.prize_points = prize_points;
+    }
+
+
+    public boolean isClaimed() {
+        return claimed;
+    }
+
+    public String getClaimed_by() {
+        return claimed_by;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setClaimed(boolean claimed) {
+        this.claimed = claimed;
+    }
+
+    public void setClaimed_by(String claimed_by) {
+        this.claimed_by = claimed_by;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

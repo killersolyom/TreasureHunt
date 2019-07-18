@@ -1,6 +1,9 @@
 package com.threess.summership.treasurehunt.logic;
 
+import android.util.Log;
+
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
@@ -47,6 +50,7 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
+     //   Log.d("HALASZ", user.getPassword() + "   " + user.getUsername());
         mUserService.loginUser(user).enqueue(callback);
     }
 
@@ -55,5 +59,17 @@ public class ApiController {
     }
 
     // TODO: user service
+
+
+    //TODO: treasure service
+
+    public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
+        mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
+    }
+    public void createdTreasure(final Treasure treasure,final Callback<Treasure>callback){
+        mTreasureService.createdTreasure(treasure).enqueue(callback);
+    }
+
+    //public void
 
 }

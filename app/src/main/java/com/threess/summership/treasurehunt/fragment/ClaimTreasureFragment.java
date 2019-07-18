@@ -116,7 +116,7 @@ public class ClaimTreasureFragment extends Fragment {
             public void onClick(final View view) {
                 passcode = myEditText.getText().toString();
 
-                Treasure treasure = myTestDatas.get(passcode);
+                final Treasure treasure = myTestDatas.get(passcode);
                 if (treasure != null && treasure.getUsername().equals(myTreasureId)) {
                     mySnackbarAvailable.show();
                     showItems(view);
@@ -132,7 +132,31 @@ public class ClaimTreasureFragment extends Fragment {
                     }, 2000);
 
                     TreasureClaim treasureClaim=new TreasureClaim(treasure.getUsername(),treasure.getPasscode());
+                    ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            //If itt posted
+                            ApiController.getInstance().createdTreasure(treasure, new Callback<Treasure>() {
+                                @Override
+                                public void onResponse(Call<Treasure> call, Response<Treasure> response) {
+                                    response.body().setClaimed(true);
+                                    //There I need the username who claimed the treasure
+                                    response.body().setClaimed_by("username");
+                                }
 
+                                @Override
+                                public void onFailure(Call<Treasure> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            //if not
+
+                        }
+                    });
 
                     fragmentTransactionToHomeFragment();
 
