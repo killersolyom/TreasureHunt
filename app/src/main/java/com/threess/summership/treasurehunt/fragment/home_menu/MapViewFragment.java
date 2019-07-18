@@ -115,7 +115,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void getCurrentLocation(GoogleMap googleMap) {
-        Log.e("3ss"," getCurrentLocation");
         if (ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(),
