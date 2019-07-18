@@ -97,7 +97,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
             googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocation_lat(),
                     it.getLocation_lon())).title(it.getDescription()))
                     .setIcon(BitmapDescriptorFactory
-                            .fromBitmap(Util.getDrawableImageForMap(getContext())));
+                            .fromBitmap(Util.getDrawableTreasureImage(getContext())));
         }
     }
 

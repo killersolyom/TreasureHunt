@@ -17,7 +17,7 @@ public final class Util {
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
     }
 
-    public static Bitmap getDrawableImageForMap(Context context){
+    public static Bitmap getDrawableTreasureImage(Context context){
         return Bitmap.createScaledBitmap(randomBitmap(context),100,100,false);
     }
 

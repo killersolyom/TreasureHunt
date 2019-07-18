@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         try {
             Log.e(TAG, "Adapter " + position);
             holder.treasureText.setText(treasureList.get(position).getDescription());
+            holder.treasureImage.setImageBitmap(Util.getDrawableTreasureImage(context));
         } catch (Exception e) {
             e.printStackTrace();
         }
