@@ -20,6 +20,7 @@ public class ApiController {
     private static final String TAG = "ApiController";
     private static String BASE_URL = "http://5.254.125.248:3000/";
     private static Retrofit mRetrofit;
+
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
 
@@ -75,6 +76,5 @@ public class ApiController {
         mTreasureService.createdTreasure(treasure).enqueue(callback);
     }
 
-    //public void
 
 }
