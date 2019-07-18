@@ -69,11 +69,6 @@ public class ClaimTreasureFragment extends Fragment {
             }
         });
 
-
-
-
-
-
     }
 
     public void confirmPasscode(@NonNull final View view){
@@ -102,11 +97,6 @@ public class ClaimTreasureFragment extends Fragment {
 
             }
         });
-
-
-
-
-
 
     }
 
