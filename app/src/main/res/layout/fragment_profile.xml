@@ -10,101 +10,73 @@
 
     <ImageButton
         android:id="@+id/star_button"
-        android:layout_width="@dimen/star_botton_width"
-        android:layout_height="@dimen/star_botton_height"
-        android:layout_marginStart="@dimen/star_botton_marginStar"
-        android:layout_marginTop="@dimen/star_botton_marginTop"
-        android:layout_marginEnd="@dimen/star_botton_marginEnd"
+        android:layout_width="@dimen/update_height"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/alb"
         android:src="@drawable/ic_star_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toEndOf="@+id/score"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
     <Button
-        android:id="@+id/home"
-        android:layout_width="@dimen/home_width"
-        android:layout_height="@dimen/home_height"
-        android:layout_marginStart="@dimen/home_botton_marginStar"
-        android:layout_marginTop="@dimen/home_botton_marginTop"
-        android:layout_marginBottom="@dimen/home_botton_marginBottom"
-        android:background="@color/endblue"
-        android:text="@string/home"
-        android:textColor="@color/alb"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Treasures_hidden"
-        app:layout_constraintVertical_bias="0.181"
-        tools:ignore="MissingConstraints" />
-
-    <Button
         android:id="@+id/logout"
-        android:layout_width="@dimen/logout_width"
-        android:layout_height="@dimen/logout_height"
-        android:layout_marginStart="@dimen/logout_botton_marginStar"
-        android:layout_marginTop="@dimen/logout_botton_marginTop"
-        android:layout_marginEnd="@dimen/logout_botton_marginEnd"
-        android:layout_marginBottom="@dimen/logout_botton_marginBottom"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginStart="8dp"
         android:background="@color/endblue"
         android:text="@string/logout"
         android:textColor="@color/alb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
-        app:layout_constraintStart_toEndOf="@+id/home"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Treasures_hidden"
-        app:layout_constraintVertical_bias="0.188"
+        app:layout_constraintVertical_bias="0.031"
         tools:ignore="MissingConstraints" />
 
 
     <TextView
         android:id="@+id/Treasures_discovered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
         android:layout_marginStart="@dimen/Treasures_discovered_marginStar"
-        android:layout_marginTop="@dimen/Treasures_discovered_marginTop"
-        android:layout_marginEnd="@dimen/Treasures_discovered_marginEnd"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint=""
         android:text="@string/Treasures_discovered"
-        android:textColor="@color/Black"
+        android:textColor="@color/alb"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Username"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/Username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/username_marginStar"
-        android:layout_marginTop="@dimen/username_marginTop"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:textColor="@color/alb"
         android:text="@string/Username"
-        android:textColor="@color/Black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update" />
 
 
     <TextView
         android:id="@+id/Treasures_hidden"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
 
-        android:layout_marginStart="@dimen/Treasures_hidden_marginStar"
-
-        android:layout_marginTop="@dimen/Treasures_hidden_marginTop"
-        android:layout_marginEnd="@dimen/Treasures_hidden_marginEnd"
+        android:layout_marginTop="4dp"
         android:ems="10"
+        android:textColor="@color/alb"
         android:text="@string/Treasures_hidden"
-        android:textColor="@color/Black"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
 
@@ -112,41 +84,35 @@
         android:id="@+id/update"
         android:layout_width="@dimen/update_width"
         android:layout_height="@dimen/update_height"
-        android:layout_marginStart="@dimen/update_botton_marginStar"
-
-        android:layout_marginTop="@dimen/update_botton_marginTop"
-        android:layout_marginEnd="@dimen/update_botton_marginEnd"
+        android:layout_marginTop="8dp"
         android:background="@color/alb"
         android:text="@string/update"
         android:textColor="@color/endblue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score" />
 
     <ImageView
         android:id="@+id/profile_image_view"
-        android:layout_width="@dimen/profile_image_view_width"
-        android:layout_height="@dimen/profile_image_view_height"
-        android:layout_marginStart="@dimen/profile_image_view_marginStar"
-
-        android:layout_marginTop="@dimen/profile_image_view_marginTop"
-        android:layout_marginEnd="@dimen/profile_image_view_marginEnd"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_width"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/alert_dark_frame" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/score"
-        android:layout_width="@dimen/score_width"
-        android:layout_height="@dimen/score_height"
-        android:layout_marginStart="@dimen/score_marginStar"
-        android:layout_marginTop="@dimen/score_marginTop"
-        android:text="@string/score"
+        android:layout_width="172dp"
+        android:layout_height="39dp"
 
-        android:textColor="@color/Black"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/score"
+        android:textColorHighlight="@color/alb"
+        app:layout_constraintEnd_toStartOf="@+id/star_button"
+        app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
