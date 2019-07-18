@@ -89,7 +89,7 @@ public class RegistrationFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
-                        Snackbar snackbar = Snackbar.make(getView(),R.string.successful,Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(getView(), R.string.successful,Snackbar.LENGTH_LONG);
                         snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.green));
                         snackbar.show();
                     } else {
