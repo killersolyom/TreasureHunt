@@ -20,29 +20,69 @@ import android.widget.Toolbar;
 
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.TreasureClaim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.POST;
 
 
 public class ClaimTreasureFragment extends Fragment {
 
     public static String TAG = "claim_treasure_fragment";
-    private static final String FILE_NAME="example.txt";
-    private HashMap<String,Integer> myTestDatas;
+    private static final String FILE_NAME = "example.txt";
+    private HashMap<String, Treasure> myTestDatas;
+    //Key:passcode   String: UserId
 
     private EditText myEditText;
     private Button myConfirmButton;
     private String passcode;
     private ImageView imageView;
+    private ImageView mySuccsesfullImage;
+    private Bundle arguments;
+    private String myTreasureId;
+    private Snackbar mySnackbar;
+
+    Handler mHandler = new Handler();
+
+    /**
+     * So, if  you call this page, please send a Bundle with the treasure id.
+     * Use this key: 'someString'
+     *
+     * Bundle bundle = new Bundle();
+     *         bundle.putString("someString", "98fxx");
+     *         ClaimTreasureFragment claimTreasureFragment = new ClaimTreasureFragment();
+     *         claimTreasureFragment.setArguments(bundle);
+     *
+     */
 
     public ClaimTreasureFragment() {
-        // constructor
+
+        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                setMyTestDatas(response.body());
+                confirmPasscode(getView());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+                mySnackbar.show();
+            }
+        });
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        arguments = getArguments();
+        myTreasureId = arguments.getString("someString");
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
     }
@@ -50,71 +90,81 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        myEditText= view.findViewById(R.id.editText);
-        myConfirmButton=view.findViewById(R.id.confirmButton);
-        setMyTestDatas();
-        confirmPasscode(view);
-        imageView=view.findViewById(R.id.imageView2);
+        myEditText = view.findViewById(R.id.editText);
+        myConfirmButton = view.findViewById(R.id.confirmButton);
+        mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
+        mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "No internet conection!\n Please turn on the wifi", Snackbar.LENGTH_SHORT);
+        imageView = view.findViewById(R.id.imageView2);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Fragment fr = new HomeFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.add(R.id.fragment_claim_treasure_id, fr);
-                fragmentTransaction.commit();
+                fragmentTransactionToHomeFragment();
             }
         });
 
     }
 
-    public void confirmPasscode(@NonNull final View view){
-
-      //  final String passcode= myEditText.getText().toString();
-
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe!",  Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Correct!",  Snackbar.LENGTH_SHORT);
-
+    public void confirmPasscode(@NonNull final View view) {
+        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe or wrong treasure!", Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureId + "' is correct!", Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(final View view) {
+                passcode = myEditText.getText().toString();
 
-                passcode= myEditText.getText().toString();
-
-                if( myTestDatas.containsKey(passcode)){
+                Treasure treasure = myTestDatas.get(passcode);
+                if (treasure != null && treasure.getUsername().equals(myTreasureId)) {
                     mySnackbarAvailable.show();
-                }
-                else{
-                   mySnackbarError.show();
-                }
+                    showItems(view);
 
+                    myConfirmButton.setVisibility(View.INVISIBLE);
+
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideItems(view);
+                            myConfirmButton.setVisibility(View.VISIBLE);
+                        }
+                    }, 2000);
+
+                    TreasureClaim treasureClaim=new TreasureClaim(treasure.getUsername(),treasure.getPasscode());
+
+
+                    fragmentTransactionToHomeFragment();
+
+                } else {
+                    mySnackbarError.show();
+                }
             }
         });
-
     }
 
-    public void setMyTestDatas(){
+    public void setMyTestDatas(ArrayList<Treasure> myTreasures) {
+        myTestDatas = new HashMap<>();
 
-        myTestDatas=new HashMap<>();
-        myTestDatas.put("aaa",0);
-        myTestDatas.put("aab",1);
-        myTestDatas.put("aac",2);
-        myTestDatas.put("aaf",3);
-        myTestDatas.put("aad",4);
-        myTestDatas.put("aak",5);
-        myTestDatas.put("aao",6);
-        myTestDatas.put("aaaa",7);
-        myTestDatas.put("aaa123",8);
-        myTestDatas.put("aaa1234",9);
-        myTestDatas.put("aaa152",10);
-        myTestDatas.put("aaa162",11);
+        for (Treasure treasure : myTreasures) {
+            myTestDatas.put(treasure.getPasscode(), treasure);
+        }
+    }
 
+    private void showItems(@NonNull View view) {
+        mySuccsesfullImage.setVisibility(View.VISIBLE);
+    }
+
+    private void hideItems(@NonNull View view) {
+        mySuccsesfullImage.setVisibility(View.INVISIBLE);
 
     }
+    public void fragmentTransactionToHomeFragment(){
+        Fragment fr = new HomeFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_claim_treasure_id, fr);
+        fragmentTransaction.commit();
+    }
+
 }
