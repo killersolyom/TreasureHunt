@@ -19,7 +19,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.home.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;

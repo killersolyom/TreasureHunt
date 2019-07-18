@@ -4,6 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_supervisor_account_black_24dp"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_recent"
         android:enabled="true"
         android:icon="@drawable/ic_history"
@@ -14,7 +21,7 @@
         android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_black"
-        android:title="@string/menu_favourite"
+        android:title="Favorite"
         app:showAsAction="ifRoom" />
 
     <item

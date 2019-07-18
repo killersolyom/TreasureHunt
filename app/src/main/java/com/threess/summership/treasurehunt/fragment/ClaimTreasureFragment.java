@@ -14,13 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toolbar;
 
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.home.fragment.HomeFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
