@@ -163,8 +163,10 @@ public class ClaimTreasureFragment extends Fragment {
                 } else {
                     mySnackbarError.show();
                 }
+
             }
         });
+
     }
 
     public void setMyTestDatas(ArrayList<Treasure> myTreasures) {
