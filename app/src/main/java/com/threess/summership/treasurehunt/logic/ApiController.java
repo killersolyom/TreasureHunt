@@ -16,8 +16,20 @@ public class ApiController {
     private static ApiController sInstance = null;
     private static final String TAG = "ApiController";
     private static String BASE_URL = "http://5.254.125.248:3000/";
+    private static Retrofit mRetrofit;
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
+
+    private ApiController() {
+
+        mRetrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl( BASE_URL )
+                .build();
+        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
+        mUserService = mRetrofit.create(UserRetrofitService.class);
+
+    }
 
     /**
      * Returns the ApiController instance.
@@ -26,12 +38,6 @@ public class ApiController {
     public static ApiController getInstance(){
         if( sInstance == null ){
             sInstance = new ApiController();
-            Retrofit  mRetrofit = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl( BASE_URL )
-                    .build();
-            sInstance.mUserService = mRetrofit.create(UserRetrofitService.class);
-            sInstance.mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         }
 
         return sInstance;
@@ -47,12 +53,10 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
-        mUserService = mRetrofit.create(UserRetrofitService.class);
         mUserService.loginUser(user).enqueue(callback);
     }
 
     public void registerUser(final User user, final Callback<Object> callback){
-        mUserService = mRetrofit.create(UserRetrofitService.class);
         mUserService.createUser(user).enqueue(callback);
     }
 
