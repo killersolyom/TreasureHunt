@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment {
     private void setupViewPager() {
         ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         adapter.addFragment( new ProfileFragment() );
-        adapter.addFragment( new FavoriteTreasureFragment() );
+        adapter.addFragment( new FavoriteTreasureFragment());
         adapter.addFragment( new ProfileFragment() ); //TODO put here the Top users list insted of ProfileFragment
         adapter.addFragment( new MapViewFragment() );
         adapter.notifyDataSetChanged();
