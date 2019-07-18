@@ -14,7 +14,7 @@
         android:id="@+id/action_recent"
         android:enabled="true"
         android:icon="@drawable/ic_history"
-        android:title="@string/menu_recent"
+        android:title="Recent"
         app:showAsAction="ifRoom" />
 
     <item
@@ -28,6 +28,6 @@
         android:id="@+id/action_location"
         android:enabled="true"
         android:icon="@drawable/ic_location"
-        android:title="@string/menu_map"
+        android:title="Show on map"
         app:showAsAction="ifRoom" />
 </menu>

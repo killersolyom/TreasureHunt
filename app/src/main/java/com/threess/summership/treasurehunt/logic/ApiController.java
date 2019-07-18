@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.logic;
 
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
@@ -19,19 +20,24 @@ public class ApiController {
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
 
+    private ApiController() {
+
+        mRetrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl( BASE_URL )
+                .build();
+        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
+        mUserService = mRetrofit.create(UserRetrofitService.class);
+
+    }
+
     /**
      * Returns the ApiController instance.
      * @return ApiController instance
      */
     public static ApiController getInstance(){
         if( sInstance == null ){
-
             sInstance = new ApiController();
-
-            mRetrofit = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl( BASE_URL )
-                    .build();
         }
 
         return sInstance;
@@ -43,11 +49,16 @@ public class ApiController {
      * @param callback callback with the list of the treasures
      */
     public void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
-
-        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mTreasureService.allExistingTreasureList().enqueue( callback );
     }
 
-    // TODO: user service
+    public void loginUser(final User user, final Callback<Object> callback){
+        mUserService.loginUser(user).enqueue(callback);
+    }
+
+    public void registerUser(final User user, final Callback<Object> callback){
+        mUserService.createUser(user).enqueue(callback);
+    }
+
 
 }
