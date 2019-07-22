@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void networkHandler(){
-        //TODO remove/optimize this method
+        //TODO remove/optimize this method, this is a temporary solution
         new CountDownTimer(2000, 500) {
             @Override
             public void onTick(long millisUntilFinished) {
