@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt.model;
+package com.threess.summership.treasurehunt.adapter;
 
 
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 import java.util.ArrayList;
