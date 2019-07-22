@@ -20,9 +20,11 @@ import android.widget.Toolbar;
 
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,19 +65,6 @@ public class ClaimTreasureFragment extends Fragment {
      */
 
     public ClaimTreasureFragment() {
-
-        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                setMyTestDatas(response.body());
-                confirmPasscode(getView());
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                mySnackbar.show();
-            }
-        });
     }
 
 
@@ -83,6 +72,7 @@ public class ClaimTreasureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         arguments = getArguments();
         myTreasureId = arguments.getString("someString");
+
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
     }
@@ -95,6 +85,7 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "No internet conection!\n Please turn on the wifi", Snackbar.LENGTH_SHORT);
         imageView = view.findViewById(R.id.imageView2);
+        serverCall();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +160,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     }
 
-    public void setMyTestDatas(ArrayList<Treasure> myTreasures) {
+    private void setMyTestDatas(ArrayList<Treasure> myTreasures) {
         myTestDatas = new HashMap<>();
 
         for (Treasure treasure : myTreasures) {
@@ -185,12 +176,22 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage.setVisibility(View.INVISIBLE);
 
     }
-    public void fragmentTransactionToHomeFragment(){
-        Fragment fr = new HomeFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_claim_treasure_id, fr);
-        fragmentTransaction.commit();
+    private void fragmentTransactionToHomeFragment(){
+        FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
+    }
+    private void serverCall(){
+        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                setMyTestDatas(response.body());
+                confirmPasscode(getView());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+                mySnackbar.show();
+            }
+        });
     }
 
 }
