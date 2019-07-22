@@ -1,9 +1,12 @@
 package com.threess.summership.treasurehunt.navigation;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
@@ -81,6 +84,37 @@ public class FragmentNavigation extends Fragment{
     public void showTopListFragment(){
         replaceFragment(new TopListFragment(), R.id.fragment_container);
     }
+
+    private boolean doubleBackToExitPressedOnce = false;
+
+
+//    public void onBackPressed(){
+//        Fragment currentFragment = getCurrentFragment(R.id.fragment_container);
+//
+//        if( currentFragment instanceof HomeFragment ){
+//            doublePressExit();
+//            return;
+//        }
+//
+//        getActivity().finish();
+//
+//    }
+//
+//
+//    private void doublePressExit(){
+//        // Double press exit
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(getActivity(), "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//            }
+//        }, 2000);
+//    }
+
 
 
     /**
