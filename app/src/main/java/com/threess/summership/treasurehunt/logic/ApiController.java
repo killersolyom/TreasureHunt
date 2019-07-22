@@ -71,9 +71,7 @@ public class ApiController {
     public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
     }
-    public void createdTreasure(final Treasure treasure,final Callback<Treasure>callback){
-        mTreasureService.createdTreasure(treasure).enqueue(callback);
-    }
+
 
 
 }

@@ -48,7 +48,8 @@ public class ClaimTreasureFragment extends Fragment {
     private ImageView imageView;
     private ImageView mySuccsesfullImage;
     private Bundle arguments;
-    private String myTreasureId;
+    private String myTreasureName;
+    private String username;
     private Snackbar mySnackbar;
 
     Handler mHandler = new Handler();
@@ -71,7 +72,9 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         arguments = getArguments();
-        myTreasureId = arguments.getString("someString");
+        myTreasureName = arguments.getString("treasureId");
+        username=arguments.getString("username");
+
 
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
@@ -98,7 +101,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     public void confirmPasscode(@NonNull final View view) {
         final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe or wrong treasure!", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureId + "' is correct!", Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureName + "' is correct!", Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
@@ -108,7 +111,7 @@ public class ClaimTreasureFragment extends Fragment {
                 passcode = myEditText.getText().toString();
 
                 final Treasure treasure = myTestDatas.get(passcode);
-                if (treasure != null && treasure.getUsername().equals(myTreasureId)) {
+                if (treasure != null && treasure.getUsername().equals(myTreasureName)) {
                     mySnackbarAvailable.show();
                     showItems(view);
 
@@ -122,29 +125,18 @@ public class ClaimTreasureFragment extends Fragment {
                         }
                     }, 2000);
 
-                    TreasureClaim treasureClaim=new TreasureClaim(treasure.getUsername(),treasure.getPasscode());
+                    TreasureClaim treasureClaim=new TreasureClaim(username,treasure.getPasscode());
                     ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             //If itt posted
-                            ApiController.getInstance().createdTreasure(treasure, new Callback<Treasure>() {
-                                @Override
-                                public void onResponse(Call<Treasure> call, Response<Treasure> response) {
-                                    response.body().setClaimed(true);
-                                    //There I need the username who claimed the treasure
-                                    response.body().setClaimed_by("username");
-                                }
-
-                                @Override
-                                public void onFailure(Call<Treasure> call, Throwable t) {
-
-                                }
-                            });
+                           fragmentTransactionToHomeFragment();
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             //if not
+                            mySnackbar.show();
 
                         }
                     });
