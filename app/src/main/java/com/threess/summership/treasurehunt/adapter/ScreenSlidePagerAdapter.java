@@ -4,9 +4,6 @@ package com.threess.summership.treasurehunt.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
-
-import com.threess.summership.treasurehunt.fragment.HomeFragment;
 
 import java.util.ArrayList;
 
