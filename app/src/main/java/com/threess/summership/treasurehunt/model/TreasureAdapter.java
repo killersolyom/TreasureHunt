@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
 
     private Context context;
-    private ArrayList<String> treasureList = new ArrayList<>();
+    private ArrayList<Treasure> treasureList = new ArrayList<>();
     public static String TAG = "adapter_fragment";
 
     public TreasureAdapter(Context context) {
@@ -36,7 +38,8 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public void onBindViewHolder( final RecyclerViewHolder holder, int position) {
         try {
             Log.e(TAG, "Adapter " + position);
-            holder.treasureText.setText(treasureList.get(position));
+            holder.treasureText.setText(treasureList.get(position).getDescription());
+            holder.treasureImage.setImageBitmap(Util.getDrawableTreasureImage(context));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,19 +54,23 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView treasureText;
+        private ImageView treasureImage;
+        private ImageView treasureButton;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             treasureText = itemView.findViewById(R.id.treasureName);
+            treasureImage = itemView.findViewById(R.id.treasureImage);
+            treasureButton = itemView.findViewById(R.id.treasureButton);
         }
     }
 
-    public void addContactComponent(String treasure){
+    public void addTreasureComponent(Treasure treasure){
         treasureList.add(treasure);
         notifyDataSetChanged();
     }
 
-    public void addContact(ArrayList<String> treasures){
+    public void addTreasure(ArrayList<Treasure> treasures){
         treasureList.clear();
         treasureList.addAll(treasures);
         notifyDataSetChanged();

@@ -43,7 +43,6 @@ public class ApiController {
         if( sInstance == null ){
             sInstance = new ApiController();
         }
-
         return sInstance;
     }
 
