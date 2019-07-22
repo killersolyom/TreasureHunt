@@ -1,6 +1,8 @@
 package com.threess.summership.treasurehunt.navigation;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,15 +10,16 @@ import android.support.v4.app.FragmentTransaction;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.HomeFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.model.Treasure;
 
 public class FragmentNavigation extends Fragment{
 
@@ -75,6 +78,17 @@ public class FragmentNavigation extends Fragment{
     public void showProfileFragmentInHomeFragment(){
         if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
             replaceFragment(new ProfileFragment(), R.id.home_treasures_fragment_container);
+        }
+    }
+
+    public void startNavigationToDestination(Treasure treasure, Context context){
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
+                    treasure.getLocation_lat()+"," +
+                    treasure.getLocation_lon()+"&mode=w");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            context.startActivity(mapIntent);
         }
     }
 
