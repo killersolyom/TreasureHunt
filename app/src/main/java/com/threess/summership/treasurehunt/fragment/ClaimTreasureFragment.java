@@ -38,7 +38,6 @@ import retrofit2.http.POST;
 public class ClaimTreasureFragment extends Fragment {
 
     public static String TAG = "claim_treasure_fragment";
-    private static final String FILE_NAME = "example.txt";
     private HashMap<String, Treasure> myTestDatas;
     //Key:passcode   String: UserId
 
@@ -54,16 +53,6 @@ public class ClaimTreasureFragment extends Fragment {
 
     Handler mHandler = new Handler();
 
-    /**
-     * So, if  you call this page, please send a Bundle with the treasure id.
-     * Use this key: 'someString'
-     *
-     * Bundle bundle = new Bundle();
-     *         bundle.putString("someString", "98fxx");
-     *         ClaimTreasureFragment claimTreasureFragment = new ClaimTreasureFragment();
-     *         claimTreasureFragment.setArguments(bundle);
-     *
-     */
 
     public ClaimTreasureFragment() {
     }
@@ -88,12 +77,12 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "No internet conection!\n Please turn on the wifi", Snackbar.LENGTH_SHORT);
         imageView = view.findViewById(R.id.imageView2);
-        serverCall();
+        getAllTreasuresServerCall();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentTransactionToHomeFragment();
+                FragmentNavigation.getInstance(getContext()).showHomeFragment();
             }
         });
 
@@ -131,9 +120,7 @@ public class ClaimTreasureFragment extends Fragment {
                     ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
-                            //If itt posted
-                           fragmentTransactionToHomeFragment();
-                        //   mySnackbarAvailable2.show();
+                            FragmentNavigation.getInstance(getContext()).showHomeFragment();
                         }
 
                         @Override
@@ -144,7 +131,7 @@ public class ClaimTreasureFragment extends Fragment {
                         }
                     });
 
-                    fragmentTransactionToHomeFragment();
+                    FragmentNavigation.getInstance(getContext()).showHomeFragment();
 
                 } else {
                     mySnackbarError.show();
@@ -171,10 +158,9 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage.setVisibility(View.INVISIBLE);
 
     }
-    private void fragmentTransactionToHomeFragment(){
-        FragmentNavigation.getInstance(getContext()).showHomeFragment();
-    }
-    private void serverCall(){
+
+
+    private void getAllTreasuresServerCall(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
