@@ -102,6 +102,8 @@ public class ClaimTreasureFragment extends Fragment {
     public void confirmPasscode(@NonNull final View view) {
         final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe or wrong treasure!", Snackbar.LENGTH_SHORT);
         final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureName + "' is correct!", Snackbar.LENGTH_SHORT);
+      //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not available treasure on server", Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
@@ -131,12 +133,13 @@ public class ClaimTreasureFragment extends Fragment {
                         public void onResponse(Call<String> call, Response<String> response) {
                             //If itt posted
                            fragmentTransactionToHomeFragment();
+                        //   mySnackbarAvailable2.show();
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             //if not
-                            mySnackbar.show();
+                            mySnackbarError2.show();
 
                         }
                     });
@@ -169,7 +172,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     }
     private void fragmentTransactionToHomeFragment(){
-        FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
+        FragmentNavigation.getInstance(getContext()).showHomeFragment();
     }
     private void serverCall(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
