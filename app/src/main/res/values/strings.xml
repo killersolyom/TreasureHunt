@@ -26,7 +26,7 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
     <string name="claim_tresure">Claim Tresure</string>
-    <string name="write_passcode">Write here the items passcode!</string>
+    <string name="write_passcode">Write here the item passcode!</string>
     <string name="confirm_and_claim">Confirm and claim treasure!</string>
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
