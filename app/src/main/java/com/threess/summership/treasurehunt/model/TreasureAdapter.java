@@ -2,6 +2,8 @@ package com.threess.summership.treasurehunt.model;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,11 +37,23 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder( final RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
             Log.e(TAG, "Adapter " + position);
             holder.treasureText.setText(treasureList.get(position).getDescription());
             holder.treasureImage.setImageBitmap(Util.getDrawableTreasureImage(context));
+            holder.treasureScore.setText(treasureList.get(position).getPrize_points()+"");
+            holder.treasureButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
+                            treasureList.get(position).getLocation_lat()+"," +
+                            treasureList.get(position).getLocation_lon()+"&mode=w");
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    context.startActivity(mapIntent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,12 +70,14 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         private TextView treasureText;
         private ImageView treasureImage;
         private ImageView treasureButton;
+        private TextView treasureScore;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             treasureText = itemView.findViewById(R.id.treasureName);
             treasureImage = itemView.findViewById(R.id.treasureImage);
             treasureButton = itemView.findViewById(R.id.treasureButton);
+            treasureScore = itemView.findViewById(R.id.treasureScore);
         }
     }
 
