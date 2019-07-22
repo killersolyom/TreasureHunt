@@ -37,15 +37,15 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
-            final int index = position;
-            Glide.with(context).load(treasureList.get(index).getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
-            holder.treasureText.setText(treasureList.get(index).getDescription());
-            holder.treasureScore.setText(treasureList.get(index).getPrize_points()+"");
+            final Treasure treasure = treasureList.get(position);
+            Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
+            holder.treasureText.setText(treasure.getDescription());
+            holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
             holder.treasureButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentNavigation.getInstance(context).
-                            startNavigationToDestination(treasureList.get(index),context);
+                            startNavigationToDestination(treasure,context);
                 }
             });
         } catch (Exception e) {
