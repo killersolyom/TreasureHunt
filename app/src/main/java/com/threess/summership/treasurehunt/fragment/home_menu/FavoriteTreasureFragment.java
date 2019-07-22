@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.model.TreasureAdapter;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 
 import java.util.ArrayList;
 
