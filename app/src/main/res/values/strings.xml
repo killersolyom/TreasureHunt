@@ -26,7 +26,7 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
     <string name="claim_tresure">Claim Tresure</string>
-    <string name="write_passcode">Write here the items passcode!</string>
+    <string name="write_passcode">Write here the item passcode!</string>
     <string name="confirm_and_claim">Confirm and claim treasure!</string>
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
@@ -36,7 +36,7 @@
     <string name="map">Show on map</string>
     <string name="missing_permission">Permission not granted!</string>
     <string name="invalid_passcode">Invalid passcode!</string>
+    <string name="online_mode">Online!</string>
+    <string name="offline_mode">Offline!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

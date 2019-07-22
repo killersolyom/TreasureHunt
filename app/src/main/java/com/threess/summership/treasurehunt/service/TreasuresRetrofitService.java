@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.service;
 
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 
 import java.util.ArrayList;
@@ -25,8 +26,11 @@ public interface TreasuresRetrofitService {
 
     //TODO POST Create a treasure: /treasures/create
 
-    @POST("/treasures/create")
-    Call<Treasure> createdTreasure (@Body Treasure treasure);
+
+    //TODO POST a tresure what was founded
+    @POST("/treasures/claim")
+    Call<String> createdTreasureClaim (@Body TreasureClaim treasureClaim);
+
 
 
 }

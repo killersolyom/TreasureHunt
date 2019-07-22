@@ -1,18 +1,19 @@
-package com.threess.summership.treasurehunt.model;
+package com.threess.summership.treasurehunt.adapter;
 
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.util.Util;
+import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 import java.util.ArrayList;
 
@@ -35,11 +36,19 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder( final RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
-            Log.e(TAG, "Adapter " + position);
-            holder.treasureText.setText(treasureList.get(position).getDescription());
-            holder.treasureImage.setImageBitmap(Util.getDrawableTreasureImage(context));
+            final Treasure treasure = treasureList.get(position);
+            Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
+            holder.treasureText.setText(treasure.getDescription());
+            holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+            holder.treasureButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentNavigation.getInstance(context).
+                            startNavigationToDestination(treasure,context);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,12 +65,14 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         private TextView treasureText;
         private ImageView treasureImage;
         private ImageView treasureButton;
+        private TextView treasureScore;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             treasureText = itemView.findViewById(R.id.treasureName);
             treasureImage = itemView.findViewById(R.id.treasureImage);
             treasureButton = itemView.findViewById(R.id.treasureButton);
+            treasureScore = itemView.findViewById(R.id.treasureScore);
         }
     }
 
