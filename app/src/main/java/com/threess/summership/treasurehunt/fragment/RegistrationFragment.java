@@ -89,13 +89,9 @@ public class RegistrationFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (response.code() == 200){
-                        Snackbar snackbar = Snackbar.make(getView(), R.string.successful,Snackbar.LENGTH_LONG);
-                        snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.green));
-                        snackbar.show();
+                        Util.makeSnackbar(getView(), R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
                     } else {
-                        Snackbar snackbar = Snackbar.make(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG);
-                        snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
-                        snackbar.show();
+                        Util.makeSnackbar(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG,R.color.colorAccent);
                     }
                 }
                 @Override

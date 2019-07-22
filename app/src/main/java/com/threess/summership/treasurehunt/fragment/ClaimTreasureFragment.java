@@ -18,6 +18,7 @@ import android.widget.Toolbar;
 
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,10 +76,6 @@ public class ClaimTreasureFragment extends Fragment {
 
       //  final String passcode= myEditText.getText().toString();
 
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe!",  Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Correct!",  Snackbar.LENGTH_SHORT);
-
-
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
 
@@ -88,12 +85,11 @@ public class ClaimTreasureFragment extends Fragment {
                 passcode= myEditText.getText().toString();
 
                 if( myTestDatas.containsKey(passcode)){
-                    mySnackbarAvailable.show();
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.successful,  Snackbar.LENGTH_SHORT,R.color.green);
                 }
                 else{
-                   mySnackbarError.show();
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.invalid_passcode,  Snackbar.LENGTH_SHORT,R.color.colorAccent);
                 }
-
 
             }
         });
