@@ -35,7 +35,6 @@ public class NetworkChangeReceiver extends BroadcastReceiver
         }
     }
 
-
     private boolean isOnline(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
