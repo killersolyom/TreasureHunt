@@ -51,8 +51,8 @@ public class ClaimTreasureFragment extends Fragment {
     private String username;
     private Snackbar mySnackbar;
 
-    private static String keyStringTreasure;
-    private static String keyStringUsername;
+    private final static  String KEYSTRINGTREASURE="treasureName";
+    private final static String KEYSTRINGUSERNAME="username";
 
     Handler mHandler = new Handler();
 
@@ -62,11 +62,8 @@ public class ClaimTreasureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        arguments = getArguments();
-        myTreasureName = arguments.getString(keyStringTreasure);
-        username=arguments.getString(keyStringUsername);
-
-
+        myTreasureName = getArguments().getString(KEYSTRINGTREASURE);
+        username=getArguments().getString(KEYSTRINGUSERNAME);
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
     }
@@ -147,12 +144,19 @@ public class ClaimTreasureFragment extends Fragment {
 
 
     }
-    public static void setMyKeyStrings(String newKeyStringTreasure,String newKeyStringUsername){
+    public static ClaimTreasureFragment newInstance(String newKeyStringTreasure,String newKeyStringUsername){
 
-        keyStringTreasure=newKeyStringTreasure;
-        keyStringUsername=newKeyStringUsername;
+        ClaimTreasureFragment claimTreasureFragment=new ClaimTreasureFragment();
+        Bundle args=new Bundle();
+        args.putString(KEYSTRINGTREASURE,newKeyStringTreasure);
+        args.putString(KEYSTRINGUSERNAME,newKeyStringUsername);
+        claimTreasureFragment.setArguments(args);
+
+        return claimTreasureFragment;
+
 
     }
+
 
     private void setMyTestDatas(ArrayList<Treasure> myTreasures) {
         myTestDatas = new HashMap<>();
