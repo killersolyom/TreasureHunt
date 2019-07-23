@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,18 @@ public class RegistrationFragment extends Fragment {
             }
         });
 
+        confirm_passwordText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    validateUser(usernameText.getText().toString().trim(), passwordText.getText().toString().trim(), confirm_passwordText.getText().toString().trim());
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // TODO
 
     }
@@ -75,30 +88,37 @@ public class RegistrationFragment extends Fragment {
 
     private void validateUser (String username, String password, String confirm_password){
         Util.hideKeyboard(getContext(),register);
-        String errors = checkUsername(username);
-        errors += checkPassword(password);
-        errors += checkConfirmPassword(password,confirm_password);
-        if (!errors.equals("")){
-            Snackbar snackbar = Snackbar.make(getView(),errors,Snackbar.LENGTH_LONG);
-            snackbar.show();
-        } else {
-            dataManager.writeStringData(usernameText.getText().toString(),"UserName");
-            dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-            User user = new User(username,password);
-            ApiController.getInstance().registerUser(user,new Callback<Object>() {
-                @Override
-                public void onResponse(Call<Object> call, Response<Object> response) {
-                    if (response.code() == 200){
-                        Util.makeSnackbar(getView(), R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
-                    } else {
-                        Util.makeSnackbar(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG,R.color.colorAccent);
-                    }
-                }
-                @Override
-                public void onFailure(Call<Object> call, Throwable t) {
-                }
-            });
+        String error = checkUsername(username);
+        if (!error.isEmpty()){
+            usernameText.setError(error);
+            return;
         }
+        error = checkPassword(password);
+        if (!error.isEmpty()){
+            passwordText.setError(error);
+            return;
+        }
+        error = checkConfirmPassword(password,confirm_password);
+        if(!error.isEmpty()){
+            confirm_passwordText.setError(error);
+            return;
+        }
+        dataManager.writeStringData(usernameText.getText().toString(),"UserName");
+        dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
+        User user = new User(username,password);
+        ApiController.getInstance().registerUser(user,new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.code() == 200){
+                    Util.makeSnackbar(getView(), R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
+                } else {
+                    Util.makeSnackbar(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG,R.color.colorAccent);
+                }
+            }
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+            }
+        });
     }
 
     private String checkUsername(String username){
