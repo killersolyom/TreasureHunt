@@ -24,6 +24,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -130,6 +131,7 @@ public class LoginFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_SHORT);
                     snackbar.show();
                     //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Util.hideKeyboard(getContext());
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();

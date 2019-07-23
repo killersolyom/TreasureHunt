@@ -64,6 +64,9 @@ public class ApiController {
         mUserService.createUser(user).enqueue(callback);
     }
 
+    public void getAllUsers(final Callback<ArrayList<User>> callback){
+        mUserService.listAllUsers().enqueue(callback);
+    }
 
 
     //TODO: treasure service
