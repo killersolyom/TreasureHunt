@@ -58,15 +58,19 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
     }
 
-    public void addContactComponent(String treasure){
+    public void addTreasure(String treasure){
         treasureList.add(treasure);
         notifyDataSetChanged();
     }
 
-    public void addContact(ArrayList<String> treasures){
+    public void refreshTreasure(ArrayList<String> treasures){
         treasureList.clear();
         treasureList.addAll(treasures);
         notifyDataSetChanged();
     }
 
+    public void addTreasureList(ArrayList<String> treasures) {
+        treasureList.addAll(treasures);
+        notifyDataSetChanged();
+    }
 }

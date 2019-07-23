@@ -1,11 +1,13 @@
 package com.threess.summership.treasurehunt.logic;
 
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +19,19 @@ public class ApiController {
     private static String BASE_URL = "http://5.254.125.248:3000/";
     private static Retrofit mRetrofit;
     private TreasuresRetrofitService mTreasureService;
+    private TreasuresRetrofitService mClaimedTreasureByUser;
     private UserRetrofitService mUserService;
+
+    private ApiController() {
+
+        mRetrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl( BASE_URL )
+                .build();
+        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
+        mUserService = mRetrofit.create(UserRetrofitService.class);
+        mClaimedTreasureByUser = mRetrofit.create(TreasuresRetrofitService.class);
+    }
 
     /**
      * Returns the ApiController instance.
@@ -25,15 +39,8 @@ public class ApiController {
      */
     public static ApiController getInstance(){
         if( sInstance == null ){
-
             sInstance = new ApiController();
-
-            mRetrofit = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl( BASE_URL )
-                    .build();
         }
-
         return sInstance;
     }
 
@@ -43,11 +50,20 @@ public class ApiController {
      * @param callback callback with the list of the treasures
      */
     public void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
-
-        mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mTreasureService.allExistingTreasureList().enqueue( callback );
     }
 
-    // TODO: user service
+    public void getClaimedTreasures(final String logedInUser, final Callback<ArrayList<Treasure>> callback){
+        mClaimedTreasureByUser.claimedTreasureByUser(logedInUser).enqueue(callback);
+    }
+
+    public void loginUser(final User user, final Callback<Object> callback){
+        mUserService.loginUser(user).enqueue(callback);
+    }
+
+    public void registerUser(final User user, final Callback<Object> callback){
+        mUserService.createUser(user).enqueue(callback);
+    }
+
 
 }

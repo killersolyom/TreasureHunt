@@ -10,11 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureAdapter;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
 
-    private RecyclerView recycler;
+    private RecyclerView recycle;
     private TreasureAdapter adapter;
 
     public FavoriteTreasureFragment() {
@@ -31,14 +40,44 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recycler = view.findViewById(R.id.recycler_view_contacts);
+        recycle = view.findViewById(R.id.recycler_view_contacts);
         adapter = new TreasureAdapter(this.getContext());
-        adapter.addContactComponent("Teszt");
-        adapter.addContactComponent("Teszt2");
-        adapter.addContactComponent("Teszt9");
+        recycle.setAdapter(adapter);
+        recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        getActiveAndClaimedTreasure();
+        //getClaimedTreasures();
+    }
 
-        recycler.setAdapter(adapter);
-        recycler.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        adapter.notifyDataSetChanged();
+    private void getActiveAndClaimedTreasure(){
+        getAllActiveTreasures();
+        getClaimedTreasures();
+    }
+
+    private void getAllActiveTreasures(){
+        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                adapter.refreshTreasure(response.body());
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getClaimedTreasures(){
+        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>(){
+            @Override
+            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                adapter.addTreasureList(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+
+            }
+        });
     }
 }
+
