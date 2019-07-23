@@ -19,7 +19,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
 
     private Context context;
-    private ArrayList<String> treasureList = new ArrayList<>();
+    private ArrayList<Treasure> treasureList = new ArrayList<>();
     public static String TAG = "adapter_fragment";
 
     public TreasureAdapter(Context context) {
@@ -35,8 +35,8 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     @Override
     public void onBindViewHolder( final RecyclerViewHolder holder, int position) {
         try {
-            Log.e(TAG, "Adapter " + position);
-            holder.treasureText.setText(treasureList.get(position));
+            //Log.e(TAG, "Adapter " + position);
+            holder.treasureText.setText(treasureList.get(position).getDescription());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,18 +58,18 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
     }
 
-    public void addTreasure(String treasure){
+    public void addTreasure(Treasure treasure){
         treasureList.add(treasure);
         notifyDataSetChanged();
     }
 
-    public void refreshTreasure(ArrayList<String> treasures){
+    public void refreshTreasure(ArrayList<Treasure> treasures){
         treasureList.clear();
         treasureList.addAll(treasures);
         notifyDataSetChanged();
     }
 
-    public void addTreasureList(ArrayList<String> treasures) {
+    public void addTreasureList(ArrayList<Treasure> treasures) {
         treasureList.addAll(treasures);
         notifyDataSetChanged();
     }

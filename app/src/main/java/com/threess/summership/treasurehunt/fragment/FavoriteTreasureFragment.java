@@ -33,9 +33,6 @@ public class FavoriteTreasureFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recycle = view.findViewById(R.id.recycler_view_contacts);
         adapter = new TreasureAdapter(this.getContext());
-        adapter.addContactComponent("Teszt");
-        adapter.addContactComponent("Teszt2");
-        adapter.addContactComponent("Teszt9");
 
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
