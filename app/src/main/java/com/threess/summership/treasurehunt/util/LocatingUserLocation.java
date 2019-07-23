@@ -27,11 +27,13 @@ public class LocatingUserLocation {
 
     public LatLng tryToGetLocation(Activity activity, Context context){
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if(locationManager!=null){
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps(context);
             } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 return getLocation(activity,context);
             }
+        }
         return null;
     }
 
