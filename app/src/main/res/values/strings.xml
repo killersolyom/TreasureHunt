@@ -40,5 +40,8 @@
     <string name="Claim_Available2"> is correct! </string>
     <string name="Claim_SnackBarError2"> Not available treasure on server </string>
     <string name="Claim_SnackBarError_Internet"> No internet conection!Please turn on the wifi </string>
+    <string name="toplist_score">Score: </string>
+
+
 
 </resources>

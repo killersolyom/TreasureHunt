@@ -6,12 +6,11 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:layout_marginRight="6dip" />
 
     <TextView
         android:id="@+id/nameTextView"
