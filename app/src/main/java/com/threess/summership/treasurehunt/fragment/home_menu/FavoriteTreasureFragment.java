@@ -10,29 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.http.HEAD;
 
 public class FavoriteTreasureFragment extends Fragment {
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
-    private ArrayList<Treasure> treasures = new ArrayList<>();
 
     private final int INTERNALSERVERERROR = 500;
 
