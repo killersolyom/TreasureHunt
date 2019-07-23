@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,20 +68,6 @@ public class RegistrationFragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-
-        confirm_passwordText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    validateUser(usernameText.getText().toString().trim(), passwordText.getText().toString().trim(), confirm_passwordText.getText().toString().trim());
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // TODO
 
     }
 
