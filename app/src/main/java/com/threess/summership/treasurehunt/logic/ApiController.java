@@ -23,6 +23,7 @@ public class ApiController {
 
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
+    private TreasuresRetrofitService mClaimedTreasure;
 
     private ApiController() {
 
@@ -32,7 +33,7 @@ public class ApiController {
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
-
+        mClaimedTreasure = mRetrofit.create(TreasuresRetrofitService.class);
     }
 
     /**
@@ -53,6 +54,10 @@ public class ApiController {
      */
     public void getAllTreasures(final Callback<ArrayList<Treasure>> callback){
         mTreasureService.allExistingTreasureList().enqueue( callback );
+    }
+
+    public void getClaimedTreasures(final String userName, final Callback<ArrayList<Treasure>> callback){
+        mClaimedTreasure.claimedTreasureByUser(userName).enqueue(callback);
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
