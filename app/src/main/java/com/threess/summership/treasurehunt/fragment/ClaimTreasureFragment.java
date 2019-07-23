@@ -1,26 +1,19 @@
 package com.threess.summership.treasurehunt.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toolbar;
-
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
@@ -32,7 +25,6 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.POST;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -60,11 +52,6 @@ public class ClaimTreasureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        arguments = getArguments();
-        myTreasureName = arguments.getString("treasureId");
-        username=arguments.getString("username");
-
-
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
     }
@@ -77,6 +64,9 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "No internet conection!\n Please turn on the wifi", Snackbar.LENGTH_SHORT);
         imageView = view.findViewById(R.id.imageView2);
+        arguments = getArguments();
+        //myTreasureName = arguments.getString("treasureId");
+        //username=arguments.getString("username");
         getAllTreasuresServerCall();
 
         imageView.setOnClickListener(new View.OnClickListener() {

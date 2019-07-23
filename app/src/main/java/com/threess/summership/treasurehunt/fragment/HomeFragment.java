@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
 
         viewPager.setCurrentItem(1);
     }
-
+    @SuppressWarnings("deprecation")
     private void setupViewPager() {
         ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         adapter.addFragment( new ProfileFragment() );
@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
         adapter.addFragment( new MapViewFragment() );
         adapter.notifyDataSetChanged();
         viewPager.setAdapter( adapter );
+
         viewPager.setOnPageChangeListener(new PageChange());
     }
 

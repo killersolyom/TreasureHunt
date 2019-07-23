@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 
 import java.util.Random;
@@ -36,6 +37,16 @@ public final class Util {
             default:
                 return BitmapFactory.decodeResource(context.getResources(), R.drawable.t1);
         }
+    }
+
+    public static double distanceBetweenLatLngInMeter(LatLng currentPosition, LatLng treasurePosition) {
+        double latDistance = Math.toRadians(treasurePosition.latitude - currentPosition.latitude);
+        double lonDistance = Math.toRadians(treasurePosition.longitude - currentPosition.longitude);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(currentPosition.latitude)) * Math.cos(Math.toRadians(treasurePosition.latitude))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)))*6371000;
+        return  Math.sqrt(Math.pow(c, 2));
     }
 
 }
