@@ -27,7 +27,6 @@ public class LocatingUserLocation {
 
     public LatLng tryToGetLocation(Activity activity, Context context){
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            assert locationManager != null;
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps(context);
             } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

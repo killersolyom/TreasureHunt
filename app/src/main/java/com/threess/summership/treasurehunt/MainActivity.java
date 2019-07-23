@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
@@ -25,13 +24,24 @@ public class MainActivity extends AppCompatActivity {
     public static String TAG = "main_activity";
     private final int PERMISSION_REQUEST_CODE = 10;
     private BroadcastReceiver networkReceiver;
-    private View v = null;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentNavigation.getInstance( this ).showSplashScreenFragment();
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(getApplicationContext()!=null){
+                    networkReceiver = new NetworkChangeReceiver(MainActivity.this);
+                    registerNetworkBroadcastReceiver();
+                }
+            }
+        };
         networkHandler();
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
@@ -63,26 +73,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void networkHandler(){
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(getApplicationContext()!=null){
-                    networkReceiver = new NetworkChangeReceiver(MainActivity.this);
-                    registerNetworkBroadcastReceiver();
-                }
-            }
-        }, 2000);
+        handler.postDelayed(runnable, 2000);
     }
 
-
-
-    // @Override
-    // protected void onDestroy()
-    // {
-    //     super.onDestroy();
-    //     if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
-    // }
 
 
     @Override

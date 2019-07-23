@@ -2,7 +2,6 @@ package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,11 +48,6 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         getTreasures();
-
-        ActivityCompat.requestPermissions(getActivity(),
-                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                LocatingUserLocation.REQUEST_LOCATION);
-
     }
 
     private void getTreasures(){
@@ -77,7 +71,7 @@ public class FavoriteTreasureFragment extends Fragment {
             LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
-                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
+                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 5){
                     FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment();
                 }
             }
