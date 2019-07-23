@@ -1,6 +1,8 @@
 package com.threess.summership.treasurehunt.navigation;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +21,7 @@ import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.model.Treasure;
 
 public class FragmentNavigation extends Fragment{
 
@@ -129,12 +132,25 @@ public class FragmentNavigation extends Fragment{
         }
     }
 
+
     /**
      * This method returns the current fragment.
      * @return current fragment.
      */
     private Fragment getCurrentFragment(int container){
         return mFragmentManager.findFragmentById(container);
+    }
+
+
+    public void startNavigationToDestination(Treasure treasure, Context context){
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
+                    treasure.getLocation_lat()+"," +
+                    treasure.getLocation_lon()+"&mode=w");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            context.startActivity(mapIntent);
+        }
     }
 
 
@@ -146,13 +162,15 @@ public class FragmentNavigation extends Fragment{
     public void onBackPressed(MainActivity activity) {
 
         if (mDoubleBackToExitPressedOnce) {
+            mDoubleBackToExitPressedOnce = false;
             backPressed(activity);
+            return;
         }
 
         mDoubleBackToExitPressedOnce = true;
         Toast.makeText(activity, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
-       mHandler.postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
            @Override
            public void run() {
                doubleBackToExitPressedOnce = false;
