@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         adapter.addFragment( new ProfileFragment() );
         adapter.addFragment( new FavoriteTreasureFragment());
-        adapter.addFragment( new ProfileFragment() ); //TODO put here the Top users list insted of ProfileFragment
+        adapter.addFragment( new TopListFragment() );
         adapter.addFragment( new MapViewFragment() );
         adapter.notifyDataSetChanged();
         viewPager.setAdapter( adapter );
