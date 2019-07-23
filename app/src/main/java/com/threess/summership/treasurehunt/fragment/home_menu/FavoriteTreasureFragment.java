@@ -9,10 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.LocatingUserLocation;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 
@@ -24,7 +28,6 @@ public class FavoriteTreasureFragment extends Fragment {
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
-    private ArrayList<Treasure> treasures = new ArrayList<>();
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -55,9 +58,24 @@ public class FavoriteTreasureFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(adapter.getSelectedTreasure() != null){
+            LatLng currentPosition = LocatingUserLocation.getInstance()
+                    .tryToGetLocation(getActivity(),getContext());
+            LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
+                    adapter.getSelectedTreasure().getLocation_lon());
+            if(currentPosition!=null){
+                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 5){
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment();
+                }
+            }
+        }
     }
 }
 
