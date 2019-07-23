@@ -2,15 +2,17 @@ package com.threess.summership.treasurehunt;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
@@ -61,18 +63,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void networkHandler(){
-        //TODO remove/optimize this method, this is a temporary solution
-        new CountDownTimer(2000, 500) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onTick(long millisUntilFinished) {
+            public void run() {
+                if(getApplicationContext()!=null){
+                    networkReceiver = new NetworkChangeReceiver(MainActivity.this);
+                    registerNetworkBroadcastReceiver();
+                }
             }
-
-            @Override
-            public void onFinish() {
-                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
-                registerNetworkBroadcastReceiver();
-            }
-        }.start();
+        }, 2000);
     }
 
 
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         for(int it: grantResults){
             if(it != PERMISSION_GRANTED){
+                //TODO change this
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG);
                 snackbar.getView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
                 snackbar.show();
@@ -95,5 +96,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e("3ss","jo");
     }
 }
