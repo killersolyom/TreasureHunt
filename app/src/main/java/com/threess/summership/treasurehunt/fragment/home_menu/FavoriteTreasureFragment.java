@@ -48,7 +48,6 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         getActiveAndClaimedTreasure();
-        //getClaimedTreasures();
     }
 
     private void getActiveAndClaimedTreasure(){
@@ -77,20 +76,6 @@ public class FavoriteTreasureFragment extends Fragment {
                             adapter.addTreasureList(response.body());
                         }
                     }
-
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void getTreasures(){
-        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.refreshTreasure(response.body());
-            }
 
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
