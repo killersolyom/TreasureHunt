@@ -23,6 +23,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     private Context context;
     private ArrayList<Treasure> treasureList = new ArrayList<>();
+    private Treasure selectedTreasure = null;
     public static String TAG = "adapter_fragment";
 
     public TreasureAdapter(Context context) {
@@ -45,7 +46,9 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             holder.treasureButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentNavigation.getInstance(context).startNavigationToDestination(treasure,context);
+                    selectedTreasure = treasure;
+                    FragmentNavigation.getInstance(context).
+                            startNavigationToDestination(treasure,context);
                 }
             });
         } catch (Exception e) {
@@ -86,4 +89,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         notifyDataSetChanged();
     }
 
+    public Treasure getSelectedTreasure() {
+        return selectedTreasure;
+    }
 }

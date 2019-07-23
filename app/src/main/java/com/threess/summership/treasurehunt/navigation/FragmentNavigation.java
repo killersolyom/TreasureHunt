@@ -128,7 +128,7 @@ public class FragmentNavigation extends Fragment{
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
             mFragmentTransaction.commit();
-            mFragmentManager.executePendingTransactions();
+            //mFragmentManager.executePendingTransactions();
         }
     }
 
