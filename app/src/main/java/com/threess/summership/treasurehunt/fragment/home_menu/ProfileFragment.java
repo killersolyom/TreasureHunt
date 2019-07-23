@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 public class ProfileFragment extends Fragment {
@@ -61,6 +62,10 @@ public class ProfileFragment extends Fragment {
         profileTreasureshiddenTextView = view.findViewById(R.id.Treasures_hidden);
         profileHomeButton = view.findViewById(R.id.home);
         profileLogoutButton = view.findViewById(R.id.logout);
+
+        /*DELETE_ME*/profileUpdateImageButton.setOnClickListener( v -> {
+        /*DELETE_ME*/    FragmentNavigation.getInstance(getContext()).showHideTreasureFragment();
+        /*DELETE_ME*/});
     }
 
 }

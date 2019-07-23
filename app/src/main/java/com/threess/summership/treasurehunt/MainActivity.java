@@ -2,6 +2,7 @@ package com.threess.summership.treasurehunt;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -12,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "main_activity";
     private final int PERMISSION_REQUEST_CODE = 10;
+    public static final int PLACE_PICKER_CODE = 23;
     private BroadcastReceiver networkReceiver;
     private View v = null;
 
@@ -104,6 +109,21 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PLACE_PICKER_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 }
