@@ -90,10 +90,7 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     public void confirmPasscode(@NonNull final View view) {
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe or wrong treasure!", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureName + "' is correct!", Snackbar.LENGTH_SHORT);
-      //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not available treasure on server", Snackbar.LENGTH_SHORT);
+       //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
@@ -104,7 +101,7 @@ public class ClaimTreasureFragment extends Fragment {
 
                 final Treasure treasure = myTestDatas.get(passcode);
                 if (treasure != null && treasure.getUsername().equals(myTreasureName)) {
-                    mySnackbarAvailable.show();
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.correct_passcode, Snackbar.LENGTH_SHORT, R.color.green);
                     showItems(view);
 
                     myConfirmButton.setVisibility(View.INVISIBLE);
@@ -127,7 +124,7 @@ public class ClaimTreasureFragment extends Fragment {
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             //if not
-                            mySnackbarError2.show();
+                            Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.notavailable_treasure, Snackbar.LENGTH_SHORT,R.color.colorAccent);
 
                         }
                     });
@@ -135,7 +132,7 @@ public class ClaimTreasureFragment extends Fragment {
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
 
                 } else {
-                    mySnackbarError.show();
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.invalid_passcode, Snackbar.LENGTH_SHORT,R.color.colorAccent);
                 }
 
             }
