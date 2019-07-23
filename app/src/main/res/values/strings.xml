@@ -35,4 +35,10 @@
     <string name="online_mode">Online!</string>
     <string name="offline_mode">Offline!</string>
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
+    <string name="Claim_snackBarError1">Not vailable passcoe or wrong treasure!</string>
+    <string name="Claim_Available">This treasure passcode: </string>
+    <string name="Claim_Available2"> is correct! </string>
+    <string name="Claim_SnackBarError2"> Not available treasure on server </string>
+    <string name="Claim_SnackBarError_Internet"> No internet conection!Please turn on the wifi </string>
+
 </resources>

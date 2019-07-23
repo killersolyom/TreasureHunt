@@ -77,7 +77,7 @@ public class ClaimTreasureFragment extends Fragment {
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
-        mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "No internet conection!Please turn on the wifi", Snackbar.LENGTH_SHORT);
+        mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError_Internet), Snackbar.LENGTH_SHORT);
         imageView = view.findViewById(R.id.imageView2);
         getAllTreasuresServerCall();
 
@@ -91,10 +91,10 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void confirmPasscode(@NonNull final View view) {
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not vailable passcoe or wrong treasure!", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "This treasure passcode: '" + myTreasureName + "' is correct!", Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_Available) + myTreasureName + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT);
       //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "Not available treasure on server", Snackbar.LENGTH_SHORT);
+        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
