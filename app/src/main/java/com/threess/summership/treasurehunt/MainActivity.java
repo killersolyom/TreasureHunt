@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void networkHandler(){
+        handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, 2000);
     }
 
