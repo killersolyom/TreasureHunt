@@ -1,15 +1,16 @@
 package com.threess.summership.treasurehunt;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
@@ -20,7 +21,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "main_activity";
-    private int permissionResultCode = 10;
+    private final int PERMISSION_REQUEST_CODE = 10;
     private BroadcastReceiver networkReceiver;
     private View v = null;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    permissionResultCode);
+                    PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -76,43 +77,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private boolean doubleBackToExitPressedOnce;
-    private Handler mHandler = new Handler();
+    // @Override
+    // protected void onDestroy()
+    // {
+    //     super.onDestroy();
+    //     if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
+    // }
 
-    private final Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            doubleBackToExitPressedOnce = false;
-        }
-    };
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
-    }
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-
-
-            super.onBackPressed();
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-        mHandler.postDelayed(mRunnable, 2000);
-
-
+        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

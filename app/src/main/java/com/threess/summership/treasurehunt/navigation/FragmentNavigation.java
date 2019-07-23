@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.navigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -26,7 +25,8 @@ public class FragmentNavigation extends Fragment{
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
     private static FragmentTransaction mFragmentTransaction;
-
+    private static boolean mDoubleBackToExitPressedOnce;
+    private static Handler mHandler = new Handler();
 
 
     public static FragmentNavigation getInstance(Context context){
@@ -88,35 +88,6 @@ public class FragmentNavigation extends Fragment{
     private boolean doubleBackToExitPressedOnce = false;
 
 
-//    public void onBackPressed(){
-//        Fragment currentFragment = getCurrentFragment(R.id.fragment_container);
-//
-//        if( currentFragment instanceof HomeFragment ){
-//            doublePressExit();
-//            return;
-//        }
-//
-//        getActivity().finish();
-//
-//    }
-//
-//
-//    private void doublePressExit(){
-//        // Double press exit
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(getActivity(), "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce=false;
-//            }
-//        }, 2000);
-//    }
-
-
-
     /**
      * This method adds a new fragment on top of the stack.
      * @param fragment new fragment
@@ -126,6 +97,7 @@ public class FragmentNavigation extends Fragment{
         mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
+        mFragmentManager.executePendingTransactions();
     }
 
     /**
@@ -153,6 +125,7 @@ public class FragmentNavigation extends Fragment{
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
             mFragmentTransaction.commit();
+            mFragmentManager.executePendingTransactions();
         }
     }
 
@@ -162,6 +135,36 @@ public class FragmentNavigation extends Fragment{
      */
     private Fragment getCurrentFragment(int container){
         return mFragmentManager.findFragmentById(container);
+    }
+
+
+    /**
+     * This method handles the application's back button presses and navigates to the corresponding
+     * pages.
+     * @param activity activity instance
+     */
+    public void onBackPressed(MainActivity activity) {
+
+        if (mDoubleBackToExitPressedOnce) {
+            backPressed(activity);
+        }
+
+        mDoubleBackToExitPressedOnce = true;
+        Toast.makeText(activity, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+       mHandler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               doubleBackToExitPressedOnce = false;
+           }
+       }, 2000);
+
+    }
+
+    private void backPressed(MainActivity activity){
+
+        activity.moveTaskToBack(true);
+
     }
 
 }
