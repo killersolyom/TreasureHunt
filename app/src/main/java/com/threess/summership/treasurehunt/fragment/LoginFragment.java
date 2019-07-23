@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(nameText.getText().toString(),"UserName");
+                dataManager.writeStringData(nameText.getText().toString(),SavedData.PROFILE_NAME_KEY);
             }
         });
         createAccountLabel.setOnClickListener(new View.OnClickListener() {

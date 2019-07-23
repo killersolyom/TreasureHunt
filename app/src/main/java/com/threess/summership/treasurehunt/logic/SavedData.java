@@ -8,7 +8,8 @@ public class SavedData {
 
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
-    private final String PROFILE_IMAGE_KEY = "profile_image_key";
+    private static final String PROFILE_IMAGE_KEY = "profile_image_key";
+    public static final String PROFILE_NAME_KEY = "profile_name_key";
 
     public SavedData(Context context) {
         try {

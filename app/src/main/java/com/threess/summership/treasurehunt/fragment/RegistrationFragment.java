@@ -27,6 +27,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
+
 
 public class RegistrationFragment extends Fragment {
 
@@ -87,7 +89,7 @@ public class RegistrationFragment extends Fragment {
             Snackbar snackbar = Snackbar.make(getView(),errors,Snackbar.LENGTH_LONG);
             snackbar.show();
         } else {
-            dataManager.writeStringData(usernameText.getText().toString(),"UserName");
+            dataManager.writeStringData(usernameText.getText().toString(),PROFILE_NAME_KEY);
             dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
             User user = new User(username,password);
             ApiController.getInstance().registerUser(user,new Callback<Object>() {
