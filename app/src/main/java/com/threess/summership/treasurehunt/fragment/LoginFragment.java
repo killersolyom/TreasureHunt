@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,6 +129,10 @@ public class LoginFragment extends Fragment {
                 //200 jo
                 if (response.code()==200){
                     Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
+                    Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Util.hideKeyboard(getContext());
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     Util.makeSnackbar(getView(),R.string.login_failed, Snackbar.LENGTH_LONG,R.color.colorAccent);

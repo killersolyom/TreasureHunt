@@ -22,7 +22,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "main_activity";
-    private int permissionResultCode = 10;
+    private final int PERMISSION_REQUEST_CODE = 10;
     private BroadcastReceiver networkReceiver;
     private View v = null;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    permissionResultCode);
+                    PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -77,10 +77,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    // @Override
+    // protected void onDestroy()
+    // {
+    //     super.onDestroy();
+    //     if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
+    // }
+
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
