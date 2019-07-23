@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SplashScreenFragment">
+    tools:context="fragment.SplashScreenFragment">
 
 
     <ImageView
         android:id="@+id/splashScreenBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/splash_background" />
+        android:src="@drawable/splash_background"
+        android:scaleType="fitXY" />
 
     <ProgressBar
         android:id="@+id/splashScreenProgressBar"

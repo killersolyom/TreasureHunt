@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,10 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,16 +20,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.service.UserRetrofitService;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginFragment extends Fragment {
@@ -41,8 +41,6 @@ public class LoginFragment extends Fragment {
     private String userName,userPassword;
     private Button login;
     private User user;
-
-    private Retrofit retrofit;
 
     public LoginFragment() {
         // constructor
@@ -58,12 +56,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(UserRetrofitService.BASE_URL)
-                .build();
-
 
 
         login = view.findViewById(R.id.LogIn);
@@ -129,30 +121,36 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(){
+        hideKeyboard();
         user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
-        UserRetrofitService service = retrofit.create(UserRetrofitService.class);
-        service.loginUser(user).enqueue(new Callback<Object>() {
+        ApiController.getInstance().loginUser(user,new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
                 if (response.code()==200){
-                    Snackbar snackbar = Snackbar.make(getView(),"Successful", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_SHORT);
                     snackbar.show();
                     //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Util.hideKeyboard(getContext());
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
                     //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
-                    Snackbar snackbar = Snackbar.make(getView(),"User not found", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(getView(),R.string.login_failed, Snackbar.LENGTH_LONG);
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
                     snackbar.show();
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<Object> call, Throwable t) {
-                Log.e(TAG, "Host failure", t);
+            public void onFailure(Call<Object> call, Throwable t) {
+
             }
         });
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
     }
 
     private void loadSettings(){

@@ -1,4 +1,95 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textsize_H1">24sp</dimen>
+
+
+    <dimen name="star_botton_width">48dp</dimen>
+    <dimen name="star_botton_height">43dp</dimen>
+    <dimen name="star_botton_marginStar">8dp</dimen>
+    <dimen name="star_botton_marginTop">16dp</dimen>
+    <dimen name="star_botton_marginEnd">48dp</dimen>
+
+    <dimen name="home_width">116dp</dimen>
+    <dimen name="home_height">50dp</dimen>
+
+    <dimen name="home_botton_marginStar">64dp</dimen>
+    <dimen name="home_botton_marginTop">32dp</dimen>
+    <dimen name="home_botton_marginBottom">8dp</dimen>
+
+    <dimen name="logout_width">116dp</dimen>
+    <dimen name="logout_height">50dp</dimen>
+    <dimen name="logout_botton_marginStar">8dp</dimen>
+    <dimen name="logout_botton_marginTop">32dp</dimen>
+    <dimen name="logout_botton_marginEnd">8dp</dimen>
+    <dimen name="logout_botton_marginBottom">8dp</dimen>
+
+    <dimen name="Treasures_discovered_marginStar">8dp</dimen>
+    <dimen name="Treasures_discovered_marginTop">28dp</dimen>
+    <dimen name="Treasures_discovered_marginEnd">8dp</dimen>
+
+    <dimen name="username_marginStar">8dp</dimen>
+    <dimen name="username_marginTop">24dp</dimen>
+
+    <dimen name="Treasures_hidden_marginStar">8dp</dimen>
+    <dimen name="Treasures_hidden_marginTop">28dp</dimen>
+    <dimen name="Treasures_hidden_marginEnd">8dp</dimen>
+
+    <dimen name="update_width">253dp</dimen>
+    <dimen name="update_height">35dp</dimen>
+
+    <dimen name="update_botton_marginStar">8dp</dimen>
+    <dimen name="update_botton_marginTop">12dp</dimen>
+    <dimen name="update_botton_marginEnd">8dp</dimen>
+
+    <dimen name="profile_image_view_width">246dp</dimen>
+    <dimen name="profile_image_view_height">216dp</dimen>
+    <dimen name="profile_image_view_marginStar">8dp</dimen>
+    <dimen name="profile_image_view_marginTop">36dp</dimen>
+    <dimen name="profile_image_view_marginEnd">32dp</dimen>
+
+
+    <dimen name="score_width">172dp</dimen>
+    <dimen name="score_height">43dp</dimen>
+    <dimen name="score_marginStar">96dp</dimen>
+    <dimen name="score_marginTop">16dp</dimen>
+
+
+    <dimen name="Claim_textView_width">244dp</dimen>
+    <dimen name="Claim_textView_hight">73dp</dimen>
+    <dimen name="Claim_textView_textSize">25sp</dimen>
+    <dimen name="Claim_editText_widht">262dp</dimen>
+    <dimen name="Claim_editText_hight">95dp</dimen>
+    <dimen name="Claim_confimButton_widht">261dp</dimen>
+    <dimen name="Claim_confimButton_hight">91dp</dimen>
+    <dimen name="Claim_confimButton_TextSie">20sp</dimen>
+    <dimen name="Claim_imageView_hight">485dp</dimen>
+    <dimen name="Claim_imageView2_width">72dp</dimen>
+    <dimen name="Claim_imageView2_hight">53dp</dimen>
+    <dimen name="Claim_Toolbar_hight">60dp</dimen>
+
+    <dimen name="cam_toolbar_elevation">4dp</dimen>
+    <dimen name="cam_content_inset_primary">8dp</dimen>
+    <dimen name="cam_content_inset_secondary">10dp</dimen>
+    <dimen name="cam_content_inset">16dp</dimen>
+    <dimen name="cam_content_inset_double">32dp</dimen>
+    <dimen name="cam_regular_content_fontsize">14sp</dimen>
+    <dimen name="cam_regular_title_fontsize">16sp</dimen>
+    <dimen name="cam_regular_header_fontsize">36sp</dimen>
+    <dimen name="cam_action_icon_size">56dp</dimen>
+    <dimen name="cam_action_icon_size_smaller">48dp</dimen>
+    <dimen name="cam_widget_margin_bottom">20dp</dimen>
+    <dimen name="cam_widget_margin_top">30dp</dimen>
+    <dimen name="cam_widget_margin_right">10dp</dimen>
+    <dimen name="cam_widget_margin_left">10dp</dimen>
+    <dimen name="cam_widget_margin_top_sides">35dp</dimen>
+
+
+    <dimen name="stillshot_widget_spacing">10dp</dimen>
+    <dimen name="stillshot_widget_margin_sides">4dp</dimen>
+    <dimen name="stillshot_widget_margin_sides_bottom">10dp</dimen>
+    <dimen name="stillshot_widget_margin_top">10dp</dimen>
+    <dimen name="stillshot_widget_margin_bottom">4dp</dimen>
+
+
+
 </resources>

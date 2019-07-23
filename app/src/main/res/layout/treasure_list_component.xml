@@ -14,7 +14,7 @@
         android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="TODO" android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/treasureName"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/treasureName"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="TODO" android:src="@drawable/ic_arrow_forward_black_24dp"/>
+        android:src="@drawable/ic_arrow_forward_black_24dp"/>
 
     <TextView
         android:id="@+id/treasureScore"
