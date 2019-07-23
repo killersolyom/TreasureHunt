@@ -45,8 +45,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             holder.treasureButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentNavigation.getInstance(context).
-                            startNavigationToDestination(treasure,context);
+                    FragmentNavigation.getInstance(context).startNavigationToDestination(treasure,context);
                 }
             });
         } catch (Exception e) {
