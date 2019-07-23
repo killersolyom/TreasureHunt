@@ -118,7 +118,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
-            
+
         }
         googleMap.setMyLocationEnabled(true);
     }
