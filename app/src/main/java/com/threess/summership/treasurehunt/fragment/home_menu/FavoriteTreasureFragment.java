@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
@@ -73,7 +74,9 @@ public class FavoriteTreasureFragment extends Fragment {
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
                 if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
-                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment();
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new
+                            SavedData(getContext()).readStringData("UserName"),
+                            adapter.getSelectedTreasure().getUsername());
                 }
             }
         }
