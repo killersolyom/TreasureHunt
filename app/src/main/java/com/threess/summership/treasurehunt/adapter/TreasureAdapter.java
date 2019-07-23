@@ -3,6 +3,7 @@ package com.threess.summership.treasurehunt.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +44,13 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
             holder.treasureText.setText(treasure.getDescription());
             holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
-            holder.treasureButton.setOnClickListener(new View.OnClickListener() {
+            holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     selectedTreasure = treasure;
                     FragmentNavigation.getInstance(context).
-                            startNavigationToDestination(treasure,context);
+                             startNavigationToDestination(treasure,context);
+
                 }
             });
         } catch (Exception e) {
@@ -64,6 +66,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        private ConstraintLayout layout;
         private TextView treasureText;
         private ImageView treasureImage;
         private ImageView treasureButton;
@@ -75,6 +78,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             treasureImage = itemView.findViewById(R.id.treasureImage);
             treasureButton = itemView.findViewById(R.id.treasureButton);
             treasureScore = itemView.findViewById(R.id.treasureScore);
+            layout = itemView.findViewById(R.id.treasureListComponentLayout);
         }
     }
 

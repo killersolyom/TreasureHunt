@@ -48,6 +48,7 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         getTreasures();
+        FragmentNavigation.getInstance(getContext()).setAct(getActivity());
     }
 
     private void getTreasures(){
@@ -71,7 +72,7 @@ public class FavoriteTreasureFragment extends Fragment {
             LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
-                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 5){
+                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
                     FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment();
                 }
             }
