@@ -31,9 +31,15 @@
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
+    <string name="map">Show on map</string>
     <string name="missing_permission">Permission not granted!</string>
+    <string name="invalid_passcode">Invalid passcode or wrong treasure!</string>
     <string name="online_mode">Online!</string>
     <string name="offline_mode">Offline!</string>
+    <string name="correct_passcode">Correct passcode!</string>
+    <string name="notavailable_treasure">Not available treasure on server!</string>
     <string name="yes">Yes!</string>
     <string name="no">No!</string>
     <string name="turn_on_your_gps">Please Turn ON your GPS Connection!</string>
