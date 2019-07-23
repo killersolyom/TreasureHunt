@@ -44,8 +44,8 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        getActiveAndClaimedTreasure();
-        //getClaimedTreasures();
+        //getActiveAndClaimedTreasure();
+        getAllActiveTreasures();
     }
 
     private void getActiveAndClaimedTreasure(){
