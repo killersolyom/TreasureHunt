@@ -40,5 +40,8 @@
     <string name="offline_mode">Offline!</string>
     <string name="correct_passcode">Correct passcode!</string>
     <string name="notavailable_treasure">Not available treasure on server!</string>
+    <string name="toplist_score">Score: </string>
+
+
 
 </resources>
