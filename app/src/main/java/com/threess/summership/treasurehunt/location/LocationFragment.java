@@ -1,12 +1,15 @@
-package com.threess.summership.treasurehunt;
+package com.threess.summership.treasurehunt.location;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
+import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 
 
 /**
@@ -25,6 +28,14 @@ public class LocationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_location, container, false);
+    }
+
+
+
+    private void loadTreasureMap(){
+        Fragment mapViewFragment = new MapViewFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_treasures_fragment_container, mapViewFragment).commit();
     }
 
 }

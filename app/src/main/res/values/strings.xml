@@ -1,13 +1,41 @@
 <resources>
-    <string name="Recent">TreasureHunt</string>
-    <string name="ic_favourite_black">Settings</string>
-    <string name="Map">Hello Summership!</string>
-    <string name="menu_favourite">Favourite</string>
-    <string name="menu_recent">"Recent"</string>
-    <string name="menu_map">Show on map</string>
-    <string name="app_name">App name</string>
+    <string name="app_name">TreasureHunt</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello Summership!</string>
+    <string name="remember_me">Remember me</string>
+    <string name="auto_login">Auto login</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create account</string>
+    <string name="home">Home</string>
+    <string name="logout">Logout</string>
+    <string name="Treasures_discovered">Treasures discovered</string>
+    <string name="Username">Username</string>
+    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="update">Update</string>
+    <string name="score">Score</string>
+    <string name="successful">Successful</string>
+    <string name="registration_failed">Registration failed!</string>
+    <string name="invalid_username">Invalid username!</string>
+    <string name="invalid_password">Invalid password!</string>
+    <string name="invalid_passwordconfirm">The passwords do not match!</string>
+    <string name="login_failed">Login failed!</string>
+    <string name="empty_string"> </string>
+    <string name="register">Register</string>
+    <string name="cancel">Cancel</string>
+    <string name="claim_tresure">Claim Tresure</string>
+    <string name="write_passcode">Write here the item passcode!</string>
+    <string name="confirm_and_claim">Confirm and claim treasure!</string>
+    <string name="hide_treasure">Hide treasure</string>
+    <string name="profile">Profile</string>
+    <string name="description">Description</string>
+    <string name="missing_permission">Permission not granted!</string>
+    <string name="online_mode">Online!</string>
+    <string name="offline_mode">Offline!</string>
+    <string name="toplist_score">Score: </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

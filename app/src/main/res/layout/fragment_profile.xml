@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.home_menu.ProfileFragment">
+
+
+    <ImageButton
+        android:id="@+id/star_button"
+        android:layout_width="@dimen/update_height"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/alb"
+        android:src="@drawable/ic_star_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginStart="8dp"
+        android:background="@color/endblue"
+        android:text="@string/logout"
+        android:textColor="@color/alb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Treasures_hidden"
+        app:layout_constraintVertical_bias="0.031"
+        tools:ignore="MissingConstraints" />
+
+
+    <TextView
+        android:id="@+id/Treasures_discovered"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginStart="@dimen/Treasures_discovered_marginStar"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint=""
+        android:text="@string/Treasures_discovered"
+        android:textColor="@color/alb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Username"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/Username"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:textColor="@color/alb"
+        android:text="@string/Username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update" />
+
+
+    <TextView
+        android:id="@+id/Treasures_hidden"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:textColor="@color/alb"
+        android:text="@string/Treasures_hidden"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_height"
+        android:layout_marginTop="8dp"
+        android:background="@color/alb"
+        android:text="@string/update"
+        android:textColor="@color/endblue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score" />
+
+    <ImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="@dimen/update_width"
+        android:layout_height="@dimen/update_width"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="172dp"
+        android:layout_height="39dp"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/score"
+        android:textColorHighlight="@color/alb"
+        app:layout_constraintEnd_toStartOf="@+id/star_button"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+
+</android.support.constraint.ConstraintLayout>
