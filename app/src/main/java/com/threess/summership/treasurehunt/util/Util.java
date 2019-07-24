@@ -57,6 +57,6 @@ public final class Util {
         double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)))*6371000;
         return  Math.sqrt(Math.pow(c, 2));
     }
-    
+
 
 }
