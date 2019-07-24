@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
@@ -99,10 +98,6 @@ public class MainActivity extends AppCompatActivity {
         for(int it: grantResults){
             if(it != PERMISSION_GRANTED){
                 Util.makeSnackbar(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG,R.color.colorAccent);
-                //TODO change this
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG);
-                snackbar.getView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
-                snackbar.show();
                 return;
             }
         }

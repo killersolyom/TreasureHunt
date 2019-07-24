@@ -69,7 +69,7 @@ public class FavoriteTreasureFragment extends Fragment {
         super.onResume();
         if(adapter.getSelectedTreasure() != null){
             LatLng currentPosition = LocatingUserLocation.getInstance()
-                    .tryToGetLocation(getActivity(),getContext());
+                    .tryToGetLocation(getContext());
             LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
