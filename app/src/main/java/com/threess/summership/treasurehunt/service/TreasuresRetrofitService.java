@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface TreasuresRetrofitService {
 
@@ -18,10 +19,10 @@ public interface TreasuresRetrofitService {
     @GET("/treasures")
     Call<ArrayList<Treasure>> allExistingTreasureList ();
 
-    //TODO GET All treasures created or claimed by one user: /treasures/:userId
+    //GET All treasures created or claimed by one user: /treasures/:username
 
-    @GET("/treasures/{username}")
-    Call<ArrayList<Treasure>> claimedTreasureByUser (@Path("username") String userName); //who is the user?
+    @GET("/treasures/:{username}")
+    Call<ArrayList<Treasure>> claimedTreasureByUser (@Query("username") String userName);
 
     //TODO POST Create a treasure: /treasures/create
     @POST("/treasures/create")
