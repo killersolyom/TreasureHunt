@@ -104,20 +104,16 @@ public class HideTreasureFragment extends Fragment {
                 {
                     treasure.setPasscode(passcodeEditText.getText().toString().trim());
                 }
-//                if (photoEditText.getText().toString().isEmpty()) {
-//                    photoEditText.requestFocus();
-//                    photoEditText.setError(getString(R.string.hidetreasureerror));
-//                    return;
-//                }
-//                else
-//                    {
-//
-//                    treasure.setPhoto_clue(photoEditText.getText().toString().trim());
-//                    }
+                if (photoEditText.getText().toString().isEmpty()) {
+                    photoEditText.requestFocus();
+                    photoEditText.setError(getString(R.string.hidetreasureerror));
+                    return;
+                }
+                else
+                    {
+                    treasure.setPhoto_clue(photoEditText.getText().toString().trim());
+                    }
                 treasure.setUsername(dataManager.readStringData("UserName"));
-                treasure.setPhoto_clue("http://lorempixel.com/400/200/nightlife/");
-                treasure.setLocation_lat(46.522935);
-                treasure.setLocation_lon(24.598637);
                 ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
                     public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                         if (response.errorBody() == null){
