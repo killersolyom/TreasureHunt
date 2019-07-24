@@ -25,6 +25,8 @@ public class Treasure {
     private String createdAt;
     @SerializedName("updatedAt")
     private String updatedAt;
+    @SerializedName("title")
+    private String title;
 
     public String getUsername() {
         return username;
@@ -113,5 +115,13 @@ public class Treasure {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

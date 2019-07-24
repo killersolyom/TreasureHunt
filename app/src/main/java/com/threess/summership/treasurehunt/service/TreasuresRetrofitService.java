@@ -23,9 +23,9 @@ public interface TreasuresRetrofitService {
     @GET("/treasures/{username}")
     Call<ArrayList<Treasure>> claimedTreasureByUser (@Path("username") String userName); //who is the user?
 
-
     //TODO POST Create a treasure: /treasures/create
-
+    @POST("/treasures/create")
+    Call<Treasure> createTreasure(@Body Treasure treasure);
 
     //TODO POST a tresure what was founded
     @POST("/treasures/claim")

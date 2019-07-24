@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 public class ProfileFragment extends Fragment {

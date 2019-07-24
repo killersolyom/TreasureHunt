@@ -76,5 +76,7 @@ public class ApiController {
     }
 
 
-
+    public void createTreasure(Treasure treasure, Callback<Treasure> treasureCallback) {
+        mTreasureService.createTreasure(treasure).enqueue(treasureCallback);
+    }
 }
