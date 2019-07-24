@@ -40,8 +40,6 @@ public class Treasure {
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
-    @SerializedName("title")
-    private String title;
 
     public String getUsername() {
         return username;
@@ -136,11 +134,4 @@ public class Treasure {
         this.updatedAt = updatedAt;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }
