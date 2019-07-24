@@ -67,6 +67,13 @@
     <dimen name="Claim_imageView2_hight">53dp</dimen>
     <dimen name="Claim_Toolbar_hight">60dp</dimen>
 
+    <dimen name="hide_textsize">18dp</dimen>
+    <dimen name="text_marginleft">10dp</dimen>
+    <dimen name="edittext_marginleft">8dp</dimen>
+    <dimen name="arrowimagesize">50dp</dimen>
+    <dimen name="arrowmargtop">20dp</dimen>
+    <dimen name="arrowmargright">16dp</dimen>
+
 
 
 </resources>
