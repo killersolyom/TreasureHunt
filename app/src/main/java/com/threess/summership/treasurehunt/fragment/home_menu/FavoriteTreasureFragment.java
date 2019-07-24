@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
@@ -28,6 +29,8 @@ public class FavoriteTreasureFragment extends Fragment {
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
+
+    private final int INTERNALSERVERERROR = 500;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -47,15 +50,37 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        getTreasures();
+
+        getActiveAndClaimedTreasure();
     }
 
-    private void getTreasures(){
+    private void getActiveAndClaimedTreasure(){
+        getAllActiveTreasures();
+        getClaimedTreasures();
+    }
+
+    private void getAllActiveTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.addTreasure(response.body());
+                adapter.refreshTreasure(response.body());
             }
+            @Override
+            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getClaimedTreasures(){
+        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                        if(response.code()!=INTERNALSERVERERROR) {
+                            adapter.addTreasureList(response.body());
+                        }
+                    }
+
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
             }
@@ -72,7 +97,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
                 if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 5){
-                   // FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment();
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData("UserName"), adapter.getSelectedTreasure().getUsername());
                 }
             }
         }
