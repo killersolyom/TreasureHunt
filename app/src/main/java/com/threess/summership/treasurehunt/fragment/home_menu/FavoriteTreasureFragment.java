@@ -76,6 +76,7 @@ public class FavoriteTreasureFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
+                
             }
         });
     }
