@@ -58,8 +58,9 @@ public class FragmentNavigation extends Fragment{
         replaceFragment(new RegistrationFragment(), R.id.fragment_container);
     }
 
-    public void showClaimTreasureFragment(){
-        replaceFragment(new ClaimTreasureFragment(), R.id.fragment_container);
+    public void showClaimTreasureFragment(String username, String treasureName){
+
+        replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), R.id.fragment_container);
     }
 
     public void showHideTreasureFragment(){
@@ -128,7 +129,7 @@ public class FragmentNavigation extends Fragment{
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
             mFragmentTransaction.commit();
-            mFragmentManager.executePendingTransactions();
+            //mFragmentManager.executePendingTransactions();
         }
     }
 
