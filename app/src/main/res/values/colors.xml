@@ -16,6 +16,7 @@
     <color name="alb">#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="red">#FFF50808</color>
+    <color name="green">#11B11D</color>
     <color name="grey">#7E7777</color>
     <color name="colorLightBlue">#46CAEB</color>
 </resources>

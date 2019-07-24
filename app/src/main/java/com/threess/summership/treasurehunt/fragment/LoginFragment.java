@@ -24,6 +24,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -120,22 +121,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(){
-        hideKeyboard();
+        Util.hideKeyboard(getContext(),login);
         user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
         ApiController.getInstance().loginUser(user,new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
                 if (response.code()==200){
-                    Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                    //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
-                    //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
-                    Snackbar snackbar = Snackbar.make(getView(),R.string.login_failed, Snackbar.LENGTH_LONG);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
-                    snackbar.show();
+                    Util.makeSnackbar(getView(),R.string.login_failed, Snackbar.LENGTH_LONG,R.color.colorAccent);
                 }
             }
 
