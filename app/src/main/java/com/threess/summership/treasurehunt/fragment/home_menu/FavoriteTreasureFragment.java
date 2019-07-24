@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -21,12 +22,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
-import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         getAllActiveTreasures();
-        FragmentNavigation.getInstance(getContext()).setAct(getActivity());
+
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -96,9 +96,10 @@ public class FavoriteTreasureFragment extends Fragment {
                     Log.e(TAG, "selected item not null : " + location.getAltitude() + ", long : " + location.getLongitude());
                         if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
                             Log.e(TAG, "Claim Treasure : " + location.getAltitude() + ", long : " + location.getLongitude());
-                            FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new
-                                            SavedData(getContext()).readStringData("UserName"),
-                                    adapter.getSelectedTreasure().getUsername());
+//                            FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new
+//                                            SavedData(getContext()).readStringData("UserName"),
+//                                    adapter.getSelectedTreasure().getUsername());
+                            startActivity(new Intent(getContext(), MainActivity.class));
                         }else{
                             Log.e(TAG,"distance " + Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition));
                         }

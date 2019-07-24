@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.navigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,7 +7,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
@@ -32,7 +30,6 @@ public class FragmentNavigation extends Fragment {
     private static FragmentTransaction mFragmentTransaction;
     private static boolean mDoubleBackToExitPressedOnce;
     private static Handler mHandler = new Handler();
-    private Activity act;
 
     public static FragmentNavigation getInstance(Context context){
 
@@ -42,10 +39,6 @@ public class FragmentNavigation extends Fragment {
         }
 
         return sInstance;
-    }
-
-    public void setAct(Activity act) {
-        this.act = act;
     }
 
     public void showHomeFragment(){
@@ -156,21 +149,10 @@ public class FragmentNavigation extends Fragment {
                     treasure.getLocation_lon()+"&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
-            act.startActivityForResult(mapIntent, 10);
+            context.startActivity(mapIntent);
         }
     }
 
-
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("3ss",requestCode+"");
-        getActivity().finish();
-
-    }
 
     /**
      * This method handles the application's back button presses and navigates to the corresponding
