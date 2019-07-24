@@ -5,9 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +21,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
+import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
+
 
 public class RegistrationFragment extends Fragment {
 
     public static String TAG = "registration_fragment";
     private EditText usernameText, passwordText, confirm_passwordText;
-    private Button  register, cancel;
+    private Button register, cancel;
     private SavedData dataManager;
 
     public RegistrationFragment() {
@@ -64,7 +64,7 @@ public class RegistrationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Util.hideKeyboard(getContext(),cancel);
+                Util.hideKeyboard(getContext(), cancel);
                 getFragmentManager().popBackStack();
             }
         });
@@ -72,58 +72,58 @@ public class RegistrationFragment extends Fragment {
     }
 
 
-
-    private void validateUser (String username, String password, String confirm_password){
-        Util.hideKeyboard(getContext(),register);
+    private void validateUser(String username, String password, String confirm_password) {
+        Util.hideKeyboard(getContext(), register);
         String error = checkUsername(username);
-        if (!error.isEmpty()){
+        if (!error.isEmpty()) {
             usernameText.setError(error);
             return;
         }
         error = checkPassword(password);
-        if (!error.isEmpty()){
+        if (!error.isEmpty()) {
             passwordText.setError(error);
             return;
         }
-        error = checkConfirmPassword(password,confirm_password);
-        if(!error.isEmpty()){
+        error = checkConfirmPassword(password, confirm_password);
+        if (!error.isEmpty()) {
             confirm_passwordText.setError(error);
             return;
         }
-        dataManager.writeStringData(usernameText.getText().toString(),"UserName");
-        dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
-        User user = new User(username,password);
-        ApiController.getInstance().registerUser(user,new Callback<Object>() {
+        dataManager.writeStringData(usernameText.getText().toString(), PROFILE_NAME_KEY);
+        dataManager.writeStringData(passwordText.getText().toString(), USER_PASSWORD_KEY);
+        User user = new User(username, password);
+        ApiController.getInstance().registerUser(user, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                if (response.code() == 200){
-                    Util.makeSnackbar(getView(), R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
+                if (response.code() == 200) {
+                    Util.makeSnackbar(getView(), R.string.successful, Snackbar.LENGTH_LONG, R.color.green);
                 } else {
-                    Util.makeSnackbar(getView(),R.string.registration_failed,Snackbar.LENGTH_LONG,R.color.colorAccent);
+                    Util.makeSnackbar(getView(), R.string.registration_failed, Snackbar.LENGTH_LONG, R.color.colorAccent);
                 }
             }
+
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
             }
         });
     }
 
-    private String checkUsername(String username){
-        if (username.length() < 5 || username.length() > 10 || username.contains(" ")){
+    private String checkUsername(String username) {
+        if (username.length() < 5 || username.length() > 10 || username.contains(" ")) {
             return getString(R.string.invalid_username) + " ";
         }
         return "";
     }
 
-    private String checkPassword(String password){
-        if (password.length() < 6 || password.length() > 16){
+    private String checkPassword(String password) {
+        if (password.length() < 6 || password.length() > 16) {
             return getString(R.string.invalid_password) + " ";
         }
         return "";
     }
 
-    private String checkConfirmPassword (String password, String confirm_password){
-        if (!confirm_password.equals(password)){
+    private String checkConfirmPassword(String password, String confirm_password) {
+        if (!confirm_password.equals(password)) {
             return getString(R.string.invalid_passwordconfirm) + " ";
         }
         return "";
