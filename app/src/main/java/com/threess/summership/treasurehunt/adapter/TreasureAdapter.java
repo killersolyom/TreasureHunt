@@ -84,15 +84,13 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     public void refreshTreasure(ArrayList<Treasure> treasures){
-        treasureList.clear();
+        if(treasures.size()!=0) {
+            treasureList.clear();
+        }
         treasureList.addAll(treasures);
         notifyDataSetChanged();
     }
 
-    public void addTreasureList(ArrayList<Treasure> treasures){
-        treasureList.addAll(treasures);
-        notifyDataSetChanged();
-    }
 
     public Treasure getSelectedTreasure() {
         return selectedTreasure;
