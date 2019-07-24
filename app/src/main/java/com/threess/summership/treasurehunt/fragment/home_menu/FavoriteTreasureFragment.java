@@ -63,7 +63,8 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        getTreasures();
+
+        getAllActiveTreasures();
         FragmentNavigation.getInstance(getContext()).setAct(getActivity());
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -116,19 +117,18 @@ public class FavoriteTreasureFragment extends Fragment {
         mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
 
-    private void getTreasures(){
+    private void getAllActiveTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.addTreasure(response.body());
+                adapter.refreshTreasure(response.body());
             }
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+
             }
         });
     }
-
-
 
     @Override
     public void onResume() {

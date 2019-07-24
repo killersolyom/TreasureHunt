@@ -110,7 +110,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private CameraUpdate changeFocus(MarkerOptions position) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder().include(position.getPosition());
         LatLngBounds bounds = builder.build();
-        return CameraUpdateFactory.newLatLngBounds(bounds, 0);
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.12);
+
+        return CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
     }
 
     private void getCurrentLocation(GoogleMap googleMap) {
