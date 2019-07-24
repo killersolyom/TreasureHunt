@@ -133,4 +133,5 @@ public class Treasure {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }

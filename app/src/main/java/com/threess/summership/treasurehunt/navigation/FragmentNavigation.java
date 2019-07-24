@@ -12,13 +12,13 @@ import android.widget.Toast;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.HomeFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -94,9 +94,6 @@ public class FragmentNavigation extends Fragment{
         replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
     }
 
-    private boolean doubleBackToExitPressedOnce = false;
-
-
     /**
      * This method adds a new fragment on top of the stack.
      * @param fragment new fragment
@@ -105,8 +102,12 @@ public class FragmentNavigation extends Fragment{
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-        mFragmentManager.executePendingTransactions();
+        try {
+            mFragmentTransaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //mFragmentManager.executePendingTransactions();
     }
 
     /**
@@ -201,7 +202,7 @@ public class FragmentNavigation extends Fragment{
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                doubleBackToExitPressedOnce = false;
+                mDoubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

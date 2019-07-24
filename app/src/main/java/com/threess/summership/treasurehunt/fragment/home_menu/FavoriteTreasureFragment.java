@@ -55,13 +55,13 @@ public class FavoriteTreasureFragment extends Fragment {
         addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
         addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
 
-        getActiveAndClaimedTreasure();
+        getAllActiveTreasures();
     }
 
-    private void getActiveAndClaimedTreasure(){
-        getAllActiveTreasures();
-        getClaimedTreasures();
-    }
+//    private void getActiveAndClaimedTreasure(){
+//        getAllActiveTreasures();
+//        getClaimedTreasures();
+//    }
 
     private void getAllActiveTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
@@ -76,27 +76,27 @@ public class FavoriteTreasureFragment extends Fragment {
         });
     }
 
-    private void getClaimedTreasures(){
-        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                        if(response.code()!= INTERNAL_SERVER_ERROR) {
-                            adapter.addTreasureList(response.body());
-                        }
-                    }
-
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-            }
-        });
-    }
+//    private void getClaimedTreasures(){
+//        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>() {
+//                    @Override
+//                    public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+//                        if(response.code()!=INTERNALSERVERERROR) {
+//                            adapter.addTreasureList(response.body());
+//                        }
+//                    }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+//            }
+//        });
+//    }
 
     @Override
     public void onResume() {
         super.onResume();
         if(adapter.getSelectedTreasure() != null){
             LatLng currentPosition = LocatingUserLocation.getInstance()
-                    .tryToGetLocation(getActivity(),getContext());
+                    .tryToGetLocation(getContext());
             LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
