@@ -64,8 +64,8 @@ public class FragmentNavigation extends Fragment{
         replaceFragment(new RegistrationFragment(), mMainActivityFragmentContainer);
     }
 
-    public void showClaimTreasureFragment(){
-        replaceFragment(new ClaimTreasureFragment(), mMainActivityFragmentContainer);
+    public void showClaimTreasureFragment(String username, String treasureName){
+        replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
