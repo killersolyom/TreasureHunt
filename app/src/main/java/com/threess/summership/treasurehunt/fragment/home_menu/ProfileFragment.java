@@ -1,5 +1,8 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,13 +16,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
+
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
 
 
 public class ProfileFragment extends Fragment {
 
-    public static String TAG = "profile_fragment";
-    private ImageView profileImageView;
+    public static String TAG = Fragment.class.getSimpleName();
+    private final int GALLERY_REQUEST_CODE = 862;
+
+    @BindView(R.id.profile_image_view)
+    ImageView profileImageView;
+
+    @BindView(R.id.username_text)
+    TextView userNameField;
+
+    @BindView(R.id.Treasures_discovered)
+    TextView treasuresdiscovered;
+
+    @BindView(R.id.Treasures_hidden)
+    TextView treasures_HiddenField;
+
+
     private TextView profileScoreTextView;
     private ImageButton profileStarImageButton;
     private Button profileUpdateImageButton;
@@ -27,40 +53,72 @@ public class ProfileFragment extends Fragment {
     private TextView profileTreasuresdiscoveredTextView;
     private TextView profileTreasureshiddenTextView;
     private Button profileHomeButton;
-    private Button profileLogoutButton;
 
+
+    private SavedData dataManager;
 
     public ProfileFragment() {
         // constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-        // Do not modify!
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // TODO
-        bindViewElements(view);
+        dataManager = new SavedData(getContext());
+        setUserData();
 
+        loadProfileImage(dataManager.getProfileImage());
     }
 
 
-    private void bindViewElements(View view){
-        profileImageView = view.findViewById(R.id.profile_image_view);
-        profileScoreTextView = view.findViewById(R.id.score);
-        profileStarImageButton = view.findViewById(R.id.star_button);
-        profileUpdateImageButton = view.findViewById(R.id.update);
-        profileUsernameImageView = view.findViewById(R.id.username);
-        profileTreasuresdiscoveredTextView = view.findViewById(R.id.Treasures_discovered);
-        profileTreasureshiddenTextView = view.findViewById(R.id.Treasures_hidden);
-        profileHomeButton = view.findViewById(R.id.home);
-        profileLogoutButton = view.findViewById(R.id.logout);
+    private void setUserData() {
+        String userName = dataManager.readStringData(PROFILE_NAME_KEY);
+        if (userName != null) {
+            userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
+        }
+    }
+
+
+    @OnClick(R.id.logout_button)
+    void onLogoutClick(View view) {
+
+    }
+
+    @OnClick(R.id.update)
+    void onUpdatePhotoClick() {
+        pickFromGallery();
+    }
+
+    private void pickFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            dataManager.saveProfileImage(data.getData());
+            loadProfileImage(data.getData());
+        }
+    }
+
+    private void loadProfileImage(Uri imageUri) {
+        if (imageUri != null) {
+            Glide.with(getContext())
+                    .load(imageUri)
+                    .centerCrop()
+                    .into(profileImageView);
+        }
     }
 
 }
