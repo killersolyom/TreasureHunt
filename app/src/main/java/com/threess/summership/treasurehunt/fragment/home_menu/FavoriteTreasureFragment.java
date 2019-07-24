@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
@@ -29,6 +31,7 @@ public class FavoriteTreasureFragment extends Fragment {
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
+    private GeofencingClient geofencingClient;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -50,6 +53,7 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         getTreasures();
         FragmentNavigation.getInstance(getContext()).setAct(getActivity());
+        geofencingClient = LocationServices.getGeofencingClient(getContext());
     }
 
     private void getTreasures(){
@@ -63,6 +67,8 @@ public class FavoriteTreasureFragment extends Fragment {
             }
         });
     }
+
+
 
     @Override
     public void onResume() {
