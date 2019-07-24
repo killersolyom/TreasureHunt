@@ -7,22 +7,23 @@ import android.net.Uri;
 public class SavedData {
 
     private SharedPreferences preference;
-    private SharedPreferences.Editor editor;
+    private static final String SHARED_PREFERENCE_KEY = "TreasureHunt";
     private static final String PROFILE_IMAGE_KEY = "profile_image_key";
     public static final String PROFILE_NAME_KEY = "profile_name_key";
+    public static final String USER_PASSWORD_KEY = "user_password_key";
 
     public SavedData(Context context) {
         try {
-            preference = context.getSharedPreferences("TreasureHunt", 0);
-            editor = preference.edit();
+            preference = context.getSharedPreferences(SHARED_PREFERENCE_KEY, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void writeStringData(String value, String key) {
+        SharedPreferences.Editor editor = preference.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public String readStringData(String key) {
@@ -30,8 +31,9 @@ public class SavedData {
     }
 
     public void writeBooleanData(Boolean value, String key) {
+        SharedPreferences.Editor editor = preference.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public Boolean readBooleanData(String key) {

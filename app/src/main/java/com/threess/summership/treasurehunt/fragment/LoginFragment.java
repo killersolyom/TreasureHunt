@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -29,6 +28,8 @@ import com.threess.summership.treasurehunt.util.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
 
 
 public class LoginFragment extends Fragment {
@@ -65,8 +66,8 @@ public class LoginFragment extends Fragment {
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
         createAccountLabel = view.findViewById(R.id.createAccount);
-        userName = dataManager.readStringData("UserName");
-        userPassword = dataManager.readStringData("UserPassword");
+        userName = dataManager.readStringData(USER_PASSWORD_KEY);
+        userPassword = dataManager.readStringData(USER_PASSWORD_KEY);
         loadSettings();
 
 
@@ -89,7 +90,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
+                dataManager.writeStringData(passwordText.getText().toString(), USER_PASSWORD_KEY);
             }
         });
         nameText.addTextChangedListener(new TextWatcher() {
