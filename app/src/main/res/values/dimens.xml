@@ -41,6 +41,8 @@
     <dimen name="update_botton_marginTop">12dp</dimen>
     <dimen name="update_botton_marginEnd">8dp</dimen>
 
+    <dimen name="activity_horizontal_margin">12dp</dimen>
+
     <dimen name="profile_image_view_width">246dp</dimen>
     <dimen name="profile_image_view_height">216dp</dimen>
     <dimen name="profile_image_view_marginStar">8dp</dimen>
@@ -96,7 +98,10 @@
     <dimen name="arrowimagesize">50dp</dimen>
     <dimen name="arrowmargtop">20dp</dimen>
     <dimen name="arrowmargright">16dp</dimen>
-
+    <dimen name="qr_code_button_padding">10dp</dimen>
+    <dimen name="qr_code_button_width">120dp</dimen>
+    <dimen name="qr_code_button_height">120dp</dimen>
+    <dimen name="qr_code_button_text_size">20sp</dimen>
 
 
 </resources>
