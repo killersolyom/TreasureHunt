@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.navigation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,30 +8,31 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.HomeFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 
-public class FragmentNavigation extends Fragment{
+public class FragmentNavigation extends Fragment {
 
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
     private static FragmentTransaction mFragmentTransaction;
     private static boolean mDoubleBackToExitPressedOnce;
     private static Handler mHandler = new Handler();
-
+    private Activity act;
 
     public static FragmentNavigation getInstance(Context context){
 
@@ -40,6 +42,10 @@ public class FragmentNavigation extends Fragment{
         }
 
         return sInstance;
+    }
+
+    public void setAct(Activity act) {
+        this.act = act;
     }
 
     public void showHomeFragment(){
@@ -144,16 +150,26 @@ public class FragmentNavigation extends Fragment{
 
 
     public void startNavigationToDestination(Treasure treasure, Context context){
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
+        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment){
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
                     treasure.getLocation_lat()+"," +
                     treasure.getLocation_lon()+"&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
-            context.startActivity(mapIntent);
+            act.startActivityForResult(mapIntent, 10);
         }
     }
 
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("3ss",requestCode+"");
+
+    }
 
     /**
      * This method handles the application's back button presses and navigates to the corresponding
