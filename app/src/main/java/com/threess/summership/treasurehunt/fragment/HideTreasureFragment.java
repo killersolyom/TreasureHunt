@@ -22,7 +22,6 @@ import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 import com.threess.summership.treasurehunt.util.Util;
 
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +31,7 @@ import retrofit2.Response;
 
 
 public class HideTreasureFragment extends Fragment {
+
     ImageView photoarrow;
     private Button button;
     private EditText titleEditText;

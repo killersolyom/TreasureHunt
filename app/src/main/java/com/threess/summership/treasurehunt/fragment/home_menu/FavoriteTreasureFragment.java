@@ -32,8 +32,6 @@ public class FavoriteTreasureFragment extends Fragment {
     private TreasureAdapter adapter;
     private FloatingActionButton addTreasureFab;
 
-    private final int INTERNAL_SERVER_ERROR = 500;
-
     public FavoriteTreasureFragment() {
         // Required empty public constructor
     }

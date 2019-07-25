@@ -4,17 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import com.threess.summership.treasurehunt.util.Constants;
+
 public class SavedData {
 
     private SharedPreferences preference;
-    private static final String SHARED_PREFERENCE_KEY = "TreasureHunt";
-    private static final String PROFILE_IMAGE_KEY = "profile_image_key";
-    public static final String USER_PROFILE_NAME_KEY = "profile_name_key";
-    public static final String USER_PASSWORD_KEY = "user_password_key";
 
     public SavedData(Context context) {
         try {
-            preference = context.getSharedPreferences(SHARED_PREFERENCE_KEY, 0);
+            preference = context.getSharedPreferences(Constants.SHARED_PREFERENCE_KEY, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,7 +41,7 @@ public class SavedData {
     public Uri getProfileImage() {
         Uri imageUri = null;
         try {
-            imageUri = Uri.parse(preference.getString(PROFILE_IMAGE_KEY, ""));
+            imageUri = Uri.parse(preference.getString(Constants.PROFILE_IMAGE_KEY, ""));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
@@ -52,7 +50,7 @@ public class SavedData {
 
     public void saveProfileImage(Uri imageUri) {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
-        myPrefsEdit.putString(PROFILE_IMAGE_KEY, imageUri.toString());
+        myPrefsEdit.putString(Constants.PROFILE_IMAGE_KEY, imageUri.toString());
         myPrefsEdit.apply();
     }
 }

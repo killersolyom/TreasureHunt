@@ -11,10 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.service.UserRetrofitService;
 
 import java.util.ArrayList;
-
-import static com.threess.summership.treasurehunt.service.UserRetrofitService.BASE_URL;
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
 
@@ -39,7 +38,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
         holder.text1.setText(list.get(position).getUsername());
         holder.text2.setText(ctx.getResources().getString(R.string.toplist_score) + list.get(position).getScore());
-        Glide.with(ctx).load( BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
+        Glide.with(ctx).load( UserRetrofitService.BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
 
 
     }

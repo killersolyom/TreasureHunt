@@ -15,23 +15,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
-
+import com.threess.summership.treasurehunt.util.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.USER_PROFILE_NAME_KEY;
-
 
 public class ProfileFragment extends Fragment {
 
     public static String TAG = Fragment.class.getSimpleName();
-    private final int GALLERY_REQUEST_CODE = 862;
+
 
     @BindView(R.id.profile_image_view)
     ImageView profileImageView;
@@ -80,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(USER_PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(Constants.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }
@@ -102,11 +99,11 @@ public class ProfileFragment extends Fragment {
         intent.setType("image/*");
         String[] mimeTypes = {"image/jpeg", "image/png"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, Constants.GALLERY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+        if (resultCode == Activity.RESULT_OK && requestCode == Constants.GALLERY_REQUEST_CODE) {
             dataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
         }

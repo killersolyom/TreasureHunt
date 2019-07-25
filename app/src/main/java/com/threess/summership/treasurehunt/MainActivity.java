@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constants;
 import com.threess.summership.treasurehunt.util.Util;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -23,8 +24,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "main_activity";
-    private final int PERMISSION_REQUEST_CODE = 10;
-    public static final int PLACE_PICKER_CODE = 23;
     private BroadcastReceiver networkReceiver;
     private Handler handler;
     private Runnable runnable;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSION_REQUEST_CODE);
+                    Constants.PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -123,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString("message", "This is my message to be reloaded");
         super.onSaveInstanceState(outState);
     }
 
