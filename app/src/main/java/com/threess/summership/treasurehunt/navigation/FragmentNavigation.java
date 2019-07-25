@@ -75,6 +75,9 @@ public class FragmentNavigation extends Fragment {
     public void showHideTreasureFragment(){
         replaceFragment(new HideTreasureFragment(), R.id.fragment_container);
     }
+    public void showHideTreasureFragment(double latitude, double longitude){
+        replaceFragment(MapViewFragment.newInstance(latitude,longitude), R.id.fragment_container);
+    }
 
     public void showMapViewFragmentInHomeFragment(){
         if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {

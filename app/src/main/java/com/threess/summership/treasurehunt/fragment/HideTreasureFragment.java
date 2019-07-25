@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -38,6 +39,8 @@ public class HideTreasureFragment extends Fragment {
     private EditText photoEditText;
     private EditText locationEditText;
     private SavedData dataManager;
+    private Bundle mBundle;
+    private double latitude,longitude;
 
     public HideTreasureFragment() {
         // constructor
@@ -54,6 +57,9 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
+        latitude=getArguments().getDouble(MapViewFragment.KEY1);
+        longitude=getArguments().getDouble(MapViewFragment.KEY2);
+        locationEditText.setText( latitude+","+longitude);
         titleEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -191,7 +197,9 @@ public class HideTreasureFragment extends Fragment {
         treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhoto_clue(photoEditText.getText().toString().trim());
-        treasure.setUsername(dataManager.readStringData(SavedData.PROFILE_NAME_KEY));
+        treasure.setUsername(dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY));
+        treasure.setLocation_lat(latitude);
+        treasure.setLocation_lon(longitude);
         return treasure;
     }
 
