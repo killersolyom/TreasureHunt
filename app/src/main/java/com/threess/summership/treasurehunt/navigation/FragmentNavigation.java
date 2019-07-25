@@ -57,8 +57,8 @@ public class FragmentNavigation extends Fragment {
         replaceFragment(new RegistrationFragment(), R.id.fragment_container);
     }
 
-    public void showClaimTreasureFragment(String username, String treasureName){
-        replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), R.id.fragment_container);
+    public void showClaimTreasureFragment(Treasure treasure){
+        replaceFragment(ClaimTreasureFragment.newInstance(treasure), R.id.fragment_container);
     }
 
     public void showHideTreasureFragment(){
@@ -145,6 +145,15 @@ public class FragmentNavigation extends Fragment {
      */
     private Fragment getCurrentFragment(int container){
         return mFragmentManager.findFragmentById(container);
+    }
+
+
+    public Fragment getCurrentFragmentOnMainActivity(){
+        return getCurrentFragment( R.id.fragment_container );
+    }
+
+    public Fragment getCurrentFragmentOnHomeFragment(){
+        return getCurrentFragment( R.id.home_treasures_fragment_container );
     }
 
 

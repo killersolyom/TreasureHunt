@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
                 @Override
                 public void onClick(View v) {
                     selectedTreasure = treasure;
+                    Log.e("3ss","treasure set " + treasure.getPasscode());
                     FragmentNavigation.getInstance(context).
                              startNavigationToDestination(treasure,context);
 
@@ -116,6 +118,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     public void clearSelectedTreasure(){
         selectedTreasure = null;
+        Log.e("3ss","treasure clear");
     }
 
 

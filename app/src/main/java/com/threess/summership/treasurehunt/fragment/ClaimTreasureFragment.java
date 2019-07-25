@@ -25,7 +25,6 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.POST;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -137,14 +136,12 @@ public class ClaimTreasureFragment extends Fragment {
 
 
     }
-    public static ClaimTreasureFragment newInstance(String newKeyStringTreasure,String newKeyStringUsername){
+    public static ClaimTreasureFragment newInstance(Treasure treasure){
 
         ClaimTreasureFragment claimTreasureFragment=new ClaimTreasureFragment();
         Bundle args=new Bundle();
-        args.putString(KEYSTRINGTREASURE,newKeyStringTreasure);
-        args.putString(KEYSTRINGUSERNAME,newKeyStringUsername);
+        args.putSerializable("Treasure",treasure);
         claimTreasureFragment.setArguments(args);
-
         return claimTreasureFragment;
 
 
