@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
@@ -24,8 +25,8 @@ import retrofit2.Response;
 
 
 public class RegistrationFragment extends Fragment {
+    public static final String TAG = RegistrationFragment.class.getSimpleName();
 
-    public static String TAG = "registration_fragment";
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button register, cancel;
     private SavedData dataManager;

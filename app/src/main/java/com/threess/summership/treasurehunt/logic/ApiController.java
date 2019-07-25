@@ -14,9 +14,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
+    public static final String TAG = ApiController.class.getSimpleName();
 
     private static ApiController sInstance = null;
-    private static final String TAG = "ApiController";
     private static Retrofit mRetrofit;
 
     private TreasuresRetrofitService mTreasureService;

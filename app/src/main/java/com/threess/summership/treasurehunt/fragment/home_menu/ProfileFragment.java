@@ -20,14 +20,14 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.util.Constant;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 public class ProfileFragment extends Fragment {
-
-    public static String TAG = Fragment.class.getSimpleName();
+    public static String TAG = ProfileFragment.class.getSimpleName();
 
 
     @BindView(R.id.profile_image_view)

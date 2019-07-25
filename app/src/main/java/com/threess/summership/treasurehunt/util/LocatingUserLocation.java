@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 
 public class LocatingUserLocation {
+    public static final String TAG = LocatingUserLocation.class.getSimpleName();
+
     private LocationManager locationManager;
     private static final LocatingUserLocation ourInstance = new LocatingUserLocation();
     public static LocatingUserLocation getInstance() {

@@ -15,6 +15,7 @@ import com.threess.summership.treasurehunt.R;
 import java.util.Random;
 
 public final class Util {
+    public static final String TAG = Util.class.getSimpleName();
 
     public static void hideKeyboard(Context context, Button button){
         InputMethodManager imm = (InputMethodManager)context.getSystemService(context.INPUT_METHOD_SERVICE);

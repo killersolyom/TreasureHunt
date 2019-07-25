@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/update_height"
         android:layout_marginTop="8dp"
-        android:background="@color/alb"
+        android:background="@color/white"
         android:text="@string/update"
         android:textColor="@color/endblue"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/score"
-        android:textColorHighlight="@color/alb"
+        android:textColorHighlight="@color/white"
         app:layout_constraintStart_toStartOf="@+id/profile_image_view"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
@@ -59,7 +59,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:text="@string/Treasures_discovered"
-        android:textColor="@color/alb"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/username_text"
         tools:ignore="MissingConstraints" />
 
@@ -70,7 +70,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:text="@string/Username"
-        android:textColor="@color/alb"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update" />
 
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/Treasures_hidden"
-        android:textColor="@color/alb"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
 
@@ -91,7 +91,7 @@
         android:layout_marginStart="8dp"
         android:background="@color/endblue"
         android:text="@string/profile_logout"
-        android:textColor="@color/alb"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -31,8 +31,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
+    public static final String TAG = LoginFragment.class.getSimpleName();
 
-    public static String TAG = "login_fragment";
     private EditText nameText, passwordText;
     private TextView createAccountLabel;
     private Switch rememberMeSwitch, autoLoginSwitch;

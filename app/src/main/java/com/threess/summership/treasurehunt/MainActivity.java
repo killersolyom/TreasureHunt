@@ -21,7 +21,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String TAG = "main_activity";
+    public static final String TAG = MainActivity.class.getSimpleName();
+
     private BroadcastReceiver networkReceiver;
     private Handler handler;
     private Runnable runnable;
