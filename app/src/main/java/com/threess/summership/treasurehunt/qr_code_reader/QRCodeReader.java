@@ -25,6 +25,7 @@ public class QRCodeReader extends AppCompatActivity {
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
+    private final int PERMISSION_REQUEST_CODE = 10;
 
     private String intentData = "";
     public static final String RESULT_OF_QRCODE_READ = "result";
@@ -58,6 +59,16 @@ public class QRCodeReader extends AppCompatActivity {
                 try {
                     if (ActivityCompat.checkSelfPermission(QRCodeReader.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
+                    }else {
+                        ActivityCompat.requestPermissions(QRCodeReader.this, new String[] {Manifest.permission.CAMERA},
+                                PERMISSION_REQUEST_CODE);
+                        if (ActivityCompat.checkSelfPermission(QRCodeReader.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            cameraSource.start(surfaceView.getHolder());
+                        }else{
+                            Intent returnIntent = new Intent();
+                            setResult(Activity.RESULT_CANCELED,returnIntent);
+                            finish();
+                        }
                     }
 
                 } catch (IOException e) {
