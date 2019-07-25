@@ -32,6 +32,7 @@ public class FavoriteTreasureFragment extends Fragment {
     private RecyclerView recycle;
     private TreasureAdapter adapter;
     private GeofencingClient geofencingClient;
+    private String logedInUser;
 
     //private final int INTERNALSERVERERROR = 500;
 
@@ -43,6 +44,7 @@ public class FavoriteTreasureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        logedInUser = new SavedData(getContext()).readStringData("UserName");
         return inflater.inflate(R.layout.fragment_favorite_treasure, container, false);
     }
 
@@ -106,9 +108,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
                 if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
-                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new
-                            SavedData(getContext()).readStringData("UserName"),
-                            adapter.getSelectedTreasure().getUsername());
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(logedInUser, adapter.getSelectedTreasure().getUsername());
                 }
             }
         }
