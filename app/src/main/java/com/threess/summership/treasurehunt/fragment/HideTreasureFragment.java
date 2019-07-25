@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -191,7 +190,7 @@ public class HideTreasureFragment extends Fragment {
         treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhoto_clue(photoEditText.getText().toString().trim());
-        treasure.setUsername(dataManager.readStringData(SavedData.PROFILE_NAME_KEY));
+        treasure.setUsername(dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY));
         return treasure;
     }
 
