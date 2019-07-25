@@ -62,6 +62,7 @@ public class ViewStickersFragment extends Fragment implements
         mRecyclerView.setAdapter(mStickerAdapter);
     }
 
+    @SuppressWarnings("deprecation")
     private void getStickers(){
         mStickers.add(getActivity().getResources().getDrawable(R.drawable.astonished_face_emoji));
         mStickers.add(getActivity().getResources().getDrawable(R.drawable.cry_emoji));
