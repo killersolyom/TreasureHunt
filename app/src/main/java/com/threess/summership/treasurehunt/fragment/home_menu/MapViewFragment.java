@@ -1,12 +1,17 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -31,7 +37,7 @@ import retrofit2.Response;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     private MapView mMapView;
     public static String TAG = "MapView_fragment";
@@ -41,17 +47,25 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
-        mMapView = rootView.findViewById(R.id.mapView);
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mMapView = view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         mMapView.getMapAsync(this);
+
         getTreasures();
+
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rootView;
     }
 
     private void drawMap() {
@@ -89,6 +103,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         changeFocus(googleMap);
         drawMarkers(googleMap);
         getCurrentLocation(googleMap);
+        googleMap.setOnMapLongClickListener(this);
     }
 
     private void drawMarkers(GoogleMap googleMap) {
@@ -144,5 +159,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    @Override
+    public void onMapLongClick(@NonNull LatLng latLng) {
+        googleMap.addMarker(new MarkerOptions().position(latLng).
+                title("New treasure").icon(BitmapDescriptorFactory.
+                fromBitmap(Util.getDrawableTreasureImage(getContext()))));
 
+    }
 }
