@@ -34,7 +34,7 @@ public class HideTreasureFragment extends Fragment {
     private EditText photoEditText;
     private SavedData dataManager;
 
-    public static String TAG = "hide_treasure_fragment";
+    public static final String TAG = "hide_treasure_fragment";
 
     public HideTreasureFragment() {
         // constructor

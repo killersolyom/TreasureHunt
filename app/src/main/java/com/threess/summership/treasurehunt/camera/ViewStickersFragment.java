@@ -26,7 +26,7 @@ public class ViewStickersFragment extends Fragment implements
         View.OnClickListener
 {
 
-    private static final String TAG = "ViewStickersFragment";
+    private static final String TAG = "view_stickers_fragment";
     private static final int NUM_COLUMNS = 3;
 
     //widgets

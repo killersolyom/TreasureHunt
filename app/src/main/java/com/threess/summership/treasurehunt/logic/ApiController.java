@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiController {
 
     private static ApiController sInstance = null;
-    private static final String TAG = "ApiController";
+    private static final String TAG = "api_controller";
     private static String BASE_URL = "http://5.254.125.248:3000/";
     private static Retrofit mRetrofit;
 

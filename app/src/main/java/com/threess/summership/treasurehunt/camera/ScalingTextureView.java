@@ -22,7 +22,7 @@ import com.threess.summership.treasurehunt.camera.gestures.MoveGestureDetector;
  */
 public class ScalingTextureView extends TextureView {
 
-    private static final String TAG = "ScalingTextureView";
+    private static final String TAG = "scaling_texture_view";
 
     public int mRatioWidth = 0;
     public int mRatioHeight = 0;
