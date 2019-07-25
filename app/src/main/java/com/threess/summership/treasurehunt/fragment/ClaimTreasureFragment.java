@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
@@ -74,7 +73,7 @@ public class ClaimTreasureFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentNavigation.getInstance(getContext()).showHomeFragment();
+                FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
 

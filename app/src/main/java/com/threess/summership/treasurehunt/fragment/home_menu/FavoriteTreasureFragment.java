@@ -39,13 +39,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
-    
+
     private RecyclerView recycle;
     private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private boolean mShowClaimTreasure;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("3ss", "F create");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e("3ss", "Ff SaveInstance");
     }
 
     @Override
@@ -77,20 +90,24 @@ public class FavoriteTreasureFragment extends Fragment {
             .setInterval(TimeUnit.SECONDS.toMillis(1));
 
 
-    private LocationCallback mLocationCallback =  new LocationCallback() {
+    private LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
 
             List<Location> locations = locationResult.getLocations();
             if (!locations.isEmpty()) {
                 Location location = locations.get(0);
-                if(adapter.getSelectedTreasure() != null){
-                    LatLng currentPosition = new LatLng(location.getLatitude(),location.getLongitude());
-                    LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
+                if (adapter.getSelectedTreasure() != null) {
+                    LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
                             adapter.getSelectedTreasure().getLocation_lon());
-                        if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10 && adapter.getSelectedTreasure() != null){
-                            startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
-                        }
+
+                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
+                        startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+
+                        mShowClaimTreasure = true;
+                    }
+
                 }
             }
         }
@@ -101,18 +118,13 @@ public class FavoriteTreasureFragment extends Fragment {
     };
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
-    }
-
-    private void getAllActiveTreasures(){
+    private void getAllActiveTreasures() {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
                 adapter.refreshTreasure(response.body());
             }
+
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
@@ -120,46 +132,53 @@ public class FavoriteTreasureFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e("3ss","F pause");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e("3ss","F destroy");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.e("3ss","F create");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.e("3ss","Ff SaveInstance");
-    }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.e("3ss","Ff onViewStateRestored");
+        Log.e("3ss", "Ff onViewStateRestored");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.e("3ss", "F start");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("3ss","F resume");
-        if(adapter.getSelectedTreasure()!=null){
-            Log.e("3ss","F resume not null");
+        if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();
             adapter.clearSelectedTreasure();
             FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(treasure);
+            mShowClaimTreasure = false;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("3ss", "F pause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("3ss", "F onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("3ss", "F destroy");
     }
 }
 
