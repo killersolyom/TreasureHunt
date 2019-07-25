@@ -171,7 +171,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     }
 
-
+    
     private void getAllTreasuresServerCall(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
