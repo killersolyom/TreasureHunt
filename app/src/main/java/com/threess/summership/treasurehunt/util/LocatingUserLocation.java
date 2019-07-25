@@ -25,24 +25,24 @@ public class LocatingUserLocation {
     private LocatingUserLocation() {
     }
 
-    public LatLng tryToGetLocation(Activity activity, Context context){
+    public LatLng tryToGetLocation(Context context){
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if(locationManager!=null){
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps(context);
             } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                return getLocation(activity,context);
+                return getLocation(context);
             }
         }
         return null;
     }
 
-    private LatLng getLocation(Activity activity, Context context) {
+    private LatLng getLocation(Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (context, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,
+            ActivityCompat.requestPermissions( ((Activity)context),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
