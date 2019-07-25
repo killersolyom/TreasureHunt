@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,18 +46,6 @@ public class FavoriteTreasureFragment extends Fragment {
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.e("3ss", "F create");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.e("3ss", "Ff SaveInstance");
     }
 
     @Override
@@ -134,16 +121,8 @@ public class FavoriteTreasureFragment extends Fragment {
 
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        Log.e("3ss", "Ff onViewStateRestored");
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-
-        Log.e("3ss", "F start");
     }
 
     @Override
@@ -160,13 +139,11 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("3ss", "F pause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.e("3ss", "F onStop");
     }
 
     @Override
@@ -178,7 +155,6 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("3ss", "F destroy");
     }
 }
 
