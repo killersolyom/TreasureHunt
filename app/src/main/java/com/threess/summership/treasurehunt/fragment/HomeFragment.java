@@ -24,6 +24,7 @@ public class HomeFragment extends Fragment {
     public static String TAG = HomeFragment.class.getSimpleName();
     private ViewPager viewPager;
     public static BottomNavigationView bottomNavigationView;
+    private  ScreenSlidePagerAdapter adapter;
 
     public HomeFragment() { }
 
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment {
     }
     @SuppressWarnings("deprecation")
     private void setupViewPager() {
-        ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
+        adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         adapter.addFragment( new ProfileFragment() );
         adapter.addFragment( new FavoriteTreasureFragment());
         adapter.addFragment( new TopListFragment() );

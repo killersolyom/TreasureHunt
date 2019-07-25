@@ -4,6 +4,7 @@ package com.threess.summership.treasurehunt.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
@@ -26,7 +28,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure selectedTreasure = null;
     public static String TAG = "adapter_fragment";
-
     public TreasureAdapter(Context context) {
         this.context = context;
         }
@@ -44,6 +45,11 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
             holder.treasureText.setText(treasure.getDescription());
             holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+
+            if(treasure.isClaimed()){
+                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
+            }
+
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,10 +97,16 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         if(treasures.size()!=0) {
             treasureList.clear();
         }
-        treasureList.addAll(treasures);
+
+        //treasureList.addAll(treasures);
+
+        for(Treasure t : treasures){
+            if(t.getClaimed_by().equals(new SavedData(context).readStringData(SavedData.PROFILE_NAME_KEY)) || t.isClaimed()==false){
+                treasureList.add(t);
+            }
+        }
         notifyDataSetChanged();
     }
-
 
     public Treasure getSelectedTreasure() {
         return selectedTreasure;

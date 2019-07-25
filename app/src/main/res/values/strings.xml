@@ -78,5 +78,6 @@
 
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
+    <string name="location">Show on map</string>
 
 </resources>
