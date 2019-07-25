@@ -18,6 +18,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,13 +36,9 @@ public class ClaimTreasureFragment extends Fragment {
 
     private EditText myEditText;
     private Button myConfirmButton;
-    private String passcode;
-    private ImageView imageView;
+    private ImageView backImageButton;
     private ImageView mySuccsesfullImage;
-    private Bundle arguments;
-    private String myTreasureName;
-    private String username;
-    private Snackbar mySnackbar;
+    private Treasure treasure;
 
     private final static  String KEYSTRINGTREASURE="treasureName";
     private final static String KEYSTRINGUSERNAME="username";
@@ -54,10 +51,8 @@ public class ClaimTreasureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myTreasureName = getArguments().getString(KEYSTRINGTREASURE);
-        username=getArguments().getString(KEYSTRINGUSERNAME);
+        this.treasure = (Treasure) getArguments().getSerializable("Treasure");
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
-        // Do not modify!
     }
 
     @Override
@@ -66,11 +61,12 @@ public class ClaimTreasureFragment extends Fragment {
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
-        mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError_Internet), Snackbar.LENGTH_SHORT);
-        imageView = view.findViewById(R.id.imageView2);
+
+        Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
+        backImageButton = view.findViewById(R.id.imageView2);
         getAllTreasuresServerCall();
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentNavigation.getInstance(getContext()).popBackstack();
@@ -80,13 +76,8 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void confirmPasscode(@NonNull final View view) {
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_Available) + myTreasureName + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT);
-      //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT);
 
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(final View view) {
@@ -97,10 +88,10 @@ public class ClaimTreasureFragment extends Fragment {
                     return;
                 }
                 else{
-                passcode = myEditText.getText().toString();
+                String passcode = myEditText.getText().toString();
                 final Treasure treasure = myTestDatas.get(passcode);
-                if (treasure != null && treasure.getUsername().equals(myTreasureName)) {
-                    mySnackbarAvailable.show();
+                if (isTheSameTreasure(treasure)) {
+                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_Available) + treasure.getUsername() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.red);
                     showItems(view);
                     myConfirmButton.setVisibility(View.INVISIBLE);
                     mHandler.postDelayed(new Runnable() {
@@ -109,7 +100,7 @@ public class ClaimTreasureFragment extends Fragment {
                             hideItems(view);
                             myConfirmButton.setVisibility(View.VISIBLE);
 
-                            TreasureClaim treasureClaim=new TreasureClaim(username,treasure.getPasscode());
+                            TreasureClaim treasureClaim=new TreasureClaim(treasure.getUsername(),treasure.getPasscode());
                             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
@@ -118,23 +109,26 @@ public class ClaimTreasureFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
-                                    //if not
-                                    mySnackbarError2.show();
+                                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
 
                                 }
                             });
                         }
                     }, 2500);
 
-                   // FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
-                    mySnackbarError.show();
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_SHORT, R.color.red);
                 }
 
             }
-        }});
+        }
+
+        });
 
 
+    }
+    private boolean isTheSameTreasure(Treasure treasure) {
+        return (treasure!=null && treasure == this.treasure);
     }
     public static ClaimTreasureFragment newInstance(Treasure treasure){
 
@@ -176,7 +170,7 @@ public class ClaimTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                mySnackbar.show();
+                //Util.makeSnackbar(this.view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
             }
         });
     }
