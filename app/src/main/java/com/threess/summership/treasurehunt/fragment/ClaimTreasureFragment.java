@@ -30,7 +30,7 @@ import retrofit2.http.POST;
 
 
 public class ClaimTreasureFragment extends Fragment {
-    public static final String TAG = ClaimTreasureFragment.class.getSimpleName();
+    private static final String TAG = ClaimTreasureFragment.class.getSimpleName();
 
     private HashMap<String, Treasure> myTestDatas;
     //Key:passcode   String: UserId

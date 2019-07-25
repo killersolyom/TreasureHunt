@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Treasure {
-    public static final String TAG = Treasure.class.getSimpleName();
+    private static final String TAG = Treasure.class.getSimpleName();
 
     @SerializedName("username")
     @Expose

@@ -26,7 +26,7 @@ import butterknife.OnClick;
 
 
 public class ProfileFragment extends Fragment {
-    public static String TAG = ProfileFragment.class.getSimpleName();
+    private static String TAG = ProfileFragment.class.getSimpleName();
 
     private final int GALLERY_REQUEST_CODE = 862;
 

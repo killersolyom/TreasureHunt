@@ -7,7 +7,7 @@ import android.net.Uri;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 
 public class SavedData {
-    public static final String TAG = SavedData.class.getSimpleName();
+    private static final String TAG = SavedData.class.getSimpleName();
 
     private SharedPreferences preference;
     private static final String SHARED_PREFERENCE_KEY = "TreasureHunt";

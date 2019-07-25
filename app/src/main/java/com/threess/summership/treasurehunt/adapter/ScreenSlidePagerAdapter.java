@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-    public static final String TAG = ScreenSlidePagerAdapter.class.getSimpleName();
+    private static final String TAG = ScreenSlidePagerAdapter.class.getSimpleName();
 
     private static ArrayList<Fragment> mFragmentList = new ArrayList<>();
 

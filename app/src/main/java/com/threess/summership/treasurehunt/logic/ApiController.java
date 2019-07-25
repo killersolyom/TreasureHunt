@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
-    public static final String TAG = ApiController.class.getSimpleName();
+    private static final String TAG = ApiController.class.getSimpleName();
 
     private static ApiController sInstance = null;
     private static String BASE_URL = "http://5.254.125.248:3000/";

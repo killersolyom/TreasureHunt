@@ -28,7 +28,7 @@ import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
 
 public class FragmentNavigation extends Fragment {
-    public static final String TAG = FragmentNavigation.class.getSimpleName();
+    private static final String TAG = FragmentNavigation.class.getSimpleName();
 
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;

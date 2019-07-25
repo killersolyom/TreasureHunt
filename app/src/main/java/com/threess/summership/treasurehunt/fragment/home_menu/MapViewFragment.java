@@ -32,7 +32,7 @@ import retrofit2.Response;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MapViewFragment extends Fragment implements OnMapReadyCallback {
-    public static final String TAG = MapViewFragment.class.getSimpleName();
+    private static final String TAG = MapViewFragment.class.getSimpleName();
 
     private MapView mMapView;
     private ArrayList<Treasure> treasures = new ArrayList<>();

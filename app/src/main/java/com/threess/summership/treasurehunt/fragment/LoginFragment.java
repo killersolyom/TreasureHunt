@@ -33,7 +33,7 @@ import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_
 
 
 public class LoginFragment extends Fragment {
-    public static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = LoginFragment.class.getSimpleName();
 
     private EditText nameText, passwordText;
     private TextView createAccountLabel;
