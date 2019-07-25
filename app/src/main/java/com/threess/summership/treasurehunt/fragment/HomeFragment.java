@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     private void setupViewPager() {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(1);
         toolbar.setTitle(R.string.profile);
     }
 

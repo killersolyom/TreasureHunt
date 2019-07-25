@@ -28,8 +28,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure selectedTreasure = null;
     public static String TAG = "adapter_fragment";
-    private String logedInUser;
-
     public TreasureAdapter(Context context) {
         this.context = context;
         }
@@ -37,7 +35,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        logedInUser = new SavedData(context).readStringData("UserName");
         return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.treasure_list_component, parent, false));
     }
 
@@ -104,7 +101,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         //treasureList.addAll(treasures);
 
         for(Treasure t : treasures){
-            if(t.getClaimed_by().equals(logedInUser) || t.isClaimed()==false){
+            if(t.getClaimed_by().equals(new SavedData(context).readStringData(SavedData.PROFILE_NAME_KEY)) || t.isClaimed()==false){
                 treasureList.add(t);
             }
         }
