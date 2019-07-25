@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +27,6 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.POST;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -43,6 +44,7 @@ public class ClaimTreasureFragment extends Fragment {
     private String myTreasureName;
     private String username;
     private Snackbar mySnackbar;
+    private Button qrCodeReaderButtn;
 
     private final static  String KEYSTRINGTREASURE="treasureName";
     private final static String KEYSTRINGUSERNAME="username";
@@ -69,12 +71,21 @@ public class ClaimTreasureFragment extends Fragment {
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError_Internet), Snackbar.LENGTH_SHORT);
         imageView = view.findViewById(R.id.imageView2);
+        qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
         getAllTreasuresServerCall();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentNavigation.getInstance(getContext()).showHomeFragment();
+            }
+        });
+
+        qrCodeReaderButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), QRCodeReader.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -184,4 +195,10 @@ public class ClaimTreasureFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String code = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
+        myEditText.setText(code);
+    }
 }

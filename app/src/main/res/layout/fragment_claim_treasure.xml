@@ -97,6 +97,22 @@
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="0.516" />
 
+    <Button
+        android:padding="@dimen/qr_code_button_padding"
+        android:layout_width="@dimen/qr_code_button_width"
+        android:layout_height="@dimen/qr_code_button_height"
+        android:id="@+id/qrCode_button"
+        android:background="@drawable/qr_code_sample"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/read_qr_code"
+        android:textSize="@dimen/qr_code_button_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/colorText"
+        android:textColorHighlight="@color/colorText"
+        />
+
     <ImageView
 
         android:id="@+id/image_succsesfull_icon"

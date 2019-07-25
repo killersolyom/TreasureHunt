@@ -30,8 +30,6 @@ public class LocationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_location, container, false);
     }
 
-
-
     private void loadTreasureMap(){
         Fragment mapViewFragment = new MapViewFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

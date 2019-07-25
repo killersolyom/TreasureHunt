@@ -130,7 +130,7 @@ public class LoginFragment extends Fragment {
                 //200 jo
                 if (response.code()==200){
                     Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
-                    FragmentNavigation.getInstance(getContext()).showHomeFragment();
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(userName,"98fxx");
                 } else {
                     Util.makeSnackbar(getView(),R.string.login_failed, Snackbar.LENGTH_LONG,R.color.colorAccent);
                 }
