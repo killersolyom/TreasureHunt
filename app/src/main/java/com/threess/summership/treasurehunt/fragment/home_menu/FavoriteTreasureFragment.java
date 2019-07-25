@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
@@ -26,11 +28,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
+    public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
-
-    //private final int INTERNALSERVERERROR = 500;
+    private GeofencingClient geofencingClient;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -52,12 +54,12 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         getAllActiveTreasures();
-    }
 
-//    private void getActiveAndClaimedTreasure(){
-//        getAllActiveTreasures();
-//        getClaimedTreasures();
-//    }
+        FragmentNavigation.getInstance(getContext()).setAct(getActivity());
+        geofencingClient = LocationServices.getGeofencingClient(getContext());
+
+
+    }
 
     private void getAllActiveTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
@@ -68,36 +70,22 @@ public class FavoriteTreasureFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
+                
             }
         });
     }
-
-//    private void getClaimedTreasures(){
-//        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>() {
-//                    @Override
-//                    public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-//                        if(response.code()!=INTERNALSERVERERROR) {
-//                            adapter.addTreasureList(response.body());
-//                        }
-//                    }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-//            }
-//        });
-//    }
 
     @Override
     public void onResume() {
         super.onResume();
         if(adapter.getSelectedTreasure() != null){
             LatLng currentPosition = LocatingUserLocation.getInstance()
-                    .tryToGetLocation(getActivity(),getContext());
+                    .tryToGetLocation(getContext());
             LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
-                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 5){
-                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData("UserName"), adapter.getSelectedTreasure().getUsername());
+                if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData(SavedData.USER_PROFILE_NAME_KEY), adapter.getSelectedTreasure().getUsername());
                 }
             }
         }

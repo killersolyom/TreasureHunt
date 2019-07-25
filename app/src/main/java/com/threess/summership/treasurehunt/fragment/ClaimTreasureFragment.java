@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
@@ -30,8 +31,8 @@ import retrofit2.Response;
 
 
 public class ClaimTreasureFragment extends Fragment {
+    public static final String TAG = ClaimTreasureFragment.class.getSimpleName();
 
-    public static String TAG = "claim_treasure_fragment";
     private HashMap<String, Treasure> myTestDatas;
     //Key:passcode   String: UserId
 
