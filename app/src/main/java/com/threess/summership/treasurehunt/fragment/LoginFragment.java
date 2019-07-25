@@ -23,12 +23,12 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class LoginFragment extends Fragment {
 
@@ -64,8 +64,8 @@ public class LoginFragment extends Fragment {
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
         createAccountLabel = view.findViewById(R.id.createAccount);
-        userName = dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY);
-        userPassword = dataManager.readStringData(SavedData.USER_PASSWORD_KEY);
+        userName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+        userPassword = dataManager.readStringData(Constant.SavedData.USER_PASSWORD_KEY);
         loadSettings();
 
 
@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(passwordText.getText().toString(), SavedData.USER_PASSWORD_KEY);
+                dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
             }
         });
         nameText.addTextChangedListener(new TextWatcher() {
@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(nameText.getText().toString(), SavedData.USER_PROFILE_NAME_KEY);
+                dataManager.writeStringData(nameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
             }
         });
         createAccountLabel.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.util.Constants;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +52,8 @@ public class ClaimTreasureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myTreasureName = getArguments().getString(Constants.KEY_STRING_TREASURE);
-        username=getArguments().getString(Constants.KEY_STRING_USERNAME);
+        myTreasureName = getArguments().getString(Constant.ClaimTreasure.KEY_STRING_TREASURE);
+        username=getArguments().getString(Constant.ClaimTreasure.KEY_STRING_USERNAME);
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
         // Do not modify!
 
@@ -139,8 +139,8 @@ public class ClaimTreasureFragment extends Fragment {
 
         ClaimTreasureFragment claimTreasureFragment=new ClaimTreasureFragment();
         Bundle args=new Bundle();
-        args.putString(Constants.KEY_STRING_TREASURE,newKeyStringTreasure);
-        args.putString(Constants.KEY_STRING_USERNAME,newKeyStringUsername);
+        args.putString(Constant.ClaimTreasure.KEY_STRING_TREASURE,newKeyStringTreasure);
+        args.putString(Constant.ClaimTreasure.KEY_STRING_USERNAME,newKeyStringUsername);
         claimTreasureFragment.setArguments(args);
 
         return claimTreasureFragment;

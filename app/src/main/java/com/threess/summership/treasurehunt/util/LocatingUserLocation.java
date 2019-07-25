@@ -36,14 +36,13 @@ public class LocatingUserLocation {
         return null;
     }
 
-    public LatLng getLocation(Context context) {
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    private LatLng getLocation(Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (context, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity)context,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_LOCATION);
+            ActivityCompat.requestPermissions( ((Activity)context),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constant.Common.REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {

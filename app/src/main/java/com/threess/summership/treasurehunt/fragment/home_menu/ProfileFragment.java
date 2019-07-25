@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
-import com.threess.summership.treasurehunt.util.Constants;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(Constants.USER_PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }
@@ -99,11 +99,11 @@ public class ProfileFragment extends Fragment {
         intent.setType("image/*");
         String[] mimeTypes = {"image/jpeg", "image/png"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        startActivityForResult(intent, Constants.GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, Constant.Common.GALLERY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == Constants.GALLERY_REQUEST_CODE) {
+        if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             dataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
         }

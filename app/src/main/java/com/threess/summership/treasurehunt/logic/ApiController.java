@@ -5,7 +5,7 @@ import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
-import com.threess.summership.treasurehunt.util.Constants;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class ApiController {
 
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constant.ApiController.BASE_URL )
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
