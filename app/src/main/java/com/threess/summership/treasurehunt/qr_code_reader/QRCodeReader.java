@@ -4,14 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
-
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -26,7 +25,7 @@ public class QRCodeReader extends AppCompatActivity {
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private static final int REQUEST_CAMERA_PERMISSION = 201;
+
     private String intentData = "";
     public static final String RESULT_OF_QRCODE_READ = "result";
 
@@ -59,9 +58,6 @@ public class QRCodeReader extends AppCompatActivity {
                 try {
                     if (ActivityCompat.checkSelfPermission(QRCodeReader.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
-                    } else {
-                        ActivityCompat.requestPermissions(QRCodeReader.this, new
-                                String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
                     }
 
                 } catch (IOException e) {
