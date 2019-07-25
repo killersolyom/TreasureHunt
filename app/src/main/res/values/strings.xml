@@ -76,14 +76,9 @@
     <string name="passhint">Unique identifier, so it can be validated when claimed</string>
     <string name="createtreasurebutton">Create treasure</string>
     <string name="create_treasure">Creating treasure failed</string>
-
-
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
     <string name="location">Show on map</string>
     <string name="read_qr_code">Read QR code</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
