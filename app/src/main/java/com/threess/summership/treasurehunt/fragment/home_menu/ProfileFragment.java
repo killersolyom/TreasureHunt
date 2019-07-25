@@ -15,11 +15,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +27,8 @@ import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_K
 
 
 public class ProfileFragment extends Fragment {
+    public static String TAG = ProfileFragment.class.getSimpleName();
 
-    public static String TAG = Fragment.class.getSimpleName();
     private final int GALLERY_REQUEST_CODE = 862;
 
     @BindView(R.id.profile_image_view)

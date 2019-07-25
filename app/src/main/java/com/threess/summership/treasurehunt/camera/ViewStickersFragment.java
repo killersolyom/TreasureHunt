@@ -25,8 +25,8 @@ public class ViewStickersFragment extends Fragment implements
         StickerAdapter.RecyclerViewClickListener,
         View.OnClickListener
 {
+    public static final String TAG = ViewStickersFragment.class.getSimpleName();
 
-    private static final String TAG = "view_stickers_fragment";
     private static final int NUM_COLUMNS = 3;
 
     //widgets

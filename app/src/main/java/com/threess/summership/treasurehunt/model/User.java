@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class User {
-
+    public static final String TAG = User.class.getSimpleName();
 
     @SerializedName("username")
     private String username;
