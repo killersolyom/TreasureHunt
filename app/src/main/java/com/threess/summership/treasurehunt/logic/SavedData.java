@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
-
 public class SavedData {
     public static final String TAG = SavedData.class.getSimpleName();
 

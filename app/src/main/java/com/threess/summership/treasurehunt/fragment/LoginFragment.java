@@ -29,8 +29,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
-
 
 public class LoginFragment extends Fragment {
     public static final String TAG = LoginFragment.class.getSimpleName();
