@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
         setupBottomNavigation();
     }
 
+    @SuppressWarnings("deprecation")
     private void setupViewPager() {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());

@@ -10,6 +10,7 @@
     <string name="confirm_password">Confirm password</string>
     <string name="create_account">Create account</string>
     <string name="home">Home</string>
+    <string name="logout">Logout</string>
     <string name="Treasures_discovered">Treasures discovered</string>
     <string name="Username">Username</string>
     <string name="Treasures_hidden">Treasures hidden</string>

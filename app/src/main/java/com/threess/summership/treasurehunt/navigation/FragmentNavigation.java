@@ -20,10 +20,12 @@ import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.TopListFragment;
+import com.threess.summership.treasurehunt.fragment.UserDetails;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.User;
 
 public class FragmentNavigation extends Fragment {
 
@@ -100,6 +102,13 @@ public class FragmentNavigation extends Fragment {
     public void showTopListFragment(){
         replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
     }
+
+    public void showUserDetails(String username,int score,String imageurl){
+        replaceFragment(UserDetails.newInstance(username,score,imageurl), mMainActivityFragmentContainer);
+    }
+
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     /**
      * This method adds a new fragment on top of the stack.
