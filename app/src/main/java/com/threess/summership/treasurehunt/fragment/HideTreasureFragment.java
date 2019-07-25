@@ -190,7 +190,7 @@ public class HideTreasureFragment extends Fragment {
         treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhoto_clue(photoEditText.getText().toString().trim());
-        treasure.setUsername(dataManager.readStringData("UserName"));
+        treasure.setUsername(dataManager.readStringData(SavedData.PROFILE_NAME_KEY));
         return treasure;
     }
 
