@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,9 @@ import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -38,11 +40,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
-
-    private static final String TAG = "3ss";
+    
     private RecyclerView recycle;
     private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Handler handler;
+    private Runnable runnable;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -63,10 +66,8 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
         getAllActiveTreasures();
-
-
+        setupHandler();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -93,15 +94,10 @@ public class FavoriteTreasureFragment extends Fragment {
                     LatLng currentPosition = new LatLng(location.getLatitude(),location.getLongitude());
                     LatLng treasurePosition = new LatLng( adapter.getSelectedTreasure().getLocation_lat(),
                             adapter.getSelectedTreasure().getLocation_lon());
-                    Log.e(TAG, "selected item not null : " + location.getAltitude() + ", long : " + location.getLongitude());
                         if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
-                            Log.e(TAG, "Claim Treasure : " + location.getAltitude() + ", long : " + location.getLongitude());
-//                            FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new
-//                                            SavedData(getContext()).readStringData("UserName"),
-//                                    adapter.getSelectedTreasure().getUsername());
-                            startActivity(new Intent(getContext(), MainActivity.class));
-                        }else{
-                            Log.e(TAG,"distance " + Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition));
+                            startActivity(new Intent(getContext(), MainActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+                            claimTreasure();
                         }
                 }
             }
@@ -111,6 +107,22 @@ public class FavoriteTreasureFragment extends Fragment {
         public void onLocationAvailability(LocationAvailability locationAvailability) {
         }
     };
+
+    private void setupHandler(){
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(getContext()!=null){
+                    Treasure treasure = adapter.getSelectedTreasure();
+                    adapter.clearSelectedTreasure();
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(
+                            new SavedData(getContext()).readStringData("UserName"),
+                            treasure.getUsername());
+                }
+            }
+        };
+    }
 
     @Override
     public void onDestroyView() {
@@ -131,9 +143,16 @@ public class FavoriteTreasureFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void claimTreasure(){
+        handler.removeCallbacks(runnable);
+        handler.postDelayed(runnable, 500);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
 }
 

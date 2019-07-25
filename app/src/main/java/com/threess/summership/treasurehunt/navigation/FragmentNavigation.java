@@ -17,10 +17,10 @@ import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 
 public class FragmentNavigation extends Fragment {
@@ -58,7 +58,6 @@ public class FragmentNavigation extends Fragment {
     }
 
     public void showClaimTreasureFragment(String username, String treasureName){
-
         replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), R.id.fragment_container);
     }
 
@@ -99,8 +98,11 @@ public class FragmentNavigation extends Fragment {
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-        //mFragmentManager.executePendingTransactions();
+        try{
+            mFragmentTransaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -127,7 +129,11 @@ public class FragmentNavigation extends Fragment {
             // if there is fragment to replace, then replace it:
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.commit();
+            try {
+                mFragmentTransaction.commit();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             //mFragmentManager.executePendingTransactions();
         }
     }
@@ -152,6 +158,7 @@ public class FragmentNavigation extends Fragment {
             context.startActivity(mapIntent);
         }
     }
+
 
 
     /**

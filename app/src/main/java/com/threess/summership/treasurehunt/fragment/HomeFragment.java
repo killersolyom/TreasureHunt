@@ -16,6 +16,7 @@ import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 
 
 public class HomeFragment extends Fragment {
