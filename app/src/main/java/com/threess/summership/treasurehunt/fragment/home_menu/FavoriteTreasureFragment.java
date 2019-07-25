@@ -106,7 +106,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
                 if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
-                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData(SavedData.PROFILE_NAME_KEY), adapter.getSelectedTreasure().getUsername());
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData(SavedData.USER_PROFILE_NAME_KEY), adapter.getSelectedTreasure().getUsername());
                 }
             }
         }
