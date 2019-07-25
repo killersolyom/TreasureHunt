@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 
 public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.RecyclerViewHolder> {
-
+    public static final String TAG = TreasureAdapter.class.getSimpleName();
 
     private Context context;
     private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure selectedTreasure = null;
-    public static String TAG = "adapter_fragment";
+
     public TreasureAdapter(Context context) {
         this.context = context;
         }
@@ -109,6 +109,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
         notifyDataSetChanged();
     }
+
 
     public Treasure getSelectedTreasure() {
         return selectedTreasure;
