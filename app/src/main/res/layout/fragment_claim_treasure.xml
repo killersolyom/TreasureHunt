@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="6dp"
-    android:background="@color/grey3"
+    android:background="@color/grey"
     tools:context=".fragment.ClaimTreasureFragment">
 
 
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/grey6">
+        app:titleTextColor="@color/grey">
 
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:text="@string/claim_tresure"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/grey6"
+            android:textColor="@color/grey"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
         android:text="@string/confirm_and_claim"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/grey6"
+        android:textColor="@color/DarkGrey"
         android:textColorHighlight="@color/colorText"
         android:textSize="@dimen/Claim_confimButton_TextSie"
         android:textStyle="bold"
@@ -109,8 +109,8 @@
         android:text="@string/read_qr_code"
         android:textSize="@dimen/qr_code_button_text_size"
         android:textStyle="bold"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorText"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
         />
 
     <ImageView
