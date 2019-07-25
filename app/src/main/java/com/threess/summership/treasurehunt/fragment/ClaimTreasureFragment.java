@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
+import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class ClaimTreasureFragment extends Fragment {
     private ImageView backImageButton;
     private ImageView mySuccsesfullImage;
     private Treasure treasure;
+    private Button qrCodeReaderButtn;
 
     private final static  String KEYSTRINGTREASURE="treasureName";
     private final static String KEYSTRINGUSERNAME="username";
@@ -65,11 +68,20 @@ public class ClaimTreasureFragment extends Fragment {
         Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
         backImageButton = view.findViewById(R.id.imageView2);
         getAllTreasuresServerCall();
+        qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
 
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentNavigation.getInstance(getContext()).popBackstack();
+            }
+        });
+
+        qrCodeReaderButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), QRCodeReader.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -175,4 +187,10 @@ public class ClaimTreasureFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String code = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
+        myEditText.setText(code);
+    }
 }
