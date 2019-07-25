@@ -34,7 +34,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
-    public static String TAG = "MapView_fragment";
+    public static final String TAG = "map_view_fragment";
     private ArrayList<Treasure> treasures = new ArrayList<>();
     private GoogleMap googleMap = null;
 

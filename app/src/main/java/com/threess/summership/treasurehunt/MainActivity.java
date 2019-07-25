@@ -18,7 +18,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String TAG = "main_activity";
+    public static final String TAG = "main_activity";
     private final int PERMISSION_REQUEST_CODE = 10;
     private BroadcastReceiver networkReceiver;
     private Handler handler;

@@ -16,7 +16,7 @@ import com.threess.summership.treasurehunt.logic.SplashProgressTask;
 
 public class SplashScreenFragment extends Fragment {
 
-    public static String TAG = "splash_screen_fragment";
+    public static final String TAG = "splash_screen_fragment";
     private ProgressBar splashScreenProgressBar;
     private SplashProgressTask loadingProgress;
     private ImageView splashScreenBackground;

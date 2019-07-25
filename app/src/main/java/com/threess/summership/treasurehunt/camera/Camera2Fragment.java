@@ -87,7 +87,7 @@ public class Camera2Fragment extends Fragment implements
         VerticalSlideColorPicker.OnColorChangeListener
 {
 
-    private static final String TAG = "Camera2Fragment";
+    private static final String TAG = "camera2fragment";
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
 

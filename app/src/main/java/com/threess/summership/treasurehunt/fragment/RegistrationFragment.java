@@ -27,7 +27,7 @@ import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_
 
 public class RegistrationFragment extends Fragment {
 
-    public static String TAG = "registration_fragment";
+    public static final String TAG = "registration_fragment";
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button register, cancel;
     private SavedData dataManager;

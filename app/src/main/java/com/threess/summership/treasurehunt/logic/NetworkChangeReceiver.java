@@ -13,7 +13,7 @@ import com.threess.summership.treasurehunt.util.Util;
 
 public class NetworkChangeReceiver extends BroadcastReceiver
 {
-    public static String TAG="ping";
+    public static final String TAG = "network_change_receiver";
     Activity activity;
 
     public NetworkChangeReceiver(Activity activity) {

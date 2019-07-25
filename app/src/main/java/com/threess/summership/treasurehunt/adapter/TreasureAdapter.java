@@ -27,7 +27,8 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     private Context context;
     private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure selectedTreasure = null;
-    public static String TAG = "adapter_fragment";
+    public static final String TAG = "adapter_fragment";
+
     public TreasureAdapter(Context context) {
         this.context = context;
         }
@@ -107,6 +108,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
         notifyDataSetChanged();
     }
+
 
     public Treasure getSelectedTreasure() {
         return selectedTreasure;

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class StickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = "StickerAdapter";
+    private static final String TAG = "sticker_adapter";
 
     private ArrayList<Drawable> mStickers = new ArrayList<>();
     private RecyclerViewClickListener mClickListener;
