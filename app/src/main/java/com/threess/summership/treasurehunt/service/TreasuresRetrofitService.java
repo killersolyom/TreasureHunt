@@ -20,7 +20,7 @@ public interface TreasuresRetrofitService {
     Call<ArrayList<Treasure>> allExistingTreasureList ();
 
     //TODO GET All treasures created or claimed by one user: /treasures/:username
-    @GET("/treasures/:{username}")
+    @GET("/treasures/{username}")
     Call<ArrayList<Treasure>> claimedTreasureByUser (@Query("username") String userName);
 
     //TODO POST Create a treasure: /treasures/create
