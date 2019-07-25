@@ -18,7 +18,8 @@ import com.threess.summership.treasurehunt.R;
 
 public class CameraActivity extends AppCompatActivity implements IMainActivity{
 
-    private static final String TAG = "camera_activity";
+    public static final String TAG = CameraActivity.class.getSimpleName();
+
     private static final int REQUEST_CODE = 1234;
     public static String CAMERA_POSITION_FRONT;
     public static String CAMERA_POSITION_BACK;

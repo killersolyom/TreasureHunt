@@ -5,11 +5,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 
 public class SavedData {
+    public static final String TAG = SavedData.class.getSimpleName();
 
     private SharedPreferences preference;
     private static final String SHARED_PREFERENCE_KEY = "TreasureHunt";
     private static final String PROFILE_IMAGE_KEY = "profile_image_key";
-    public static final String PROFILE_NAME_KEY = "profile_name_key";
+    public static final String USER_PROFILE_NAME_KEY = "profile_name_key";
     public static final String USER_PASSWORD_KEY = "user_password_key";
 
     public SavedData(Context context) {
