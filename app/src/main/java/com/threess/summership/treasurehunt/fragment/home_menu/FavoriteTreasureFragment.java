@@ -130,6 +130,7 @@ public class FavoriteTreasureFragment extends Fragment {
         super.onResume();
         Log.e("3ss","F resume");
         if(adapter.getSelectedTreasure()!=null){
+            Log.e("3ss","F resume not null");
             Treasure treasure = adapter.getSelectedTreasure();
             adapter.clearSelectedTreasure();
             FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(treasure);
