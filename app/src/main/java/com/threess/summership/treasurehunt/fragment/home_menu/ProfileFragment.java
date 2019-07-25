@@ -15,22 +15,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
 
 
 public class ProfileFragment extends Fragment {
+    public static String TAG = ProfileFragment.class.getSimpleName();
 
-    public static String TAG = Fragment.class.getSimpleName();
     private final int GALLERY_REQUEST_CODE = 862;
 
     @BindView(R.id.profile_image_view)
@@ -80,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }

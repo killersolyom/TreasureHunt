@@ -26,8 +26,8 @@ import retrofit2.Response;
 
 
 public class TopListFragment extends Fragment {
+    public static final String TAG = TopListFragment.class.getSimpleName();
 
-    public static String TAG = TopListFragment.class.getSimpleName();
     private RecyclerView recyclerview;
     private TopListRecycleViewAdapter adapter;
     private RecyclerView.LayoutManager layoutmanager;

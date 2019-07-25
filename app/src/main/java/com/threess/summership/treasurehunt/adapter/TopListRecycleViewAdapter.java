@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 import java.util.ArrayList;
 
 import static com.threess.summership.treasurehunt.service.UserRetrofitService.BASE_URL;
 
+
+
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
+    public static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
 
     private ArrayList<User> list;
 
@@ -35,11 +40,19 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
     }
 
     @Override
-    public void onBindViewHolder(TopListViewHolder holder, int position) {
+    public void onBindViewHolder(TopListViewHolder holder, final int position) {
 
         holder.text1.setText(list.get(position).getUsername());
         holder.text2.setText(ctx.getResources().getString(R.string.toplist_score) + list.get(position).getScore());
         Glide.with(ctx).load( BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                if (list.get(position) != null) {
+                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), BASE_URL + list.get(position).getProfilpicture());
+                }}
+        });
 
 
     }

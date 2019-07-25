@@ -1,14 +1,12 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -38,9 +36,10 @@ import retrofit2.Response;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback {
+    public static final String TAG = MapViewFragment.class.getSimpleName();
 
     private MapView mMapView;
-    public static String TAG = "MapView_fragment";
     private ArrayList<Treasure> treasures = new ArrayList<>();
     private GoogleMap googleMap = null;
 
