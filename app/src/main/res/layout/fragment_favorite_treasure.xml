@@ -12,16 +12,14 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        tools:layout_editor_absoluteX="-170dp"
-        tools:layout_editor_absoluteY="-8dp" />
+        android:layout_margin="@dimen/favorite_recycler_view_margin" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_treasure_floating_action_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="@dimen/favorite_floating_action_button_size"
+        android:layout_height="@dimen/favorite_floating_action_button_size"
+        android:layout_marginEnd="@dimen/favorite_floating_action_button_margin"
+        android:layout_marginBottom="@dimen/favorite_floating_action_button_margin"
         app:fabSize="mini"
         android:tint="@color/white"
         android:backgroundTint="@android:color/transparent"

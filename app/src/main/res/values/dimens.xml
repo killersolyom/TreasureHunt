@@ -97,6 +97,9 @@
     <dimen name="arrowmargtop">20dp</dimen>
     <dimen name="arrowmargright">16dp</dimen>
 
+    <dimen name="favorite_recycler_view_margin">8dp</dimen>
+    <dimen name="favorite_floating_action_button_size">60dp</dimen>
+    <dimen name="favorite_floating_action_button_margin">16dp</dimen>
 
 
 </resources>
