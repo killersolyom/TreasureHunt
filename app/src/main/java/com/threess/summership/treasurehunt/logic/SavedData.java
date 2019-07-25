@@ -11,6 +11,8 @@ public class SavedData {
     private static final String PROFILE_IMAGE_KEY = "profile_image_key";
     public static final String PROFILE_NAME_KEY = "profile_name_key";
     public static final String USER_PASSWORD_KEY = "user_password_key";
+    public static final String REMEMBER_ME_SWITCH_KEY = "RememberMeSwitch";
+    public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
 
     public SavedData(Context context) {
         try {
@@ -30,7 +32,7 @@ public class SavedData {
         return preference.getString(key, "");
     }
 
-    public void writeBooleanData(Boolean value, String key) {
+    public void writeBooleanData(String key, Boolean value) {
         SharedPreferences.Editor editor = preference.edit();
         editor.putBoolean(key, value);
         editor.apply();
@@ -54,5 +56,21 @@ public class SavedData {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
         myPrefsEdit.putString(PROFILE_IMAGE_KEY, imageUri.toString());
         myPrefsEdit.apply();
+    }
+
+    public void setAutoLoginSwitch(boolean bool) {
+        writeBooleanData(SavedData.AUTO_LOGIN_SWITCH_KEY, bool);
+    }
+
+    public void setRememberMeSwitch(boolean bool) {
+        writeBooleanData(SavedData.REMEMBER_ME_SWITCH_KEY, bool);
+    }
+
+    public boolean getAutoLoginSwitch() {
+        return readBooleanData(SavedData.AUTO_LOGIN_SWITCH_KEY);
+    }
+
+    public boolean getRememberMenSwitch() {
+        return readBooleanData(SavedData.REMEMBER_ME_SWITCH_KEY);
     }
 }

@@ -74,12 +74,12 @@ public class LoginFragment extends Fragment {
 
         rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"RememberMeSwitch");
+                dataManager.writeBooleanData(SavedData.REMEMBER_ME_SWITCH_KEY, isChecked);
             }
         });
         autoLoginSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"AutoLoginSwitch");
+                dataManager.writeBooleanData(SavedData.AUTO_LOGIN_SWITCH_KEY, isChecked);
             }
         });
         passwordText.addTextChangedListener(new TextWatcher() {
@@ -150,14 +150,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadSettings(){
-        if(dataManager.readBooleanData("RememberMeSwitch")){
+        if(dataManager.getRememberMenSwitch()){
+
             rememberMeSwitch.setChecked(true);
             nameText.setText(userName);
             passwordText.setText(userPassword);
+
+            if(dataManager.getAutoLoginSwitch()){
+                autoLoginSwitch.setChecked(true);
+                login();
+            }
         }
-        if(dataManager.readBooleanData("AutoLoginSwitch")){
-            autoLoginSwitch.setChecked(true);
-            login();
-        }
+
     }
 }

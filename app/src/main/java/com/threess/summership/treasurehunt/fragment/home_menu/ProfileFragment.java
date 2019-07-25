@@ -18,14 +18,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
 
 
 public class ProfileFragment extends Fragment {
@@ -44,6 +44,7 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.Treasures_hidden)
     TextView treasures_HiddenField;
+
 
 
     private TextView profileScoreTextView;
@@ -80,7 +81,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(SavedData.PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }
@@ -89,7 +90,12 @@ public class ProfileFragment extends Fragment {
 
     @OnClick(R.id.logout_button)
     void onLogoutClick(View view) {
-
+        SavedData dataManager = new SavedData(getContext());
+        dataManager.setAutoLoginSwitch(false);
+        //dataManager.setRememberMeSwitch(false);
+        //dataManager.writeStringData( SavedData.PROFILE_NAME_KEY, "" );
+        //dataManager.writeStringData( SavedData.USER_PASSWORD_KEY, "" );
+        FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
     @OnClick(R.id.update)
