@@ -3,8 +3,10 @@ package com.threess.summership.treasurehunt.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable {
 
 
     @SerializedName("username")
