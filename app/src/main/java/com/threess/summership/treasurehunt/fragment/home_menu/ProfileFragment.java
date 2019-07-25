@@ -23,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
 
 
 public class ProfileFragment extends Fragment {
@@ -78,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }

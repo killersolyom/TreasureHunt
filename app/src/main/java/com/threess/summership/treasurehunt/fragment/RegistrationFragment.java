@@ -21,7 +21,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
 import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
 
 
@@ -89,7 +88,7 @@ public class RegistrationFragment extends Fragment {
             confirm_passwordText.setError(error);
             return;
         }
-        dataManager.writeStringData(usernameText.getText().toString(), PROFILE_NAME_KEY);
+        dataManager.writeStringData(usernameText.getText().toString(),SavedData.USER_PROFILE_NAME_KEY);
         dataManager.writeStringData(passwordText.getText().toString(), USER_PASSWORD_KEY);
         User user = new User(username, password);
         ApiController.getInstance().registerUser(user, new Callback<Object>() {
