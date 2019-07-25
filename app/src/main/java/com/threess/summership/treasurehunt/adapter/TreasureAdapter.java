@@ -114,4 +114,10 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public Treasure getSelectedTreasure() {
         return selectedTreasure;
     }
+
+    public void clearSelectedTreasure(){
+        selectedTreasure = null;
+    }
+
+
 }

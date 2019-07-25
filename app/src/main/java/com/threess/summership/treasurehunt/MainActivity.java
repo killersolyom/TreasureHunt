@@ -7,10 +7,13 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentNavigation.getInstance(this).showSplashScreenFragment();
+        FragmentNavigation.getInstance( this).showSplashScreenFragment();
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
 
         networkHandler();
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -107,5 +109,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
     }
 }
