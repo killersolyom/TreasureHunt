@@ -9,11 +9,12 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.util.Util;
 
 public class NetworkChangeReceiver extends BroadcastReceiver
 {
-    public static String TAG="ping";
+    public static final String TAG = NetworkChangeReceiver.class.getSimpleName();
     Activity activity;
 
     public NetworkChangeReceiver(Activity activity) {

@@ -25,8 +25,8 @@ public class ViewStickersFragment extends Fragment implements
         StickerAdapter.RecyclerViewClickListener,
         View.OnClickListener
 {
+    public static final String TAG = ViewStickersFragment.class.getSimpleName();
 
-    private static final String TAG = "ViewStickersFragment";
     private static final int NUM_COLUMNS = 3;
 
     //widgets
@@ -62,6 +62,7 @@ public class ViewStickersFragment extends Fragment implements
         mRecyclerView.setAdapter(mStickerAdapter);
     }
 
+    @SuppressWarnings("deprecation")
     private void getStickers(){
         mStickers.add(getActivity().getResources().getDrawable(R.drawable.astonished_face_emoji));
         mStickers.add(getActivity().getResources().getDrawable(R.drawable.cry_emoji));

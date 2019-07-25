@@ -21,8 +21,7 @@ import com.threess.summership.treasurehunt.camera.gestures.MoveGestureDetector;
  * A {@link TextureView} that can be adjusted to a specified aspect ratio.
  */
 public class ScalingTextureView extends TextureView {
-
-    private static final String TAG = "ScalingTextureView";
+    public static final String TAG = ScalingTextureView.class.getSimpleName();
 
     public int mRatioWidth = 0;
     public int mRatioHeight = 0;

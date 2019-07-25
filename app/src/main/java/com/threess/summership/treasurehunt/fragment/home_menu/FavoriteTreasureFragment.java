@@ -28,12 +28,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
+    public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
     private GeofencingClient geofencingClient;
-
-    //private final int INTERNALSERVERERROR = 500;
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -62,11 +61,6 @@ public class FavoriteTreasureFragment extends Fragment {
 
     }
 
-//    private void getActiveAndClaimedTreasure(){
-//        getAllActiveTreasures();
-//        //getClaimedTreasures();
-//    }
-
     private void getAllActiveTreasures(){
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
@@ -81,21 +75,6 @@ public class FavoriteTreasureFragment extends Fragment {
         });
     }
 
-//    private void getClaimedTreasures(){
-//        ApiController.getInstance().getClaimedTreasures(new SavedData(getContext()).readStringData("UserName"), new Callback<ArrayList<Treasure>>() {
-//                    @Override
-//                    public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-//                        if(response.code()!=INTERNALSERVERERROR) {
-//                            adapter.addTreasureList(response.body());
-//                        }
-//                    }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-//            }
-//        });
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -106,7 +85,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     adapter.getSelectedTreasure().getLocation_lon());
             if(currentPosition!=null){
                 if(Util.distanceBetweenLatLngInMeter(currentPosition,treasurePosition) <= 10){
-                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData(SavedData.PROFILE_NAME_KEY), adapter.getSelectedTreasure().getUsername());
+                    FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(new SavedData(getContext()).readStringData(SavedData.USER_PROFILE_NAME_KEY), adapter.getSelectedTreasure().getUsername());
                 }
             }
         }
