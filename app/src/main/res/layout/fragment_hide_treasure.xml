@@ -147,5 +147,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/createtreasurebutton"
-        android:background="@color/colorLightBlue"/>
+        android:background="@color/blue500"/>
 </android.support.constraint.ConstraintLayout>
