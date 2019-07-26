@@ -28,6 +28,12 @@ public final class Util {
         snackbar.show();
     }
 
+    public static void makeSnackbar(View view, String textId, int length, int colorId){
+        Snackbar snackbar = Snackbar.make(view,textId,length);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(view.getContext(),colorId));
+        snackbar.show();
+    }
+
     public static Bitmap getDrawableTreasureImage(Context context){
         return Bitmap.createScaledBitmap(randomBitmap(context),100,100,false);
     }
@@ -58,5 +64,6 @@ public final class Util {
         double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)))*6371000;
         return  Math.sqrt(Math.pow(c, 2));
     }
+
 
 }

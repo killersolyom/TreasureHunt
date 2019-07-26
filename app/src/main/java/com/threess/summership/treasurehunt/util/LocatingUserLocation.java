@@ -19,7 +19,6 @@ public class LocatingUserLocation {
     private static final String TAG = LocatingUserLocation.class.getSimpleName();
 
     private LocationManager locationManager;
-    public static final int REQUEST_LOCATION = 1;
     private static final LocatingUserLocation ourInstance = new LocatingUserLocation();
     public static LocatingUserLocation getInstance() {
         return ourInstance;
@@ -45,7 +44,7 @@ public class LocatingUserLocation {
                 (context, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions( ((Activity)context),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constant.Common.REQUEST_LOCATION);
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {
