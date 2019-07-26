@@ -15,7 +15,7 @@ import com.threess.summership.treasurehunt.R;
 import java.util.Random;
 
 public final class Util {
-    public static final String TAG = Util.class.getSimpleName();
+    private static final String TAG = Util.class.getSimpleName();
 
     public static void hideKeyboard(Context context, Button button){
         InputMethodManager imm = (InputMethodManager)context.getSystemService(context.INPUT_METHOD_SERVICE);
@@ -28,11 +28,6 @@ public final class Util {
         snackbar.show();
     }
 
-    public static void makeSnackbar(View view, String textId, int length, int colorId){
-        Snackbar snackbar = Snackbar.make(view,textId,length);
-        snackbar.getView().setBackgroundColor(ContextCompat.getColor(view.getContext(),colorId));
-        snackbar.show();
-    }
 
     public static Bitmap getDrawableTreasureImage(Context context){
         return Bitmap.createScaledBitmap(randomBitmap(context),100,100,false);

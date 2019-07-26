@@ -108,9 +108,9 @@
 
         android:id="@+id/image_succsesfull_icon"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="@dimen/Claim_imageView_hight"
         android:src="@drawable/succsesfull_image"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.SplashProgressTask;
 
 
 public class SplashScreenFragment extends Fragment {
-    public static final String TAG = SplashScreenFragment.class.getSimpleName();
+    private static final String TAG = SplashScreenFragment.class.getSimpleName();
 
     private ProgressBar splashScreenProgressBar;
     private SplashProgressTask loadingProgress;
