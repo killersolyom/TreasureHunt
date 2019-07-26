@@ -48,6 +48,7 @@ public class HideTreasureFragment extends Fragment {
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bundle mBundle;
+    private Bitmap imageBitmap;
     private double latitude,longitude;
 
     public HideTreasureFragment() {
@@ -136,6 +137,7 @@ public class HideTreasureFragment extends Fragment {
         if (checkInputFields()) {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
+
         }
     }
 
@@ -220,18 +222,16 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
-    private void onPhotoTaken(Bitmap bitmap){
-        LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
-        locationEditText.setText(latLng.latitude+ " " + latLng.longitude);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            onPhotoTaken(imageBitmap);
-
+            imageBitmap = (Bitmap) extras.get("data");
+            LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
+            this.latitude = latLng.latitude;
+            this.longitude = latLng.longitude;
+            locationEditText.setText(latLng.latitude+ "," + latLng.longitude);
         }
     }
 

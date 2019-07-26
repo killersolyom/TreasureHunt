@@ -30,6 +30,6 @@ public interface TreasuresRetrofitService {
     Call<String> createdTreasureClaim (@Body TreasureClaim treasureClaim);
 
     @POST("/treasures/update/:{passcode}/:{username}")///treasures/update/:passcode/:username
-    Call<Treasure> createTreasure(@Query ("passcode") String passcode, @Query("username") String username);
+    Call<Treasure> createTreasurePicture(@Query ("passcode") String passcode, @Query("username") String username);
 
 }
