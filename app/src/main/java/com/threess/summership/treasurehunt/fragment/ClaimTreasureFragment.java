@@ -120,7 +120,6 @@ public class ClaimTreasureFragment extends Fragment {
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                                 }
-
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
                                     Util.makeSnackbar( view.getRootView().findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
