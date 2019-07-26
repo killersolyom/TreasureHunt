@@ -41,14 +41,12 @@ public class ClaimTreasureFragment extends Fragment {
     private int QrRequestCode = 1;
     private String resultPassCodeFromQrCodeScanner=null;
 
-
     public ClaimTreasureFragment() {}
 
     @SuppressLint("ValidFragment")
     public ClaimTreasureFragment(Treasure treasure) {
         mTreasure = treasure;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
