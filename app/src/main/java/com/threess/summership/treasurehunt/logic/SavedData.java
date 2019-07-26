@@ -73,7 +73,7 @@ public class SavedData {
         return readBooleanData(SavedData.AUTO_LOGIN_SWITCH_KEY);
     }
 
-    public boolean getRememberMenSwitch() {
+    public boolean getRememberMeSwitch() {
         return readBooleanData(SavedData.REMEMBER_ME_SWITCH_KEY);
     }
 }
