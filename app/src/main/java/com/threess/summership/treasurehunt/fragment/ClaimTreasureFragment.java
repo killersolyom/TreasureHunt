@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class ClaimTreasureFragment extends Fragment {
     public static final String TAG = ClaimTreasureFragment.class.getSimpleName();
@@ -54,8 +56,6 @@ public class ClaimTreasureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.treasure = (Treasure) getArguments().getSerializable("Treasure");
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
-        // Do not modify!
-
     }
 
     @Override
@@ -190,7 +190,8 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String code = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
-        myEditText.setText(code);
+        if(resultCode == RESULT_OK){
+            myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
+        }
     }
 }
