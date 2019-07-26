@@ -44,9 +44,9 @@
     <string name="no">No!</string>
     <string name="turn_on_your_gps">Please Turn ON your GPS Connection!</string>
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
-    <string name="Claim_snackBarError1">Not vailable passcoe or wrong treasure!</string>
+    <string name="Claim_snackBarError1">Invalid passcode or wrong treasure!</string>
     <string name="Claim_Available">This treasure passcode: </string>
-    <string name="Claim_Available2"> is correct! </string>
+    <string name="Claim_Available2"> is valid! </string>
     <string name="Claim_SnackBarError2"> Not available treasure on server </string>
     <string name="Claim_SnackBarError_Internet"> No internet connection!Please turn on the wifi </string>
     <string name="toplist_score">Score: </string>
