@@ -19,8 +19,8 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +28,8 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -190,7 +192,8 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String code = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
-        myEditText.setText(code);
+        if(resultCode == RESULT_OK){
+            myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
+        }
     }
 }
