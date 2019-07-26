@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,8 @@ public class FavoriteTreasureFragment extends Fragment {
     private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
+    private FloatingActionButton addTreasureFab;
+
 
     public FavoriteTreasureFragment() {
         // Required empty public constructor
@@ -63,6 +66,9 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
+        addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
+
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -114,6 +120,7 @@ public class FavoriteTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+
 
             }
         });

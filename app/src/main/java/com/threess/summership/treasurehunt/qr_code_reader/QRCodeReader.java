@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
@@ -17,6 +19,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.IOException;
 
@@ -26,7 +29,7 @@ public class QRCodeReader extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private final int PERMISSION_REQUEST_CODE = 10;
-
+    private View mView;
     private String intentData = "";
     public static final String RESULT_OF_QRCODE_READ = "result";
 
@@ -34,6 +37,7 @@ public class QRCodeReader extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_reader);
+        mView = findViewById(R.id.qrCodeView);
         initViews();
     }
 
@@ -45,13 +49,10 @@ public class QRCodeReader extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
         barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.ALL_FORMATS)
-                .build();
+                .setBarcodeFormats(Barcode.ALL_FORMATS).build();
 
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(1920, 1080)
-                .setAutoFocusEnabled(true) //you should add this feature
-                .build();
+                .setAutoFocusEnabled(true).build();
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -90,7 +91,7 @@ public class QRCodeReader extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+                Util.makeSnackbar(mView,R.string.prevent_mem_leaks, Snackbar.LENGTH_SHORT, R.color.red);
             }
 
             @Override
@@ -114,6 +115,7 @@ public class QRCodeReader extends AppCompatActivity {
         setResult(Activity.RESULT_CANCELED,returnIntent);
         finish();
     }
+
 
     @Override
     protected void onPause() {
