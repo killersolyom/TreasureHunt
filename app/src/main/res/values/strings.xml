@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TreasureHunt</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello Summership!</string>
+    <string name="hello_world">Hello Summer ship!</string>
     <string name="remember_me">Remember me</string>
     <string name="auto_login">Auto login</string>
     <string name="name">Name</string>
@@ -25,8 +25,8 @@
     <string name="empty_string"> </string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
-    <string name="claim_tresure">Claim Tresure</string>
-    <string name="write_passcode">Write here the item passcode!</string>
+    <string name="claim_tresure">Claim Treasure</string>
+    <string name="write_passcode">Write here the item pass code!</string>
     <string name="confirm_and_claim">Confirm and claim treasure!</string>
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
@@ -38,17 +38,17 @@
     <string name="invalid_passcode">Invalid passcode or wrong treasure!</string>
     <string name="online_mode">Online!</string>
     <string name="offline_mode">Offline!</string>
-    <string name="correct_passcode">Correct passcode!</string>
+    <string name="correct_passcode">Correct pass code!</string>
     <string name="notavailable_treasure">Not available treasure on server!</string>
     <string name="yes">Yes!</string>
     <string name="no">No!</string>
     <string name="turn_on_your_gps">Please Turn ON your GPS Connection!</string>
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
-    <string name="Claim_snackBarError1">Not available passcode or wrong treasure!</string>
-    <string name="Claim_Available">This treasure passcode is correct! </string>
+    <string name="Claim_snackBarError1">Not vailable passcoe or wrong treasure!</string>
+    <string name="Claim_Available">This treasure passcode: </string>
     <string name="Claim_Available2"> is correct! </string>
-    <string name="Claim_SnackBarError2"> Not available the server </string>
-    <string name="Claim_SnackBarError_Internet"> No internet conection!Please turn on the wifi </string>
+    <string name="Claim_SnackBarError2"> Not available treasure on server </string>
+    <string name="Claim_SnackBarError_Internet"> No internet connection!Please turn on the wifi </string>
     <string name="toplist_score">Score: </string>
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>
@@ -67,7 +67,7 @@
     <string name="hidephoto">Photo clue:</string>
     <string name="hideloc">Location:</string>
     <string name="hidepoints">Prize points:</string>
-    <string name="hidepass">Passcode:</string>
+    <string name="hidepass">Pass code:</string>
     <string name="titlehint">Enter a title for your item</string>
     <string name="descripthint">Something that would motivate other players</string>
     <string name="photohint">Link a representative image</string>
@@ -85,6 +85,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
+    <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
 
 </resources>

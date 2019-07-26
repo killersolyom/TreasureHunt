@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DrawableImageView extends android.support.v7.widget.AppCompatImageView
 {
-    public static final String TAG = DrawableImageView.class.getSimpleName();
+    private static final String TAG = DrawableImageView.class.getSimpleName();
 
     private static final int SIZE_CHANGE_SPEED = 2;
     private static final int STICKER_STARTING_WIDTH = 300;

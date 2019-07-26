@@ -39,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
+    public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;

@@ -7,7 +7,7 @@ import android.net.Uri;
 import com.threess.summership.treasurehunt.util.Constant;
 
 public class SavedData {
-    public static final String TAG = SavedData.class.getSimpleName();
+    private static final String TAG = SavedData.class.getSimpleName();
 
     private SharedPreferences preference;
 
@@ -29,7 +29,7 @@ public class SavedData {
         return preference.getString(key, "");
     }
 
-    public void writeBooleanData(Boolean value, String key) {
+    public void writeBooleanData(String key, Boolean value) {
         SharedPreferences.Editor editor = preference.edit();
         editor.putBoolean(key, value);
         editor.apply();
@@ -53,5 +53,21 @@ public class SavedData {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageUri.toString());
         myPrefsEdit.apply();
+    }
+
+    public void setAutoLoginSwitch(boolean bool) {
+        writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, bool);
+    }
+
+    public void setRememberMeSwitch(boolean bool) {
+        writeBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY, bool);
+    }
+
+    public boolean getAutoLoginSwitch() {
+        return readBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY);
+    }
+
+    public boolean getRememberMeSwitch() {
+        return readBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY);
     }
 }

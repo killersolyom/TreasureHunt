@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 
 public class HideTreasureFragment extends Fragment {
-    public static final String TAG = HideTreasureFragment.class.getSimpleName();
+    private static final String TAG = HideTreasureFragment.class.getSimpleName();
 
     ImageView photoarrow;
     private Button button;
