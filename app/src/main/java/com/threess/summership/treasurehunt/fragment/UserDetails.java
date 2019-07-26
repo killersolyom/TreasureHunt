@@ -15,6 +15,7 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
 
 public class UserDetails extends Fragment {
+    private static final String TAG = UserDetails.class.getSimpleName();
 
     private final static String USERNAMEKEY="username";
     private final static String SCOREKEY="scorekey";

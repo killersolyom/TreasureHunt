@@ -7,7 +7,7 @@ import android.net.Uri;
 import com.threess.summership.treasurehunt.util.Constant;
 
 public class SavedData {
-    public static final String TAG = SavedData.class.getSimpleName();
+    private static final String TAG = SavedData.class.getSimpleName();
 
     private SharedPreferences preference;
 
@@ -69,5 +69,8 @@ public class SavedData {
 
     public boolean getRememberMeSwitch() {
         return readBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY);
+    }
+    public String getCurrentUserName(){
+        return readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
     }
 }

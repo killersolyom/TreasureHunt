@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -34,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class HideTreasureFragment extends Fragment {
-    public static final String TAG = HideTreasureFragment.class.getSimpleName();
+    private static final String TAG = HideTreasureFragment.class.getSimpleName();
 
     ImageView photoClueArrow;
     private Button button;
@@ -46,6 +47,8 @@ public class HideTreasureFragment extends Fragment {
     private EditText locationEditText;
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Bundle mBundle;
+    private double latitude,longitude;
 
     public HideTreasureFragment() {
         // constructor
@@ -62,6 +65,11 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
+        if(getArguments() != null){
+            latitude=getArguments().getDouble(MapViewFragment.KEY1);
+            longitude=getArguments().getDouble(MapViewFragment.KEY2);
+            locationEditText.setText( latitude+","+longitude);
+        }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 return true;
@@ -186,6 +194,8 @@ public class HideTreasureFragment extends Fragment {
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhoto_clue(photoEditText.getText().toString().trim());
         treasure.setUsername(dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY));
+        treasure.setLocation_lat(latitude);
+        treasure.setLocation_lon(longitude);
         return treasure;
     }
 

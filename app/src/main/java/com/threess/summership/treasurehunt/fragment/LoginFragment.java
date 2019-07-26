@@ -3,7 +3,6 @@ package com.threess.summership.treasurehunt.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -20,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 
 public class LoginFragment extends Fragment {
-    public static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = LoginFragment.class.getSimpleName();
 
     private EditText nameText, passwordText;
     private TextView createAccountLabel;
@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
         userPassword = dataManager.readStringData(Constant.SavedData.USER_PASSWORD_KEY);
         loadSettings();
 
-        hideViews();
+        //hideViews();
         playAnimations(view);
 
         rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -178,37 +178,40 @@ public class LoginFragment extends Fragment {
     private void playAnimations(View view){
 
         Context c = getContext();
-        int durationMs = 1000;
-        int durationBetweenAnimationsMs = 100;
+        int dMs = 1000;       // duration in mc
+        int dbaMs = 100;      // duration between animations in ms
+        int fromXDp = -500;   // distance from elements fly in
 
+        Animator logoAnim = new Animator(getContext(), view.findViewById(R.id.imageView), true);
+        logoAnim.AddIntroSet();
 
-        Animator.ViewIntro(c,  view.findViewById(R.id.imageView)  );
+        Animator nameAnim = new Animator(getContext(), nameText, true);
+        nameAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        nameAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
+        Animator passAnim = new Animator(getContext(), passwordText, true);
+        passAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        passAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        nameText.setVisibility(View.VISIBLE);
-        Animator.Slide(c, nameText, -1000, 0, 0, 0, durationMs);
+        Animator buttonAnim = new Animator(getContext(), login, true);
+        buttonAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        buttonAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
+        Animator rememberAnim = new Animator(getContext(), rememberMeSwitch, true);
+        rememberAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        rememberAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        new Handler().postDelayed(() -> {
-            Animator.Slide(c, passwordText, -1000, 0, 0, 0, durationMs);
-            passwordText.setVisibility(View.VISIBLE);
-        },durationBetweenAnimationsMs);
+        Animator autologinAnim = new Animator(getContext(), autoLoginSwitch, true);
+        autologinAnim.AddAlpha(0f, 1f, 1000, true, dMs);
+        autologinAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
 
-
-        new Handler().postDelayed(() -> {
-            Animator.Slide(c, login, -1000, 0, 0, 0, durationMs);
-            login.setVisibility(View.VISIBLE);
-        },2*durationBetweenAnimationsMs);
-
-        new Handler().postDelayed(() -> {
-            Animator.Slide(c, rememberMeSwitch, -1000, 0, 0, 0, durationMs);
-            rememberMeSwitch.setVisibility(View.VISIBLE);
-        },3*durationBetweenAnimationsMs);
-
-        new Handler().postDelayed(() -> {
-            Animator.Slide(c, autoLoginSwitch, -1000, 0, 0, 0, durationMs);
-            autoLoginSwitch.setVisibility(View.VISIBLE);
-        },4*durationBetweenAnimationsMs);
+        logoAnim.Start();
+        nameAnim.Start(dbaMs);
+        passAnim.Start(2*dbaMs);
+        buttonAnim.Start(3*dbaMs);
+        rememberAnim.Start(4*dbaMs);
+        autologinAnim.Start(5*dbaMs);
 
     }
+
 }
