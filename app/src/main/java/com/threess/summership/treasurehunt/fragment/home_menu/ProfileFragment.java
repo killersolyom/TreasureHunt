@@ -20,6 +20,8 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.util.Constant;
 
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +43,7 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.Treasures_hidden)
     TextView treasures_HiddenField;
+
 
 
     private TextView profileScoreTextView;
@@ -86,7 +89,12 @@ public class ProfileFragment extends Fragment {
 
     @OnClick(R.id.logout_button)
     void onLogoutClick(View view) {
-
+        SavedData dataManager = new SavedData(getContext());
+        dataManager.setAutoLoginSwitch(false);
+        //dataManager.setRememberMeSwitch(false);
+        //dataManager.writeStringData( SavedData.PROFILE_NAME_KEY, "" );
+        //dataManager.writeStringData( SavedData.USER_PASSWORD_KEY, "" );
+        FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
     @OnClick(R.id.update)

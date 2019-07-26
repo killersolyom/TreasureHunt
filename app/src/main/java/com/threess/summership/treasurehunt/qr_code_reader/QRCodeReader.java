@@ -110,12 +110,12 @@ public class QRCodeReader extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //super.onBackPressed();
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(RESULT_OF_QRCODE_READ,intentData);
         setResult(Activity.RESULT_CANCELED,returnIntent);
         finish();
-
     }
+
 
     @Override
     protected void onPause() {
