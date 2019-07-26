@@ -33,11 +33,12 @@ import retrofit2.Response;
 public class ClaimTreasureFragment extends Fragment {
     public static final String TAG = ClaimTreasureFragment.class.getSimpleName();
 
-    private HashMap<String, Treasure> myTestDatas;
+   // private HashMap<String, Treasure> myTestDatas;
     //Key:passcode   String: UserId
 
     private EditText myEditText;
     private Button myConfirmButton;
+    private String mPasscode;
     private ImageView backImageButton;
     private ImageView mySuccsesfullImage;
     private Treasure treasure;
@@ -64,11 +65,10 @@ public class ClaimTreasureFragment extends Fragment {
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
-
-        Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
         backImageButton = view.findViewById(R.id.imageView2);
-        getAllTreasuresServerCall();
+     //   getAllTreasuresServerCall();
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
+
 
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +84,7 @@ public class ClaimTreasureFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+        confirmPasscode(view);
 
     }
 
@@ -100,12 +101,12 @@ public class ClaimTreasureFragment extends Fragment {
                     return;
                 }
                 else{
-                String passcode = myEditText.getText().toString();
-                final Treasure treasure = myTestDatas.get(passcode);
-                if (isTheSameTreasure(treasure)) {
-                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_Available) + treasure.getUsername() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.red);
+                mPasscode = myEditText.getText().toString();
+                if (isTheSamePasscode(mPasscode)) {
+                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.red);
                     showItems(view);
                     myConfirmButton.setVisibility(View.INVISIBLE);
+                    qrCodeReaderButtn.setVisibility(View.INVISIBLE);
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -121,7 +122,7 @@ public class ClaimTreasureFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
-                                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
+                                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
 
                                 }
                             });
@@ -129,7 +130,7 @@ public class ClaimTreasureFragment extends Fragment {
                     }, 2500);
 
                 } else {
-                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_SHORT, R.color.red);
+                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id),R.string.Claim_snackBarError1, Snackbar.LENGTH_SHORT, R.color.red);
                 }
 
             }
@@ -139,8 +140,8 @@ public class ClaimTreasureFragment extends Fragment {
 
 
     }
-    private boolean isTheSameTreasure(Treasure treasure) {
-        return (treasure!=null && treasure == this.treasure);
+    private boolean isTheSamePasscode(String mPasscode) {
+        return (mPasscode!=null && mPasscode.equals(treasure.getPasscode()));
     }
     public static ClaimTreasureFragment newInstance(Treasure treasure){
 
@@ -149,18 +150,15 @@ public class ClaimTreasureFragment extends Fragment {
         args.putSerializable("Treasure",treasure);
         claimTreasureFragment.setArguments(args);
         return claimTreasureFragment;
-
-
     }
-
-
-    private void setMyTestDatas(ArrayList<Treasure> myTreasures) {
-        myTestDatas = new HashMap<>();
-
-        for (Treasure treasure : myTreasures) {
-            myTestDatas.put(treasure.getPasscode(), treasure);
-        }
-    }
+//
+//    private void setMyTestDatas(ArrayList<Treasure> myTreasures) {
+//        myTestDatas = new HashMap<>();
+//
+//        for (Treasure treasure : myTreasures) {
+//            myTestDatas.put(treasure.getPasscode(), treasure);
+//        }
+//    }
 
     private void showItems(@NonNull View view) {
         mySuccsesfullImage.setVisibility(View.VISIBLE);
@@ -172,20 +170,20 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
 
-    private void getAllTreasuresServerCall(){
-        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                setMyTestDatas(response.body());
-                confirmPasscode(getView());
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                //Util.makeSnackbar(this.view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
-            }
-        });
-    }
+//    private void getAllTreasuresServerCall(){
+//        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+//                setMyTestDatas(response.body());
+//                confirmPasscode(getView());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+//                //Util.makeSnackbar(this.view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError_Internet, Snackbar.LENGTH_SHORT,R.color.red);
+//            }
+//        });
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
