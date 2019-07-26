@@ -7,7 +7,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/home_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/toolbar_size"
         android:layout_gravity="top"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
@@ -18,18 +18,18 @@
         android:id="@+id/home_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="56dp" />
+        android:layout_marginTop="@dimen/toolbar_size"
+        android:layout_marginBottom="@dimen/navigation_size" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/navigation_size"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
         app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="#ffffff"
-        app:itemTextColor="#ffffff"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_items" />
 

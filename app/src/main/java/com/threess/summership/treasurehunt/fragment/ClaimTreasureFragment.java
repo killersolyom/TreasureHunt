@@ -19,6 +19,7 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 
@@ -28,6 +29,8 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -43,9 +46,6 @@ public class ClaimTreasureFragment extends Fragment {
     private ImageView mySuccsesfullImage;
     private Treasure treasure;
     private Button qrCodeReaderButtn;
-
-    private final static  String KEYSTRINGTREASURE="treasureName";
-    private final static String KEYSTRINGUSERNAME="username";
 
     Handler mHandler = new Handler();
 
@@ -188,7 +188,8 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String code = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
-        myEditText.setText(code);
+        if(resultCode == RESULT_OK){
+            myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
+        }
     }
 }
