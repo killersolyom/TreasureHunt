@@ -39,12 +39,12 @@ public class ClaimTreasureFragment extends Fragment {
    // private HashMap<String, Treasure> myTestDatas;
     //Key:passcode   String: UserId
 
-    private EditText myEditText;
-    private Button myConfirmButton;
+    private EditText mEditText;
+    private Button mConfirmButton;
     private String mPasscode;
-    private ImageView backImageButton;
-    private ImageView mySuccsesfullImage;
-    private Treasure treasure;
+    private ImageView mBackImageButton;
+    private ImageView mSuccsesfullImage;
+    private Treasure mTreasure;
     private Button qrCodeReaderButtn;
 
     Handler mHandler = new Handler();
@@ -55,22 +55,21 @@ public class ClaimTreasureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.treasure = (Treasure) getArguments().getSerializable("Treasure");
+        this.mTreasure = (Treasure) getArguments().getSerializable("Treasure");
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        myEditText = view.findViewById(R.id.editText);
-        myConfirmButton = view.findViewById(R.id.confirmButton);
-        mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
-        backImageButton = view.findViewById(R.id.imageView2);
+        mEditText = view.findViewById(R.id.editText);
+        mConfirmButton = view.findViewById(R.id.confirmButton);
+        mSuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
+        mBackImageButton = view.findViewById(R.id.imageView2);
      //   getAllTreasuresServerCall();
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
 
-
-        backImageButton.setOnClickListener(new View.OnClickListener() {
+        mBackImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentNavigation.getInstance(getContext()).popBackstack();
@@ -89,32 +88,29 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void confirmPasscode(@NonNull final View view) {
-
-
-        myConfirmButton.setOnClickListener(new View.OnClickListener() {
-
+        mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
 
-                if (myEditText.getText().toString().isEmpty()) {
-                    myEditText.requestFocus();
-                    myEditText.setError(getString(R.string.Claim_editText_EmptyError));
+                if (mEditText.getText().toString().isEmpty()) {
+                    mEditText.requestFocus();
+                    mEditText.setError(getString(R.string.Claim_editText_EmptyError));
                     return;
                 }
                 else{
-                mPasscode = myEditText.getText().toString();
+                mPasscode = mEditText.getText().toString();
                 if (isTheSamePasscode(mPasscode)) {
                     Util.makeSnackbar( view.getRootView().findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.red);
                     showItems(view);
-                    myConfirmButton.setVisibility(View.INVISIBLE);
+                    mConfirmButton.setVisibility(View.INVISIBLE);
                     qrCodeReaderButtn.setVisibility(View.INVISIBLE);
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             hideItems(view);
-                            myConfirmButton.setVisibility(View.VISIBLE);
+                            mConfirmButton.setVisibility(View.VISIBLE);
 
-                            TreasureClaim treasureClaim=new TreasureClaim(treasure.getUsername(),treasure.getPasscode());
+                            TreasureClaim treasureClaim=new TreasureClaim(mTreasure.getUsername(),mTreasure.getPasscode());
                             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
@@ -127,7 +123,7 @@ public class ClaimTreasureFragment extends Fragment {
                                 }
                             });
                         }
-                    }, 2500);
+                    }, 1500);
 
                 } else {
                     Util.makeSnackbar(view.getRootView().findViewById(R.id.fragment_claim_treasure_id),R.string.Claim_snackBarError1, Snackbar.LENGTH_SHORT, R.color.red);
@@ -141,7 +137,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     }
     private boolean isTheSamePasscode(String mPasscode) {
-        return (mPasscode!=null && mPasscode.equals(treasure.getPasscode()));
+        return (mPasscode!=null && mPasscode.equals(mTreasure.getPasscode()));
     }
     public static ClaimTreasureFragment newInstance(Treasure treasure){
 
@@ -161,13 +157,10 @@ public class ClaimTreasureFragment extends Fragment {
 //    }
 
     private void showItems(@NonNull View view) {
-        mySuccsesfullImage.setVisibility(View.VISIBLE);
+        mSuccsesfullImage.setVisibility(View.VISIBLE);
     }
 
-    private void hideItems(@NonNull View view) {
-        mySuccsesfullImage.setVisibility(View.INVISIBLE);
-
-    }
+    private void hideItems(@NonNull View view) { mSuccsesfullImage.setVisibility(View.INVISIBLE); }
 
 
 //    private void getAllTreasuresServerCall(){
@@ -189,7 +182,7 @@ public class ClaimTreasureFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
+            mEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
         }
     }
 }
