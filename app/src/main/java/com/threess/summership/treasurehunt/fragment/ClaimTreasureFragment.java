@@ -48,7 +48,7 @@ public class ClaimTreasureFragment extends Fragment {
     private Button qrCodeReaderButtn;
 
     Handler mHandler = new Handler();
-    
+
     public ClaimTreasureFragment() {}
 
     @Override
