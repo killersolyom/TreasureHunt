@@ -29,6 +29,8 @@ public class Constant {
         public static final String PROFILE_IMAGE_KEY = "profile_image_key";
         public static final String USER_PROFILE_NAME_KEY = "profile_name_key";
         public static final String USER_PASSWORD_KEY = "user_password_key";
+        public static final String REMEMBER_ME_SWITCH_KEY = "RememberMeSwitch";
+        public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
     }
 
 
