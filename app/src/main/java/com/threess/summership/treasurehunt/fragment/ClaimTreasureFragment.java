@@ -69,7 +69,7 @@ public class ClaimTreasureFragment extends Fragment {
             startActivityForResult(intent, QrRequestCode);
         });
         myConfirmButton.setOnClickListener(view1 -> verifyResult());
-    }
+    } 
 
     private void verifyResult(){
         Log.e("3ss",mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
