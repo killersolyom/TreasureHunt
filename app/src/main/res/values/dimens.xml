@@ -56,11 +56,11 @@
     <dimen name="score_marginTop">16dp</dimen>
 
 
-    <dimen name="Claim_textView_width">244dp</dimen>
-    <dimen name="Claim_textView_hight">73dp</dimen>
+    <dimen name="claim_textView_width">244dp</dimen>
+    <dimen name="claim_textView_height">73dp</dimen>
     <dimen name="Claim_textView_textSize">25sp</dimen>
-    <dimen name="Claim_editText_widht">262dp</dimen>
-    <dimen name="Claim_editText_hight">95dp</dimen>
+    <dimen name="claim_editText_width">262dp</dimen>
+    <dimen name="claim_editText_height">95dp</dimen>
     <dimen name="Claim_confimButton_widht">261dp</dimen>
     <dimen name="Claim_confimButton_hight">91dp</dimen>
     <dimen name="Claim_confimButton_TextSie">20sp</dimen>
@@ -103,6 +103,7 @@
     <dimen name="qr_code_button_height">120dp</dimen>
     <dimen name="qr_code_button_text_size">20sp</dimen>
     <dimen name="qr_code_button_border">2sp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
 
 
 </resources>

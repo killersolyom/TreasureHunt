@@ -107,6 +107,13 @@ public class QRCodeReader extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED,returnIntent);
+        finish();
+    }
 
     @Override
     protected void onPause() {

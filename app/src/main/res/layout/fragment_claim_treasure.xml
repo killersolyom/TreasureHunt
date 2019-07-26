@@ -13,22 +13,25 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-
         android:layout_height="@dimen/Claim_Toolbar_hight"
         android:background="@color/colorPrimary"
-        android:textAlignment="center"
-        android:textDirection="firstStrong"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/grey3">
+        app:layout_constraintBottom_toTopOf="@+id/claim_treasure_container">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/Claim_imageView2_width"
+            android:layout_height="@dimen/Claim_imageView2_hight"
+            android:src="?attr/actionModeCloseDrawable"
+            />
 
         <TextView
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="7dp"
             android:text="@string/claim_tresure"
-            android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -36,82 +39,70 @@
 
 
     </android.support.v7.widget.Toolbar>
-    <ImageView
-    android:id="@+id/imageView2"
-    android:layout_width="@dimen/Claim_imageView2_width"
-    android:layout_height="@dimen/Claim_imageView2_hight"
-    android:src="?attr/actionModeCloseDrawable"
-    app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-    app:layout_constraintEnd_toEndOf="@+id/toolbar"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@+id/toolbar"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="1.0" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="@dimen/Claim_textView_width"
-        android:layout_height="@dimen/Claim_textView_hight"
-        android:text="@string/write_passcode"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorText"
-        android:textSize="@dimen/Claim_textView_textSize"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="@+id/image_succsesfull_icon"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="@dimen/Claim_editText_widht"
-        android:layout_height="@dimen/Claim_editText_hight"
+    <LinearLayout
+        android:id="@+id/claim_treasure_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero_dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="@dimen/Claim_confimButton_widht"
-        android:layout_height="@dimen/Claim_confimButton_hight"
-        android:background="@color/colorPrimary"
-        android:text="@string/confirm_and_claim"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/colorText"
-        android:textSize="@dimen/Claim_confimButton_TextSie"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.516" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="@dimen/claim_textView_width"
+            android:layout_height="@dimen/claim_textView_height"
+            android:text="@string/write_passcode"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorText"
+            android:textColorHighlight="@color/colorText"
+            android:textSize="@dimen/Claim_textView_textSize"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="@dimen/claim_editText_width"
+            android:layout_height="@dimen/claim_editText_height"
+            android:backgroundTint="@color/black"
+            android:hint="@string/pass_code"
+            android:textColorHint="@color/grey1"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/qrCode_button"
+            android:layout_width="@dimen/qr_code_button_width"
+            android:layout_height="@dimen/qr_code_button_height"
+            android:background="@drawable/qr_code_button_style"
+            android:padding="@dimen/qr_code_button_padding"
+            android:text="@string/read_qr_code"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textSize="@dimen/qr_code_button_text_size"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="@dimen/Claim_confimButton_widht"
+            android:layout_height="@dimen/Claim_confimButton_hight"
+            android:background="@color/colorPrimary"
+            android:text="@string/confirm_and_claim"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/colorText"
+            android:textSize="@dimen/Claim_confimButton_TextSie"
+            android:textStyle="bold"
+
+            />
 
 
-    <Button
-        android:padding="@dimen/qr_code_button_padding"
-        android:layout_width="@dimen/qr_code_button_width"
-        android:layout_height="@dimen/qr_code_button_height"
-        android:id="@+id/qrCode_button"
-        android:background="@drawable/qr_code_button_style"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/read_qr_code"
-        android:textSize="@dimen/qr_code_button_text_size"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textColorHighlight="@color/black"
-        />
+    </LinearLayout>
+
 
     <ImageView
 
