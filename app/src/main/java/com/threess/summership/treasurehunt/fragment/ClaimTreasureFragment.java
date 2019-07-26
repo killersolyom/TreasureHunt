@@ -19,8 +19,9 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
+import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,9 +45,6 @@ public class ClaimTreasureFragment extends Fragment {
     private ImageView mySuccsesfullImage;
     private Treasure treasure;
     private Button qrCodeReaderButtn;
-
-    private final static  String KEYSTRINGTREASURE="treasureName";
-    private final static String KEYSTRINGUSERNAME="username";
 
     Handler mHandler = new Handler();
 

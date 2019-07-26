@@ -104,6 +104,11 @@
     <dimen name="qr_code_button_width">120dp</dimen>
     <dimen name="qr_code_button_height">120dp</dimen>
     <dimen name="qr_code_button_text_size">20sp</dimen>
+    <dimen name="qr_code_button_border">2sp</dimen>
+
+    <dimen name="favorite_recycler_view_margin">8dp</dimen>
+    <dimen name="favorite_floating_action_button_size">60dp</dimen>
+    <dimen name="favorite_floating_action_button_margin">16dp</dimen>
 
 
 </resources>
