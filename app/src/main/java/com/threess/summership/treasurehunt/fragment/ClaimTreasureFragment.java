@@ -90,6 +90,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     private void confirmPasscode(@NonNull final View view) {
 
+
         myConfirmButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -103,7 +104,7 @@ public class ClaimTreasureFragment extends Fragment {
                 else{
                 mPasscode = myEditText.getText().toString();
                 if (isTheSamePasscode(mPasscode)) {
-                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.red);
+                    Util.makeSnackbar( view.getRootView().findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.red);
                     showItems(view);
                     myConfirmButton.setVisibility(View.INVISIBLE);
                     qrCodeReaderButtn.setVisibility(View.INVISIBLE);
@@ -122,7 +123,7 @@ public class ClaimTreasureFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
-                                    Util.makeSnackbar( view.findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
+                                    Util.makeSnackbar( view.getRootView().findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
 
                                 }
                             });
@@ -130,7 +131,7 @@ public class ClaimTreasureFragment extends Fragment {
                     }, 2500);
 
                 } else {
-                    Util.makeSnackbar(view.findViewById(R.id.fragment_claim_treasure_id),R.string.Claim_snackBarError1, Snackbar.LENGTH_SHORT, R.color.red);
+                    Util.makeSnackbar(view.getRootView().findViewById(R.id.fragment_claim_treasure_id),R.string.Claim_snackBarError1, Snackbar.LENGTH_SHORT, R.color.red);
                 }
 
             }
