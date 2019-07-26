@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,15 +82,15 @@ public class ClaimTreasureFragment extends Fragment {
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar( mView, getString(R.string.Claim_Available) + mTreasure.getPasscode() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Util.makeSnackbar( mView, getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
+                    Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
                 }});
         }else{
-            Util.makeSnackbar( mView, getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_LONG, R.color.red);
+            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
         }
     }
 
