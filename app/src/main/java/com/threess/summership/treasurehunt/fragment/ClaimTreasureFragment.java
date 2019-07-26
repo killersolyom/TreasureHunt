@@ -22,6 +22,7 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Animator;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
@@ -79,6 +80,7 @@ public class ClaimTreasureFragment extends Fragment {
             mHasQRCode = false;
             verifyResult();
         });
+        playSuccessImageAnimation();
     }
 
     private void verifyResult(){
@@ -86,6 +88,7 @@ public class ClaimTreasureFragment extends Fragment {
             Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
         }
         if(isValidTreasure()){
+            //playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
@@ -101,6 +104,29 @@ public class ClaimTreasureFragment extends Fragment {
         }else{
             Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
         }
+    }
+
+    private void playSuccessImageAnimation() {
+        ImageView im = mView.findViewById(R.id.image_succsesfull_icon);
+
+        Animator animator= new Animator(getContext(),im,true);
+        animator.AddScale(0,1,0,1,.5f,.5f,1000);
+        animator.Start();
+
+        Animator animator2 = new Animator(getContext(),im);
+        animator2.AddScale(1,0.75f,1,0.75f,.5f,.5f,500);
+        animator2.Start(2000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                im.setVisibility(View.INVISIBLE);
+            }
+        },2000);
+
+        //Animator animator3 = new Animator(getContext(),mView.findViewById(R.id.image_succsesfull_icon));
+        //animator3.AddScale(0.75f,0.75f,0.75f,0.75f,.5f,.5f,2000);
+        //animator3.Start(1000);
     }
 
     private boolean isValidTreasure(){
@@ -120,4 +146,5 @@ public class ClaimTreasureFragment extends Fragment {
             verifyResult();
         }
     }
+
 }
