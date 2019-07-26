@@ -42,8 +42,9 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.Treasures_hidden)
     TextView treasures_HiddenField;
 
+    @BindView(R.id.score)
+    private TextView score;
 
-    private TextView profileScoreTextView;
     private ImageButton profileStarImageButton;
     private Button profileUpdateImageButton;
     private TextView profileUsernameImageView;
@@ -80,6 +81,7 @@ public class ProfileFragment extends Fragment {
         String userName = dataManager.readStringData(SavedData.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
+            score.setText(R.string.score);
         }
     }
 
