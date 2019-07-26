@@ -102,6 +102,7 @@
     <dimen name="qr_code_button_width">120dp</dimen>
     <dimen name="qr_code_button_height">120dp</dimen>
     <dimen name="qr_code_button_text_size">20sp</dimen>
+    <dimen name="qr_code_button_border">2sp</dimen>
 
 
 </resources>
