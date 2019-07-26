@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -68,6 +69,10 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
         addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
+        Glide.with(getContext())
+                .load(R.drawable.ic_add_treasure)
+                .error(R.mipmap.ic_launcher_foreground)
+                .into(addTreasureFab);
 
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -146,6 +151,7 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        Glide.with(getContext()).clear(addTreasureFab);
     }
 
     @Override
@@ -163,5 +169,6 @@ public class FavoriteTreasureFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
 }
 
