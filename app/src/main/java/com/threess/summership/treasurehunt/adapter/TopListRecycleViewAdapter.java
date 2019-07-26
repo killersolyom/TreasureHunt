@@ -21,7 +21,7 @@ import static com.threess.summership.treasurehunt.service.UserRetrofitService.BA
 
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
-    public static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
+    private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
 
     private ArrayList<User> list;
 

@@ -26,7 +26,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 
 public class FragmentNavigation extends Fragment {
-    public static final String TAG = FragmentNavigation.class.getSimpleName();
+    private static final String TAG = FragmentNavigation.class.getSimpleName();
 
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
