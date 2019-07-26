@@ -80,6 +80,7 @@
         android:id="@+id/confirmButton"
         android:layout_width="@dimen/Claim_confimButton_widht"
         android:layout_height="@dimen/Claim_confimButton_hight"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:text="@string/confirm_and_claim"
         android:textAlignment="center"
@@ -90,27 +91,28 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintTop_toBottomOf="@+id/image_succsesfull_icon"
+        app:layout_constraintVertical_bias="0.163" />
 
 
     <Button
-        android:padding="@dimen/qr_code_button_padding"
+        android:id="@+id/qrCode_button"
         android:layout_width="@dimen/qr_code_button_width"
         android:layout_height="@dimen/qr_code_button_height"
-        android:id="@+id/qrCode_button"
+        android:layout_marginTop="16dp"
         android:background="@drawable/qr_code_button_style"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/qr_code_button_padding"
         android:text="@string/read_qr_code"
-        android:textSize="@dimen/qr_code_button_text_size"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textColorHighlight="@color/black"
-        />
+        android:textSize="@dimen/qr_code_button_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <ImageView
 
