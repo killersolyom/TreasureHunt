@@ -80,5 +80,6 @@
     <string name="profile_username">Username: %1$s</string>
     <string name="location">Show on map</string>
     <string name="read_qr_code">Read QR code</string>
+    <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
 
 </resources>

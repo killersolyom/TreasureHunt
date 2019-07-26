@@ -1,6 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textsize_H1">24sp</dimen>
+    <dimen name="toolbar_size">30dp</dimen>
+    <dimen name="navigation_size">45dp</dimen>
 
 
     <dimen name="star_botton_width">48dp</dimen>

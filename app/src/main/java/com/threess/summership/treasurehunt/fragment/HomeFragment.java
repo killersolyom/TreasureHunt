@@ -56,7 +56,6 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);
-        toolbar.setTitle(R.string.profile);
     }
 
     private void setupBottomNavigation() {
@@ -65,22 +64,18 @@ public class HomeFragment extends Fragment {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-
                             case R.id.action_profile: {
                                 viewPager.setCurrentItem(0);
                                 return true;
                             }
-
                             case R.id.action_recent: {
                                 viewPager.setCurrentItem(1);
                                 return true;
                             }
-
                             case R.id.action_favorites: {
                                 viewPager.setCurrentItem(2);
                                 return true;
                             }
-
                             case R.id.action_location: {
                                 viewPager.setCurrentItem(3);
                                 return true;
