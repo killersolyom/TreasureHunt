@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="@dimen/Claim_Toolbar_hight"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:textAlignment="center"
         android:textDirection="firstStrong"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
         android:id="@+id/confirmButton"
         android:layout_width="@dimen/Claim_confimButton_widht"
         android:layout_height="@dimen/Claim_confimButton_hight"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:text="@string/confirm_and_claim"
         android:textAlignment="center"
         android:textAllCaps="false"
