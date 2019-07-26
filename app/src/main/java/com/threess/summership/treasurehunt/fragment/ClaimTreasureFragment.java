@@ -73,7 +73,7 @@ public class ClaimTreasureFragment extends Fragment {
 
     private void verifyResult(){
         Log.e("3ss",mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
-        if(this.mTreasure!=null && this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner) && !mTreasure.isClaimed()){
+        if(isValidTreasure()){
             TreasureClaim treasureClaim=new TreasureClaim(mTreasure.getUsername(),mTreasure.getPasscode());
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
@@ -81,7 +81,6 @@ public class ClaimTreasureFragment extends Fragment {
                     Util.makeSnackbar( mView, getString(R.string.Claim_Available) + mTreasure.getPasscode() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.green);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
-
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     Util.makeSnackbar( mView, getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
@@ -89,6 +88,12 @@ public class ClaimTreasureFragment extends Fragment {
         }else{
             Util.makeSnackbar( mView, getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_LONG, R.color.red);
         }
+    }
+
+    private boolean isValidTreasure(){
+        return  (this.mTreasure!=null
+                && this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
+                && !mTreasure.isClaimed());
     }
 
     @Override
