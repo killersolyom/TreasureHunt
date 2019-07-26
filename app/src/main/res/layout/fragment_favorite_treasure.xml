@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/favorite_recycler_view_margin" />
 
-</FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_treasure_floating_action_button"
+        android:layout_width="@dimen/favorite_floating_action_button_size"
+        android:layout_height="@dimen/favorite_floating_action_button_size"
+        android:layout_marginEnd="@dimen/favorite_floating_action_button_margin"
+        android:layout_marginBottom="@dimen/favorite_floating_action_button_margin"
+        app:fabSize="mini"
+        android:tint="@color/white"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_add_treasure"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

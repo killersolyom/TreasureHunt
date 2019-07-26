@@ -1,12 +1,13 @@
 package com.threess.summership.treasurehunt.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -24,6 +25,9 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Animator;
+import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +35,8 @@ import retrofit2.Response;
 
 
 public class LoginFragment extends Fragment {
+    public static final String TAG = LoginFragment.class.getSimpleName();
 
-    public static String TAG = "login_fragment";
     private EditText nameText, passwordText;
     private TextView createAccountLabel;
     private Switch rememberMeSwitch, autoLoginSwitch;
@@ -64,19 +68,21 @@ public class LoginFragment extends Fragment {
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
         createAccountLabel = view.findViewById(R.id.createAccount);
-        userName = dataManager.readStringData("UserName");
-        userPassword = dataManager.readStringData("UserPassword");
+        userName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+        userPassword = dataManager.readStringData(Constant.SavedData.USER_PASSWORD_KEY);
         loadSettings();
 
+        hideViews();
+        playAnimations(view);
 
         rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"RememberMeSwitch");
+                dataManager.writeBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY, isChecked);
             }
         });
         autoLoginSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"AutoLoginSwitch");
+                dataManager.writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, isChecked);
             }
         });
         passwordText.addTextChangedListener(new TextWatcher() {
@@ -88,7 +94,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(passwordText.getText().toString(),"UserPassword");
+                dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
             }
         });
         nameText.addTextChangedListener(new TextWatcher() {
@@ -100,7 +106,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(nameText.getText().toString(),"UserName");
+                dataManager.writeStringData(nameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
             }
         });
         createAccountLabel.setOnClickListener(new View.OnClickListener() {
@@ -120,22 +126,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(){
-        hideKeyboard();
+        Util.hideKeyboard(getContext(),login);
         user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
         ApiController.getInstance().loginUser(user,new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
                 //200 jo
                 if (response.code()==200){
-                    Snackbar snackbar = Snackbar.make(getView(),R.string.successful, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                    //Toast.makeText(getActivity().getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_LONG,R.color.green);
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
-                    //Toast.makeText(getActivity().getBaseContext(),"User not found",Toast.LENGTH_LONG).show();
-                    Snackbar snackbar = Snackbar.make(getView(),R.string.login_failed, Snackbar.LENGTH_LONG);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
-                    snackbar.show();
+                    Util.makeSnackbar(getView(),R.string.login_failed, Snackbar.LENGTH_LONG,R.color.colorAccent);
                 }
             }
 
@@ -152,14 +153,62 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadSettings(){
-        if(dataManager.readBooleanData("RememberMeSwitch")){
+        if(dataManager.getRememberMeSwitch()){
+
             rememberMeSwitch.setChecked(true);
             nameText.setText(userName);
             passwordText.setText(userPassword);
+
+            if(dataManager.getAutoLoginSwitch()){
+                autoLoginSwitch.setChecked(true);
+                login();
+            }
         }
-        if(dataManager.readBooleanData("AutoLoginSwitch")){
-            autoLoginSwitch.setChecked(true);
-            login();
-        }
+
+    }
+
+    private void hideViews(){
+        nameText.setVisibility(View.INVISIBLE);
+        passwordText.setVisibility(View.INVISIBLE);
+        login.setVisibility(View.INVISIBLE);
+        rememberMeSwitch.setVisibility(View.INVISIBLE);
+        autoLoginSwitch.setVisibility(View.INVISIBLE);
+    }
+
+    private void playAnimations(View view){
+
+        Context c = getContext();
+        int durationMs = 1000;
+        int durationBetweenAnimationsMs = 100;
+
+
+        Animator.ViewIntro(c,  view.findViewById(R.id.imageView)  );
+
+
+        nameText.setVisibility(View.VISIBLE);
+        Animator.Slide(c, nameText, -1000, 0, 0, 0, durationMs);
+
+
+        new Handler().postDelayed(() -> {
+            Animator.Slide(c, passwordText, -1000, 0, 0, 0, durationMs);
+            passwordText.setVisibility(View.VISIBLE);
+        },durationBetweenAnimationsMs);
+
+
+        new Handler().postDelayed(() -> {
+            Animator.Slide(c, login, -1000, 0, 0, 0, durationMs);
+            login.setVisibility(View.VISIBLE);
+        },2*durationBetweenAnimationsMs);
+
+        new Handler().postDelayed(() -> {
+            Animator.Slide(c, rememberMeSwitch, -1000, 0, 0, 0, durationMs);
+            rememberMeSwitch.setVisibility(View.VISIBLE);
+        },3*durationBetweenAnimationsMs);
+
+        new Handler().postDelayed(() -> {
+            Animator.Slide(c, autoLoginSwitch, -1000, 0, 0, 0, durationMs);
+            autoLoginSwitch.setVisibility(View.VISIBLE);
+        },4*durationBetweenAnimationsMs);
+
     }
 }

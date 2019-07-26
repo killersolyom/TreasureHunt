@@ -1,6 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textsize_H1">24sp</dimen>
+    <dimen name="toolbar_size">30dp</dimen>
+    <dimen name="navigation_size">45dp</dimen>
 
 
     <dimen name="star_botton_width">48dp</dimen>
@@ -41,6 +43,8 @@
     <dimen name="update_botton_marginTop">12dp</dimen>
     <dimen name="update_botton_marginEnd">8dp</dimen>
 
+    <dimen name="activity_horizontal_margin">12dp</dimen>
+
     <dimen name="profile_image_view_width">246dp</dimen>
     <dimen name="profile_image_view_height">216dp</dimen>
     <dimen name="profile_image_view_marginStar">8dp</dimen>
@@ -67,6 +71,44 @@
     <dimen name="Claim_imageView2_hight">53dp</dimen>
     <dimen name="Claim_Toolbar_hight">60dp</dimen>
 
+    <dimen name="cam_toolbar_elevation">4dp</dimen>
+    <dimen name="cam_content_inset_primary">8dp</dimen>
+    <dimen name="cam_content_inset_secondary">10dp</dimen>
+    <dimen name="cam_content_inset">16dp</dimen>
+    <dimen name="cam_content_inset_double">32dp</dimen>
+    <dimen name="cam_regular_content_fontsize">14sp</dimen>
+    <dimen name="cam_regular_title_fontsize">16sp</dimen>
+    <dimen name="cam_regular_header_fontsize">36sp</dimen>
+    <dimen name="cam_action_icon_size">56dp</dimen>
+    <dimen name="cam_action_icon_size_smaller">48dp</dimen>
+    <dimen name="cam_widget_margin_bottom">20dp</dimen>
+    <dimen name="cam_widget_margin_top">30dp</dimen>
+    <dimen name="cam_widget_margin_right">10dp</dimen>
+    <dimen name="cam_widget_margin_left">10dp</dimen>
+    <dimen name="cam_widget_margin_top_sides">35dp</dimen>
+
+
+    <dimen name="stillshot_widget_spacing">10dp</dimen>
+    <dimen name="stillshot_widget_margin_sides">4dp</dimen>
+    <dimen name="stillshot_widget_margin_sides_bottom">10dp</dimen>
+    <dimen name="stillshot_widget_margin_top">10dp</dimen>
+    <dimen name="stillshot_widget_margin_bottom">4dp</dimen>
+
+    <dimen name="hide_textsize">18dp</dimen>
+    <dimen name="text_marginleft">10dp</dimen>
+    <dimen name="edittext_marginleft">8dp</dimen>
+    <dimen name="arrowimagesize">50dp</dimen>
+    <dimen name="arrowmargtop">20dp</dimen>
+    <dimen name="arrowmargright">16dp</dimen>
+    <dimen name="qr_code_button_padding">10dp</dimen>
+    <dimen name="qr_code_button_width">120dp</dimen>
+    <dimen name="qr_code_button_height">120dp</dimen>
+    <dimen name="qr_code_button_text_size">20sp</dimen>
+    <dimen name="qr_code_button_border">2sp</dimen>
+
+    <dimen name="favorite_recycler_view_margin">8dp</dimen>
+    <dimen name="favorite_floating_action_button_size">60dp</dimen>
+    <dimen name="favorite_floating_action_button_margin">16dp</dimen>
 
 
 </resources>
