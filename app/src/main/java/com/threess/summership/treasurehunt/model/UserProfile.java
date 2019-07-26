@@ -3,7 +3,7 @@ package com.threess.summership.treasurehunt.model;
 import com.google.gson.annotations.SerializedName;
 
 public class UserProfile {
-    public static final String TAG = UserProfile.class.getSimpleName();
+    private static final String TAG = UserProfile.class.getSimpleName();
 
     @SerializedName("username")
     private String username;

@@ -10,7 +10,7 @@ import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
-    public static final String TAG = SplashScreenFragment.class.getSimpleName();
+    private static final String TAG = SplashScreenFragment.class.getSimpleName();
 
     private ProgressBar splashScreenProgressBar;
     private Context context;

@@ -29,7 +29,7 @@ import butterknife.OnClick;
 
 
 public class ProfileFragment extends Fragment {
-    public static String TAG = ProfileFragment.class.getSimpleName();
+    private static String TAG = ProfileFragment.class.getSimpleName();
 
 
     @BindView(R.id.profile_image_view)

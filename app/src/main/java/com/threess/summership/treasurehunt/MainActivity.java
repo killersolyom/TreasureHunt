@@ -23,8 +23,7 @@ import com.threess.summership.treasurehunt.util.Util;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private BroadcastReceiver networkReceiver;
     private Handler handler;
