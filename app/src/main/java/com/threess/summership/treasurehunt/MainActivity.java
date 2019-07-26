@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FragmentNavigation.getInstance( this).showSplashScreenFragment();
 
-        if (savedInstanceState != null) {
-            // TODO get data from saved instance
-        }
-
-        FragmentNavigation.getInstance(this).showSplashScreenFragment();
-
         handler = new Handler();
         runnable = new Runnable() {
             @Override
