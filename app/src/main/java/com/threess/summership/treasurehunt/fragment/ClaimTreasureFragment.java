@@ -52,7 +52,6 @@ public class ClaimTreasureFragment extends Fragment {
 
     public ClaimTreasureFragment() {}
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mTreasure = (Treasure) getArguments().getSerializable("Treasure");
@@ -66,7 +65,7 @@ public class ClaimTreasureFragment extends Fragment {
         mConfirmButton = view.findViewById(R.id.confirmButton);
         mSuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mBackImageButton = view.findViewById(R.id.imageView2);
-     //   getAllTreasuresServerCall();
+     //  getAllTreasuresServerCall();
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
 
         mBackImageButton.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +108,6 @@ public class ClaimTreasureFragment extends Fragment {
                         public void run() {
                             hideItems(view);
                             mConfirmButton.setVisibility(View.VISIBLE);
-
                             TreasureClaim treasureClaim=new TreasureClaim(mTreasure.getUsername(),mTreasure.getPasscode());
                             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                                 @Override
@@ -119,28 +117,23 @@ public class ClaimTreasureFragment extends Fragment {
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
                                     Util.makeSnackbar( view.getRootView().findViewById(R.id.fragment_claim_treasure_id), R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
-
                                 }
                             });
                         }
                     }, 1500);
-
                 } else {
                     Util.makeSnackbar(view.getRootView().findViewById(R.id.fragment_claim_treasure_id),R.string.Claim_snackBarError1, Snackbar.LENGTH_SHORT, R.color.red);
                 }
-
             }
         }
-
         });
-
-
     }
+
     private boolean isTheSamePasscode(String mPasscode) {
         return (mPasscode!=null && mPasscode.equals(mTreasure.getPasscode()));
     }
-    public static ClaimTreasureFragment newInstance(Treasure treasure){
 
+    public static ClaimTreasureFragment newInstance(Treasure treasure){
         ClaimTreasureFragment claimTreasureFragment=new ClaimTreasureFragment();
         Bundle args=new Bundle();
         args.putSerializable("Treasure",treasure);
@@ -159,7 +152,6 @@ public class ClaimTreasureFragment extends Fragment {
     private void showItems(@NonNull View view) {
         mSuccsesfullImage.setVisibility(View.VISIBLE);
     }
-
     private void hideItems(@NonNull View view) { mSuccsesfullImage.setVisibility(View.INVISIBLE); }
 
 
