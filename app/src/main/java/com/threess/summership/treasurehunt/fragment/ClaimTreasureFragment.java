@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
@@ -46,6 +47,7 @@ public class ClaimTreasureFragment extends Fragment {
     private View mView;
     private int QrRequestCode = 1;
     private String resultPassCodeFromQrCodeScanner=null;
+    private boolean mHasQRCode = false;
 
     public ClaimTreasureFragment() {}
 
@@ -72,13 +74,20 @@ public class ClaimTreasureFragment extends Fragment {
             Intent intent = new Intent(getActivity(), QRCodeReader.class);
             startActivityForResult(intent, QrRequestCode);
         });
-        myConfirmButton.setOnClickListener(view1 -> verifyResult());
+        myConfirmButton.setOnClickListener(view1 ->
+        {
+            mHasQRCode = false;
+            verifyResult();
+        });
     }
 
     private void verifyResult(){
-        Log.e("3ss",mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
+        if(mHasQRCode) {
+            Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
+        }
         if(isValidTreasure()){
-            TreasureClaim treasureClaim=new TreasureClaim(mTreasure.getUsername(),mTreasure.getPasscode());
+            SavedData sd = new SavedData(getContext());
+            TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -95,9 +104,10 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private boolean isValidTreasure(){
-        return  (this.mTreasure!=null
-                && this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
-                && !mTreasure.isClaimed());
+        return (this.mTreasure!=null && !mTreasure.isClaimed())
+                && ( this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
+                    || myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
+        );
     }
 
     @Override
@@ -106,6 +116,7 @@ public class ClaimTreasureFragment extends Fragment {
         if(resultCode == RESULT_OK){
             myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
             resultPassCodeFromQrCodeScanner = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
+            mHasQRCode = true;
             verifyResult();
         }
     }

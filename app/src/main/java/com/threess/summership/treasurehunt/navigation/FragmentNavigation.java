@@ -73,7 +73,7 @@ public class FragmentNavigation extends Fragment {
     }
 
     public void showClaimTreasureFragment(Treasure treasure){
-        addFragment(ClaimTreasureFragment.newInstance(treasure), mMainActivityFragmentContainer);
+        addFragment(new ClaimTreasureFragment(treasure), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
