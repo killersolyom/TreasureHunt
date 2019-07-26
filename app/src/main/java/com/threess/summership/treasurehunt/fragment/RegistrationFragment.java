@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
@@ -124,7 +123,7 @@ public class RegistrationFragment extends Fragment {
 
     private String checkConfirmPassword(String password, String confirm_password) {
         if (!confirm_password.equals(password)) {
-            return getString(R.string.invalid_passwordconfirm) + " ";
+            return getString(R.string.invalid_password_confirm) + " ";
         }
         return "";
     }
