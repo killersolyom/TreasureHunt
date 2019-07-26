@@ -48,7 +48,6 @@ public class FavoriteTreasureFragment extends Fragment {
 
 
     public FavoriteTreasureFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -95,7 +94,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
                             adapter.getSelectedTreasure().getLocation_lon());
 
-                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
+                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 5 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 
                         mShowClaimTreasure = true;

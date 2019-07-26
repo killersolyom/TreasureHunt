@@ -39,9 +39,10 @@ public class ClaimTreasureFragment extends Fragment {
     private Treasure mTreasure;
     private View mView;
     private int QrRequestCode = 1;
-    private String resultPassCodeFromQrCodeScanner=null;
+    private String resultPassCodeFromQrCodeScanner = null;
 
-    public ClaimTreasureFragment() {}
+    public ClaimTreasureFragment() {
+    }
 
     @SuppressLint("ValidFragment")
     public ClaimTreasureFragment(Treasure treasure) {
@@ -60,7 +61,7 @@ public class ClaimTreasureFragment extends Fragment {
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
-        mView=view;
+        mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), QRCodeReader.class);
@@ -69,27 +70,29 @@ public class ClaimTreasureFragment extends Fragment {
         myConfirmButton.setOnClickListener(view1 -> verifyResult());
     }
 
-    private void verifyResult(){
-        Log.e("3ss",mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
-        if(isValidTreasure()){
-            TreasureClaim treasureClaim=new TreasureClaim(mTreasure.getUsername(),mTreasure.getPasscode());
+    private void verifyResult() {
+        Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
+        if (isValidTreasure()) {
+            TreasureClaim treasureClaim = new TreasureClaim(mTreasure.getUsername(), mTreasure.getPasscode());
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar( mView, getString(R.string.Claim_Available) + mTreasure.getPasscode() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar(mView, getString(R.string.Claim_Available) + mTreasure.getPasscode() + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT, R.color.green);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
+
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Util.makeSnackbar( mView, getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
-                }});
-        }else{
-            Util.makeSnackbar( mView, getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_LONG, R.color.red);
+                    Util.makeSnackbar(mView, getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT, R.color.red);
+                }
+            });
+        } else {
+            Util.makeSnackbar(mView, getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_LONG, R.color.red);
         }
     }
 
-    private boolean isValidTreasure(){
-        return  (this.mTreasure!=null
+    private boolean isValidTreasure() {
+        return (this.mTreasure != null
                 && this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
                 && !mTreasure.isClaimed());
     }
@@ -97,10 +100,11 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
             resultPassCodeFromQrCodeScanner = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
             verifyResult();
         }
     }
+
 }
