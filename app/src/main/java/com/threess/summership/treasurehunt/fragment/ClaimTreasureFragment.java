@@ -49,7 +49,6 @@ public class ClaimTreasureFragment extends Fragment {
 
     Handler mHandler = new Handler();
 
-
     public ClaimTreasureFragment() {}
 
     @Override
@@ -65,7 +64,6 @@ public class ClaimTreasureFragment extends Fragment {
         mConfirmButton = view.findViewById(R.id.confirmButton);
         mSuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
         mBackImageButton = view.findViewById(R.id.imageView2);
-     //  getAllTreasuresServerCall();
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
 
         mBackImageButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +72,6 @@ public class ClaimTreasureFragment extends Fragment {
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
-
         qrCodeReaderButtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
