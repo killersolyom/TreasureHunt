@@ -1,7 +1,6 @@
 package com.threess.summership.treasurehunt.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
         holder.text1.setText(list.get(position).getUsername());
         holder.text2.setText(ctx.getResources().getString(R.string.toplist_score) + list.get(position).getScore());
-        Glide.with(ctx).load( BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
+        Glide.with(ctx).load( Constant.ApiController.BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

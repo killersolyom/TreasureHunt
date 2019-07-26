@@ -14,9 +14,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-
         android:layout_height="@dimen/Claim_Toolbar_hight"
-        android:background="@color/blue800"
+        android:background="@color/colorPrimary"
         android:textAlignment="center"
         android:textDirection="firstStrong"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,7 @@
             android:text="@string/claim_tresure"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/gray100"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -63,10 +62,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="@+id/image_succsesfull_icon"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.583" />
 
     <EditText
         android:id="@+id/editText"
@@ -97,13 +96,30 @@
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="0.516" />
 
+
+    <Button
+        android:padding="@dimen/qr_code_button_padding"
+        android:layout_width="@dimen/qr_code_button_width"
+        android:layout_height="@dimen/qr_code_button_height"
+        android:id="@+id/qrCode_button"
+        android:background="@drawable/qr_code_button_style"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/read_qr_code"
+        android:textSize="@dimen/qr_code_button_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        />
+
     <ImageView
 
         android:id="@+id/image_succsesfull_icon"
         android:layout_width="match_parent"
-        android:visibility="invisible"
         android:layout_height="@dimen/Claim_imageView_hight"
         android:src="@drawable/succsesfull_image"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

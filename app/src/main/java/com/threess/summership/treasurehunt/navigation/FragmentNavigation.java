@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
@@ -19,13 +18,12 @@ import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.UserDetails;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.model.User;
 
 public class FragmentNavigation extends Fragment {
     public static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -33,13 +31,20 @@ public class FragmentNavigation extends Fragment {
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
     private static FragmentTransaction mFragmentTransaction;
-    private static boolean mDoubleBackToExitPressedOnce;
+    private static boolean mDoubleBackToExitPressedOnce = false;
     private static Handler mHandler = new Handler();
     private Activity act;
+    private static int mMainActivityFragmentContainer;
+    //private static int mHomeFragmentContainer;
+    private static int mHomeTreasereFragmentContainer;
+
 
     public static FragmentNavigation getInstance(Context context){
 
         if( sInstance == null ){
+            mMainActivityFragmentContainer = R.id.fragment_container;
+            //mHomeFragmentContainer =  R.id.home_viewpager;
+            mHomeTreasereFragmentContainer = R.id.home_treasures_fragment_container;
             sInstance = new FragmentNavigation();
             mFragmentManager =  ((MainActivity) context).getSupportFragmentManager();
         }
@@ -47,59 +52,58 @@ public class FragmentNavigation extends Fragment {
         return sInstance;
     }
 
-    public void setAct(Activity act) {
-        this.act = act;
+    public void popBackstack() {
+        mFragmentManager.popBackStack();
     }
 
     public void showHomeFragment(){
-        replaceFragment(new HomeFragment(), R.id.fragment_container);
+        replaceFragment(new HomeFragment(), mMainActivityFragmentContainer);
     }
 
     public void showSplashScreenFragment(){
-        replaceFragment(new SplashScreenFragment(), R.id.fragment_container);
+        replaceFragment(new SplashScreenFragment(), mMainActivityFragmentContainer);
     }
 
     public void showLoginFragment(){
-        replaceFragment(new LoginFragment(), R.id.fragment_container);
+        replaceFragment(new LoginFragment(), mMainActivityFragmentContainer);
     }
 
     public void showRegisterFragment(){
-        replaceFragment(new RegistrationFragment(), R.id.fragment_container);
+        replaceFragment(new RegistrationFragment(), mMainActivityFragmentContainer);
     }
 
-    public void showClaimTreasureFragment(String username, String treasureName){
-
-        replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), R.id.fragment_container);
+    public void showClaimTreasureFragment(Treasure treasure){
+        addFragment(ClaimTreasureFragment.newInstance(treasure), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
-        replaceFragment(new HideTreasureFragment(), R.id.fragment_container);
+        replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
     }
 
     public void showMapViewFragmentInHomeFragment(){
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
-            replaceFragment(new MapViewFragment(), R.id.home_treasures_fragment_container);
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+            replaceFragment(new MapViewFragment(), mHomeTreasereFragmentContainer);
         }
     }
 
     public void showFavoriteTreasureListFragmentInHomeFragment(){
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
-            replaceFragment(new FavoriteTreasureFragment(), R.id.home_treasures_fragment_container);
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+            replaceFragment(new FavoriteTreasureFragment(), mHomeTreasereFragmentContainer);
         }
     }
 
     public void showProfileFragmentInHomeFragment(){
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment) {
-            replaceFragment(new ProfileFragment(), R.id.home_treasures_fragment_container);
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+            replaceFragment(new ProfileFragment(), mHomeTreasereFragmentContainer);
         }
     }
 
     public void showTopListFragment(){
-        replaceFragment(new TopListFragment(), R.id.fragment_container);
+        replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
     }
 
     public void showUserDetails(String username,int score,String imageurl){
-        replaceFragment(UserDetails.newInstance(username,score,imageurl), R.id.fragment_container);
+        replaceFragment(UserDetails.newInstance(username,score,imageurl), mMainActivityFragmentContainer);
     }
 
     private boolean doubleBackToExitPressedOnce = false;
@@ -113,8 +117,11 @@ public class FragmentNavigation extends Fragment {
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-        //mFragmentManager.executePendingTransactions();
+        try{
+            mFragmentTransaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -141,7 +148,11 @@ public class FragmentNavigation extends Fragment {
             // if there is fragment to replace, then replace it:
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.commit();
+            try {
+                mFragmentTransaction.commit();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             //mFragmentManager.executePendingTransactions();
         }
     }
@@ -156,27 +167,27 @@ public class FragmentNavigation extends Fragment {
     }
 
 
+    public Fragment getCurrentFragmentOnMainActivity(){
+        return getCurrentFragment( R.id.fragment_container );
+    }
+
+    public Fragment getCurrentFragmentOnHomeFragment(){
+        return getCurrentFragment( R.id.home_treasures_fragment_container );
+    }
+
+
     public void startNavigationToDestination(Treasure treasure, Context context){
-        if( getCurrentFragment(R.id.fragment_container) instanceof HomeFragment){
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
                     treasure.getLocation_lat()+"," +
                     treasure.getLocation_lon()+"&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
-            act.startActivityForResult(mapIntent, 10);
+            context.startActivity(mapIntent);
         }
     }
 
 
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("3ss",requestCode+"");
-
-    }
 
     /**
      * This method handles the application's back button presses and navigates to the corresponding
@@ -185,9 +196,31 @@ public class FragmentNavigation extends Fragment {
      */
     public void onBackPressed(MainActivity activity) {
 
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+            // If Home page is open: double press exit:
+
+            doublePressExit(activity);
+
+        }else {
+
+            // If Hide treasure page is open --> show home page
+            if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
+                showHomeFragment();
+                return;
+            }
+
+        }
+
+        // Other cases:
+        activity.moveTaskToBack(true);
+    }
+
+
+    private void doublePressExit(MainActivity activity){
+
         if (mDoubleBackToExitPressedOnce) {
             mDoubleBackToExitPressedOnce = false;
-            backPressed(activity);
+            activity.moveTaskToBack(true);
             return;
         }
 
@@ -195,18 +228,12 @@ public class FragmentNavigation extends Fragment {
         Toast.makeText(activity, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
         mHandler.postDelayed(new Runnable() {
-           @Override
-           public void run() {
-               doubleBackToExitPressedOnce = false;
-           }
-       }, 2000);
-
+            @Override
+            public void run() {
+                mDoubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
-    private void backPressed(MainActivity activity){
-
-        activity.moveTaskToBack(true);
-
-    }
 
 }

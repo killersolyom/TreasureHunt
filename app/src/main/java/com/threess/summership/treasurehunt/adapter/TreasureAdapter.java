@@ -17,6 +17,7 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
@@ -102,7 +103,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
         for(Treasure t : treasures){
             if (t != null) {
-                if (t.getClaimed_by().equals(new SavedData(context).readStringData(SavedData.USER_PROFILE_NAME_KEY)) || t.isClaimed() == false) {
+                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || t.isClaimed() == false) {
                     treasureList.add(t);
                 }
             }
@@ -114,4 +115,10 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public Treasure getSelectedTreasure() {
         return selectedTreasure;
     }
+
+    public void clearSelectedTreasure(){
+        selectedTreasure = null;
+    }
+
+
 }
