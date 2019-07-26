@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="6dp"
     android:background="@color/grey3"
     tools:context=".fragment.ClaimTreasureFragment">
 
@@ -63,10 +62,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="@+id/image_succsesfull_icon"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.583" />
 
     <EditText
         android:id="@+id/editText"
@@ -92,10 +91,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
         android:padding="@dimen/qr_code_button_padding"
@@ -117,9 +115,9 @@
 
         android:id="@+id/image_succsesfull_icon"
         android:layout_width="match_parent"
-        android:visibility="invisible"
         android:layout_height="@dimen/Claim_imageView_hight"
         android:src="@drawable/succsesfull_image"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
