@@ -1,6 +1,9 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,21 +18,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class HideTreasureFragment extends Fragment {
     public static final String TAG = HideTreasureFragment.class.getSimpleName();
 
-    ImageView photoarrow;
+    ImageView photoClueArrow;
     private Button button;
     private EditText titleEditText;
     private EditText descriptionEditText;
@@ -38,6 +45,7 @@ public class HideTreasureFragment extends Fragment {
     private EditText photoEditText;
     private EditText locationEditText;
     private SavedData dataManager;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public HideTreasureFragment() {
         // constructor
@@ -54,80 +62,53 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
-        titleEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
+        titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return true;
             }
+            return false;
         });
 
-        descriptionEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
+        descriptionEditText.setOnKeyListener((view17, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return true;
             }
+            return false;
         });
 
-        photoEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
+        photoEditText.setOnKeyListener((view16, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return true;
             }
+            return false;
         });
 
-        locationEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
+        locationEditText.setOnKeyListener((view15, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return true;
             }
+            return false;
         });
 
-        pointsEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return true;
-                }
-                return false;
+        pointsEditText.setOnKeyListener((view14, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return true;
             }
+            return false;
         });
 
-        passcodeEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    buttonPress();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-
-        photoarrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Todo image click function
-            }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(@NonNull View view) {
+        passcodeEditText.setOnKeyListener((view13, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 buttonPress();
+                return true;
             }
+            return false;
         });
+
+
+        photoClueArrow.setOnClickListener(view12 -> buttonCameraPress());
+
+        button.setOnClickListener(view1 -> buttonPress());
 
     }
 
@@ -137,7 +118,7 @@ public class HideTreasureFragment extends Fragment {
         descriptionEditText = view.findViewById(R.id.description_edit_text);
         pointsEditText = view.findViewById(R.id.prize_edit_text);
         passcodeEditText = view.findViewById(R.id.passcode_edit_text);
-        photoarrow = view.findViewById(R.id.photo_clue_image_view);
+        photoClueArrow = view.findViewById(R.id.photo_clue_image_view);
         photoEditText = view.findViewById(R.id.photo_edit_text);
         locationEditText = view.findViewById(R.id.location_edit_text);
         dataManager = new SavedData(getContext());
@@ -148,6 +129,19 @@ public class HideTreasureFragment extends Fragment {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
         }
+    }
+
+    private void buttonCameraPress(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        // Take image
+
+        // Upload image (API)
+
+        // get->set link
+
     }
 
     private boolean checkInputFields() {
@@ -216,5 +210,19 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
+    private void onPhotoTaken(Bitmap bitmap){
+        LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
+        locationEditText.setText(latLng.latitude+ " " + latLng.longitude);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            onPhotoTaken(imageBitmap);
+
+        }
+    }
 
 }
