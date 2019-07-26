@@ -70,4 +70,7 @@ public class SavedData {
     public boolean getRememberMeSwitch() {
         return readBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY);
     }
+    public String getCurrentUserName(){
+        return readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+    }
 }

@@ -73,12 +73,14 @@ public class FragmentNavigation extends Fragment {
     }
 
     public void showClaimTreasureFragment(Treasure treasure){
-        //addFragment(ClaimTreasureFragment.newInstance(treasure), mMainActivityFragmentContainer);
         addFragment(new ClaimTreasureFragment(treasure), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
         replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
+    }
+    public void showHideTreasureFragment(double latitude, double longitude){
+        replaceFragment(MapViewFragment.newInstance(latitude,longitude), R.id.fragment_container);
     }
 
     public void showMapViewFragmentInHomeFragment(){
