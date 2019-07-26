@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
@@ -19,13 +18,12 @@ import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.TopListFragment;
 import com.threess.summership.treasurehunt.fragment.UserDetails;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.model.User;
 
 public class FragmentNavigation extends Fragment {
     public static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -54,8 +52,8 @@ public class FragmentNavigation extends Fragment {
         return sInstance;
     }
 
-    public void setAct(Activity act) {
-        this.act = act;
+    public void popBackstack() {
+        mFragmentManager.popBackStack();
     }
 
     public void showHomeFragment(){
@@ -74,8 +72,8 @@ public class FragmentNavigation extends Fragment {
         replaceFragment(new RegistrationFragment(), mMainActivityFragmentContainer);
     }
 
-    public void showClaimTreasureFragment(String username, String treasureName){
-        replaceFragment(ClaimTreasureFragment.newInstance(username,treasureName), mMainActivityFragmentContainer);
+    public void showClaimTreasureFragment(Treasure treasure){
+        addFragment(ClaimTreasureFragment.newInstance(treasure), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
@@ -119,12 +117,11 @@ public class FragmentNavigation extends Fragment {
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.add(container, fragment, fragment.getTag());
         mFragmentTransaction.addToBackStack(null);
-        try {
+        try{
             mFragmentTransaction.commit();
         }catch (Exception e){
             e.printStackTrace();
         }
-        //mFragmentManager.executePendingTransactions();
     }
 
     /**
@@ -151,7 +148,11 @@ public class FragmentNavigation extends Fragment {
             // if there is fragment to replace, then replace it:
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.commit();
+            try {
+                mFragmentTransaction.commit();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             //mFragmentManager.executePendingTransactions();
         }
     }
@@ -166,6 +167,15 @@ public class FragmentNavigation extends Fragment {
     }
 
 
+    public Fragment getCurrentFragmentOnMainActivity(){
+        return getCurrentFragment( R.id.fragment_container );
+    }
+
+    public Fragment getCurrentFragmentOnHomeFragment(){
+        return getCurrentFragment( R.id.home_treasures_fragment_container );
+    }
+
+
     public void startNavigationToDestination(Treasure treasure, Context context){
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
@@ -173,20 +183,11 @@ public class FragmentNavigation extends Fragment {
                     treasure.getLocation_lon()+"&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
-            act.startActivityForResult(mapIntent, 10);
+            context.startActivity(mapIntent);
         }
     }
 
 
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("3ss",requestCode+"");
-
-    }
 
     /**
      * This method handles the application's back button presses and navigates to the corresponding

@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;

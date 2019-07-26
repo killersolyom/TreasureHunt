@@ -2,12 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.threess.summership.treasurehunt">
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -18,8 +24,12 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <meta-data android:name="com.google.android.geo.API_KEY"
+        <activity android:name=".qr_code_reader.QRCodeReader"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCppADyc-6j4Z-q0OMNtpfRE0v_23v9PUU" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
