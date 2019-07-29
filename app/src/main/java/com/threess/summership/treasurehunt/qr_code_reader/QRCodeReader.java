@@ -91,7 +91,7 @@ public class QRCodeReader extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-                Util.makeSnackbar(mView,R.string.prevent_mem_leaks, Snackbar.LENGTH_SHORT, R.color.orange900);
+                //Util.makeSnackbar(mView,R.string.prevent_mem_leaks, Snackbar.LENGTH_LONG, R.color.red);
             }
 
             @Override

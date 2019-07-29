@@ -123,7 +123,7 @@ public class RegistrationFragment extends Fragment {
 
     private String checkConfirmPassword(String password, String confirm_password) {
         if (!confirm_password.equals(password)) {
-            return getString(R.string.invalid_passwordconfirm) + " ";
+            return getString(R.string.invalid_password_confirm) + " ";
         }
         return "";
     }

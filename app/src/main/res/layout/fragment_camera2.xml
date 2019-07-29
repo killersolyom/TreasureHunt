@@ -8,7 +8,7 @@
     android:id="@+id/parent_layout">
 
 
-    <com.threess.summership.treasurehunt.tabiancustomcamera.ScalingTextureView
+    <com.threess.summership.treasurehunt.camera.ScalingTextureView
         android:id="@+id/texture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
         android:visibility="visible">
 
 
-        <com.threess.summership.treasurehunt.tabiancustomcamera.DrawableImageView
+        <com.threess.summership.treasurehunt.camera.DrawableImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/stillshot_imageview"/>
@@ -253,7 +253,7 @@
             android:visibility="visible"
             android:animateLayoutChanges="true">
 
-            <com.threess.summership.treasurehunt.tabiancustomcamera.VerticalSlideColorPicker
+            <com.threess.summership.treasurehunt.camera.VerticalSlideColorPicker
                 android:id="@+id/color_picker"
                 android:layout_width="20dp"
                 android:layout_height="200dp"
