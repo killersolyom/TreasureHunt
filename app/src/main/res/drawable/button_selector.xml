@@ -5,8 +5,8 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="30dp" />
-            <solid android:color="@color/white_transparent_90" />
-            <stroke android:width="3dip" android:color="@color/white_transparent_90" />
+            <solid android:color="@color/blue800" />
+            <stroke android:width="3dip" android:color="@color/black" />
             <padding
                 android:left="30dp"
                 android:right="30dp"
@@ -19,8 +19,8 @@
     <item xmlns:android="http://schemas.android.com/apk/res/android" android:state_pressed="false">
         <shape android:shape="rectangle">
             <corners android:radius="30dp" />
-            <solid android:color="@color/white_transparent_40" />
-            <stroke android:width="3dip" android:color="@color/white_transparent_90" />
+            <solid android:color="@color/blue500" />
+            <stroke android:width="3dip" android:color="@color/gray900" />
             <padding
                 android:left="30dp"
                 android:right="30dp"
@@ -34,7 +34,7 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="30dp" />
-            <solid android:color="@color/white_transparent_90" />
+            <solid android:color="@color/blue900" />
             <stroke android:width="3dip" android:color="@color/black" />
             <padding
                 android:left="30dp"
