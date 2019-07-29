@@ -39,6 +39,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -222,25 +223,26 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private void uploadTreasure(Treasure treasure) {
-        ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
-            public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
-                if (response.errorBody() == null) {
-                    uploadToServer(myIMGFile.getAbsolutePath());
-                    getFragmentManager().popBackStack();
-
-                } else {
-                    Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
-                    Log.e("3ss", response.errorBody() + "");
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
-                    snackbar.show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Treasure> call, Throwable t) {
-                Log.e(TAG, "Failure: ", t);
-            }
-        });
+        uploadToServer(myIMGFile.getAbsolutePath(), treasure);
+//        ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
+//            public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
+//                if (response.errorBody() == null) {
+//                    uploadToServer(myIMGFile.getAbsolutePath());
+//                    getFragmentManager().popBackStack();
+//
+//                } else {
+//                    Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
+//                    Log.e("3ss", response.errorBody() + "");
+//                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
+//                    snackbar.show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Treasure> call, Throwable t) {
+//                Log.e(TAG, "Failure: ", t);
+//            }
+//        });
     }
 
 
@@ -257,22 +259,8 @@ public class HideTreasureFragment extends Fragment {
         }
     }
 
-    public Retrofit getRetrofitClient(Context context) {
-        if (mRetrofit == null) {
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .build();
-            mRetrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return mRetrofit;
-    }
 
-    private void uploadToServer(String filePath) {
-        Retrofit retrofit = getRetrofitClient(getActivity());
-        TreasuresRetrofitService treasuresRetrofitService = retrofit.create(TreasuresRetrofitService.class);
+    private void uploadToServer(String filePath, Treasure t) {
         //Create a file object using file path
         File file = new File(filePath);
         // Create a request body with file and image media type
@@ -282,14 +270,15 @@ public class HideTreasureFragment extends Fragment {
         //Create request body with text description and text media type
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
         //
-        Call call = treasuresRetrofitService.uploadImage(part, description);
-        call.enqueue(new Callback() {
+        ApiController.getInstance().upploadPicture(t,part, description, new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                //
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e("3ss","uppload OK");
             }
+
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("3ss","uppload NOT OK");
             }
         });
     }

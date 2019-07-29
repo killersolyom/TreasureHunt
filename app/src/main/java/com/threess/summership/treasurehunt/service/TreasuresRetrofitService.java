@@ -39,6 +39,9 @@ public interface TreasuresRetrofitService {
 
     @Multipart
     @POST("/treasures/update/{passcode}/{username}")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("name") RequestBody requestBody);
+    Call<ResponseBody> uploadImage(@Query("passcode") String passcode,
+                                   @Query("username") String username,
+                                   @Part MultipartBody.Part file,
+                                   @Part("file") RequestBody requestBody);
 
 }
