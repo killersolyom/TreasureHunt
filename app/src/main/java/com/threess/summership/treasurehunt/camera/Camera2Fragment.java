@@ -976,6 +976,7 @@ public class Camera2Fragment extends Fragment implements
      */
     private void unlockFocus() {
         try {
+
             // Reset the auto-focus trigger
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
@@ -985,7 +986,6 @@ public class Camera2Fragment extends Fragment implements
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
             mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
-
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -1060,6 +1060,7 @@ public class Camera2Fragment extends Fragment implements
                             mCaptureSession = cameraCaptureSession;
 
                             try {
+
                                 // Auto focus should be continuous for camera preview.
                                 // Most new-ish phones can auto focus
                                 mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
@@ -1071,6 +1072,7 @@ public class Camera2Fragment extends Fragment implements
                                 // Finally, we start displaying the camera preview.
                                 mPreviewRequest = mPreviewRequestBuilder.build();
                                 mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
+                                mCameraOpenCloseLock.release();
                             } catch (CameraAccessException e) {
                                 e.printStackTrace();
                             }
@@ -1090,7 +1092,7 @@ public class Camera2Fragment extends Fragment implements
 
     /** Closes the current {@link CameraDevice}. */
     private void closeCamera() {
-
+        mCameraOpenCloseLock.release();
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
@@ -1107,8 +1109,6 @@ public class Camera2Fragment extends Fragment implements
             }
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
-        } finally {
-            mCameraOpenCloseLock.release();
         }
     }
 
@@ -1159,7 +1159,7 @@ public class Camera2Fragment extends Fragment implements
 
     @Override
     public void onPause() {
-
+        closeCamera();
         stopBackgroundThread();
         if(mBackgroundImageRotater != null){
             mBackgroundImageRotater.cancel(true);

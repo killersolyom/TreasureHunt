@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
@@ -39,6 +40,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,7 +69,7 @@ public class HideTreasureFragment extends Fragment {
     private double latitude,longitude;
 
     private Retrofit mRetrofit;
-
+    private Treasure treasure;
     private File myIMGFile;
 
     public HideTreasureFragment() {
@@ -209,7 +211,7 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private Treasure getInputFields() {
-        final Treasure treasure = new Treasure();
+        treasure = new Treasure();
         treasure.setTitle(titleEditText.getText().toString().trim());
         treasure.setDescription(descriptionEditText.getText().toString().trim());
         treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
@@ -257,22 +259,8 @@ public class HideTreasureFragment extends Fragment {
         }
     }
 
-    public Retrofit getRetrofitClient(Context context) {
-        if (mRetrofit == null) {
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .build();
-            mRetrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return mRetrofit;
-    }
 
     private void uploadToServer(String filePath) {
-        Retrofit retrofit = getRetrofitClient(getActivity());
-        TreasuresRetrofitService treasuresRetrofitService = retrofit.create(TreasuresRetrofitService.class);
         //Create a file object using file path
         File file = new File(filePath);
         // Create a request body with file and image media type
@@ -282,14 +270,15 @@ public class HideTreasureFragment extends Fragment {
         //Create request body with text description and text media type
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
         //
-        Call call = treasuresRetrofitService.uploadImage(part, description);
-        call.enqueue(new Callback() {
+        ApiController.getInstance().uploadTreasureImageClue(part, description, treasure.getUsername(), treasure.getPasscode(), new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                //
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e(TAG, response.message());
             }
+
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("TAG", "Sikertelen", t);
             }
         });
     }

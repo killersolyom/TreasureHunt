@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TreasuresRetrofitService {
@@ -39,6 +40,7 @@ public interface TreasuresRetrofitService {
 
     @Multipart
     @POST("/treasures/update/{passcode}/{username}")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("name") RequestBody requestBody);
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("file") RequestBody requestBody,
+                                   @Path("username") String username, @Path("passcode") String passcode);
 
 }
