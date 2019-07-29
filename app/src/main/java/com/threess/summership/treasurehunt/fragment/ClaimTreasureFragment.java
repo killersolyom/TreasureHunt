@@ -67,6 +67,7 @@ public class ClaimTreasureFragment extends Fragment {
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
+        mDescriptionText=view.findViewById(R.id.textView_Claim);
         mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
@@ -99,7 +100,7 @@ public class ClaimTreasureFragment extends Fragment {
                         }
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-                            Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
+                            Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
                         }});
                 }
             },3000);
@@ -136,10 +137,10 @@ public class ClaimTreasureFragment extends Fragment {
                         && !this.mTreasure.getUsername().equals(sd.getCurrentUserName()))
         );
         if(!ok && this.mTreasure.getUsername().equals(sd.getCurrentUserName())){
-            Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.red);
+            Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.orange900);
         }
-        else if(!ok && (this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner))){
-            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
+        else if(!ok && (myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
+            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.orange900);
         }
         return  ok;
     }
