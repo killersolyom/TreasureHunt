@@ -25,9 +25,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver
     {
         try {
             if (isOnline(context)){
-                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.online_mode,Snackbar.LENGTH_LONG,R.color.blue300);
+                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.online_mode,Snackbar.LENGTH_SHORT,R.color.blue300);
             }else {
-                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.offline_mode,Snackbar.LENGTH_LONG,R.color.orange700);
+                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.offline_mode,Snackbar.LENGTH_SHORT,R.color.orange700);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

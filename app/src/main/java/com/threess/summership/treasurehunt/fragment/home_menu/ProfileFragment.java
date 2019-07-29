@@ -112,6 +112,7 @@ public class ProfileFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             dataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
+
         }
     }
 
