@@ -199,19 +199,22 @@ public class FragmentNavigation extends Fragment {
      */
     public void onBackPressed(MainActivity activity) {
 
+        // If Home page is open: double press exit:
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            // If Home page is open: double press exit:
-
             doublePressExit(activity);
+            return;
+        }
 
-        }else {
+        // If Hide treasure page is open --> show home page
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
+            showHomeFragment();
+            return;
+        }
 
-            // If Hide treasure page is open --> show home page
-            if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
-                showHomeFragment();
-                return;
-            }
-
+        // If User Details page is open --> show home page
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
+            showHomeFragment();
+            return;
         }
 
         // Other cases:

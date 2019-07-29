@@ -48,6 +48,7 @@ public class FavoriteTreasureFragment extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
     private FloatingActionButton addTreasureFab;
+    private static boolean mFirstStart = true;
 
 
     public FavoriteTreasureFragment() {
@@ -134,15 +135,18 @@ public class FavoriteTreasureFragment extends Fragment {
     }
 
     private void playAnimations() {
+        if(mFirstStart) {
+            mFirstStart = false;
 
-        Animator recViewAnim = new Animator(getContext(), recycle, true);
-        recViewAnim.AddSlide(0,0,-1000,0, 1800);
+            Animator recViewAnim = new Animator(getContext(), recycle, true);
+            recViewAnim.AddSlide(0, 0, -1000, 0, 1800);
 
-        Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
-        fabAnim.AddSlide(250,0,0,0,1000);
+            Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
+            fabAnim.AddSlide(250, 0, 0, 0, 1000);
 
-        recViewAnim.Start();
-        fabAnim.Start(1200);
+            recViewAnim.Start();
+            fabAnim.Start(1200);
+        }
     }
 
     @Override

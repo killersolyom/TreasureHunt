@@ -25,10 +25,10 @@ public class HomeFragment extends Fragment {
     //@BindView(R.id.home_viewpager)
     ViewPager viewPager;
 
-    @BindView(R.id.bottom_navigation)
+    //@BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
-    @BindView(R.id.home_toolbar)
+    //@BindView(R.id.home_toolbar)
     Toolbar toolbar;
 
     public HomeFragment() {
@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, view);
+        //ButterKnife.bind(this, view);
 
         return view;
     }
@@ -46,9 +46,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager = view.findViewById(R.id.home_viewpager);
+
+        bindViews(view);
         setupViewPager();
         setupBottomNavigation();
+    }
+
+    private void bindViews(View view) {
+        viewPager = view.findViewById(R.id.home_viewpager);
+        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        toolbar = view.findViewById(R.id.home_toolbar);
     }
 
     @SuppressWarnings("deprecation")
