@@ -7,22 +7,23 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    public static String TAG = "main_activity";
-    private final int PERMISSION_REQUEST_CODE = 10;
     private BroadcastReceiver networkReceiver;
     private Handler handler;
     private Runnable runnable;
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentNavigation.getInstance( this ).showSplashScreenFragment();
+        FragmentNavigation.getInstance(this).showSplashScreenFragment();
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
         networkHandler();
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSION_REQUEST_CODE);
+                    Constant.Common.PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -97,10 +100,6 @@ public class MainActivity extends AppCompatActivity {
         for(int it: grantResults){
             if(it != PERMISSION_GRANTED){
                 Util.makeSnackbar(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG,R.color.colorAccent);
-                //TODO change this
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG);
-                snackbar.getView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
-                snackbar.show();
                 return;
             }
         }
@@ -110,5 +109,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
     }
 }

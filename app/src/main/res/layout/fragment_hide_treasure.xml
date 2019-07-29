@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HideTreasureFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/titletextview"
         android:layout_width="wrap_content"
@@ -24,7 +23,8 @@
         android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/titlehint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titletextview" />
+        app:layout_constraintTop_toBottomOf="@id/titletextview"
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/descriptiontextview"
@@ -44,7 +44,8 @@
         android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/descripthint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptiontextview" />
+        app:layout_constraintTop_toBottomOf="@id/descriptiontextview"
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/phototextview"
@@ -55,7 +56,8 @@
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/description_edit_text"
+        android:singleLine="true"/>
 
     <EditText
         android:id="@+id/photo_edit_text"
@@ -64,7 +66,8 @@
         android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/photohint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phototextview" />
+        app:layout_constraintTop_toBottomOf="@id/phototextview"
+        android:singleLine="true"/>
 
     <ImageView
         android:id="@+id/photo_clue_image_view"
@@ -95,7 +98,8 @@
         android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/lochint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationtextview" />
+        app:layout_constraintTop_toBottomOf="@id/locationtextview"
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/pointstextview"
@@ -117,6 +121,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pointstextview"
         android:inputType="number"
+        android:singleLine="true"
         />
 
     <TextView
@@ -138,11 +143,13 @@
         android:hint="@string/passhint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passcodetextview"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:singleLine="true"/>
     <Button
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

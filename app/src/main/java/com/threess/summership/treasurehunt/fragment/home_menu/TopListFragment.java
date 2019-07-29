@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt.fragment;
+package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,8 +26,8 @@ import retrofit2.Response;
 
 
 public class TopListFragment extends Fragment {
+    private static final String TAG = TopListFragment.class.getSimpleName();
 
-    public static String TAG = TopListFragment.class.getSimpleName();
     private RecyclerView recyclerview;
     private TopListRecycleViewAdapter adapter;
     private RecyclerView.LayoutManager layoutmanager;

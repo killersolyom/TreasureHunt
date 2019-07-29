@@ -18,6 +18,7 @@ import com.threess.summership.treasurehunt.R;
 
 
 public class VerticalSlideColorPicker extends View {
+    private static final String TAG = VerticalSlideColorPicker.class.getSimpleName();
 
     private Paint paint;
     private Paint strokePaint;

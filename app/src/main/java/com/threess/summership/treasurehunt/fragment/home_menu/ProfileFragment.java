@@ -15,23 +15,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.util.Constant;
+
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
-
 
 public class ProfileFragment extends Fragment {
+    private static String TAG = ProfileFragment.class.getSimpleName();
 
-    public static String TAG = Fragment.class.getSimpleName();
-    private final int GALLERY_REQUEST_CODE = 862;
 
     @BindView(R.id.profile_image_view)
     ImageView profileImageView;
@@ -44,6 +43,7 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.Treasures_hidden)
     TextView treasures_HiddenField;
+
 
 
     private TextView profileScoreTextView;
@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUserData() {
-        String userName = dataManager.readStringData(PROFILE_NAME_KEY);
+        String userName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
         if (userName != null) {
             userNameField.setText(String.format(getResources().getString(R.string.profile_username), userName));
         }
@@ -89,7 +89,12 @@ public class ProfileFragment extends Fragment {
 
     @OnClick(R.id.logout_button)
     void onLogoutClick(View view) {
-
+        SavedData dataManager = new SavedData(getContext());
+        dataManager.setAutoLoginSwitch(false);
+        //dataManager.setRememberMeSwitch(false);
+        //dataManager.writeStringData( SavedData.PROFILE_NAME_KEY, "" );
+        //dataManager.writeStringData( SavedData.USER_PASSWORD_KEY, "" );
+        FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
     @OnClick(R.id.update)
@@ -102,11 +107,11 @@ public class ProfileFragment extends Fragment {
         intent.setType("image/*");
         String[] mimeTypes = {"image/jpeg", "image/png"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, Constant.Common.GALLERY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+        if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             dataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
         }

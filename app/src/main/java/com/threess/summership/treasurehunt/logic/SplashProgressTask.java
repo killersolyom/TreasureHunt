@@ -6,9 +6,11 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
+    private static final String TAG = SplashScreenFragment.class.getSimpleName();
 
     private ProgressBar splashScreenProgressBar;
     private Context context;
@@ -16,6 +18,7 @@ public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         splashScreenProgressBar.setVisibility(View.VISIBLE);
+        splashScreenProgressBar.setEnabled(true);
         splashScreenProgressBar.setProgress(0);
     }
 
@@ -30,7 +33,7 @@ public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
             publishProgress(i);
             SystemClock.sleep(35);
         }
-        return null;
+       return null;
     }
 
 
@@ -39,9 +42,11 @@ public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
         splashScreenProgressBar.setProgress(values[0]);
     }
 
+
+
     @Override
     protected void onPostExecute(Void aVoid) {
-        splashScreenProgressBar.setEnabled(true);
+        //splashScreenProgressBar.setEnabled(true);
         FragmentNavigation.getInstance( context).showLoginFragment();
     }
 }

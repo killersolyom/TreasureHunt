@@ -27,7 +27,7 @@ import android.view.MotionEvent;
  */
 public class MoveGestureDetector extends BaseGestureDetector {
 
-    private static final String TAG = "MoveGestureDetector";
+    private static final String TAG = "move_gesture_detector";
 
     /**
      * Listener which must be implemented which is used by MoveGestureDetector

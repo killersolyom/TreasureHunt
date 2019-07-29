@@ -12,27 +12,27 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.PROFILE_NAME_KEY;
-import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
-
 
 public class RegistrationFragment extends Fragment {
+    private static final String TAG = RegistrationFragment.class.getSimpleName();
 
-    public static String TAG = "registration_fragment";
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button register, cancel;
     private SavedData dataManager;
 
     public RegistrationFragment() {
+
         // constructor
     }
 
@@ -89,8 +89,8 @@ public class RegistrationFragment extends Fragment {
             confirm_passwordText.setError(error);
             return;
         }
-        dataManager.writeStringData(usernameText.getText().toString(), PROFILE_NAME_KEY);
-        dataManager.writeStringData(passwordText.getText().toString(), USER_PASSWORD_KEY);
+        dataManager.writeStringData(usernameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
+        dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
         User user = new User(username, password);
         ApiController.getInstance().registerUser(user, new Callback<Object>() {
             @Override

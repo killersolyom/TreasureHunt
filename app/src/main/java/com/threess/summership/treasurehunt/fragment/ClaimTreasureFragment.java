@@ -1,11 +1,13 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,50 +17,44 @@ import android.widget.ImageView;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.POST;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class ClaimTreasureFragment extends Fragment {
-
-    public static String TAG = "claim_treasure_fragment";
-    private HashMap<String, Treasure> myTestDatas;
-    //Key:passcode   String: UserId
+    private static final String TAG = ClaimTreasureFragment.class.getSimpleName();
 
     private EditText myEditText;
     private Button myConfirmButton;
-    private String passcode;
-    private ImageView imageView;
-    private ImageView mySuccsesfullImage;
-    private Bundle arguments;
-    private String myTreasureName;
-    private String username;
-    private Snackbar mySnackbar;
+    private ImageView backImageButton;
+    private Button qrCodeReaderButtn;
+    private Treasure mTreasure;
+    private View mView;
+    private int QrRequestCode = 1;
+    private String resultPassCodeFromQrCodeScanner = null;
+    private boolean mHasQRCode = false;
 
-    private final static  String KEYSTRINGTREASURE="treasureName";
-    private final static String KEYSTRINGUSERNAME="username";
+    public ClaimTreasureFragment() {
+    }
 
-    Handler mHandler = new Handler();
-
-
-    public ClaimTreasureFragment() {}
-
+    @SuppressLint("ValidFragment")
+    public ClaimTreasureFragment(Treasure treasure) {
+        mTreasure = treasure;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myTreasureName = getArguments().getString(KEYSTRINGTREASURE);
-        username=getArguments().getString(KEYSTRINGUSERNAME);
         return inflater.inflate(R.layout.fragment_claim_treasure, container, false);
-        // Do not modify!
     }
 
     @Override
@@ -66,122 +62,58 @@ public class ClaimTreasureFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
-        mySuccsesfullImage = view.findViewById(R.id.image_succsesfull_icon);
-        mySnackbar = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError_Internet), Snackbar.LENGTH_SHORT);
-        imageView = view.findViewById(R.id.imageView2);
-        getAllTreasuresServerCall();
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentNavigation.getInstance(getContext()).showHomeFragment();
-            }
+        backImageButton = view.findViewById(R.id.imageView2);
+        qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
+        mView = view;
+        backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
+        qrCodeReaderButtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), QRCodeReader.class);
+            startActivityForResult(intent, QrRequestCode);
         });
-
+        myConfirmButton.setOnClickListener(view1 ->
+        {
+            mHasQRCode = false;
+            verifyResult();
+        });
     }
 
-    private void confirmPasscode(@NonNull final View view) {
-        final Snackbar mySnackbarError = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_snackBarError1), Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarAvailable = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id),getString(R.string.Claim_Available) + myTreasureName + getString(R.string.Claim_Available2), Snackbar.LENGTH_SHORT);
-      //  final Snackbar mySnackbarAvailable2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), "The Post is succes", Snackbar.LENGTH_SHORT);
-        final Snackbar mySnackbarError2 = Snackbar.make(view.findViewById(R.id.fragment_claim_treasure_id), getString(R.string.Claim_SnackBarError2), Snackbar.LENGTH_SHORT);
-
-        myConfirmButton.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(final View view) {
-
-                if (myEditText.getText().toString().isEmpty()) {
-                    myEditText.requestFocus();
-                    myEditText.setError(getString(R.string.Claim_editText_EmptyError));
-                    return;
+    private void verifyResult(){
+        if(mHasQRCode) {
+            Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
+        }
+        if(isValidTreasure()){
+            SavedData sd = new SavedData(getContext());
+            TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
+            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
+                    FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
-                else{
-                passcode = myEditText.getText().toString();
-                final Treasure treasure = myTestDatas.get(passcode);
-                if (treasure != null && treasure.getUsername().equals(myTreasureName)) {
-                    mySnackbarAvailable.show();
-                    showItems(view);
-                    myConfirmButton.setVisibility(View.INVISIBLE);
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideItems(view);
-                            myConfirmButton.setVisibility(View.VISIBLE);
-
-                            TreasureClaim treasureClaim=new TreasureClaim(username,treasure.getPasscode());
-                            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
-                                @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
-                                    FragmentNavigation.getInstance(getContext()).showHomeFragment();
-                                }
-
-                                @Override
-                                public void onFailure(Call<String> call, Throwable t) {
-                                    //if not
-                                    mySnackbarError2.show();
-
-                                }
-                            });
-                        }
-                    }, 2500);
-
-                   // FragmentNavigation.getInstance(getContext()).showHomeFragment();
-                } else {
-                    mySnackbarError.show();
-                }
-
-            }
-        }});
-
-
-    }
-    public static ClaimTreasureFragment newInstance(String newKeyStringTreasure,String newKeyStringUsername){
-
-        ClaimTreasureFragment claimTreasureFragment=new ClaimTreasureFragment();
-        Bundle args=new Bundle();
-        args.putString(KEYSTRINGTREASURE,newKeyStringTreasure);
-        args.putString(KEYSTRINGUSERNAME,newKeyStringUsername);
-        claimTreasureFragment.setArguments(args);
-
-        return claimTreasureFragment;
-
-
-    }
-
-
-    private void setMyTestDatas(ArrayList<Treasure> myTreasures) {
-        myTestDatas = new HashMap<>();
-
-        for (Treasure treasure : myTreasures) {
-            myTestDatas.put(treasure.getPasscode(), treasure);
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
+                }});
+        }else{
+            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
         }
     }
 
-    private void showItems(@NonNull View view) {
-        mySuccsesfullImage.setVisibility(View.VISIBLE);
+    private boolean isValidTreasure(){
+        return (this.mTreasure!=null && !mTreasure.isClaimed())
+                && ( this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
+                    || myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
+        );
     }
 
-    private void hideItems(@NonNull View view) {
-        mySuccsesfullImage.setVisibility(View.INVISIBLE);
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
+            resultPassCodeFromQrCodeScanner = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
+            mHasQRCode = true;
+            verifyResult();
+        }
     }
-
-
-    private void getAllTreasuresServerCall(){
-        ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                setMyTestDatas(response.body());
-                confirmPasscode(getView());
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                mySnackbar.show();
-            }
-        });
-    }
-
 }

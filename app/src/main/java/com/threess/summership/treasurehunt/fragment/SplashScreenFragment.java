@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SplashProgressTask;
 
 
 public class SplashScreenFragment extends Fragment {
+    private static final String TAG = SplashScreenFragment.class.getSimpleName();
 
-    public static String TAG = "splash_screen_fragment";
     private ProgressBar splashScreenProgressBar;
     private SplashProgressTask loadingProgress;
     private ImageView splashScreenBackground;
@@ -35,7 +36,6 @@ public class SplashScreenFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         splashScreenBackground = view.findViewById(R.id.splashScreenBackground);
-        //Glide.with(this).load(R.drawable.splash_background).into(splashScreenBackground);
         splashScreenProgressBar = view.findViewById(R.id.splashScreenProgressBar);
         splashScreenProgressBar.setEnabled(false);
     }
@@ -45,7 +45,6 @@ public class SplashScreenFragment extends Fragment {
     public void onPause() {
         super.onPause();
         loadingProgress.cancel(true);
-        //Glide.with(getContext()).clear(splashScreenBackground);
     }
 
     @Override

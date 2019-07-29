@@ -1,11 +1,10 @@
 package com.threess.summership.treasurehunt.model;
 
-import android.graphics.drawable.Drawable;
-
 import com.google.gson.annotations.SerializedName;
-import com.threess.summership.treasurehunt.R;
 
 public class UserProfile {
+    private static final String TAG = UserProfile.class.getSimpleName();
+
     @SerializedName("username")
     private String username;
     @SerializedName("score")

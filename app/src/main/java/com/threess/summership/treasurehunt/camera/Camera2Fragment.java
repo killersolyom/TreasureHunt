@@ -87,7 +87,8 @@ public class Camera2Fragment extends Fragment implements
         VerticalSlideColorPicker.OnColorChangeListener
 {
 
-    private static final String TAG = "Camera2Fragment";
+    private static final String TAG = Camera2Fragment.class.getSimpleName();
+
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
 
@@ -214,8 +215,6 @@ public class Camera2Fragment extends Fragment implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera2, container, false);
-
-
         return view;
     }
 

@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 public class Utility {
+    private static final String TAG = Utility.class.getSimpleName();
 
     /**
      * Compares two {@code Size}s based on their areas.

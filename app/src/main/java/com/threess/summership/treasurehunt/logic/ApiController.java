@@ -1,12 +1,11 @@
 package com.threess.summership.treasurehunt.logic;
 
-import android.util.Log;
-
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
@@ -15,10 +14,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
+    private static final String TAG = ApiController.class.getSimpleName();
 
     private static ApiController sInstance = null;
-    private static final String TAG = "ApiController";
-    private static String BASE_URL = "http://5.254.125.248:3000/";
     private static Retrofit mRetrofit;
 
     private TreasuresRetrofitService mTreasureService;
@@ -29,7 +27,7 @@ public class ApiController {
 
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl( BASE_URL )
+                .baseUrl( Constant.ApiController.BASE_URL )
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
@@ -74,8 +72,6 @@ public class ApiController {
     }
 
 
-    //TODO: treasure service
-
     public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
     }
@@ -84,4 +80,9 @@ public class ApiController {
     public void createTreasure(Treasure treasure, Callback<Treasure> treasureCallback) {
         mTreasureService.createTreasure(treasure).enqueue(treasureCallback);
     }
+
+    public void createTreasurePicture(String passcode, String userName, final Callback<Treasure>callback){
+        mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
+    }
+
 }

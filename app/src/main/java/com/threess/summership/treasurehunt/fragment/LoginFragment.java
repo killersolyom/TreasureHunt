@@ -1,6 +1,7 @@
 package com.threess.summership.treasurehunt.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,23 +19,24 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Animator;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.threess.summership.treasurehunt.logic.SavedData.USER_PASSWORD_KEY;
-
 
 public class LoginFragment extends Fragment {
+    private static final String TAG = LoginFragment.class.getSimpleName();
 
-    public static String TAG = "login_fragment";
     private EditText nameText, passwordText;
     private TextView createAccountLabel;
     private Switch rememberMeSwitch, autoLoginSwitch;
@@ -66,19 +68,21 @@ public class LoginFragment extends Fragment {
         rememberMeSwitch = view.findViewById(R.id.remember);
         autoLoginSwitch = view.findViewById(R.id.autologin);
         createAccountLabel = view.findViewById(R.id.createAccount);
-        userName = dataManager.readStringData(USER_PASSWORD_KEY);
-        userPassword = dataManager.readStringData(USER_PASSWORD_KEY);
+        userName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+        userPassword = dataManager.readStringData(Constant.SavedData.USER_PASSWORD_KEY);
         loadSettings();
 
+        //hideViews();
+        playAnimations(view);
 
         rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"RememberMeSwitch");
+                dataManager.writeBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY, isChecked);
             }
         });
         autoLoginSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(isChecked,"AutoLoginSwitch");
+                dataManager.writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, isChecked);
             }
         });
         passwordText.addTextChangedListener(new TextWatcher() {
@@ -90,7 +94,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(passwordText.getText().toString(), USER_PASSWORD_KEY);
+                dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
             }
         });
         nameText.addTextChangedListener(new TextWatcher() {
@@ -102,7 +106,7 @@ public class LoginFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             public void afterTextChanged(Editable s) {
-                dataManager.writeStringData(nameText.getText().toString(),SavedData.PROFILE_NAME_KEY);
+                dataManager.writeStringData(nameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
             }
         });
         createAccountLabel.setOnClickListener(new View.OnClickListener() {
@@ -149,14 +153,65 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadSettings(){
-        if(dataManager.readBooleanData("RememberMeSwitch")){
+        if(dataManager.getRememberMeSwitch()){
+
             rememberMeSwitch.setChecked(true);
             nameText.setText(userName);
             passwordText.setText(userPassword);
+
+            if(dataManager.getAutoLoginSwitch()){
+                autoLoginSwitch.setChecked(true);
+                login();
+            }
         }
-        if(dataManager.readBooleanData("AutoLoginSwitch")){
-            autoLoginSwitch.setChecked(true);
-            login();
-        }
+
     }
+
+    private void hideViews(){
+        nameText.setVisibility(View.INVISIBLE);
+        passwordText.setVisibility(View.INVISIBLE);
+        login.setVisibility(View.INVISIBLE);
+        rememberMeSwitch.setVisibility(View.INVISIBLE);
+        autoLoginSwitch.setVisibility(View.INVISIBLE);
+    }
+
+    private void playAnimations(View view){
+
+        Context c = getContext();
+        int dMs = 1000;       // duration in mc
+        int dbaMs = 100;      // duration between animations in ms
+        int fromXDp = -500;   // distance from elements fly in
+
+        Animator logoAnim = new Animator(getContext(), view.findViewById(R.id.imageView), true);
+        logoAnim.AddIntroSet();
+
+        Animator nameAnim = new Animator(getContext(), nameText, true);
+        nameAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        nameAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
+
+        Animator passAnim = new Animator(getContext(), passwordText, true);
+        passAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        passAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
+
+        Animator buttonAnim = new Animator(getContext(), login, true);
+        buttonAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        buttonAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
+
+        Animator rememberAnim = new Animator(getContext(), rememberMeSwitch, true);
+        rememberAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        rememberAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
+
+        Animator autologinAnim = new Animator(getContext(), autoLoginSwitch, true);
+        autologinAnim.AddAlpha(0f, 1f, 1000, true, dMs);
+        autologinAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+
+        logoAnim.Start();
+        nameAnim.Start(dbaMs);
+        passAnim.Start(2*dbaMs);
+        buttonAnim.Start(3*dbaMs);
+        rememberAnim.Start(4*dbaMs);
+        autologinAnim.Start(5*dbaMs);
+
+    }
+
 }
