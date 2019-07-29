@@ -27,9 +27,7 @@ import com.threess.summership.treasurehunt.util.Animator;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +48,7 @@ public class ClaimTreasureFragment extends Fragment {
     private Treasure mTreasure;
     private View mView;
     private int QrRequestCode = 1;
-    private String resultPassCodeFromQrCodeScanner=null;
+    private String resultPassCodeFromQrCodeScanner = null;
     private boolean mHasQRCode = false;
 
     public ClaimTreasureFragment() {}
@@ -73,7 +71,7 @@ public class ClaimTreasureFragment extends Fragment {
         backImageButton = view.findViewById(R.id.imageView2);
         mDescriptionText=view.findViewById(R.id.textView_Claim);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
-        mView=view;
+        mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), QRCodeReader.class);
@@ -147,7 +145,7 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
             resultPassCodeFromQrCodeScanner = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
             mHasQRCode = true;
