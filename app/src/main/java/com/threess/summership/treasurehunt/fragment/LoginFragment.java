@@ -197,7 +197,7 @@ public class LoginFragment extends Fragment {
 
         new Handler().postDelayed(() -> {
             Animator.Slide(c, login, -1000, 0, 0, 0, durationMs);
-            login.setVisibility(View.VISIBLE);
+            login.setVisibility(View.VISIBLE); 
         },2*durationBetweenAnimationsMs);
 
         new Handler().postDelayed(() -> {
