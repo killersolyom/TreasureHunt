@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.service;
 
+import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface UserRetrofitService {
      public static String BASE_URL = "http://5.254.125.248:3000/";
@@ -21,6 +23,7 @@ public interface UserRetrofitService {
     @GET("/users")
     Call <ArrayList<User>> listAllUsers ();
 
-
+    @POST("/users/register/{username}")
+    Call<User> getUser(@Query("username") String username);
 
 }

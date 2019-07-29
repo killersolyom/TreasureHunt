@@ -71,6 +71,10 @@ public class ApiController {
         mUserService.listAllUsers().enqueue(callback);
     }
 
+    public void getUser(String userName, final Callback<User> callback){
+        mUserService.getUser(userName).enqueue(callback);
+    }
+
 
     public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
