@@ -202,25 +202,29 @@ public class FragmentNavigation extends Fragment {
      *
      * @param activity activity instance
      */
-    public void onBackPressed(MainActivity activity) {
+     public void onBackPressed(MainActivity activity) {
 
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            // If Home page is open: double press exit:
+        // If Home page is open: double press exit:
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
             doublePressExit(activity);
-        } else {
-            // If Hide treasure page or ClaimTreasureFragment or UserDetails fragment is on
-            // --> show home page(popBackstack)
-            if ((getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment)
-                    || (getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment)
-                    || (getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails)) {
-                popBackstack();
-                return;
-            }
+            return;
+        }
+
+         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
+             popBackstack();
+             return;
+         }
+
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment
+                || getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment) {
+            showHomeFragment();
+            return;
         }
 
         // Other cases:
         activity.moveTaskToBack(true);
     }
+
 
 
     private void doublePressExit(MainActivity activity) {
