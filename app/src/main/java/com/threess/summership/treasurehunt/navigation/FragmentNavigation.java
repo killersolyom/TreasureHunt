@@ -107,7 +107,7 @@ public class FragmentNavigation extends Fragment {
     }
 
     public void showUserDetails(String username, int score, String imageurl) {
-        replaceFragment(UserDetails.newInstance(username, score, imageurl), mMainActivityFragmentContainer);
+        addFragment(UserDetails.newInstance(username, score, imageurl), mMainActivityFragmentContainer);
     }
 
     private boolean doubleBackToExitPressedOnce = false;
