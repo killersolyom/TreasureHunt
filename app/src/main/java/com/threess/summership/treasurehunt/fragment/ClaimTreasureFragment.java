@@ -66,7 +66,6 @@ public class ClaimTreasureFragment extends Fragment {
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
-        mDescriptionText=view.findViewById(R.id.textView_Claim);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
         mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());

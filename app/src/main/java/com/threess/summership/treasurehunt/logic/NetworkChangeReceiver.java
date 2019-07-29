@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.util.Util;
 
 public class NetworkChangeReceiver extends BroadcastReceiver
@@ -27,9 +26,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver
         try {
             //TODO change this
             if (isOnline(context)){
-                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.online_mode,Snackbar.LENGTH_LONG,R.color.green);
+                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.online_mode,Snackbar.LENGTH_LONG,R.color.blue300);
             }else {
-                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.offline_mode,Snackbar.LENGTH_LONG,R.color.colorAccent);
+                Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.offline_mode,Snackbar.LENGTH_LONG,R.color.orange700);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
