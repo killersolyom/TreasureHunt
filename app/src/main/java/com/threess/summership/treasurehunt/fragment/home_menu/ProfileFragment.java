@@ -45,7 +45,6 @@ public class ProfileFragment extends Fragment {
     TextView treasures_HiddenField;
 
 
-
     private TextView profileScoreTextView;
     private ImageButton profileStarImageButton;
     private Button profileUpdateImageButton;
@@ -71,7 +70,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         dataManager = new SavedData(getContext());
         setUserData();
 

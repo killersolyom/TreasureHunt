@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.model.User;
 
 public class UserDetails extends Fragment {
     private static final String TAG = UserDetails.class.getSimpleName();
@@ -49,12 +49,7 @@ public class UserDetails extends Fragment {
         Glide.with(view.getContext()).load(imageUrl).placeholder(getContext().getDrawable(R.drawable.default_pic)).into(image);
 
         back = view.findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               getFragmentManager().popBackStack();
-            }
-        });
+        back.setOnClickListener(view1 -> getFragmentManager().popBackStack());
     }
 
     public static UserDetails newInstance(String username, int score, String imageUrl){

@@ -1,7 +1,5 @@
 package com.threess.summership.treasurehunt.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,14 +10,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
@@ -147,14 +143,8 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void hideKeyboard(){
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
-    }
-
     private void loadSettings(){
         if(dataManager.getRememberMeSwitch()){
-
             rememberMeSwitch.setChecked(true);
             nameText.setText(userName);
             passwordText.setText(userPassword);
@@ -167,17 +157,7 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void hideViews(){
-        nameText.setVisibility(View.INVISIBLE);
-        passwordText.setVisibility(View.INVISIBLE);
-        login.setVisibility(View.INVISIBLE);
-        rememberMeSwitch.setVisibility(View.INVISIBLE);
-        autoLoginSwitch.setVisibility(View.INVISIBLE);
-    }
-
     private void playAnimations(View view){
-
-        Context c = getContext();
         int dMs = 1000;       // duration in mc
         int dbaMs = 100;      // duration between animations in ms
         int fromXDp = -500;   // distance from elements fly in

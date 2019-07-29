@@ -47,7 +47,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
                 context.getResources().getString(R.string.toplist_score) + list.get(position).getScore());
         Glide.with(context).load(Constant.ApiController.BASE_URL +
                 list.get(position).getProfilpicture()).circleCrop().placeholder(
-                        context.getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
+                context.getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
         holder.itemView.setOnClickListener(view -> {
             if (list.get(position) != null) {
@@ -59,6 +59,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
 
     }
+
     @Override
     public int getItemCount() {
         return list.size();
