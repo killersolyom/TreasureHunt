@@ -21,8 +21,6 @@ public class UserDetails extends Fragment {
     private final static String SCOREKEY="scorekey";
     private final static String IMAGEKEY="imagekey";
 
-    private String username;
-    private int score;
     private String imageUrl;
     private Button back;
     private TextView name,userscore;
@@ -36,16 +34,13 @@ public class UserDetails extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        username = getArguments().getString(USERNAMEKEY);
-        score = getArguments().getInt(SCOREKEY);
         imageUrl = getArguments().getString(IMAGEKEY);
-
         name = view.findViewById(R.id.name);
         userscore = view.findViewById(R.id.userscore);
         image =view.findViewById(R.id.profile_image);
 
-        name.setText(getString(R.string.Username) +": " + username);
-        userscore.setText("Score: " + String.valueOf(score));
+        name.setText(getString(R.string.Username) +": " + getArguments().getString(USERNAMEKEY));
+        userscore.setText(getString(R.string.score)+ ": " + getArguments().getInt(SCOREKEY));
         Glide.with(view.getContext()).load(imageUrl).placeholder(getContext().getDrawable(R.drawable.default_pic)).into(image);
 
         back = view.findViewById(R.id.back);
