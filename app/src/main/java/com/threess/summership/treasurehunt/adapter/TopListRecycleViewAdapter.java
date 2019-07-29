@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import static com.threess.summership.treasurehunt.service.UserRetrofitService.BASE_URL;
 
 
+
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
 
@@ -44,7 +45,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
         holder.nameTextView.setText(list.get(position).getUsername());
         holder.scoreNumberTextView.setText(
-                context.getResources().getString(R.string.toplist_score) + list.get(position).getScore());
+                context.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
         Glide.with(context).load(Constant.ApiController.BASE_URL +
                 list.get(position).getProfilpicture()).circleCrop().placeholder(
                 context.getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
@@ -71,6 +72,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         public ImageView pictureImageView;
 
         public TopListViewHolder(View itemView) {
+
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             scoreNumberTextView = itemView.findViewById(R.id.scoreNumberTextView);

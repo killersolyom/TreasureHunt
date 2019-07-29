@@ -16,7 +16,7 @@
     <array name="rainbow">
         <item>@color/white</item>
         <item>@color/bright_pink</item>
-        <item>@color/red</item>
+        <item>@color/orange500</item>
         <item>@color/orange</item>
         <item>@color/yellow</item>
         <item>@color/chartreuse</item>
