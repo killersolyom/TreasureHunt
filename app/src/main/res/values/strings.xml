@@ -74,6 +74,7 @@
     <string name="lochint">A pair of coordinates [latitude,longitude]</string>
     <string name="prizehint">How much of your own prize points would you award</string>
     <string name="passhint">Unique identifier, so it can be validated when claimed</string>
+    <string name="claimed">Claimed by </string>
     <string name="createtreasurebutton">Create treasure</string>
     <string name="create_treasure">Creating treasure failed</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>

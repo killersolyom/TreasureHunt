@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
@@ -33,15 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentNavigation.getInstance(this).showSplashScreenFragment();
-
+        ApiController.getInstance(this);
         handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if(getApplicationContext()!=null){
-                    networkReceiver = new NetworkChangeReceiver(MainActivity.this);
-                    registerNetworkBroadcastReceiver();
-                }
+        runnable = () -> {
+            if(getApplicationContext()!=null){
+                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
+                registerNetworkBroadcastReceiver();
             }
         };
 

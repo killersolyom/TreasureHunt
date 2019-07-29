@@ -44,22 +44,21 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         try {
             final Treasure treasure = treasureList.get(position);
             Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
-            holder.treasureText.setText(treasure.getDescription());
-            holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
-
             if(treasure.isClaimed()){
+                holder.layout.setForeground(context.getDrawable(R.drawable.claimed_image));
                 holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
-            }
-
-            holder.layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.layout.setOnClickListener(null);
+            }else{
+                holder.treasureText.setText(treasure.getDescription());
+                holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_forward_black_24dp));
+                holder.layout.setForeground(null);
+                holder.layout.setOnClickListener(v -> {
                     selectedTreasure = treasure;
                     FragmentNavigation.getInstance(context).
-                             startNavigationToDestination(treasure,context);
-
-                }
-            });
+                            startNavigationToDestination(treasure,context);
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

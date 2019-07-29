@@ -1,5 +1,8 @@
 package com.threess.summership.treasurehunt.logic;
 
+import android.app.Activity;
+import android.util.Log;
+
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
@@ -9,6 +12,8 @@ import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,16 +23,18 @@ public class ApiController {
 
     private static ApiController sInstance = null;
     private static Retrofit mRetrofit;
-
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
     private TreasuresRetrofitService mClaimedTreasure;
+    private static int cacheSize = 100 * 1024 * 1024; // 100 MB
+    private static Cache cache;
+    private Activity activity;
 
     private ApiController() {
-
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl( Constant.ApiController.BASE_URL )
+                .client(setupClient())
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
@@ -45,6 +52,13 @@ public class ApiController {
         return sInstance;
     }
 
+    public static ApiController getInstance(Activity activity){
+        cache = new Cache(activity.getCacheDir(), cacheSize);
+        sInstance = new ApiController();
+        sInstance.activity = activity;
+        return sInstance;
+    }
+
 
     /**
      * This method gets all treasures from the API.
@@ -59,7 +73,6 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
-     //   Log.d("HALASZ", user.getPassword() + "   " + user.getUsername());
         mUserService.loginUser(user).enqueue(callback);
     }
 
@@ -83,6 +96,10 @@ public class ApiController {
 
     public void createTreasurePicture(String passcode, String userName, final Callback<Treasure>callback){
         mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
+    }
+
+    private OkHttpClient setupClient(){
+        return new OkHttpClient.Builder().cache(cache).build();
     }
 
 }

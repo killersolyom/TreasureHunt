@@ -44,7 +44,6 @@
             android:name=".qr_code_reader.QRCodeReader"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
         <activity
             android:name=".camera.CameraActivity"
             android:screenOrientation="portrait"

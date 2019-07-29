@@ -180,7 +180,7 @@ public class FragmentNavigation extends Fragment {
 
 
     public void startNavigationToDestination(Treasure treasure, Context context){
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment && !treasure.isClaimed()) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
                     treasure.getLocation_lat()+"," +
                     treasure.getLocation_lon()+"&mode=w");
@@ -206,12 +206,12 @@ public class FragmentNavigation extends Fragment {
 
         }else {
 
-            // If Hide treasure page is open --> show home page
-            if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
-                showHomeFragment();
+            // If Hide treasure page or ClaimTreasureFragment is on --> show home page(popBackstack)
+            if( (getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment)
+            ||(getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment)) {
+                popBackstack();
                 return;
             }
-
         }
 
         // Other cases:

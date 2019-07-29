@@ -6,7 +6,7 @@
     >
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/pictureImageView"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -17,22 +17,22 @@
         android:id="@+id/nameTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/telNumberTextView"
+        android:layout_above="@id/scoreNumberTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/pictureImageView"
         android:gravity="center_vertical"
         android:text="Name:"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/telNumberTextView"
+        android:id="@+id/scoreNumberTextView"
         android:layout_width="fill_parent"
         android:layout_height="26dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/pictureImageView"
         android:text="Description"
         android:textSize="12sp" />
 
