@@ -1,7 +1,9 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -26,14 +28,25 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
+import static com.threess.summership.treasurehunt.util.Constant.ApiController.BASE_URL;
 
 
 public class HideTreasureFragment extends Fragment {
@@ -53,6 +66,10 @@ public class HideTreasureFragment extends Fragment {
     private Bitmap imageBitmap;
     private double latitude,longitude;
 
+    private Retrofit mRetrofit;
+
+    private File myIMGFile;
+
     public HideTreasureFragment() {
         // constructor
     }
@@ -71,7 +88,7 @@ public class HideTreasureFragment extends Fragment {
         if(getArguments() != null){
             latitude=getArguments().getDouble(MapViewFragment.KEY1);
             longitude=getArguments().getDouble(MapViewFragment.KEY2);
-            locationEditText.setText( latitude+","+longitude);
+            locationEditText.setText( latitude +" , "+longitude);
         }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -121,6 +138,8 @@ public class HideTreasureFragment extends Fragment {
 
         button.setOnClickListener(view1 -> buttonPress());
 
+        myIMGFile = null;
+
     }
 
     private void findIds(View view) {
@@ -143,7 +162,7 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private void buttonCameraPress(){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(getActivity(),CameraActivity.class);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -206,11 +225,12 @@ public class HideTreasureFragment extends Fragment {
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    Snackbar snackbar = Snackbar.make(getView(), R.string.successful, Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    uploadToServer(myIMGFile.getAbsolutePath());
                     getFragmentManager().popBackStack();
+
                 } else {
                     Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
+                    Log.e("3ss", response.errorBody() + "");
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
                     snackbar.show();
                 }
@@ -227,13 +247,51 @@ public class HideTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
+            String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
+            myIMGFile = new File(filePath);
             LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
             this.latitude = latLng.latitude;
             this.longitude = latLng.longitude;
             locationEditText.setText(latLng.latitude+ "," + latLng.longitude);
+            photoEditText.setText(filePath);
         }
+    }
+
+    public Retrofit getRetrofitClient(Context context) {
+        if (mRetrofit == null) {
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .build();
+            mRetrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return mRetrofit;
+    }
+
+    private void uploadToServer(String filePath) {
+        Retrofit retrofit = getRetrofitClient(getActivity());
+        TreasuresRetrofitService treasuresRetrofitService = retrofit.create(TreasuresRetrofitService.class);
+        //Create a file object using file path
+        File file = new File(filePath);
+        // Create a request body with file and image media type
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+        // Create MultipartBody.Part using file request-body,file name and part name
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileReqBody);
+        //Create request body with text description and text media type
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+        //
+        Call call = treasuresRetrofitService.uploadImage(part, description);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                //
+            }
+            @Override
+            public void onFailure(Call call, Throwable t) {
+            }
+        });
     }
 
 }

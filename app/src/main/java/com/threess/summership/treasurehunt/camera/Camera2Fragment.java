@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -413,6 +414,10 @@ public class Camera2Fragment extends Fragment implements
 
             final ICallback callback = (e, file) -> {
                 if(e == null){//todo: save - POST img
+                    Intent result = new Intent();
+                    result.putExtra(getActivity().getString(R.string.file_string),file.getAbsolutePath());
+                    getActivity().setResult(Activity.RESULT_OK,result);
+                    getActivity().finish();
                     Log.d(TAG, "onImageSavedCallback: image saved!");
                     showSnackBar("Image saved", Snackbar.LENGTH_SHORT);
                 }
@@ -976,7 +981,6 @@ public class Camera2Fragment extends Fragment implements
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
 
             setAutoFlash(mPreviewRequestBuilder);
-
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
@@ -1155,7 +1159,7 @@ public class Camera2Fragment extends Fragment implements
 
     @Override
     public void onPause() {
-        closeCamera();
+
         stopBackgroundThread();
         if(mBackgroundImageRotater != null){
             mBackgroundImageRotater.cancel(true);
