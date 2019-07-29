@@ -1,7 +1,9 @@
 package com.threess.summership.treasurehunt.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
@@ -24,16 +27,19 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class HideTreasureFragment extends Fragment {
     private static final String TAG = HideTreasureFragment.class.getSimpleName();
 
-    ImageView photoarrow;
+    ImageView photoClueArrow;
     private Button button;
     private EditText titleEditText;
     private EditText descriptionEditText;
@@ -42,7 +48,9 @@ public class HideTreasureFragment extends Fragment {
     private EditText photoEditText;
     private EditText locationEditText;
     private SavedData dataManager;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bundle mBundle;
+    private Bitmap imageBitmap;
     private double latitude,longitude;
 
     public HideTreasureFragment() {
@@ -60,9 +68,11 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
-        latitude=getArguments().getDouble(MapViewFragment.KEY1);
-        longitude=getArguments().getDouble(MapViewFragment.KEY2);
-        locationEditText.setText( latitude+","+longitude);
+        if(getArguments() != null){
+            latitude=getArguments().getDouble(MapViewFragment.KEY1);
+            longitude=getArguments().getDouble(MapViewFragment.KEY2);
+            locationEditText.setText( latitude+","+longitude);
+        }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 return true;
@@ -91,14 +101,14 @@ public class HideTreasureFragment extends Fragment {
             return false;
         });
 
-        pointsEditText.setOnKeyListener((view12, keyCode, keyEvent) -> {
+        pointsEditText.setOnKeyListener((view14, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 return true;
             }
             return false;
         });
 
-        passcodeEditText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+        passcodeEditText.setOnKeyListener((view13, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 buttonPress();
                 return true;
@@ -107,12 +117,9 @@ public class HideTreasureFragment extends Fragment {
         });
 
 
-        photoarrow.setOnClickListener(view13 -> {
-            Intent intent = new Intent(getContext(), CameraActivity.class);
-            startActivity(intent);
-            // Todo image click function
-        });
-        button.setOnClickListener(view14 -> buttonPress());
+        photoClueArrow.setOnClickListener(view12 -> buttonCameraPress());
+
+        button.setOnClickListener(view1 -> buttonPress());
 
     }
 
@@ -122,7 +129,7 @@ public class HideTreasureFragment extends Fragment {
         descriptionEditText = view.findViewById(R.id.description_edit_text);
         pointsEditText = view.findViewById(R.id.prize_edit_text);
         passcodeEditText = view.findViewById(R.id.passcode_edit_text);
-        photoarrow = view.findViewById(R.id.photo_clue_image_view);
+        photoClueArrow = view.findViewById(R.id.photo_clue_image_view);
         photoEditText = view.findViewById(R.id.photo_edit_text);
         locationEditText = view.findViewById(R.id.location_edit_text);
         dataManager = new SavedData(getContext());
@@ -133,6 +140,19 @@ public class HideTreasureFragment extends Fragment {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
         }
+    }
+
+    private void buttonCameraPress(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        // Take image
+
+        // Upload image (API)
+
+        // get->set link
+
     }
 
     private boolean checkInputFields() {
@@ -203,5 +223,17 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
+            this.latitude = latLng.latitude;
+            this.longitude = latLng.longitude;
+            locationEditText.setText(latLng.latitude+ "," + latLng.longitude);
+        }
+    }
 
 }

@@ -3,7 +3,6 @@ package com.threess.summership.treasurehunt.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -22,12 +21,8 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.util.Constant;
-import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,10 +41,11 @@ public class ClaimTreasureFragment extends Fragment {
     private Treasure mTreasure;
     private View mView;
     private int QrRequestCode = 1;
-    private String resultPassCodeFromQrCodeScanner=null;
+    private String resultPassCodeFromQrCodeScanner = null;
     private boolean mHasQRCode = false;
 
-    public ClaimTreasureFragment() {}
+    public ClaimTreasureFragment() {
+    }
 
     @SuppressLint("ValidFragment")
     public ClaimTreasureFragment(Treasure treasure) {
@@ -68,7 +64,7 @@ public class ClaimTreasureFragment extends Fragment {
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
-        mView=view;
+        mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), QRCodeReader.class);
@@ -113,7 +109,7 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             myEditText.setText(data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ));
             resultPassCodeFromQrCodeScanner = data.getStringExtra(QRCodeReader.RESULT_OF_QRCODE_READ);
             mHasQRCode = true;

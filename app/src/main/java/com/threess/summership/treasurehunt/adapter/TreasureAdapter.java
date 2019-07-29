@@ -103,7 +103,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
         for(Treasure t : treasures){
             if (t != null) {
-                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || t.isClaimed() == false) {
+                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
                     treasureList.add(t);
                 }
             }
