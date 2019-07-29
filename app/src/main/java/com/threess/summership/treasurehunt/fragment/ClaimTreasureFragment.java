@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
@@ -41,8 +42,10 @@ public class ClaimTreasureFragment extends Fragment {
     private static final String TAG = ClaimTreasureFragment.class.getSimpleName();
 
     private EditText myEditText;
+    private TextView mDescriptionText;
     private Button myConfirmButton;
     private ImageView backImageButton;
+    private ImageView mConfirmImage;
     private Button qrCodeReaderButtn;
     private Treasure mTreasure;
     private View mView;
@@ -68,6 +71,7 @@ public class ClaimTreasureFragment extends Fragment {
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
+        mDescriptionText=view.findViewById(R.id.textView_Claim);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
         mView=view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
@@ -80,7 +84,7 @@ public class ClaimTreasureFragment extends Fragment {
             mHasQRCode = false;
             verifyResult();
         });
-        playSuccessImageAnimation();
+        //playSuccessImageAnimation();
     }
 
     private void verifyResult(){
@@ -95,6 +99,7 @@ public class ClaimTreasureFragment extends Fragment {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
+                    playSuccessImageAnimation();
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
                 @Override
@@ -108,13 +113,16 @@ public class ClaimTreasureFragment extends Fragment {
 
     private void playSuccessImageAnimation() {
         ImageView im = mView.findViewById(R.id.image_succsesfull_icon);
+        hideItems();
 
         Animator animator= new Animator(getContext(),im,true);
-        animator.AddScale(0,1,0,1,.5f,.5f,1000);
+        animator.AddScale(0,1.2f,0,1.2f,.5f,.5f,1000);
+        animator.AddAlpha(1,0.40f, 0,false,6000);
         animator.Start();
 
         Animator animator2 = new Animator(getContext(),im);
-        animator2.AddScale(1,0.75f,1,0.75f,.5f,.5f,500);
+        animator2.AddScale(1.2f,0.75f,1.2f,0.75f,.5f,.5f,1000);
+        animator.AddAlpha(0.25f,1,0,true,3000);
         animator2.Start(2000);
 
         new Handler().postDelayed(new Runnable() {
@@ -122,7 +130,7 @@ public class ClaimTreasureFragment extends Fragment {
             public void run() {
                 im.setVisibility(View.INVISIBLE);
             }
-        },2000);
+        },1000);
 
         //Animator animator3 = new Animator(getContext(),mView.findViewById(R.id.image_succsesfull_icon));
         //animator3.AddScale(0.75f,0.75f,0.75f,0.75f,.5f,.5f,2000);
@@ -145,6 +153,14 @@ public class ClaimTreasureFragment extends Fragment {
             mHasQRCode = true;
             verifyResult();
         }
+    }
+
+    public void hideItems(){
+        backImageButton.setVisibility(mView.INVISIBLE);
+        qrCodeReaderButtn.setVisibility(mView.INVISIBLE);
+        myConfirmButton.setVisibility(mView.INVISIBLE);
+        myEditText.setVisibility(mView.INVISIBLE);
+        mDescriptionText.setVisibility(mView.INVISIBLE);
     }
 
 }
