@@ -21,6 +21,8 @@ import android.widget.ImageView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.camera.CameraActivity;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
@@ -141,7 +143,6 @@ public class HideTreasureFragment extends Fragment {
         if (checkInputFields()) {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
-
         }
     }
 
@@ -214,7 +215,7 @@ public class HideTreasureFragment extends Fragment {
                     getFragmentManager().popBackStack();
                 } else {
                     Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
                     snackbar.show();
                 }
             }

@@ -28,6 +28,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCppADyc-6j4Z-q0OMNtpfRE0v_23v9PUU" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MainActivity"
@@ -44,7 +47,6 @@
             android:name=".qr_code_reader.QRCodeReader"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
         <activity
             android:name=".camera.CameraActivity"
             android:screenOrientation="portrait"
