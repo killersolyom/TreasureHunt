@@ -206,7 +206,6 @@ public class Camera2Fragment extends Fragment implements
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
 
 
-
     public static Camera2Fragment newInstance(){
         return new Camera2Fragment();
     }
@@ -217,7 +216,6 @@ public class Camera2Fragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_camera2, container, false);
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -259,8 +257,6 @@ public class Camera2Fragment extends Fragment implements
         setMaxSizes();
         resetIconVisibilities();
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -954,6 +950,7 @@ public class Camera2Fragment extends Fragment implements
 
         }
     };
+
     /**
      * Retrieves the JPEG orientation from the specified screen rotation.
      *
@@ -989,7 +986,6 @@ public class Camera2Fragment extends Fragment implements
             e.printStackTrace();
         }
     }
-
 
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -1320,7 +1316,6 @@ public class Camera2Fragment extends Fragment implements
         Log.d(TAG, "setMaxSizes: screen height: " + SCREEN_HEIGHT);
     }
 
-
     private void findCameraIds(){
 
         Activity activity = getActivity();
@@ -1346,7 +1341,6 @@ public class Camera2Fragment extends Fragment implements
         }
     }
 
-
     private void toggleCameraDisplayOrientation(){
         if(mCameraId.equals(mIMainActivity.getBackCameraId())){
             mCameraId = mIMainActivity.getFrontCameraId();
@@ -1366,6 +1360,7 @@ public class Camera2Fragment extends Fragment implements
             Log.d(TAG, "toggleCameraDisplayOrientation: error.");
         }
     }
+
     /**
      * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
      * This method should be called after the camera preview size is determined in
@@ -1419,9 +1414,6 @@ public class Camera2Fragment extends Fragment implements
 
         mTextureView.setTransform(matrix);
     }
-
-
-
 
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
@@ -1540,8 +1532,6 @@ public class Camera2Fragment extends Fragment implements
         mIMainActivity.hideStatusBar();
         closeCamera();
     }
-
-
 
     /**
      *  WARNING!
