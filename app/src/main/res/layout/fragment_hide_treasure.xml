@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/titlehint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titletextview"
         android:singleLine="true"/>
@@ -41,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/descripthint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptiontextview"
         android:singleLine="true"/>
@@ -51,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/hidephoto"
+        android:textColorHint="@color/white_transparent_30"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/photohint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phototextview"
         android:singleLine="true"/>
@@ -94,6 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/lochint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/locationtextview"
         android:singleLine="true"/>
@@ -114,11 +119,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/prizehint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pointstextview"
         android:inputType="number"
-        android:singleLine="true"
-        />
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/passcodetextview"
@@ -136,6 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/passhint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passcodetextview"
         android:inputType="number"

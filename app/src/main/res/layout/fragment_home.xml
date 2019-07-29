@@ -10,6 +10,7 @@
         android:layout_height="@dimen/toolbar_size"
         android:layout_gravity="top"
         android:background="@color/colorPrimary"
+        app:titleTextColor="@color/gray50"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -29,7 +30,7 @@
         android:background="@color/colorPrimary"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/colorPrimaryDark"
-        app:itemTextColor="@color/white"
+        app:itemTextColor="@color/gray50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_items" />
 
