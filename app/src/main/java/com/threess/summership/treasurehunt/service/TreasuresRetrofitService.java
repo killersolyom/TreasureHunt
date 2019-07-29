@@ -5,10 +5,15 @@ import com.threess.summership.treasurehunt.model.TreasureClaim;
 
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface TreasuresRetrofitService {
@@ -31,5 +36,9 @@ public interface TreasuresRetrofitService {
 
     @POST("/treasures/update/:{passcode}/:{username}")///treasures/update/:passcode/:username
     Call<Treasure> createTreasurePicture(@Query ("passcode") String passcode, @Query("username") String username);
+
+    @Multipart
+    @POST("/treasures/update/{passcode}/{username}")
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("name") RequestBody requestBody);
 
 }

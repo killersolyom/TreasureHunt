@@ -23,9 +23,6 @@ public class CameraActivity extends AppCompatActivity implements IMainActivity{
     private static final int REQUEST_CODE = 1234;
     public static String CAMERA_POSITION_FRONT;
     public static String CAMERA_POSITION_BACK;
-    public static String MAX_ASPECT_RATIO;
-
-    //widgets
 
     //vars
     private boolean mPermissions;
@@ -34,10 +31,11 @@ public class CameraActivity extends AppCompatActivity implements IMainActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
 
         init();
     }
+
     private void startCamera2(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.camera_container, Camera2Fragment.newInstance(), getString(R.string.fragment_camera2));
