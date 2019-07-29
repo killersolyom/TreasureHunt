@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiController {
-    public static final String TAG = ApiController.class.getSimpleName();
+    private static final String TAG = ApiController.class.getSimpleName();
 
     private static ApiController sInstance = null;
     private static Retrofit mRetrofit;
@@ -72,8 +72,6 @@ public class ApiController {
     }
 
 
-    //TODO: treasure service
-
     public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
     }
@@ -82,4 +80,9 @@ public class ApiController {
     public void createTreasure(Treasure treasure, Callback<Treasure> treasureCallback) {
         mTreasureService.createTreasure(treasure).enqueue(treasureCallback);
     }
+
+    public void createTreasurePicture(String passcode, String userName, final Callback<Treasure>callback){
+        mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
+    }
+
 }

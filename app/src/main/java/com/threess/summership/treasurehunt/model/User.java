@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    public static final String TAG = User.class.getSimpleName();
+    private static final String TAG = User.class.getSimpleName();
 
     @SerializedName("username")
     private String username;

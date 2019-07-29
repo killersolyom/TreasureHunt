@@ -14,7 +14,7 @@ import com.threess.summership.treasurehunt.util.Util;
 
 public class NetworkChangeReceiver extends BroadcastReceiver
 {
-    public static final String TAG = NetworkChangeReceiver.class.getSimpleName();
+    private static final String TAG = NetworkChangeReceiver.class.getSimpleName();
     Activity activity;
 
     public NetworkChangeReceiver(Activity activity) {
