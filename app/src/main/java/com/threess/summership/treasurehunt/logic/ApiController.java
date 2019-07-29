@@ -1,5 +1,7 @@
 package com.threess.summership.treasurehunt.logic;
 
+import android.content.Context;
+
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
@@ -7,11 +9,18 @@ import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import com.threess.summership.treasurehunt.util.Constant;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.threess.summership.treasurehunt.util.Constant.ApiController.BASE_URL;
 
 public class ApiController {
     private static final String TAG = ApiController.class.getSimpleName();
@@ -27,12 +36,14 @@ public class ApiController {
 
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl( Constant.ApiController.BASE_URL )
+                .baseUrl( BASE_URL )
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
         mClaimedTreasure = mRetrofit.create(TreasuresRetrofitService.class);
     }
+
+
 
     /**
      * Returns the ApiController instance.
@@ -84,5 +95,11 @@ public class ApiController {
     public void createTreasurePicture(String passcode, String userName, final Callback<Treasure>callback){
         mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
     }
+
+    public void uploadTreasureImageClue(MultipartBody.Part file, RequestBody requestBody, String username, String passcode, Callback<ResponseBody> callback){
+        mTreasureService.uploadImage(file, requestBody, username, passcode).enqueue(callback);
+    }
+
+
 
 }
