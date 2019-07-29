@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 
 public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.RecyclerViewHolder> {
-    public static final String TAG = TreasureAdapter.class.getSimpleName();
+    private static final String TAG = TreasureAdapter.class.getSimpleName();
 
     private Context context;
     private ArrayList<Treasure> treasureList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
         for(Treasure t : treasures){
             if (t != null) {
-                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || t.isClaimed() == false) {
+                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
                     treasureList.add(t);
                 }
             }

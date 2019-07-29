@@ -26,7 +26,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 
 public class FragmentNavigation extends Fragment {
-    public static final String TAG = FragmentNavigation.class.getSimpleName();
+    private static final String TAG = FragmentNavigation.class.getSimpleName();
 
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
@@ -73,12 +73,14 @@ public class FragmentNavigation extends Fragment {
     }
 
     public void showClaimTreasureFragment(Treasure treasure){
-        //addFragment(ClaimTreasureFragment.newInstance(treasure), mMainActivityFragmentContainer);
         addFragment(new ClaimTreasureFragment(treasure), mMainActivityFragmentContainer);
     }
 
     public void showHideTreasureFragment(){
         replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
+    }
+    public void showHideTreasureFragment(double latitude, double longitude){
+        replaceFragment(MapViewFragment.newInstance(latitude,longitude), R.id.fragment_container);
     }
 
     public void showMapViewFragmentInHomeFragment(){

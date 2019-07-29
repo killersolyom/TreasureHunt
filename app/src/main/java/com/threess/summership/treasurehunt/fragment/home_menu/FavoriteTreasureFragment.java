@@ -41,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoriteTreasureFragment extends Fragment {
+    public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
     private TreasureAdapter adapter;
@@ -50,7 +51,6 @@ public class FavoriteTreasureFragment extends Fragment {
 
 
     public FavoriteTreasureFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -102,7 +102,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
                             adapter.getSelectedTreasure().getLocation_lon());
 
-                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
+                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 5 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 
                         mShowClaimTreasure = true;
@@ -136,7 +136,7 @@ public class FavoriteTreasureFragment extends Fragment {
     private void playAnimations() {
 
         Animator recViewAnim = new Animator(getContext(), recycle, true);
-        recViewAnim.AddSlide(0,0,-1000,0, 2000);
+        recViewAnim.AddSlide(0,0,-1000,0, 1800);
 
         Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
         fabAnim.AddSlide(250,0,0,0,1000);

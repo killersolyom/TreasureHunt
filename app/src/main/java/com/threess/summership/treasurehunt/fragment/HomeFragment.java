@@ -20,9 +20,9 @@ import butterknife.ButterKnife;
 
 
 public class HomeFragment extends Fragment {
-    public static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = HomeFragment.class.getSimpleName();
 
-    @BindView(R.id.home_viewpager)
+    //@BindView(R.id.home_viewpager)
     ViewPager viewPager;
 
     @BindView(R.id.bottom_navigation)
@@ -46,13 +46,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        viewPager = view.findViewById(R.id.home_viewpager);
         setupViewPager();
         setupBottomNavigation();
     }
 
     @SuppressWarnings("deprecation")
     private void setupViewPager() {
+
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);

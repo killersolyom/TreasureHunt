@@ -13,9 +13,7 @@
     <color name="orange1">#FF8333</color>
     <color name="green1">#29CF40</color>
     <color name="color1">#32C53E</color>
-    <color name="blue1">#66a3ff</color>
-    <color name="blue2">#0033cc</color>
-    <color name="colorButton0">#0B5B96</color>
+    <color name="blue100">#66a3ff</color>
     <color name="linkBlue">#4d94ff</color>
     <color name="starblue">#09c6df</color>
     <color name="endblue">#0bcce6</color>
@@ -23,6 +21,8 @@
     <color name="colorLightBlue">#46CAEB</color>
     <color name="blue4">#00aab1</color>
     <color name="blue5">#007f85</color>
+    <color name="blue2">#0B5B96</color>
+    <color name="blue1">#0033cc</color>
     <color name="white">#FFFFFF</color>
     <color name="grey7">#f2f2f2 </color>
     <color name="grey6">#E7E7E3</color>
@@ -33,4 +33,24 @@
     <color name="grey1">#a0737373 </color>
     <color name="grey0">#21737373 </color>
     <color name="black">#101010</color>
+
+    <color name="black_transparent_10">#10000000</color>
+    <color name="black_transparent_20">#20000000</color>
+    <color name="black_transparent_30">#30000000</color>
+    <color name="black_transparent_40">#40000000</color>
+    <color name="black_transparent_50">#50000000</color>
+    <color name="black_transparent_60">#60000000</color>
+    <color name="black_transparent_70">#70000000</color>
+    <color name="black_transparent_80">#80000000</color>
+    <color name="black_transparent_90">#90000000</color>
+
+    <color name="white_transparent_10">#10FFFFFF</color>
+    <color name="white_transparent_20">#20FFFFFF</color>
+    <color name="white_transparent_30">#30FFFFFF</color>
+    <color name="white_transparent_40">#40FFFFFF</color>
+    <color name="white_transparent_50">#50FFFFFF</color>
+    <color name="white_transparent_60">#60FFFFFF</color>
+    <color name="white_transparent_70">#70FFFFFF</color>
+    <color name="white_transparent_80">#80FFFFFF</color>
+    <color name="white_transparent_90">#90FFFFFF</color>
 </resources>
