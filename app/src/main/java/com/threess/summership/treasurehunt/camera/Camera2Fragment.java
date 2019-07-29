@@ -1056,6 +1056,7 @@ public class Camera2Fragment extends Fragment implements
                             if (null == mCameraDevice) {
                                 return;
                             }
+                            Log.e("3ss",""+ cameraCaptureSession);
 
                             // When the session is ready, we start displaying the preview.
                             mCaptureSession = cameraCaptureSession;
@@ -1095,8 +1096,8 @@ public class Camera2Fragment extends Fragment implements
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
-                mCaptureSession.close();
-                mCaptureSession = null;
+                //mCaptureSession.close();
+                //mCaptureSession = null;
             }
             if (null != mCameraDevice) {
                 mCameraDevice.close();
