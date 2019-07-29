@@ -206,11 +206,8 @@ public class FragmentNavigation extends Fragment {
 
         if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
             // If Home page is open: double press exit:
-
             doublePressExit(activity);
-
         } else {
-
             // If Hide treasure page or ClaimTreasureFragment or UserDetails fragment is on
             // --> show home page(popBackstack)
             if ((getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment)
