@@ -210,7 +210,7 @@ public class HideTreasureFragment extends Fragment {
                     getFragmentManager().popBackStack();
                 } else {
                     Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
                     snackbar.show();
                 }
             }

@@ -59,8 +59,8 @@
             android:text="@string/write_passcode"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/colorText"
-            android:textColorHighlight="@color/colorText"
+            android:textColor="@color/gray900"
+            android:textColorHighlight="@color/gray100"
             android:textSize="@dimen/Claim_textView_textSize"
             android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
             android:layout_height="@dimen/claim_editText_height"
             android:backgroundTint="@color/black"
             android:hint="@string/pass_code"
-            android:textColorHint="@color/grey1"
+            android:textColorHint="@color/gray900"
             android:textColor="@color/black"/>
 
         <Button
@@ -94,7 +94,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textColorHighlight="@color/colorText"
+            android:textColorHighlight="@color/gray50"
             android:textSize="@dimen/Claim_confimButton_TextSie"
             android:textStyle="bold"
 
