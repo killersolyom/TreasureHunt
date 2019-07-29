@@ -24,7 +24,6 @@ public class NetworkChangeReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         try {
-            //TODO change this
             if (isOnline(context)){
                 Util.makeSnackbar(activity.findViewById(R.id.fragment_container),R.string.online_mode,Snackbar.LENGTH_LONG,R.color.blue300);
             }else {

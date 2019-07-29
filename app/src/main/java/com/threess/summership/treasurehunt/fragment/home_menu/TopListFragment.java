@@ -33,25 +33,19 @@ public class TopListFragment extends Fragment {
     private ArrayList<User> list = new ArrayList<>();
 
     public TopListFragment() {
-        // constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_toplist, container, false);
-        // Do not modify!
     }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // TODO
-
         recyclerview  = view.findViewById(R.id.contactList);
         recyclerview.setHasFixedSize(true);
-
         layoutmanager = new LinearLayoutManager(view.getContext());
         recyclerview.setLayoutManager(layoutmanager);
 

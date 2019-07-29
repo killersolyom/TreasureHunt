@@ -82,8 +82,6 @@
 
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
