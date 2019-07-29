@@ -96,6 +96,16 @@ public class ClaimTreasureFragment extends Fragment {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
+                                                                                            //new score value
+                            ApiController.getInstance().updateScore(sd.getCurrentUserName(),mTreasure.getPrize_points(), new Callback<Object>() {
+                                @Override
+                                public void onResponse(Call<Object> call, Response<Object> response) {
+                                    Util.makeSnackbar(mView,R.string.Claim_snackBar_scoreUpdate,Snackbar.LENGTH_SHORT,R.color.blue );
+                                }
+                                @Override
+                                public void onFailure(Call<Object> call, Throwable t) {
+                                }
+                            });
                             FragmentNavigation.getInstance(getContext()).popBackstack();
                         }
                         @Override

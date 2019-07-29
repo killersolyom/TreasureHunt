@@ -46,6 +46,7 @@
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
     <string name="Claim_error3">This is your treasure. It is not fair!</string>
     <string name="Claim_snackBarError1">Invalid pass code or wrong treasure!</string>
+    <string name="Claim_snackBar_scoreUpdate">Your score now is bigger!</string>
     <string name="Claim_Available">This treasure pass code is valid! </string>
     <string name="Claim_Available2"> is valid! </string>
     <string name="Claim_SnackBarError2"> Not available treasure on server </string>

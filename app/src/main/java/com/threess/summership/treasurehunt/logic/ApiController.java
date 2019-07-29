@@ -85,4 +85,8 @@ public class ApiController {
         mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
     }
 
+    public void updateScore(String userName,Double score ,final Callback<Object>callback){
+        mUserService.updateScore(userName,score).enqueue(callback);
+    }
+
 }
