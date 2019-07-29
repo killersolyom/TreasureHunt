@@ -24,10 +24,8 @@ import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Animator;
-import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
-import com.threess.summership.treasurehunt.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +41,6 @@ public class ClaimTreasureFragment extends Fragment {
     private TextView mDescriptionText;
     private Button myConfirmButton;
     private ImageView backImageButton;
-    private ImageView mConfirmImage;
     private Button qrCodeReaderButtn;
     private Treasure mTreasure;
     private View mView;
@@ -82,7 +79,6 @@ public class ClaimTreasureFragment extends Fragment {
             mHasQRCode = false;
             verifyResult();
         });
-        //playSuccessImageAnimation();
     }
 
     private void verifyResult(){
@@ -90,22 +86,24 @@ public class ClaimTreasureFragment extends Fragment {
             Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
         }
         if(isValidTreasure()){
-            //playSuccessImageAnimation();
-            SavedData sd = new SavedData(getContext());
-            TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
-            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+            playSuccessImageAnimation();
+            new Handler().postDelayed(new Runnable() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
-                    playSuccessImageAnimation();
-                    FragmentNavigation.getInstance(getContext()).popBackstack();
+                public void run() {
+                    SavedData sd = new SavedData(getContext());
+                    TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
+                    ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
+                            FragmentNavigation.getInstance(getContext()).popBackstack();
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
+                        }});
                 }
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.red);
-                }});
-        }else{
-            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
+            },3000);
         }
     }
 
@@ -129,17 +127,22 @@ public class ClaimTreasureFragment extends Fragment {
                 im.setVisibility(View.INVISIBLE);
             }
         },1000);
-
-        //Animator animator3 = new Animator(getContext(),mView.findViewById(R.id.image_succsesfull_icon));
-        //animator3.AddScale(0.75f,0.75f,0.75f,0.75f,.5f,.5f,2000);
-        //animator3.Start(1000);
     }
 
     private boolean isValidTreasure(){
-        return (this.mTreasure!=null && !mTreasure.isClaimed())
-                && ( this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)
-                    || myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
+        SavedData sd = new SavedData(getContext());
+        boolean ok= ((this.mTreasure!=null && !mTreasure.isClaimed()
+                && (this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)))
+                    || (myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
+                        && !this.mTreasure.getUsername().equals(sd.getCurrentUserName()))
         );
+        if(!ok && this.mTreasure.getUsername().equals(sd.getCurrentUserName())){
+            Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.red);
+        }
+        else if(!ok && (this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner))){
+            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.red);
+        }
+        return  ok;
     }
 
     @Override

@@ -111,7 +111,7 @@
         android:layout_height="@dimen/Claim_imageView_hight"
         android:src="@drawable/ic_image_succsesful"
         android:tint="@color/colorPrimary"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
