@@ -107,6 +107,7 @@ public class ClaimTreasureFragment extends Fragment {
                 public void onFailure(Call<String> call, Throwable t) {
                     Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
                     Log.e("boti", "failureFirst");
+                    FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
         }
