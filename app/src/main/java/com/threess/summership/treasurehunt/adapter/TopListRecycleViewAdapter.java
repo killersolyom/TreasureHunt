@@ -43,10 +43,12 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
         holder.nameTextView.setText(list.get(position).getUsername());
         holder.scoreNumberTextView.setText(
-                context.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
+                context.getResources().getString(R.string.top_list_score)
+                        + list.get(position).getScore());
         Glide.with(context)
                 .load(Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
                 .circleCrop()
+                .error(R.drawable.default_pic)
                 .placeholder(context
                         .getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
@@ -71,7 +73,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         Glide.with(context)
                 .load(imageUrl)
                 .fitCenter()
-                .error(R.drawable.astonished_face_emoji)
+                .error(R.drawable.default_pic)
                 .into(profilePicture);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setView(view);
