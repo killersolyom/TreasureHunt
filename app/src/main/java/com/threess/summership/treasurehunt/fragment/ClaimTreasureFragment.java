@@ -149,7 +149,7 @@ public class ClaimTreasureFragment extends Fragment {
         if(!ok && this.mTreasure.getUsername().equals(sd.getCurrentUserName())){
             Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.orange900);
         }
-        else if(!ok && (myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
+        if(!ok && !(myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
             Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.orange900);
         }
         return  ok;

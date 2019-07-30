@@ -22,7 +22,7 @@ public interface UserRetrofitService {
     @GET("/users")
     Call <ArrayList<User>> listAllUsers ();
 
-    @POST("/users/update/:{username}")
+    @POST("/users/update/{username}")
     Call<Object> updateScore(@Query("username")String username, Double score);
 
 
