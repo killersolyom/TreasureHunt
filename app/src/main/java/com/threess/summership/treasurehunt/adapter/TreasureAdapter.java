@@ -43,7 +43,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
             final Treasure treasure = treasureList.get(position);
-            Glide.with(context).load(Constant.ApiController.BASE_URL+treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
+            Glide.with(context).load(Constant.ApiController.BASE_URL + treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
             holder.treasureText.setText(treasure.getDescription());
             holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
 

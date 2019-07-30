@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
+import com.threess.summership.treasurehunt.logic.SavedData;
 
 
 public class HomeFragment extends Fragment {
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment {
         public void onPageSelected(int position) {
             switch (position) {
                 case 0:
-                    toolbar.setTitle(R.string.profile);
+                    toolbar.setTitle("Profile - " + new SavedData(getContext()).getCurrentUserName());
                     toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;

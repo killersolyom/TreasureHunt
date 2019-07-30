@@ -19,17 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:layout_width="@dimen/profile_edit_image_view_size"
         android:layout_height="@dimen/profile_edit_image_view_size"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_mode_edit_orange_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
         app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
-
-
 
     <Button
         android:id="@+id/update"
@@ -39,9 +37,10 @@
         android:layout_height="@dimen/update_height"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_selector"
         android:text="@string/refresh"
-        android:textColor="@color/black"
+        android:textColor="@color/gray900"
+        android:textAllCaps="false"
+        android:background="@drawable/button_selector"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +76,6 @@
             tools:layout_editor_absoluteY="279dp" />
 
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/treasures_discovered"
@@ -116,7 +114,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/treasures_hidden"
         android:paddingTop="15dp"
-
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,15 +121,13 @@
 
     <Button
         android:id="@+id/logout_button"
-
         android:layout_marginStart="8dp"
         android:background="@drawable/button_selector"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="@dimen/update_height"
-
-        android:text="@string/profile_logout"
-
         android:textColor="@color/gray900"
+        android:text="@string/profile_logout"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
