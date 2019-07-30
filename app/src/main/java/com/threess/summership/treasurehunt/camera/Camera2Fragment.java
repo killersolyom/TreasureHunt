@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -184,7 +183,7 @@ public class Camera2Fragment extends Fragment implements
 
     private boolean mIsImageAvailable = false;
 
-    private IMainActivity mIMainActivity;
+    private ICameraActivity myICameraActivity;
 
     private Bitmap mCapturedBitmap;
 
@@ -207,6 +206,7 @@ public class Camera2Fragment extends Fragment implements
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
 
 
+
     public static Camera2Fragment newInstance(){
         return new Camera2Fragment();
     }
@@ -215,8 +215,11 @@ public class Camera2Fragment extends Fragment implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera2, container, false);
+
+
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -258,6 +261,8 @@ public class Camera2Fragment extends Fragment implements
         setMaxSizes();
         resetIconVisibilities();
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -405,7 +410,7 @@ public class Camera2Fragment extends Fragment implements
 
     private void toggleStickers(){
         Log.d(TAG, "displayStickers: called.");
-        mIMainActivity.toggleViewStickersFragment();
+        myICameraActivity.toggleViewStickersFragment();
     }
 
     private void saveCapturedStillshotToDisk(){
@@ -414,10 +419,6 @@ public class Camera2Fragment extends Fragment implements
 
             final ICallback callback = (e, file) -> {
                 if(e == null){//todo: save - POST img
-                    Intent result = new Intent();
-                    result.putExtra(getActivity().getString(R.string.file_string),file.getAbsolutePath());
-                    getActivity().setResult(Activity.RESULT_OK,result);
-                    getActivity().finish();
                     Log.d(TAG, "onImageSavedCallback: image saved!");
                     showSnackBar("Image saved", Snackbar.LENGTH_SHORT);
                 }
@@ -656,7 +657,7 @@ public class Camera2Fragment extends Fragment implements
     }
 
     private void hideStillshotContainer(){
-        mIMainActivity.showStatusBar();
+        myICameraActivity.showStatusBar();
         if(mIsImageAvailable){
             mIsImageAvailable = false;
             mCapturedBitmap = null;
@@ -955,7 +956,6 @@ public class Camera2Fragment extends Fragment implements
 
         }
     };
-
     /**
      * Retrieves the JPEG orientation from the specified screen rotation.
      *
@@ -981,6 +981,7 @@ public class Camera2Fragment extends Fragment implements
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
 
             setAutoFlash(mPreviewRequestBuilder);
+
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
@@ -990,6 +991,7 @@ public class Camera2Fragment extends Fragment implements
             e.printStackTrace();
         }
     }
+
 
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -1144,10 +1146,10 @@ public class Camera2Fragment extends Fragment implements
         startBackgroundThread();
 
         if(mIsImageAvailable){
-            mIMainActivity.hideStatusBar();
+            myICameraActivity.hideStatusBar();
         }
         else{
-            mIMainActivity.showStatusBar();
+            myICameraActivity.showStatusBar();
 
             // When the screen is turned off and turned back on, the SurfaceTexture is already
             // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
@@ -1159,7 +1161,7 @@ public class Camera2Fragment extends Fragment implements
 
     @Override
     public void onPause() {
-
+        closeCamera();
         stopBackgroundThread();
         if(mBackgroundImageRotater != null){
             mBackgroundImageRotater.cancel(true);
@@ -1180,7 +1182,7 @@ public class Camera2Fragment extends Fragment implements
 
         try {
             Log.d(TAG, "setUpCameraOutputs: called.");
-            if (!mIMainActivity.isCameraBackFacing() && !mIMainActivity.isCameraFrontFacing()) {
+            if (!myICameraActivity.isCameraBackFacing() && !myICameraActivity.isCameraFrontFacing()) {
                 Log.d(TAG, "setUpCameraOutputs: finding camera id's.");
                 findCameraIds();
             }
@@ -1320,6 +1322,7 @@ public class Camera2Fragment extends Fragment implements
         Log.d(TAG, "setMaxSizes: screen height: " + SCREEN_HEIGHT);
     }
 
+
     private void findCameraIds(){
 
         Activity activity = getActivity();
@@ -1332,30 +1335,31 @@ public class Camera2Fragment extends Fragment implements
                 CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
                 int facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if (facing == CameraCharacteristics.LENS_FACING_FRONT){
-                    mIMainActivity.setFrontCameraId(cameraId);
+                    myICameraActivity.setFrontCameraId(cameraId);
                 }
                 else if (facing == CameraCharacteristics.LENS_FACING_BACK){
-                    mIMainActivity.setBackCameraId(cameraId);
+                    myICameraActivity.setBackCameraId(cameraId);
                 }
             }
-            mIMainActivity.setCameraFrontFacing();
-            mCameraId = mIMainActivity.getFrontCameraId();
+            myICameraActivity.setCameraFrontFacing();
+            mCameraId = myICameraActivity.getFrontCameraId();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
+
     private void toggleCameraDisplayOrientation(){
-        if(mCameraId.equals(mIMainActivity.getBackCameraId())){
-            mCameraId = mIMainActivity.getFrontCameraId();
-            mIMainActivity.setCameraFrontFacing();
+        if(mCameraId.equals(myICameraActivity.getBackCameraId())){
+            mCameraId = myICameraActivity.getFrontCameraId();
+            myICameraActivity.setCameraFrontFacing();
             closeCamera();
             reopenCamera();
             Log.d(TAG, "toggleCameraDisplayOrientation: switching to front-facing camera.");
         }
-        else if(mCameraId.equals(mIMainActivity.getFrontCameraId())){
-            mCameraId = mIMainActivity.getBackCameraId();
-            mIMainActivity.setCameraBackFacing();
+        else if(mCameraId.equals(myICameraActivity.getFrontCameraId())){
+            mCameraId = myICameraActivity.getBackCameraId();
+            myICameraActivity.setCameraBackFacing();
             closeCamera();
             reopenCamera();
             Log.d(TAG, "toggleCameraDisplayOrientation: switching to back-facing camera.");
@@ -1364,7 +1368,6 @@ public class Camera2Fragment extends Fragment implements
             Log.d(TAG, "toggleCameraDisplayOrientation: error.");
         }
     }
-
     /**
      * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
      * This method should be called after the camera preview size is determined in
@@ -1418,6 +1421,9 @@ public class Camera2Fragment extends Fragment implements
 
         mTextureView.setTransform(matrix);
     }
+
+
+
 
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
@@ -1533,9 +1539,11 @@ public class Camera2Fragment extends Fragment implements
         mSwitchOrientationContainer.setVisibility(View.INVISIBLE);
         mCaptureBtnContainer.setVisibility(View.INVISIBLE);
 
-        mIMainActivity.hideStatusBar();
+        myICameraActivity.hideStatusBar();
         closeCamera();
     }
+
+
 
     /**
      *  WARNING!
@@ -1620,7 +1628,7 @@ public class Camera2Fragment extends Fragment implements
                 break;
         }
         try {
-            if (mIMainActivity.isCameraFrontFacing()) {
+            if (myICameraActivity.isCameraFrontFacing()) {
                 Log.d(TAG, "rotateBitmap: MIRRORING IMAGE.");
                 matrix.postScale(-1.0f, 1.0f);
             }
@@ -1746,7 +1754,6 @@ public class Camera2Fragment extends Fragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         try{
-            mIMainActivity = (IMainActivity) getActivity();
         }catch (ClassCastException e){
             Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage() );
         }

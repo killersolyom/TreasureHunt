@@ -223,26 +223,26 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private void uploadTreasure(Treasure treasure) {
-        uploadToServer(myIMGFile.getAbsolutePath(), treasure);
-//        ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
-//            public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
-//                if (response.errorBody() == null) {
-//                    uploadToServer(myIMGFile.getAbsolutePath());
-//                    getFragmentManager().popBackStack();
-//
-//                } else {
-//                    Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
-//                    Log.e("3ss", response.errorBody() + "");
-//                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
-//                    snackbar.show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Treasure> call, Throwable t) {
-//                Log.e(TAG, "Failure: ", t);
-//            }
-//        });
+        //uploadToServer(myIMGFile.getAbsolutePath(), treasure);
+        ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
+            public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
+                if (response.errorBody() == null) {
+                    uploadToServer(myIMGFile.getAbsolutePath(),treasure);
+                    getFragmentManager().popBackStack();
+
+                } else {
+                    Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
+                    Log.e("3ss", response.errorBody() + "");
+                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Treasure> call, Throwable t) {
+                Log.e(TAG, "Failure: ", t);
+            }
+        });
     }
 
 

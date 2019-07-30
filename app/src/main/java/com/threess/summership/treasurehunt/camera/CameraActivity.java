@@ -16,7 +16,7 @@ import android.view.View;
 
 import com.threess.summership.treasurehunt.R;
 
-public class CameraActivity extends AppCompatActivity implements IMainActivity{
+public class CameraActivity extends AppCompatActivity implements ICameraActivity{
 
     private static final String TAG = CameraActivity.class.getSimpleName();
 
@@ -35,7 +35,6 @@ public class CameraActivity extends AppCompatActivity implements IMainActivity{
 
         init();
     }
-
     private void startCamera2(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.camera_container, Camera2Fragment.newInstance(), getString(R.string.fragment_camera2));
