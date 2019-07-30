@@ -87,7 +87,7 @@ public class ClaimTreasureFragment extends Fragment {
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.blue300);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
                 @Override
