@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:text="@string/claim_treasure"
             android:textAllCaps="false"
-            android:textColor="@color/gray200"
+            android:textColor="@color/gray900"
             android:textSize="30sp"/>
 
 
