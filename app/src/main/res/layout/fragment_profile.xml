@@ -18,79 +18,101 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/star_button"
-        android:layout_width="31dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="80dp"
-        android:src="@drawable/ic_star_orange_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+
 
     <Button
         android:id="@+id/update"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/update_height"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/update"
+        android:layout_marginEnd="8dp"
         android:background="@color/blue500"
+        android:text="@string/update"
         android:textColor="@color/gray900"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
-    <TextView
-        android:id="@+id/score"
+    <LinearLayout
+        android:id="@+id/image_location_getter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/score"
-        android:textColorHighlight="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/profile_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/update"
+        android:paddingTop="20dp">
+
+
+        <ImageView
+            android:id="@+id/star_button"
+            android:layout_width="34dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_star_orange_24dp"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="263dp" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="@string/score"
+            android:textAlignment="center"
+            android:textColorHighlight="@color/white"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="279dp" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/Treasures_discovered"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/Treasures_discovered_marginStar"
-        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:paddingTop="15sp"
         android:ems="10"
         android:text="@string/Treasures_discovered"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_text"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/username_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:paddingTop="20dp"
         android:ems="10"
         android:text="@string/Username"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update" />
+        app:layout_constraintTop_toBottomOf="@+id/image_location_getter" />
 
     <TextView
         android:id="@+id/Treasures_hidden"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:paddingTop="15dp"
         android:text="@string/Treasures_hidden"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/profile_logout"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/update_height"
         android:background="@color/blue500"
+        android:text="@string/profile_logout"
         android:textColor="@color/gray900"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

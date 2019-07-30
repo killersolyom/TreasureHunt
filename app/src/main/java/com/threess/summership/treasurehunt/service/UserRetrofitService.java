@@ -10,8 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface UserRetrofitService {
-     public static String BASE_URL = "http://5.254.125.248:3000/";
-
     @POST("/users/register")
     Call<Object> createUser(@Body User user);
 
