@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,10 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
+
 
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
@@ -22,16 +23,17 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
     private ArrayList<User> list;
 
-    private Context ctx;
+    private Context context;
+
     public TopListRecycleViewAdapter(ArrayList<User> list, Context context) {
         this.list = list;
-        ctx=context;
+        this.context = context;
     }
 
 
     @Override
     public TopListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.toplist_item_layout,parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.toplist_item_layout, parent, false);
 
         return new TopListViewHolder(view);
     }
@@ -39,22 +41,43 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
     @Override
     public void onBindViewHolder(TopListViewHolder holder, final int position) {
 
-        holder.text1.setText(list.get(position).getUsername());
-        holder.text2.setText(ctx.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
-        Glide.with(ctx)
-                .load( Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
-                .placeholder(ctx.getDrawable(R.drawable.default_pic))
-                .into(holder.image);
+        holder.nameTextView.setText(list.get(position).getUsername());
+        holder.scoreNumberTextView.setText(
+                context.getResources().getString(R.string.top_list_score)
+                        + list.get(position).getScore());
+        Glide.with(context)
+                .load(Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
+                .circleCrop()
+                .error(R.drawable.default_pic)
+                .placeholder(context
+                        .getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                if (list.get(position) != null) {
-                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
-                }}
+        holder.itemView.setOnClickListener(view -> {
+            if (list.get(position) != null) {
+                showUserProfile(list.get(position),
+                        Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
+            }
         });
 
 
+    }
+
+    private void showUserProfile(User user, String imageUrl){
+        LayoutInflater factory = LayoutInflater.from(context);
+        View view = factory.inflate(R.layout.custom_alert_dialog_view, null);
+        ImageView profilePicture = view.findViewById(R.id.dialog_imageview);
+        TextView userName = view.findViewById(R.id.dialog_username);
+        TextView userScore = view.findViewById(R.id.dialog_userscore);
+        userName.setText(context.getString(R.string.Username) +": " + user.getUsername());
+        userScore.setText(context.getString(R.string.score)+ ": " + user.getScore());
+        Glide.with(context)
+                .load(imageUrl)
+                .fitCenter()
+                .error(R.drawable.default_pic)
+                .into(profilePicture);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setView(view);
+        alertDialog.show();
     }
 
     @Override
@@ -62,17 +85,17 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         return list.size();
     }
 
-    public static class TopListViewHolder extends RecyclerView.ViewHolder{
-        public TextView text1;
-        public TextView text2;
-        public ImageView image;
+    public static class TopListViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTextView;
+        public TextView scoreNumberTextView;
+        public ImageView pictureImageView;
 
         public TopListViewHolder(View itemView) {
 
             super(itemView);
-            text1 = itemView.findViewById(R.id.nameTextView);
-            text2 = itemView.findViewById(R.id.telNumberTextView);
-            image = itemView.findViewById(R.id.icon);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
+            scoreNumberTextView = itemView.findViewById(R.id.scoreNumberTextView);
+            pictureImageView = itemView.findViewById(R.id.pictureImageView);
 
         }
     }

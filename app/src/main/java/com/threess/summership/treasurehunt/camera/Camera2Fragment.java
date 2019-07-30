@@ -1035,7 +1035,6 @@ public class Camera2Fragment extends Fragment implements
                                 // Finally, we start displaying the camera preview.
                                 mPreviewRequest = mPreviewRequestBuilder.build();
                                 mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
-                                mCameraOpenCloseLock.release();
                             } catch (CameraAccessException e) {
                                 e.printStackTrace();
                             }
@@ -1055,7 +1054,7 @@ public class Camera2Fragment extends Fragment implements
 
     /** Closes the current {@link CameraDevice}. */
     private void closeCamera() {
-        mCameraOpenCloseLock.release();
+
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
@@ -1073,6 +1072,7 @@ public class Camera2Fragment extends Fragment implements
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
         }
+        mCameraOpenCloseLock.release();
     }
 
     /** Starts a background thread and its {@link Handler}. */

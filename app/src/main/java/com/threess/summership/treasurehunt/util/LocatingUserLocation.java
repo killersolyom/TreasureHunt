@@ -26,6 +26,14 @@ public class LocatingUserLocation {
     private LocatingUserLocation() {
     }
 
+    public String tryToGetLocationString(Context context){
+        LatLng currentPosition = tryToGetLocation(context);
+        if (currentPosition!=null){
+            return  currentPosition.latitude + " , " + currentPosition.longitude;
+        }
+        return "";
+    }
+
     public LatLng tryToGetLocation(Context context){
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if(locationManager!=null){
