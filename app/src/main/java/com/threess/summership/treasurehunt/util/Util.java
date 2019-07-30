@@ -20,6 +20,7 @@ import java.util.Random;
 
 public final class Util {
     private static final String TAG = Util.class.getSimpleName();
+    private static Random randomNumber = new Random(5);
 
     public static void hideKeyboard(Context context, Button button) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
@@ -38,7 +39,7 @@ public final class Util {
     }
 
     private static Bitmap randomBitmap(Context context) {
-        switch (new Random().nextInt(5)) {
+        switch (randomNumber.nextInt()) {
             case 0:
                 return BitmapFactory.decodeResource(context.getResources(), R.drawable.t1);
             case 1:
@@ -60,8 +61,7 @@ public final class Util {
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
                 + Math.cos(Math.toRadians(currentPosition.latitude)) * Math.cos(Math.toRadians(treasurePosition.latitude))
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))) * 6371000;
-        return Math.sqrt(Math.pow(c, 2));
+        return Math.sqrt(Math.pow(((2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))) * 6371000), 2));
     }
 
     public static void errorHandling(View view, String message, int requestCode) {
