@@ -96,9 +96,10 @@ public class ApiController {
         mTreasureService.createTreasurePicture(passcode,userName).enqueue(callback);
     }
 
-    public void upploadPicture(Treasure treasure, MultipartBody.Part file, RequestBody body, Callback<ResponseBody> callback){
-        mTreasureService.uploadImage(treasure.getPasscode(),treasure.getUsername(),file,body).enqueue(callback);
+    public void uploadTreasureImageClue(MultipartBody.Part file, RequestBody requestBody, String username, String passcode, Callback<ResponseBody> callback){
+        mTreasureService.uploadImage(file, requestBody, username, passcode).enqueue(callback);
     }
+
 
 
 }

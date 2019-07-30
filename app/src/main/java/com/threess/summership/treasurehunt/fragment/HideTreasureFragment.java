@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
@@ -68,7 +69,7 @@ public class HideTreasureFragment extends Fragment {
     private double latitude,longitude;
 
     private Retrofit mRetrofit;
-
+    private Treasure treasure;
     private File myIMGFile;
 
     public HideTreasureFragment() {
@@ -210,7 +211,7 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private Treasure getInputFields() {
-        final Treasure treasure = new Treasure();
+        treasure = new Treasure();
         treasure.setTitle(titleEditText.getText().toString().trim());
         treasure.setDescription(descriptionEditText.getText().toString().trim());
         treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
@@ -223,11 +224,10 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private void uploadTreasure(Treasure treasure) {
-        //uploadToServer(myIMGFile.getAbsolutePath(), treasure);
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    uploadToServer(myIMGFile.getAbsolutePath(),treasure);
+                    uploadToServer(myIMGFile.getAbsolutePath());
                     getFragmentManager().popBackStack();
 
                 } else {
@@ -260,7 +260,7 @@ public class HideTreasureFragment extends Fragment {
     }
 
 
-    private void uploadToServer(String filePath, Treasure t) {
+    private void uploadToServer(String filePath) {
         //Create a file object using file path
         File file = new File(filePath);
         // Create a request body with file and image media type
@@ -270,15 +270,15 @@ public class HideTreasureFragment extends Fragment {
         //Create request body with text description and text media type
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
         //
-        ApiController.getInstance().upploadPicture(t,part, description, new Callback<ResponseBody>() {
+        ApiController.getInstance().uploadTreasureImageClue(part, description, treasure.getUsername(), treasure.getPasscode(), new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.e("3ss","uppload OK");
+                Log.e(TAG, response.message());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("3ss","uppload NOT OK");
+                Log.e("TAG", "Sikertelen", t);
             }
         });
     }
