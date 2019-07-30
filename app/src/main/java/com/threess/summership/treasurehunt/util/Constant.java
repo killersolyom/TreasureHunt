@@ -1,8 +1,5 @@
 package com.threess.summership.treasurehunt.util;
 
-import com.google.android.gms.common.api.Api;
-import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-
 public class Constant {
 
     public static class Common{
@@ -18,11 +15,28 @@ public class Constant {
         public static final String KEY_STRING_USERNAME = "username";
     }
 
+    public static class HideTreasure {
+        public static final int HIDE_TREASURE_REQUEST_CODE = 400;
+        public static final String ALREADY_EXISTS= "already exists";
+        public static final String ALL_FIELDS_ARE_REQUIRED = "All the fields are required";
+    }
 
     public static class ApiController {
         public static final String BASE_URL = "http://5.254.125.248:3000/";
     }
 
+    public static class Registration {
+        public static final int REGISTRATION_REQUEST_CODE = 500;
+        public static final int goodResponseCode = 200;
+        public static final String ALREADY_EXISTS = "Username already exists.";
+    }
+
+    public static class LogIn {
+        public static final int LOGIN_REQUEST_CODE = 403;
+        public static final int goodResponseCode = 200;
+        public static final String INCORRECT_PASSWORD = "Incorrect password for username";
+        public static final String USERNAME_NOT_EXISTS = "does not exist.";
+    }
 
     public static class SavedData {
         public static final String SHARED_PREFERENCE_KEY = "TreasureHunt";
