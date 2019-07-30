@@ -18,10 +18,14 @@
     <string name="score">Score</string>
     <string name="successful">Successful</string>
     <string name="registration_failed">Registration failed!</string>
+    <string name="username_already_exists">Username already exists. Try a different one!</string>
     <string name="invalid_username">Invalid username!</string>
     <string name="invalid_password">Invalid password!</string>
+    <string name="failed_operation">Operation failed!</string>
     <string name="invalid_password_confirm">The passwords do not match!</string>
     <string name="login_failed">Login failed!</string>
+    <string name="incorrect_password">Incorrect password!</string>
+    <string name="username_not_exists">This username is not registered yet!</string>
     <string name="empty_string"> </string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
@@ -50,6 +54,7 @@
     <string name="top_list_score">Score: </string>
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>
+    <string name="unreachable">The server is unreachable!</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     <string name="intro_message">intro message</string>
@@ -72,20 +77,22 @@
     <string name="lochint">A pair of coordinates [latitude,longitude]</string>
     <string name="prizehint">How much of your own prize points would you award</string>
     <string name="passhint">Unique identifier, so it can be validated when claimed</string>
+    <string name="claimed">Claimed by </string>
     <string name="createtreasurebutton">Create treasure</string>
     <string name="create_treasure">Creating treasure failed</string>
+    <string name="choose_another_passcode">"Please choose another passcode!"</string>
+    <string name="all_fields_are_required">"All the fields are required"</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>
     <string name="user_profile_no_informations_error_message">"Can't download user informations."</string>
     <string name="profile_score_format">Score: %1$d</string>
     <string name="profile_user_name_format">Username: %1$s</string>
     <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
     <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
+    <string name="back_button_press">Please click BACK again to exit!</string>
 
 
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>

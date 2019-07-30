@@ -28,7 +28,6 @@ public class RegistrationFragment extends Fragment {
 
     private EditText usernameText, passwordText, confirm_passwordText;
     private Button register, cancel;
-    private SavedData dataManager;
 
     public RegistrationFragment() {
 
@@ -50,22 +49,15 @@ public class RegistrationFragment extends Fragment {
         confirm_passwordText = view.findViewById(R.id.confirmPassword);
         register = view.findViewById(R.id.register);
         cancel = view.findViewById(R.id.cancel);
-        dataManager = new SavedData(getContext());
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateUser(usernameText.getText().toString().trim(), passwordText.getText().toString().trim(), confirm_passwordText.getText().toString().trim());
-            }
-        });
+        register.setOnClickListener(view12 ->
+                validateUser(usernameText.getText().toString().trim(),
+                        passwordText.getText().toString().trim(),
+                        confirm_passwordText.getText().toString().trim()));
 
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Util.hideKeyboard(getContext(), cancel);
-                getFragmentManager().popBackStack();
-            }
+        cancel.setOnClickListener(view1 -> {
+            Util.hideKeyboard(getContext(), cancel);
+            getFragmentManager().popBackStack();
         });
 
     }
@@ -88,21 +80,21 @@ public class RegistrationFragment extends Fragment {
             confirm_passwordText.setError(error);
             return;
         }
-        dataManager.writeStringData(usernameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
-        dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
         User user = new User(username, password);
         ApiController.getInstance().registerUser(user, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                if (response.code() == 200) {
+                if (response.code() == Constant.Registration.goodResponseCode) {
                     Util.makeSnackbar(getView(), R.string.successful, Snackbar.LENGTH_LONG, R.color.blue300);
+                    new SavedData(getContext()).setUserDataAfterRegistration(username,password);
+                    getFragmentManager().popBackStack();
                 } else {
-                    Util.makeSnackbar(getView(), R.string.registration_failed, Snackbar.LENGTH_LONG, R.color.orange700);
+                    Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
                 }
             }
-
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
+                Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
     }

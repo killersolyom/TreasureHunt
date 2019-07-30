@@ -61,7 +61,6 @@ public class FavoriteTreasureFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_favorite_treasure, container, false);
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -71,10 +70,6 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
         addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
-        Glide.with(getContext())
-                .load(R.drawable.ic_add_treasure)
-                .error(R.mipmap.ic_launcher_foreground)
-                .into(addTreasureFab);
 
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -103,7 +98,7 @@ public class FavoriteTreasureFragment extends Fragment {
                     LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
                             adapter.getSelectedTreasure().getLocation_lon());
 
-                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 5 && adapter.getSelectedTreasure() != null) {
+                    if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 
                         mShowClaimTreasure = true;
@@ -157,6 +152,11 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Glide.with(getContext())
+                .load(R.drawable.ic_add_treasure)
+                .error(R.mipmap.ic_launcher_foreground)
+                .into(addTreasureFab);
+        adapter.notifyDataSetChanged();
         if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();
             adapter.clearSelectedTreasure();

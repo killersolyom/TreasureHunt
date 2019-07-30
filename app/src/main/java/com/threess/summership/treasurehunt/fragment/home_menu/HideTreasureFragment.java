@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,11 +20,13 @@ import android.widget.ImageView;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
+import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
 
@@ -54,11 +55,7 @@ public class HideTreasureFragment extends Fragment {
     private EditText locationEditText;
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private Bundle mBundle;
-    private Bitmap imageBitmap;
     private double latitude,longitude;
-
-    private Retrofit mRetrofit;
     private Treasure treasure;
     private File myIMGFile;
 
@@ -81,6 +78,8 @@ public class HideTreasureFragment extends Fragment {
             latitude=getArguments().getDouble(MapViewFragment.KEY1);
             longitude=getArguments().getDouble(MapViewFragment.KEY2);
             locationEditText.setText( latitude +" , "+longitude);
+        }else{
+            locationEditText.setText(LocatingUserLocation.getInstance().tryToGetLocationString(getContext()));
         }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -220,20 +219,21 @@ public class HideTreasureFragment extends Fragment {
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    uploadToServer(myIMGFile.getAbsolutePath());
-                    getFragmentManager().popBackStack();
-
+                    if(!myIMGFile.getAbsolutePath().equals("")){
+                        uploadToServer(myIMGFile.getAbsolutePath());
+                        getFragmentManager().popBackStack();
+                    }else{
+                        uploadToServer("");
+                        getFragmentManager().popBackStack();
+                    }
                 } else {
-                    Snackbar snackbar = Snackbar.make(getView(), R.string.create_treasure, Snackbar.LENGTH_LONG);
-                    Log.e("3ss", response.errorBody() + "");
-                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orangeA300));
-                    snackbar.show();
+                    Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<Treasure> call, Throwable t) {
-                Log.e(TAG, "Failure: ", t);
+                Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
     }
