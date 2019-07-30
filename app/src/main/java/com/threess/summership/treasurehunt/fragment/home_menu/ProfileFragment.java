@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
@@ -59,14 +60,17 @@ public class ProfileFragment extends Fragment {
     private static Button mLogoutButton;
     private static Button mUpdateButton;
 
+
     public ProfileFragment() {
         // constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -82,6 +86,7 @@ public class ProfileFragment extends Fragment {
         loadProfileImage(mDataManager.getProfileImage());
         loadUserData();
     }
+
 
     private void bindViews(View view){
         profileImageView = view.findViewById(R.id.profile_image_view);
@@ -148,6 +153,7 @@ public class ProfileFragment extends Fragment {
         pickFromGallery();
     }
 
+
     private void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -156,13 +162,19 @@ public class ProfileFragment extends Fragment {
         startActivityForResult(intent, Constant.Common.GALLERY_REQUEST_CODE);
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             mDataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
-            uploadImageToServer(data.getData().getPath());
+            //updateUserProfileField();
+            uploadImageToServer(data.getData());
         }
     }
+
+    private void updateUserProfileField() {
+    }
+
 
     private void loadProfileImage(Uri imageUri) {
         if (imageUri != null) {
@@ -173,8 +185,10 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void uploadImageToServer(String filePath) {
+
+    private void uploadImageToServer(Uri fileUri) {
         // Create a file object using file path
+        String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext() );
         File file = new File(filePath);
         // Create a request body with file and image media type
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -183,7 +197,7 @@ public class ProfileFragment extends Fragment {
         // Create request body with text description and text media type
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
         //
-        ApiController.getInstance().uploadProfileImage(part, description, mUserName, new Callback<ResponseBody>() {
+        ApiController.getInstance().uploadProfileImage(part, description, mUserName,new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e(TAG, response.message());
@@ -191,25 +205,30 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("TAG", "Profile image upload failed!", t);
+                Log.e(TAG, "Profile image upload failed!", t);
             }
         });
     }
+
 
     private void setUIUserName(String userName){
         mUserNameTextView.setText( getString( R.string.profile_user_name_format, userName ) );
     }
 
+
     private void setUIScore(int score){
         profileScoreTextView.setText( getString( R.string.profile_score_format, score ) );
     }
+
 
     private void setUITreasuresHidden(int treasuresHidden){
         mTreasuresHiddenTextView.setText( getString( R.string.profile_treasures_discovered_format, treasuresHidden ) );
     }
 
+
     private void setUITreasuresDiscovered(int treasuresDiscovered){
         mTreasuresDiscoveredTextView.setText( getString( R.string.profile_treasures_hidden_format, treasuresDiscovered ) );
     }
+
 
 }

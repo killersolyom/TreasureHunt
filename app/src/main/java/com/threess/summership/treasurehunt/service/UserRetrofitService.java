@@ -10,6 +10,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -33,7 +35,7 @@ public interface UserRetrofitService {
     Call<User> getUser(@Path("username") String username);
 
     @Multipart
-    @POST("/users/update/:{username}")
+    @POST("/users/update/{username}")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("file") RequestBody requestBody, @Path("username") String username);
 
 }

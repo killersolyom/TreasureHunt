@@ -1,8 +1,12 @@
 package com.threess.summership.treasurehunt.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -58,6 +62,17 @@ public final class Util {
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)))*6371000;
         return  Math.sqrt(Math.pow(c, 2));
+    }
+
+    public static String getRealPathFromURIPath(Uri contentURI, Activity activity) {
+        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            return contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
+        }
     }
 
 
