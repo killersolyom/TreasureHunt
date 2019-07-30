@@ -5,10 +5,16 @@ import com.threess.summership.treasurehunt.model.User;
 
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserRetrofitService {
@@ -23,7 +29,11 @@ public interface UserRetrofitService {
     @GET("/users")
     Call <ArrayList<User>> listAllUsers ();
 
-    @POST("/users/register/{username}")
-    Call<User> getUser(@Query("username") String username);
+    @GET("/users/{username}")
+    Call<User> getUser(@Path("username") String username);
+
+    @Multipart
+    @POST("/users/update/:{username}")
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("file") RequestBody requestBody, @Path("username") String username);
 
 }

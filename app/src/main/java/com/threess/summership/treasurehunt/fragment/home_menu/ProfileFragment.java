@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,12 @@ import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,22 +42,22 @@ public class ProfileFragment extends Fragment {
 
     private static String TAG = ProfileFragment.class.getSimpleName();
 
-    ImageView profileImageView;
-    TextView userNameField;
-    TextView treasuresdiscovered;
-    TextView treasures_HiddenField;
-    TextView profileScoreTextView;
-    ImageView profileStarImageButton;
-    TextView profileTreasureshiddenTextView;
-    TextView profileTreasuresdiscoveredTextView;
-    private Button profileUpdateImageButton;
-    private TextView profileUsernameImageView;
-    private Button profileHomeButton;
-    private SavedData dataManager;
-    private String mUserName;
-    private User mCurrentUser;
-    private Button mLogoutButton;
-    private Button mUpdateButton;
+    private static ImageView profileImageView;
+    private static TextView mUserNameTextView;
+    private static TextView mTreasuresDiscoveredTextView;
+    private static TextView mTreasuresHiddenTextView;
+    private static TextView profileScoreTextView;
+    private static ImageView profileStarImageView;
+    private static TextView profileTreasureshiddenTextView;
+    private static TextView profileTreasuresdiscoveredTextView;
+    private static Button profileUpdateImageButton;
+    private static TextView profileUsernameImageView;
+    private static Button profileHomeButton;
+    private static SavedData mDataManager;
+    private static String mUserName;
+    private static User mCurrentUser;
+    private static Button mLogoutButton;
+    private static Button mUpdateButton;
 
     public ProfileFragment() {
         // constructor
@@ -67,32 +74,33 @@ public class ProfileFragment extends Fragment {
 
         bindViews(view);
 
-        dataManager = new SavedData(getContext());
+        mDataManager = new SavedData(getContext());
         setUserData();
 
-        mUserName = dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+        mUserName = mDataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
 
-        loadProfileImage(dataManager.getProfileImage());
+        loadProfileImage(mDataManager.getProfileImage());
         loadUserData();
     }
 
     private void bindViews(View view){
         profileImageView = view.findViewById(R.id.profile_image_view);
-        userNameField = view.findViewById(R.id.username_text);
-        treasuresdiscovered = view.findViewById(R.id.treasures_discovered);
-        treasures_HiddenField = view.findViewById(R.id.treasures_hidden);
+        mUserNameTextView = view.findViewById(R.id.username_text);
+        mTreasuresDiscoveredTextView = view.findViewById(R.id.treasures_discovered);
+        mTreasuresHiddenTextView = view.findViewById(R.id.treasures_hidden);
         profileScoreTextView = view.findViewById(R.id.score);
-        profileStarImageButton = view.findViewById(R.id.star_button);
+        profileStarImageView = view.findViewById(R.id.star_button);
         mLogoutButton = view.findViewById(R.id.logout_button);
         mUpdateButton = view.findViewById(R.id.update);
+        profileImageView.setOnClickListener( v -> profileImagePressed());
         mLogoutButton.setOnClickListener(v -> loginButtonPressed());
-        mUpdateButton.setOnClickListener( v -> uprateButtonPressed());
+        mUpdateButton.setOnClickListener( v -> loadUserData());
     }
 
 
     private void setUserData() {
         if (mUserName != null) {
-            userNameField.setText(String.format(getResources().getString(R.string.profile_username), mUserName));
+            mUserNameTextView.setText(String.format(getResources().getString(R.string.profile_username), mUserName));
         }
     }
 
@@ -102,7 +110,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 mCurrentUser = response.body();
-                loadCurrentUsersData();
+                if(mCurrentUser != null) {
+
+                    setUIUserName(mCurrentUser.getUsername());
+                    setUIScore(mCurrentUser.getScore());
+
+                    // TODO: hidden and discovered treasure count
+                    setUITreasuresHidden( 999 );
+                    setUITreasuresDiscovered( 999 );
+                }
             }
 
             @Override
@@ -112,11 +128,9 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void loadCurrentUsersData() {
 
-        // TODO: set score, hidden and discovered treasure count
-
-        profileScoreTextView.setText("0");
+    private void profileImagePressed(){
+        pickFromGallery();
     }
 
 
@@ -144,8 +158,9 @@ public class ProfileFragment extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
-            dataManager.saveProfileImage(data.getData());
+            mDataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
+            uploadImageToServer(data.getData().getPath());
         }
     }
 
@@ -156,6 +171,45 @@ public class ProfileFragment extends Fragment {
                     .centerCrop()
                     .into(profileImageView);
         }
+    }
+
+    private void uploadImageToServer(String filePath) {
+        // Create a file object using file path
+        File file = new File(filePath);
+        // Create a request body with file and image media type
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+        // Create MultipartBody.Part using file request-body,file name and part name
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileReqBody);
+        // Create request body with text description and text media type
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+        //
+        ApiController.getInstance().uploadProfileImage(part, description, mUserName, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e(TAG, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("TAG", "Profile image upload failed!", t);
+            }
+        });
+    }
+
+    private void setUIUserName(String userName){
+        mUserNameTextView.setText( getString( R.string.profile_user_name_format, userName ) );
+    }
+
+    private void setUIScore(int score){
+        profileScoreTextView.setText( getString( R.string.profile_score_format, score ) );
+    }
+
+    private void setUITreasuresHidden(int treasuresHidden){
+        mTreasuresHiddenTextView.setText( getString( R.string.profile_treasures_discovered_format, treasuresHidden ) );
+    }
+
+    private void setUITreasuresDiscovered(int treasuresDiscovered){
+        mTreasuresDiscoveredTextView.setText( getString( R.string.profile_treasures_hidden_format, treasuresDiscovered ) );
     }
 
 }

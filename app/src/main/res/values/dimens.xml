@@ -112,4 +112,8 @@
     <dimen name="favorite_floating_action_button_margin">16dp</dimen>
 
 
+    <dimen name="register_fragment_button_width">126dp</dimen>
+    <dimen name="register_fragment_button_height">50dp</dimen>
+
+
 </resources>

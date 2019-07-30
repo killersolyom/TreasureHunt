@@ -250,6 +250,7 @@ public class HideTreasureFragment extends Fragment {
     private void playAnimations(View view) {
 
         Context c = getContext();
+        // TODO implement after finishing the .xml
 
     }
 
