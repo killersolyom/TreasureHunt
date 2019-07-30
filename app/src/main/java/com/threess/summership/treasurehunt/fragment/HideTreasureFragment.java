@@ -48,7 +48,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
-import static com.threess.summership.treasurehunt.util.Constant.ApiController.BASE_URL;
 
 
 public class HideTreasureFragment extends Fragment {
@@ -140,9 +139,12 @@ public class HideTreasureFragment extends Fragment {
 
         button.setOnClickListener(view1 -> buttonPress());
 
+        playAnimations(view);
         myIMGFile = null;
 
     }
+
+
 
     private void findIds(View view) {
         button = view.findViewById(R.id.Button);
@@ -245,6 +247,12 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
+    private void playAnimations(View view) {
+
+        Context c = getContext();
+        // TODO implement after finishing the .xml
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

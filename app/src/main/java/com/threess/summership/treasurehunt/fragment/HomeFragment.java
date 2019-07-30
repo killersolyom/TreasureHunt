@@ -16,20 +16,12 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
 import com.threess.summership.treasurehunt.logic.SavedData;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    @BindView(R.id.home_viewpager)
     ViewPager viewPager;
-
-    @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
-
-    @BindView(R.id.home_toolbar)
     Toolbar toolbar;
 
     public HomeFragment() {
@@ -39,7 +31,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, view);
 
         return view;
     }
@@ -49,13 +40,20 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //toolbar.setTitleTextColor(getResources().getColor(R.color.gray700));
-        
+        bindViews(view);
         setupViewPager();
         setupBottomNavigation();
     }
 
+    private void bindViews(View view) {
+        viewPager = view.findViewById(R.id.home_viewpager);
+        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        toolbar = view.findViewById(R.id.home_toolbar);
+    }
+
     @SuppressWarnings("deprecation")
     private void setupViewPager() {
+
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);

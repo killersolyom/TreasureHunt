@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                    Constant.Common.PERMISSION_REQUEST_CODE);
+        }
     }
 
     private void registerNetworkBroadcastReceiver() {
