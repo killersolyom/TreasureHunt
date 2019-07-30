@@ -81,6 +81,10 @@ public class HomeFragment extends Fragment {
                                 viewPager.setCurrentItem(3);
                                 return true;
                             }
+                            case R.id.action_hide_treasure: {
+                                viewPager.setCurrentItem(4);
+                                return true;
+                            }
                         }
                         return false;
                     }
@@ -112,6 +116,9 @@ public class HomeFragment extends Fragment {
                     toolbar.setTitle(R.string.location);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
+                case 4:
+                    toolbar.setTitle("Hide treasure");
+                    bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
             }
         }
 

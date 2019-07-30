@@ -30,4 +30,12 @@
         android:icon="@drawable/ic_location"
         android:title="@string/location"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_hide_treasure"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_treasure"
+        android:title="@string/location"
+        app:showAsAction="ifRoom" />
+
 </menu>
