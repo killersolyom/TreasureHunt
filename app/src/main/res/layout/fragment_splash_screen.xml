@@ -11,8 +11,10 @@
         android:id="@+id/splashScreenBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:src="@drawable/splash_background"
-        android:scaleType="fitXY" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <ProgressBar
         android:id="@+id/splashScreenProgressBar"

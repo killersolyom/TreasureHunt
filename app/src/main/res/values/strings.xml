@@ -11,8 +11,10 @@
     <string name="create_account">Create account</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
-    <string name="Treasures_discovered">Treasures discovered</string>
+    <string name="treasures_discovered">Treasures discovered</string>
     <string name="Username">Username</string>
+    <string name="treasures_hidden">Treasures hidden</string>
+    <string name="refresh">Refresh</string>
     <string name="Treasures_hidden">Treasures hidden</string>
     <string name="update">Update photo</string>
     <string name="score">Score</string>
@@ -62,7 +64,7 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Can\'t be empty.</string>
-    <string name="hidetitle">Treasure title:</string>
+    <string name="hidetitle">Teasing title:</string>
     <string name="hidedescript">Description:</string>
     <string name="hidephoto">Photo clue:</string>
     <string name="hideloc">Location:</string>
@@ -77,6 +79,11 @@
     <string name="createtreasurebutton">Create treasure</string>
     <string name="create_treasure">Creating treasure failed</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>
+    <string name="user_profile_no_informations_error_message">"Can't download user informations."</string>
+    <string name="profile_score_format">Score: %1$d</string>
+    <string name="profile_user_name_format">Username: %1$s</string>
+    <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
+    <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
 
 
     <string name="profile_logout">Logout</string>

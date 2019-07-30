@@ -43,7 +43,10 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
         holder.text1.setText(list.get(position).getUsername());
         holder.text2.setText(ctx.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
-        Glide.with(ctx).load( BASE_URL + list.get(position).getProfilpicture()).placeholder(ctx.getDrawable(R.drawable.default_pic)).into(holder.image);
+        Glide.with(ctx)
+                .load( BASE_URL + list.get(position).getProfilpicture())
+                .placeholder(ctx.getDrawable(R.drawable.default_pic))
+                .into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
