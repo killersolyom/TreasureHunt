@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
@@ -24,7 +24,6 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.util.Constant;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
