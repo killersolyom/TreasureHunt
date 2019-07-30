@@ -47,6 +47,7 @@ public class ClaimTreasureFragment extends Fragment {
     private int QrRequestCode = 1;
     private String resultPassCodeFromQrCodeScanner = null;
     private boolean mHasQRCode = false;
+    Handler mHandler;
 
     public ClaimTreasureFragment() {}
 
@@ -63,6 +64,7 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mHandler=new Handler();
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
@@ -83,38 +85,32 @@ public class ClaimTreasureFragment extends Fragment {
 
     private void verifyResult(){
         if(mHasQRCode) {
-            Log.e("3ss", mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
+            Log.e(TAG, mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
         }
-        if(isValidTreasure()){
+        if (isValidTreasure()) {
             playSuccessImageAnimation();
-            new Handler().postDelayed(new Runnable() {
+            SavedData sd = new SavedData(getContext());
+            TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
+            sd.setScore((float)(mTreasure.getPrize_points()+ sd.getScore()));
+            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
-                public void run() {
-                    SavedData sd = new SavedData(getContext());
-                    TreasureClaim treasureClaim=new TreasureClaim(sd.getCurrentUserName(),mTreasure.getPasscode());
-                    ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            Util.makeSnackbar( mView, R.string.Claim_Available , Snackbar.LENGTH_SHORT, R.color.green);
-                                                                                            //new score value
-                            ApiController.getInstance().updateScore(sd.getCurrentUserName(),mTreasure.getPrize_points(), new Callback<Object>() {
-                                @Override
-                                public void onResponse(Call<Object> call, Response<Object> response) {
-                                    Util.makeSnackbar(mView,R.string.Claim_snackBar_scoreUpdate,Snackbar.LENGTH_SHORT,R.color.blue );
-                                }
-                                @Override
-                                public void onFailure(Call<Object> call, Throwable t) {
-                                }
-                            });
-                            FragmentNavigation.getInstance(getContext()).popBackstack();
-                        }
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Util.makeSnackbar( mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
-                        }});
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
+                    playSuccessImageAnimation();
+                    mHandler.postDelayed(() -> {
+                        //new score value
+                        scoreUpdate(sd,mTreasure.getPrize_points()+sd.getScore());
+
+                    },3500);
                 }
-            },3000);
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
+                    Log.e("boti", "failureFirst");
+                }
+            });
         }
+
     }
 
     private void playSuccessImageAnimation() {
@@ -131,12 +127,7 @@ public class ClaimTreasureFragment extends Fragment {
         animator.AddAlpha(0.25f,1,0,true,3000);
         animator2.Start(2000);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                im.setVisibility(View.INVISIBLE);
-            }
-        },1000);
+        mHandler.postDelayed(() -> im.setVisibility(View.INVISIBLE),1000);
     }
 
     private boolean isValidTreasure(){
@@ -144,9 +135,9 @@ public class ClaimTreasureFragment extends Fragment {
         boolean ok= ((this.mTreasure!=null && !mTreasure.isClaimed()
                 && (this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)))
                     || (myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
-                        && !this.mTreasure.getUsername().equals(sd.getCurrentUserName()))
+                        && !this.mTreasure.getUsername().equals(sd.getUserName()))
         );
-        if(!ok && this.mTreasure.getUsername().equals(sd.getCurrentUserName())){
+        if(!ok && this.mTreasure.getUsername().equals(sd.getUserName())){
             Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.orange900);
         }
         if(!ok && !(myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
@@ -154,6 +145,24 @@ public class ClaimTreasureFragment extends Fragment {
         }
         return  ok;
     }
+    private void scoreUpdate(SavedData sd,Double newScore){
+        ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call1, Response<Object> response1) {
+                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue);
+                Log.e("boti", response1.message());
+                FragmentNavigation.getInstance(getContext()).popBackstack();
+            }
+
+            @Override
+            public void onFailure(Call<Object> calll, Throwable t) {
+                Util.makeSnackbar(mView,R.string.Claim_Error4,Snackbar.LENGTH_SHORT,R.color.orange900);
+                Log.e("boti", t.getMessage());
+                FragmentNavigation.getInstance(getContext()).popBackstack();
+            }
+        });
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -6,8 +6,11 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserRetrofitService {
@@ -23,7 +26,8 @@ public interface UserRetrofitService {
     Call <ArrayList<User>> listAllUsers ();
 
     @POST("/users/update/{username}")
-    Call<Object> updateScore(@Query("username")String username, Double score);
+    @FormUrlEncoded
+    Call<Object> updateScore(@Path("username") String username, @Field("score") Double score);
 
 
 

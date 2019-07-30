@@ -16,6 +16,7 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,12 +32,20 @@ public class ApiController {
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
     private TreasuresRetrofitService mClaimedTreasure;
+    private HttpLoggingInterceptor mHttpLoggingInterceptor;
 
     private ApiController() {
+
+        OkHttpClient c = new OkHttpClient();
+
+        mHttpLoggingInterceptor = new HttpLoggingInterceptor();
+        mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        c =  c.newBuilder().addInterceptor( mHttpLoggingInterceptor).build();
 
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl( BASE_URL )
+                .client(c)
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);

@@ -31,6 +31,7 @@ public class Constant {
         public static final String USER_PASSWORD_KEY = "user_password_key";
         public static final String REMEMBER_ME_SWITCH_KEY = "RememberMeSwitch";
         public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
+        public static final String USER_SCORE = "user_score";
     }
 
 
