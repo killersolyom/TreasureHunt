@@ -4,24 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.HideTreasureFragment">
+    tools:context=".fragment.HideTreasureFragment"
+    android:layout_margin="20dp">
 
     <TextView
         android:id="@+id/titletextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/edittext_marginleft"
         android:text="@string/hidetitle"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/teasing_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/titlehint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titletextview"
         android:singleLine="true"/>
@@ -30,7 +31,7 @@
         android:id="@+id/descriptiontextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_marginleft"
+        android:layout_marginTop="10dp"
         android:text="@string/hidedescript"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
@@ -41,8 +42,8 @@
         android:id="@+id/description_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/descripthint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptiontextview"
         android:singleLine="true"/>
@@ -51,8 +52,9 @@
         android:id="@+id/phototextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_marginleft"
+        android:layout_marginTop="10dp"
         android:text="@string/hidephoto"
+        android:textColorHint="@color/white_transparent_30"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,8 +65,8 @@
         android:id="@+id/photo_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/photohint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phototextview"
         android:singleLine="true"/>
@@ -75,7 +77,8 @@
         android:layout_height="@dimen/arrowimagesize"
         android:layout_marginTop="@dimen/arrowmargtop"
         android:layout_marginRight="@dimen/arrowmargright"
-        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_photo_camera_black_24dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phototextview" />
 
@@ -84,7 +87,7 @@
         android:id="@+id/locationtextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_marginleft"
+        android:layout_marginTop="10dp"
         android:text="@string/hideloc"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
@@ -95,8 +98,8 @@
         android:id="@+id/location_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/lochint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/locationtextview"
         android:singleLine="true"/>
@@ -105,7 +108,7 @@
         android:id="@+id/pointstextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_marginleft"
+        android:layout_marginTop="10dp"
         android:text="@string/hidepoints"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
@@ -116,19 +119,18 @@
         android:id="@+id/prize_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/prizehint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pointstextview"
         android:inputType="number"
-        android:singleLine="true"
-        />
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/passcodetextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_marginleft"
+        android:layout_marginTop="10dp"
         android:text="@string/hidepass"
         android:textSize="@dimen/hide_textsize"
         android:textStyle="bold"
@@ -139,20 +141,23 @@
         android:id="@+id/passcode_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edittext_marginleft"
         android:hint="@string/passhint"
+        android:textColorHint="@color/white_transparent_30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passcodetextview"
         android:inputType="number"
         android:singleLine="true"/>
+
     <Button
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:background="@color/blue500"
+        android:textColor="@color/gray900"
+        android:padding="10dp"
+        android:text="@string/createtreasurebutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/createtreasurebutton"
-        android:background="@color/colorLightBlue"/>
+        app:layout_constraintTop_toBottomOf="@+id/passcode_edit_text" />
 </android.support.constraint.ConstraintLayout>

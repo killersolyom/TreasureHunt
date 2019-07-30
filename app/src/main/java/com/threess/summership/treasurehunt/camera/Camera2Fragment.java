@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -206,7 +207,6 @@ public class Camera2Fragment extends Fragment implements
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
 
 
-
     public static Camera2Fragment newInstance(){
         return new Camera2Fragment();
     }
@@ -217,7 +217,6 @@ public class Camera2Fragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_camera2, container, false);
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -259,8 +258,6 @@ public class Camera2Fragment extends Fragment implements
         setMaxSizes();
         resetIconVisibilities();
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -415,17 +412,18 @@ public class Camera2Fragment extends Fragment implements
         if(mIsImageAvailable){
             Log.d(TAG, "saveCapturedStillshotToDisk: saving image to disk.");
 
-            final ICallback callback = new ICallback() {
-                @Override
-                public void done(Exception e, File file) {
-                    if(e == null){
-                        Log.d(TAG, "onImageSavedCallback: image saved!");
-                        showSnackBar("Image saved", Snackbar.LENGTH_SHORT);
-                    }
-                    else{
-                        Log.d(TAG, "onImageSavedCallback: error saving image: " + e.getMessage());
-                        showSnackBar("Error saving image", Snackbar.LENGTH_SHORT);
-                    }
+            final ICallback callback = (e, file) -> {
+                if(e == null){//todo: save - POST img
+                    Intent result = new Intent();
+                    result.putExtra(getActivity().getString(R.string.file_string),file.getAbsolutePath());
+                    getActivity().setResult(Activity.RESULT_OK,result);
+                    getActivity().finish();
+                    Log.d(TAG, "onImageSavedCallback: image saved!");
+                    showSnackBar("Image saved", Snackbar.LENGTH_SHORT);
+                }
+                else{
+                    Log.d(TAG, "onImageSavedCallback: error saving image: " + e.getMessage());
+                    showSnackBar("Error saving image", Snackbar.LENGTH_SHORT);
                 }
             };
 
@@ -433,7 +431,7 @@ public class Camera2Fragment extends Fragment implements
 
                 Log.d(TAG, "saveCapturedStillshotToDisk: saving to disk.");
 
-                mStillshotImageView.invalidate();
+                mStillshotImageView.invalidate();//the IMG
                 Bitmap bitmap = Bitmap.createBitmap(mStillshotImageView.getDrawingCache());
 
                 ImageSaver imageSaver = new ImageSaver(
@@ -957,6 +955,7 @@ public class Camera2Fragment extends Fragment implements
 
         }
     };
+
     /**
      * Retrieves the JPEG orientation from the specified screen rotation.
      *
@@ -977,22 +976,20 @@ public class Camera2Fragment extends Fragment implements
      */
     private void unlockFocus() {
         try {
+
             // Reset the auto-focus trigger
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
 
             setAutoFlash(mPreviewRequestBuilder);
-
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
             mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
-
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
-
 
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -1057,11 +1054,13 @@ public class Camera2Fragment extends Fragment implements
                             if (null == mCameraDevice) {
                                 return;
                             }
+                            Log.e("3ss",""+ cameraCaptureSession);
 
                             // When the session is ready, we start displaying the preview.
                             mCaptureSession = cameraCaptureSession;
 
                             try {
+
                                 // Auto focus should be continuous for camera preview.
                                 // Most new-ish phones can auto focus
                                 mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
@@ -1073,6 +1072,7 @@ public class Camera2Fragment extends Fragment implements
                                 // Finally, we start displaying the camera preview.
                                 mPreviewRequest = mPreviewRequestBuilder.build();
                                 mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
+                                mCameraOpenCloseLock.release();
                             } catch (CameraAccessException e) {
                                 e.printStackTrace();
                             }
@@ -1092,12 +1092,12 @@ public class Camera2Fragment extends Fragment implements
 
     /** Closes the current {@link CameraDevice}. */
     private void closeCamera() {
-
+        mCameraOpenCloseLock.release();
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
-                mCaptureSession.close();
-                mCaptureSession = null;
+                //mCaptureSession.close();
+                //mCaptureSession = null;
             }
             if (null != mCameraDevice) {
                 mCameraDevice.close();
@@ -1109,8 +1109,6 @@ public class Camera2Fragment extends Fragment implements
             }
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
-        } finally {
-            mCameraOpenCloseLock.release();
         }
     }
 
@@ -1322,7 +1320,6 @@ public class Camera2Fragment extends Fragment implements
         Log.d(TAG, "setMaxSizes: screen height: " + SCREEN_HEIGHT);
     }
 
-
     private void findCameraIds(){
 
         Activity activity = getActivity();
@@ -1348,7 +1345,6 @@ public class Camera2Fragment extends Fragment implements
         }
     }
 
-
     private void toggleCameraDisplayOrientation(){
         if(mCameraId.equals(mIMainActivity.getBackCameraId())){
             mCameraId = mIMainActivity.getFrontCameraId();
@@ -1368,6 +1364,7 @@ public class Camera2Fragment extends Fragment implements
             Log.d(TAG, "toggleCameraDisplayOrientation: error.");
         }
     }
+
     /**
      * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
      * This method should be called after the camera preview size is determined in
@@ -1421,9 +1418,6 @@ public class Camera2Fragment extends Fragment implements
 
         mTextureView.setTransform(matrix);
     }
-
-
-
 
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
@@ -1542,8 +1536,6 @@ public class Camera2Fragment extends Fragment implements
         mIMainActivity.hideStatusBar();
         closeCamera();
     }
-
-
 
     /**
      *  WARNING!
@@ -1698,7 +1690,7 @@ public class Camera2Fragment extends Fragment implements
                     mCallback.done(null,null);
                 }
             }
-            else if(mBitmap != null){
+            else if(mBitmap != null){ //todo: Here is when the callback is called!!
                 ByteArrayOutputStream stream = null;
                 byte[] imageByteArray = null;
                 stream = new ByteArrayOutputStream();
