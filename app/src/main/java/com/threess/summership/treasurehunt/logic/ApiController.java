@@ -3,6 +3,8 @@ package com.threess.summership.treasurehunt.logic;
 import android.app.Activity;
 import android.util.Log;
 
+import android.content.Context;
+
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
@@ -10,10 +12,15 @@ import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import com.threess.summership.treasurehunt.util.Constant;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,6 +30,7 @@ public class ApiController {
 
     private static ApiController sInstance = null;
     private static Retrofit mRetrofit;
+
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
     private TreasuresRetrofitService mClaimedTreasure;
@@ -101,5 +109,11 @@ public class ApiController {
     private OkHttpClient setupClient(){
         return new OkHttpClient.Builder().cache(cache).build();
     }
+
+    public void uploadTreasureImageClue(MultipartBody.Part file, RequestBody requestBody, String username, String passcode, Callback<ResponseBody> callback){
+        mTreasureService.uploadImage(file, requestBody, username, passcode).enqueue(callback);
+    }
+
+
 
 }
