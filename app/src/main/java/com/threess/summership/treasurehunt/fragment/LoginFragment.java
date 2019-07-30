@@ -72,7 +72,6 @@ public class LoginFragment extends Fragment {
         userPassword = dataManager.readStringData(Constant.SavedData.USER_PASSWORD_KEY);
         loadSettings();
 
-        //hideViews();
         playAnimations(view);
 
         rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -167,14 +166,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void hideViews(){
-        nameText.setVisibility(View.INVISIBLE);
-        passwordText.setVisibility(View.INVISIBLE);
-        login.setVisibility(View.INVISIBLE);
-        rememberMeSwitch.setVisibility(View.INVISIBLE);
-        autoLoginSwitch.setVisibility(View.INVISIBLE);
-    }
-
     private void playAnimations(View view){
 
         Context c = getContext();
@@ -182,28 +173,31 @@ public class LoginFragment extends Fragment {
         int dbaMs = 100;      // duration between animations in ms
         int fromXDp = -500;   // distance from elements fly in
 
-        Animator logoAnim = new Animator(getContext(), view.findViewById(R.id.imageView), true);
+        Animator logoAnim = new Animator(c, view.findViewById(R.id.imageView), true);
         logoAnim.AddIntroSet();
 
-        Animator nameAnim = new Animator(getContext(), nameText, true);
+        Animator nameAnim = new Animator(c, nameText, true);
         nameAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
         nameAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        Animator passAnim = new Animator(getContext(), passwordText, true);
+        Animator passAnim = new Animator(c, passwordText, true);
         passAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
         passAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        Animator buttonAnim = new Animator(getContext(), login, true);
+        Animator buttonAnim = new Animator(c, login, true);
         buttonAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
         buttonAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        Animator rememberAnim = new Animator(getContext(), rememberMeSwitch, true);
+        Animator rememberAnim = new Animator(c, rememberMeSwitch, true);
         rememberAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
         rememberAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
 
-        Animator autologinAnim = new Animator(getContext(), autoLoginSwitch, true);
-        autologinAnim.AddAlpha(0f, 1f, 1000, true, dMs);
+        Animator autologinAnim = new Animator(c, autoLoginSwitch, true);
         autologinAnim.AddSlide(fromXDp, 0, 0, 0, dMs);
+        autologinAnim.AddScale(8f, 1f, 8f, 1f, .5f, .5f, dMs);
+
+        Animator createAccAnim = new Animator(c, createAccountLabel, true);
+        createAccAnim.AddSlide(0,0,200,0,dMs);
 
         logoAnim.Start();
         nameAnim.Start(dbaMs);
@@ -211,6 +205,7 @@ public class LoginFragment extends Fragment {
         buttonAnim.Start(3*dbaMs);
         rememberAnim.Start(4*dbaMs);
         autologinAnim.Start(5*dbaMs);
+        createAccAnim.Start(6*dbaMs);
 
     }
 
