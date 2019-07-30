@@ -115,6 +115,9 @@
 
     <dimen name="hide_treasure_bottom_button_margin">16dp</dimen>
 
+    <dimen name="treasure_item_text_width">214dp</dimen>
+    <dimen name="treasure_item_text_height">25dp</dimen>
+
     <dimen name="register_fragment_button_width">126dp</dimen>
     <dimen name="register_fragment_button_height">50dp</dimen>
 

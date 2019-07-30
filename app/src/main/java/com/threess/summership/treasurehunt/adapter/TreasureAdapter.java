@@ -45,7 +45,15 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             final Treasure treasure = treasureList.get(position);
             Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
             holder.treasureText.setText(treasure.getDescription());
-            holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+            //holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+            double score = treasure.getPrize_points();
+            int roundedScore = (int) Math.round(score);
+            if( score == roundedScore){
+                holder.treasureScore.setText("+" + roundedScore);
+            }else{
+                holder.treasureScore.setText("+"+ score);
+            }
+
 
             if(treasure.isClaimed()){
                 holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));

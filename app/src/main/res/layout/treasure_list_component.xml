@@ -46,17 +46,48 @@
         app:layout_constraintStart_toEndOf="@+id/treasureName"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/treasureScore"
-        android:layout_width="214dp"
-        android:layout_height="25dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/treasure_item_text_height"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
         android:text="@string/empty_string"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/treasureButton"
         app:layout_constraintStart_toEndOf="@+id/treasureImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/treasureName">
+
+        <!--<TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/treasure_item_text_height"
+            android:layout_weight="1"
+            android:paddingRight="15dp"
+            android:text="@string/top_list_score"
+            android:textAlignment="textEnd"
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"/>-->
+
+        <TextView
+            android:id="@+id/treasureScore"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/treasure_item_text_height"
+            android:layout_weight="1"
+            android:textAlignment="textStart"
+            android:textColor="@color/orange400"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="@dimen/treasure_item_text_height"
+            android:layout_height="@dimen/treasure_item_text_height"
+            android:src="@drawable/ic_star_black_24dp"
+            android:tint="@color/orange400" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

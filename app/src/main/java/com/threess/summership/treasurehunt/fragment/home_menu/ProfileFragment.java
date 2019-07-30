@@ -148,12 +148,6 @@ public class ProfileFragment extends Fragment {
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
-
-    private void uprateButtonPressed(){
-        pickFromGallery();
-    }
-
-
     private void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -167,12 +161,8 @@ public class ProfileFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             mDataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
-            //updateUserProfileField();
             uploadImageToServer(data.getData());
         }
-    }
-
-    private void updateUserProfileField() {
     }
 
 

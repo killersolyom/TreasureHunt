@@ -78,14 +78,15 @@
     <string name="create_treasure">Creating treasure failed</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>
     <string name="user_profile_no_informations_error_message">"Can't download user informations."</string>
-    <string name="profile_score_format">Score: %1$s</string>
+    <string name="profile_score_format">Score: %1$d</string>
     <string name="profile_user_name_format">Username: %1$s</string>
-    <string name="profile_treasures_discovered_format">Treasures discovered: %1$s</string>
-    <string name="profile_treasures_hidden_format">Treasures hidden: %1$s</string>
+    <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
+    <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
 
 
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
+    <string name="score_with_plus">+%1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -139,7 +139,7 @@ public class FavoriteTreasureFragment extends Fragment {
             mFirstStart = false;
 
             Animator recViewAnim = new Animator(getContext(), recycle, true);
-            recViewAnim.AddSlide(0, 0, -1000, 0, 1800);
+            recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
 
             Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
             fabAnim.AddSlide(250, 0, 0, 0, 1000);

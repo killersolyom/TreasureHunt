@@ -43,7 +43,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
     public void onBindViewHolder(TopListViewHolder holder, final int position) {
 
         holder.text1.setText(list.get(position).getUsername());
-        holder.text2.setText(ctx.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
+        holder.text2.setText(String.valueOf( list.get(position).getScore() ));
         Glide.with(ctx)
                 .load( Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
                 .placeholder(ctx.getDrawable(R.drawable.default_pic))
