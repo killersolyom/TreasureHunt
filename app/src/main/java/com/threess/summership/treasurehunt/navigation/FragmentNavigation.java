@@ -210,7 +210,8 @@ public class FragmentNavigation extends Fragment {
             return;
         }
 
-         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
+         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails ||
+                 getCurrentFragment(mMainActivityFragmentContainer) instanceof RegistrationFragment) {
              popBackstack();
              return;
          }

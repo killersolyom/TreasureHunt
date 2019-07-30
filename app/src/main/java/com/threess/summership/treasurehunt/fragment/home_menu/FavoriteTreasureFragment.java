@@ -68,10 +68,6 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
         addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
-        Glide.with(getContext())
-                .load(R.drawable.ic_add_treasure)
-                .error(R.mipmap.ic_launcher_foreground)
-                .into(addTreasureFab);
 
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -139,6 +135,10 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Glide.with(getContext())
+                .load(R.drawable.ic_add_treasure)
+                .error(R.mipmap.ic_launcher_foreground)
+                .into(addTreasureFab);
         adapter.notifyDataSetChanged();
         if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();

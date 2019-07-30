@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class LoginFragment extends Fragment {
     private TextView createAccountLabel;
     private Switch rememberMeSwitch, autoLoginSwitch;
     private SavedData dataManager;
-    private String userName,userPassword;
+    private String userName, userPassword;
     private Button login;
     private User user;
 
@@ -56,7 +55,6 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         login = view.findViewById(R.id.LogIn);
         dataManager = new SavedData(getContext());
         nameText = view.findViewById(R.id.loginName);
@@ -71,23 +69,19 @@ public class LoginFragment extends Fragment {
         //hideViews();
         playAnimations(view);
 
-        rememberMeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY, isChecked);
-            }
-        });
-        autoLoginSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataManager.writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, isChecked);
-            }
-        });
+        rememberMeSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
+                dataManager.writeBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY, isChecked));
+        autoLoginSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
+                dataManager.writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, isChecked));
         passwordText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             public void afterTextChanged(Editable s) {
                 dataManager.writeStringData(passwordText.getText().toString(), Constant.SavedData.USER_PASSWORD_KEY);
@@ -96,43 +90,35 @@ public class LoginFragment extends Fragment {
         nameText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             public void afterTextChanged(Editable s) {
                 dataManager.writeStringData(nameText.getText().toString(), Constant.SavedData.USER_PROFILE_NAME_KEY);
             }
         });
-        createAccountLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentNavigation.getInstance(getContext()).showRegisterFragment();
-            }
-        });
+        createAccountLabel.setOnClickListener(v ->
+                FragmentNavigation.getInstance(getContext()).showRegisterFragment());
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login();
-            }
-        });
+        login.setOnClickListener(view1 -> login());
 
     }
 
-    private void login(){
-        Util.hideKeyboard(getContext(),login);
-        user = new User(nameText.getText().toString().trim(),passwordText.getText().toString().trim());
-        ApiController.getInstance().loginUser(user,new Callback<Object>() {
+    private void login() {
+        Util.hideKeyboard(getContext(), login);
+        user = new User(nameText.getText().toString().trim(), passwordText.getText().toString().trim());
+        ApiController.getInstance().loginUser(user, new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @Nullable Response<Object> response) {
-                //200 jo
-                if (response.code()==200){
-                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_LONG,R.color.blue300);
+                if (response.code() == Constant.LogIn.goodResponseCode) {
+                    Util.makeSnackbar(getView(), R.string.successful, Snackbar.LENGTH_SHORT, R.color.blue300);
                     FragmentNavigation.getInstance(getContext()).showHomeFragment();
                 } else {
-                    Util.makeSnackbar(getView(),R.string.login_failed, Snackbar.LENGTH_LONG,R.color.orange700);
+                    Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
                 }
             }
 
@@ -143,13 +129,13 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void loadSettings(){
-        if(dataManager.getRememberMeSwitch()){
+    private void loadSettings() {
+        if (dataManager.getRememberMeSwitch()) {
             rememberMeSwitch.setChecked(true);
             nameText.setText(userName);
             passwordText.setText(userPassword);
 
-            if(dataManager.getAutoLoginSwitch()){
+            if (dataManager.getAutoLoginSwitch()) {
                 autoLoginSwitch.setChecked(true);
                 login();
             }
@@ -157,7 +143,13 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void playAnimations(View view){
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadSettings();
+    }
+
+    private void playAnimations(View view) {
         int dMs = 1000;       // duration in mc
         int dbaMs = 100;      // duration between animations in ms
         int fromXDp = -500;   // distance from elements fly in
@@ -187,10 +179,10 @@ public class LoginFragment extends Fragment {
 
         logoAnim.Start();
         nameAnim.Start(dbaMs);
-        passAnim.Start(2*dbaMs);
-        buttonAnim.Start(3*dbaMs);
-        rememberAnim.Start(4*dbaMs);
-        autologinAnim.Start(5*dbaMs);
+        passAnim.Start(2 * dbaMs);
+        buttonAnim.Start(3 * dbaMs);
+        rememberAnim.Start(4 * dbaMs);
+        autologinAnim.Start(5 * dbaMs);
 
     }
 

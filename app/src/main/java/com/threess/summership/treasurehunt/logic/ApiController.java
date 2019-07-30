@@ -11,10 +11,8 @@ import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import com.threess.summership.treasurehunt.util.Constant;
-
 import java.io.File;
 import java.util.ArrayList;
-
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.MultipartBody;
@@ -34,7 +32,7 @@ public class ApiController {
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
     private TreasuresRetrofitService mClaimedTreasure;
-    private static int cacheSize = 100 * 1024 * 1024; // 100 MB
+    private static int cacheSize = 100 * 1048576; // 100 MB
     private static Cache cache;
     private Activity activity;
 
