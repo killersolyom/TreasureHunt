@@ -83,6 +83,20 @@ public class SavedData {
     public String getUserName(){
         return readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
     }
+
+    private void setPassword(String password){
+        writeStringData(password,Constant.SavedData.USER_PASSWORD_KEY);
+    }
+
+    private void setUserName(String name){
+        writeStringData(name,Constant.SavedData.USER_PROFILE_NAME_KEY);
+    }
+
+    public void setUserDataAfterRegistration(String userName,String password){
+        setPassword(password);
+        setUserName(userName);
+        setRememberMeSwitch(true);
+    }
     public double getScore(){
         return  readFloatData(Constant.SavedData.USER_SCORE );
     }
