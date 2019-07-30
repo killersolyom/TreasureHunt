@@ -89,5 +89,6 @@
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
+    <string name="file_string">File</string>
 
 </resources>

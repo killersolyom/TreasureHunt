@@ -35,6 +35,7 @@ public class CameraActivity extends AppCompatActivity implements IMainActivity{
 
         init();
     }
+
     private void startCamera2(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.camera_container, Camera2Fragment.newInstance(), getString(R.string.fragment_camera2));
