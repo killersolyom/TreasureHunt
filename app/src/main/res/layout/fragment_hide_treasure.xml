@@ -152,7 +152,7 @@
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/hide_treasure_bottom_button_margin"
         android:textAllCaps="false"
         android:textColor="@color/gray900"
         android:padding="10dp"

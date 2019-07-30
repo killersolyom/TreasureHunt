@@ -19,8 +19,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/profile_edit_image_view_size"
+        android:layout_height="@dimen/profile_edit_image_view_size"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_mode_edit_black_24dp"
