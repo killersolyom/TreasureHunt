@@ -25,16 +25,16 @@
     <dimen name="logout_botton_marginEnd">8dp</dimen>
     <dimen name="logout_botton_marginBottom">8dp</dimen>
 
-    <dimen name="Treasures_discovered_marginStar">8dp</dimen>
-    <dimen name="Treasures_discovered_marginTop">28dp</dimen>
-    <dimen name="Treasures_discovered_marginEnd">8dp</dimen>
+    <dimen name="treasures_discovered_marginStar">8dp</dimen>
+    <dimen name="treasures_discovered_marginTop">28dp</dimen>
+    <dimen name="treasures_discovered_marginEnd">8dp</dimen>
 
     <dimen name="username_marginStar">8dp</dimen>
     <dimen name="username_marginTop">24dp</dimen>
 
-    <dimen name="Treasures_hidden_marginStar">8dp</dimen>
-    <dimen name="Treasures_hidden_marginTop">28dp</dimen>
-    <dimen name="Treasures_hidden_marginEnd">8dp</dimen>
+    <dimen name="treasures_hidden_marginStar">8dp</dimen>
+    <dimen name="treasures_hidden_marginTop">28dp</dimen>
+    <dimen name="treasures_hidden_marginEnd">8dp</dimen>
 
     <dimen name="update_width">253dp</dimen>
     <dimen name="update_height">35dp</dimen>

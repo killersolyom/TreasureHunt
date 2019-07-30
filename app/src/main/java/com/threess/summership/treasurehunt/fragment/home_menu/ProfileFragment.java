@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,56 +21,36 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.service.UserRetrofitService;
 import com.threess.summership.treasurehunt.util.Constant;
 
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
 
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
 public class ProfileFragment extends Fragment {
+
     private static String TAG = ProfileFragment.class.getSimpleName();
 
-
-    @BindView(R.id.profile_image_view)
     ImageView profileImageView;
-
-    @BindView(R.id.username_text)
     TextView userNameField;
-
-    @BindView(R.id.treasures_discovered)
     TextView treasuresdiscovered;
-
-    @BindView(R.id.treasures_hidden)
     TextView treasures_HiddenField;
-
-    @BindView(R.id.score)
-    private TextView profileScoreTextView;
-
-    @BindView(R.id.star_button)
-    private ImageButton profileStarImageButton;
-
-    //@BindView(R.id.treasures_hidden)
-    private TextView profileTreasureshiddenTextView;
-
-    //@BindView(R.id.treasures_discovered)
-    private TextView profileTreasuresdiscoveredTextView;
-
+    TextView profileScoreTextView;
+    ImageView profileStarImageButton;
+    TextView profileTreasureshiddenTextView;
+    TextView profileTreasuresdiscoveredTextView;
     private Button profileUpdateImageButton;
     private TextView profileUsernameImageView;
     private Button profileHomeButton;
-
     private SavedData dataManager;
     private String mUserName;
     private User mCurrentUser;
+    private Button mLogoutButton;
+    private Button mUpdateButton;
 
     public ProfileFragment() {
         // constructor
@@ -79,14 +58,14 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bindViews(view);
 
         dataManager = new SavedData(getContext());
         setUserData();
@@ -97,7 +76,18 @@ public class ProfileFragment extends Fragment {
         loadUserData();
     }
 
-
+    private void bindViews(View view){
+        profileImageView = view.findViewById(R.id.profile_image_view);
+        userNameField = view.findViewById(R.id.username_text);
+        treasuresdiscovered = view.findViewById(R.id.treasures_discovered);
+        treasures_HiddenField = view.findViewById(R.id.treasures_hidden);
+        profileScoreTextView = view.findViewById(R.id.score);
+        profileStarImageButton = view.findViewById(R.id.star_button);
+        mLogoutButton = view.findViewById(R.id.logout_button);
+        mUpdateButton = view.findViewById(R.id.update);
+        mLogoutButton.setOnClickListener(v -> loginButtonPressed());
+        mUpdateButton.setOnClickListener( v -> uprateButtonPressed());
+    }
 
 
     private void setUserData() {
@@ -130,8 +120,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.logout_button)
-    void onLogoutClick(View view) {
+    private void loginButtonPressed(){
         SavedData dataManager = new SavedData(getContext());
         dataManager.setAutoLoginSwitch(false);
         //dataManager.setRememberMeSwitch(false);
@@ -140,8 +129,8 @@ public class ProfileFragment extends Fragment {
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
-    @OnClick(R.id.update)
-    void onUpdatePhotoClick() {
+
+    private void uprateButtonPressed(){
         pickFromGallery();
     }
 

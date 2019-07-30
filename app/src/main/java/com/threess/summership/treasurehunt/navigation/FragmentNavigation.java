@@ -24,6 +24,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Constant;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -205,15 +206,14 @@ public class FragmentNavigation extends Fragment {
             return;
         }
 
-        // If Hide treasure page is open --> show home page
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment
+                || getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
             showHomeFragment();
             return;
         }
 
-        // If User Details page is open --> show home page
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
-            showHomeFragment();
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment ){
+            popBackstack();
             return;
         }
 

@@ -15,31 +15,20 @@ import android.view.ViewGroup;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    //@BindView(R.id.home_viewpager)
     ViewPager viewPager;
-
-    //@BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
-
-    //@BindView(R.id.home_toolbar)
     Toolbar toolbar;
 
     public HomeFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //ButterKnife.bind(this, view);
-
         return view;
     }
 

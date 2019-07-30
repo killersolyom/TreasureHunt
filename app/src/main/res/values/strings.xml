@@ -11,9 +11,9 @@
     <string name="create_account">Create account</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
-    <string name="Treasures_discovered">Treasures discovered</string>
+    <string name="treasures_discovered">Treasures discovered</string>
     <string name="Username">Username</string>
-    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="treasures_hidden">Treasures hidden</string>
     <string name="update">Update</string>
     <string name="score">Score</string>
     <string name="successful">Successful</string>
@@ -88,5 +88,6 @@
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
+    <string name="file_string">File</string>
 
 </resources>

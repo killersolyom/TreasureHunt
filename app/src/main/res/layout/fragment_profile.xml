@@ -55,10 +55,10 @@
         android:id="@+id/treasures_discovered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/Treasures_discovered_marginStar"
+        android:layout_marginStart="@dimen/treasures_discovered_marginStar"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:text="@string/Treasures_discovered"
+        android:text="@string/treasures_discovered"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/username_text"
         tools:ignore="MissingConstraints" />
@@ -79,10 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/Treasures_hidden"
+        android:text="@string/treasures_hidden"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Treasures_discovered" />
+        app:layout_constraintTop_toBottomOf="@+id/treasures_discovered" />
 
     <Button
         android:id="@+id/logout_button"
