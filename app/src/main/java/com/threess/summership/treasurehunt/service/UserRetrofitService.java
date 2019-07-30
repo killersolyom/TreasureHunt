@@ -20,6 +20,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserRetrofitService {
+
     @POST("/users/register")
     Call<Object> createUser(@Body User user);
 

@@ -16,8 +16,6 @@ import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
-import static com.threess.summership.treasurehunt.util.Constant.ApiController.BASE_URL;
-
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
@@ -44,7 +42,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         holder.text1.setText(list.get(position).getUsername());
         holder.text2.setText(ctx.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
         Glide.with(ctx)
-                .load( BASE_URL + list.get(position).getProfilpicture())
+                .load( Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
                 .placeholder(ctx.getDrawable(R.drawable.default_pic))
                 .into(holder.image);
 
@@ -52,7 +50,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
             @Override
             public void onClick(View view){
                 if (list.get(position) != null) {
-                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), BASE_URL + list.get(position).getProfilpicture());
+                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
                 }}
         });
 
