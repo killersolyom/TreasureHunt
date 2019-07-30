@@ -26,9 +26,11 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         return view;
     }
 
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.gray700));
         bindViews(view);
         setupViewPager();
         setupBottomNavigation();
@@ -93,6 +96,7 @@ public class HomeFragment extends Fragment {
             switch (position) {
                 case 0:
                     toolbar.setTitle(R.string.profile);
+                    toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
