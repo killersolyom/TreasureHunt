@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -126,9 +127,12 @@ public class HideTreasureFragment extends Fragment {
 
         button.setOnClickListener(view1 -> buttonPress());
 
+        playAnimations(view);
         myIMGFile = null;
 
     }
+
+
 
     private void findIds(View view) {
         button = view.findViewById(R.id.Button);
@@ -224,11 +228,19 @@ public class HideTreasureFragment extends Fragment {
                     Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
                 }
             }
+
             @Override
             public void onFailure(Call<Treasure> call, Throwable t) {
                 Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
+    }
+
+    private void playAnimations(View view) {
+
+        Context c = getContext();
+        // TODO implement after finishing the .xml
+
     }
 
     @Override

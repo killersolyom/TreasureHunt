@@ -29,6 +29,7 @@ import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Animator;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class FavoriteTreasureFragment extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
     private FloatingActionButton addTreasureFab;
+    private static boolean mFirstStart = true;
 
 
     public FavoriteTreasureFragment() {
@@ -76,6 +78,7 @@ public class FavoriteTreasureFragment extends Fragment {
             return;
         }
         mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+        playAnimations();
     }
 
     private LocationRequest mLocationRequest = new LocationRequest()
@@ -126,6 +129,20 @@ public class FavoriteTreasureFragment extends Fragment {
         });
     }
 
+    private void playAnimations() {
+        if(mFirstStart) {
+            mFirstStart = false;
+
+            Animator recViewAnim = new Animator(getContext(), recycle, true);
+            recViewAnim.AddSlide(0, 0, -1000, 0, 1800);
+
+            Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
+            fabAnim.AddSlide(250, 0, 0, 0, 1000);
+
+            recViewAnim.Start();
+            fabAnim.Start(1200);
+        }
+    }
 
     @Override
     public void onStart() {

@@ -110,7 +110,6 @@ public class FragmentNavigation extends Fragment {
 
     /**
      * This method adds a new fragment on top of the stack.
-     *
      * @param fragment new fragment
      */
     private void addFragment(Fragment fragment, int container) {
@@ -126,7 +125,6 @@ public class FragmentNavigation extends Fragment {
 
     /**
      * This method removes the fragment from fragment stack.
-     *
      * @param fragment fragment which should be removed
      */
     private void removeFragment(Fragment fragment) {
@@ -137,7 +135,6 @@ public class FragmentNavigation extends Fragment {
 
     /**
      * This method replaces the fragment on top of the stack.
-     *
      * @param fragment new fragment
      */
     private void replaceFragment(Fragment fragment, int container) {
@@ -162,7 +159,6 @@ public class FragmentNavigation extends Fragment {
 
     /**
      * This method returns the current fragment.
-     *
      * @return current fragment.
      */
     private Fragment getCurrentFragment(int container) {
@@ -194,7 +190,6 @@ public class FragmentNavigation extends Fragment {
     /**
      * This method handles the application's back button presses and navigates to the corresponding
      * pages.
-     *
      * @param activity activity instance
      */
      public void onBackPressed(MainActivity activity) {

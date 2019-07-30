@@ -79,6 +79,7 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
+     //   Log.d("HALASZ", user.getPassword() + "   " + user.getUsername());
         mUserService.loginUser(user).enqueue(callback);
     }
 
@@ -90,8 +91,12 @@ public class ApiController {
         mUserService.listAllUsers().enqueue(callback);
     }
 
+    public void getUser(String userName, final Callback<User> callback){
+        mUserService.getUser(userName).enqueue(callback);
+    }
 
-    public  void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
+
+    public void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
     }
 
@@ -110,6 +115,10 @@ public class ApiController {
 
     public void uploadTreasureImageClue(MultipartBody.Part file, RequestBody requestBody, String username, String passcode, Callback<ResponseBody> callback){
         mTreasureService.uploadImage(file, requestBody, username, passcode).enqueue(callback);
+    }
+
+    public void uploadProfileImage(MultipartBody.Part file, RequestBody requestBody, String username, Callback<ResponseBody> callback){
+        mUserService.uploadImage(file, requestBody, username).enqueue(callback);
     }
 
 
