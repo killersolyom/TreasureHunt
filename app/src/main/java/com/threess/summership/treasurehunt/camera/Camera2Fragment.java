@@ -63,6 +63,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.util.Constant;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -89,44 +90,11 @@ public class Camera2Fragment extends Fragment implements
 {
 
     private static final String TAG = "Camera2Fragment";
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
-    private static final String FRAGMENT_DIALOG = "dialog";
 
-    /** Time it takes for icons to fade (in milliseconds) */
-    private static final int ICON_FADE_DURATION  = 400;
-
-    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-    static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
 
     /** The current state of camera state for taking pictures.
      * @see #mCaptureCallback */
-    private int mState = STATE_PREVIEW;
-
-    /** Camera state: Showing camera preview. */
-    private static final int STATE_PREVIEW = 0;
-
-    /** Camera state: Waiting for the focus to be locked. */
-    private static final int STATE_WAITING_LOCK = 1;
-
-    /** Camera state: Waiting for the exposure to be precapture state. */
-    private static final int STATE_WAITING_PRECAPTURE = 2;
-
-    /** Camera state: Waiting for the exposure state to be something other than precapture. */
-    private static final int STATE_WAITING_NON_PRECAPTURE = 3;
-
-    /** Camera state: Picture was taken. */
-    private static final int STATE_PICTURE_TAKEN = 4;
-
-    /** States for the flash */
-    private static final int FLASH_STATE_OFF = 0;
-    private static final int FLASH_STATE_ON = 1;
-    private static final int FLASH_STATE_AUTO = 2;
-
+    private int mState = Constant.Camera.STATE_PREVIEW;
 
     //vars
     /** A {@link Semaphore} to prevent the app from exiting before closing the camera. */
@@ -316,30 +284,30 @@ public class Camera2Fragment extends Fragment implements
     }
 
     private void toggleFlashState(){
-        if(mFlashState == FLASH_STATE_OFF){
-            mFlashState = FLASH_STATE_ON;
+        if(mFlashState == Constant.Camera.FLASH_STATE_OFF){
+            mFlashState = Constant.Camera.FLASH_STATE_ON;
         }
-        else if(mFlashState == FLASH_STATE_ON){
-            mFlashState = FLASH_STATE_AUTO;
+        else if(mFlashState == Constant.Camera.FLASH_STATE_ON){
+            mFlashState = Constant.Camera.FLASH_STATE_AUTO;
         }
-        else if(mFlashState == FLASH_STATE_AUTO){
-            mFlashState = FLASH_STATE_OFF;
+        else if(mFlashState == Constant.Camera.FLASH_STATE_AUTO){
+            mFlashState = Constant.Camera.FLASH_STATE_OFF;
         }
         setFlashIcon();
     }
 
     private void setFlashIcon(){
-        if(mFlashState == FLASH_STATE_OFF){
+        if(mFlashState == Constant.Camera.FLASH_STATE_OFF){
             Glide.with(getActivity())
                     .load(R.drawable.ic_flash_off)
                     .into(mFlashIcon);
         }
-        else if(mFlashState == FLASH_STATE_ON){
+        else if(mFlashState == Constant.Camera.FLASH_STATE_ON){
             Glide.with(getActivity())
                     .load(R.drawable.ic_flash_on)
                     .into(mFlashIcon);
         }
-        else if(mFlashState == FLASH_STATE_AUTO){
+        else if(mFlashState == Constant.Camera.FLASH_STATE_AUTO){
             Glide.with(getActivity())
                     .load(R.drawable.ic_flash_auto)
                     .into(mFlashIcon);
@@ -350,15 +318,15 @@ public class Camera2Fragment extends Fragment implements
 
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
         if (mFlashSupported) {
-            if(mFlashState == FLASH_STATE_OFF){
+            if(mFlashState == Constant.Camera.FLASH_STATE_OFF){
                 requestBuilder.set(CaptureRequest.FLASH_MODE,
                         CaptureRequest.FLASH_MODE_OFF);
             }
-            else if(mFlashState == FLASH_STATE_ON){
+            else if(mFlashState == Constant.Camera.FLASH_STATE_ON){
                 requestBuilder.set(CaptureRequest.FLASH_MODE,
                         CaptureRequest.FLASH_MODE_SINGLE);
             }
-            else if(mFlashState == FLASH_STATE_AUTO){
+            else if(mFlashState == Constant.Camera.FLASH_STATE_AUTO){
                 requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
                         CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
             }
@@ -381,12 +349,12 @@ public class Camera2Fragment extends Fragment implements
 
     public void dragStickerStarted(){
         if(mStillshotImageView.mSelectedStickerIndex != -1){
-            mColorPickerContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mUndoContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mPenContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mSaveContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mCloseStillshotContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mStickerContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
+            mColorPickerContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mUndoContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mPenContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mSaveContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mCloseStillshotContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mStickerContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
 
             // show the trash can container
             mTrashContainer.setVisibility(View.VISIBLE);
@@ -486,12 +454,12 @@ public class Camera2Fragment extends Fragment implements
 
     public void drawingStarted(){
         if(!mIsCurrentlyDrawing){
-            mColorPickerContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mUndoContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mSaveContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mPenContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mCloseStillshotContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
-            mStickerContainer.animate().alpha(0.0f).setDuration(ICON_FADE_DURATION);
+            mColorPickerContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mUndoContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mSaveContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mPenContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mCloseStillshotContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
+            mStickerContainer.animate().alpha(0.0f).setDuration(Constant.Camera.ICON_FADE_DURATION);
 
             mIsCurrentlyDrawing = true;
         }
@@ -710,7 +678,7 @@ public class Camera2Fragment extends Fragment implements
                     CameraMetadata.CONTROL_AF_TRIGGER_START);
 
             // Tell #mCaptureCallback to wait for the lock.
-            mState = STATE_WAITING_LOCK;
+            mState = Constant.Camera.STATE_WAITING_LOCK;
 
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
@@ -793,11 +761,11 @@ public class Camera2Fragment extends Fragment implements
 
         private void process(CaptureResult result) {
             switch (mState) {
-                case STATE_PREVIEW: {
+                case Constant.Camera.STATE_PREVIEW: {
                     // We have nothing to do when the camera preview is working normally.
                     break;
                 }
-                case STATE_WAITING_LOCK: {
+                case Constant.Camera.STATE_WAITING_LOCK: {
                     Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
                     if (afState == null) {
                         captureStillPicture();
@@ -807,33 +775,33 @@ public class Camera2Fragment extends Fragment implements
                         Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
                         if (aeState == null ||
                                 aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
-                            mState = STATE_PICTURE_TAKEN;
+                            mState = Constant.Camera.STATE_PICTURE_TAKEN;
                             captureStillPicture();
                         } else {
                             runPrecaptureSequence();
                         }
                     }
                     else if(afState == CaptureResult.CONTROL_AF_STATE_INACTIVE){
-                        mState = STATE_PICTURE_TAKEN;
+                        mState = Constant.Camera.STATE_PICTURE_TAKEN;
                         captureStillPicture();
                     }
                     break;
                 }
-                case STATE_WAITING_PRECAPTURE: {
+                case Constant.Camera.STATE_WAITING_PRECAPTURE: {
                     // CONTROL_AE_STATE can be null on some devices
                     Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
                     if (aeState == null ||
                             aeState == CaptureResult.CONTROL_AE_STATE_PRECAPTURE ||
                             aeState == CaptureRequest.CONTROL_AE_STATE_FLASH_REQUIRED) {
-                        mState = STATE_WAITING_NON_PRECAPTURE;
+                        mState = Constant.Camera.STATE_WAITING_NON_PRECAPTURE;
                     }
                     break;
                 }
-                case STATE_WAITING_NON_PRECAPTURE: {
+                case Constant.Camera.STATE_WAITING_NON_PRECAPTURE: {
                     // CONTROL_AE_STATE can be null on some devices
                     Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
                     if (aeState == null || aeState != CaptureResult.CONTROL_AE_STATE_PRECAPTURE) {
-                        mState = STATE_PICTURE_TAKEN;
+                        mState = Constant.Camera.STATE_PICTURE_TAKEN;
                         captureStillPicture();
                     }
                     break;
@@ -867,7 +835,7 @@ public class Camera2Fragment extends Fragment implements
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
                     CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the precapture sequence to be set.
-            mState = STATE_WAITING_PRECAPTURE;
+            mState = Constant.Camera.STATE_WAITING_PRECAPTURE;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
         } catch (CameraAccessException e) {
@@ -970,7 +938,7 @@ public class Camera2Fragment extends Fragment implements
         // We have to take that into account and rotate JPEG properly.
         // For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
         // For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
-        return (ORIENTATIONS.get(rotation) + mSensorOrientation + 270) % 360;
+        return (Constant.Camera.ORIENTATIONS.get(rotation) + mSensorOrientation + 270) % 360;
     }
 
     /**
@@ -987,7 +955,7 @@ public class Camera2Fragment extends Fragment implements
             setAutoFlash(mPreviewRequestBuilder);
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
-            mState = STATE_PREVIEW;
+            mState = Constant.Camera.STATE_PREVIEW;
             mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
@@ -1319,7 +1287,7 @@ public class Camera2Fragment extends Fragment implements
             // Currently an NPE is thrown when the Camera2API is used but not supported on the
             // device this code runs.
             ErrorDialog.newInstance(getString(R.string.camera_error))
-                    .show(getChildFragmentManager(), FRAGMENT_DIALOG);
+                    .show(getChildFragmentManager(), Constant.Camera.FRAGMENT_DIALOG);
         }
 
     }
@@ -1446,9 +1414,9 @@ public class Camera2Fragment extends Fragment implements
 
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-            new ConfirmationDialog().show(getChildFragmentManager(), FRAGMENT_DIALOG);
+            new ConfirmationDialog().show(getChildFragmentManager(), Constant.Camera.FRAGMENT_DIALOG);
         } else {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, Constant.Camera.REQUEST_CAMERA_PERMISSION);
         }
     }
 
@@ -1825,7 +1793,7 @@ public class Camera2Fragment extends Fragment implements
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             parent.requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                    REQUEST_CAMERA_PERMISSION);
+                                    Constant.Camera.REQUEST_CAMERA_PERMISSION);
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,

@@ -16,9 +16,6 @@ import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
 
-import static com.threess.summership.treasurehunt.service.UserRetrofitService.BASE_URL;
-
-
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
@@ -50,7 +47,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
             @Override
             public void onClick(View view){
                 if (list.get(position) != null) {
-                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), BASE_URL + list.get(position).getProfilpicture());
+                    FragmentNavigation.getInstance(view.getContext()).showUserDetails(list.get(position).getUsername(), list.get(position).getScore(), Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
                 }}
         });
 
