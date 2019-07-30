@@ -18,7 +18,6 @@ import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.UserDetails;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
@@ -104,10 +103,6 @@ public class FragmentNavigation extends Fragment {
 
     public void showTopListFragment() {
         replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
-    }
-
-    public void showUserDetails(String username, int score, String imageurl) {
-        addFragment(UserDetails.newInstance(username, score, imageurl), mMainActivityFragmentContainer);
     }
 
     private boolean doubleBackToExitPressedOnce = false;
@@ -210,8 +205,7 @@ public class FragmentNavigation extends Fragment {
             return;
         }
 
-         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails ||
-                 getCurrentFragment(mMainActivityFragmentContainer) instanceof RegistrationFragment) {
+         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof RegistrationFragment) {
              popBackstack();
              return;
          }
@@ -237,14 +231,9 @@ public class FragmentNavigation extends Fragment {
         }
 
         mDoubleBackToExitPressedOnce = true;
-        Toast.makeText(activity, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, getString(R.string.back_button_press), Toast.LENGTH_SHORT).show();
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDoubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        mHandler.postDelayed(() -> mDoubleBackToExitPressedOnce = false, 2000);
     }
 
 

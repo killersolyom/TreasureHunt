@@ -85,6 +85,7 @@
     <string name="choose_another_passcode">"Please choose another passcode!"</string>
     <string name="all_fields_are_required">"All the fields are required"</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>
+    <string name="back_button_press">Please click BACK again to exit!</string>
 
 
     <string name="profile_logout">Logout</string>

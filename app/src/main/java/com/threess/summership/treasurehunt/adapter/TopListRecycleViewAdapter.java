@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 
 import java.util.ArrayList;
-
-import static com.threess.summership.treasurehunt.service.UserRetrofitService.BASE_URL;
 
 
 
@@ -46,19 +44,38 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         holder.nameTextView.setText(list.get(position).getUsername());
         holder.scoreNumberTextView.setText(
                 context.getResources().getString(R.string.top_list_score) + list.get(position).getScore());
-        Glide.with(context).load(Constant.ApiController.BASE_URL +
-                list.get(position).getProfilpicture()).circleCrop().placeholder(
-                context.getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
+        Glide.with(context)
+                .load(Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
+                .circleCrop()
+                .placeholder(context
+                        .getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
         holder.itemView.setOnClickListener(view -> {
             if (list.get(position) != null) {
-                FragmentNavigation.getInstance(view.getContext()).showUserDetails(
-                        list.get(position).getUsername(), list.get(position).getScore(),
-                        BASE_URL + list.get(position).getProfilpicture());
+                showUserProfile(list.get(position),
+                        Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
             }
         });
 
 
+    }
+
+    private void showUserProfile(User user, String imageUrl){
+        LayoutInflater factory = LayoutInflater.from(context);
+        View view = factory.inflate(R.layout.custom_alert_dialog_view, null);
+        ImageView profilePicture = view.findViewById(R.id.dialog_imageview);
+        TextView userName = view.findViewById(R.id.dialog_username);
+        TextView userScore = view.findViewById(R.id.dialog_userscore);
+        userName.setText(context.getString(R.string.Username) +": " + user.getUsername());
+        userScore.setText(context.getString(R.string.score)+ ": " + user.getScore());
+        Glide.with(context)
+                .load(imageUrl)
+                .fitCenter()
+                .error(R.drawable.astonished_face_emoji)
+                .into(profilePicture);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setView(view);
+        alertDialog.show();
     }
 
     @Override
