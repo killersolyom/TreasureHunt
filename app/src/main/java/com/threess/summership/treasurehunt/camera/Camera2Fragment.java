@@ -173,8 +173,6 @@ public class Camera2Fragment extends Fragment implements
     private ImageButton mTrashIcon, mFlashIcon;
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
 
-
-
     public static Camera2Fragment newInstance(){
         return new Camera2Fragment();
     }
@@ -183,11 +181,8 @@ public class Camera2Fragment extends Fragment implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera2, container, false);
-
-
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -229,8 +224,6 @@ public class Camera2Fragment extends Fragment implements
         setMaxSizes();
         resetIconVisibilities();
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -516,7 +509,6 @@ public class Camera2Fragment extends Fragment implements
             Log.d(TAG, "onTouch: ZOOM.");
             return mTextureView.onTouch(motionEvent);
         }
-
 
     }
 
@@ -927,6 +919,7 @@ public class Camera2Fragment extends Fragment implements
 
         }
     };
+
     /**
      * Retrieves the JPEG orientation from the specified screen rotation.
      *
@@ -961,7 +954,6 @@ public class Camera2Fragment extends Fragment implements
             e.printStackTrace();
         }
     }
-
 
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -1302,7 +1294,6 @@ public class Camera2Fragment extends Fragment implements
         Log.d(TAG, "setMaxSizes: screen height: " + SCREEN_HEIGHT);
     }
 
-
     private void findCameraIds(){
 
         Activity activity = getActivity();
@@ -1327,7 +1318,6 @@ public class Camera2Fragment extends Fragment implements
             e.printStackTrace();
         }
     }
-
 
     private void toggleCameraDisplayOrientation(){
         if(mCameraId.equals(mICameraActivity.getBackCameraId())){
@@ -1409,9 +1399,6 @@ public class Camera2Fragment extends Fragment implements
         mTextureView.setTransform(matrix);
     }
 
-
-
-
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
             new ConfirmationDialog().show(getChildFragmentManager(), Constant.Camera.FRAGMENT_DIALOG);
@@ -1440,7 +1427,6 @@ public class Camera2Fragment extends Fragment implements
                     showSnackBar("Error displaying image", Snackbar.LENGTH_SHORT);
                 }
             }
-
         };
 
         ImageSaver imageSaver = new ImageSaver(
