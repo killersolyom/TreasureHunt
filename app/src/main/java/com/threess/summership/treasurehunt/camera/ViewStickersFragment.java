@@ -34,7 +34,7 @@ public class ViewStickersFragment extends Fragment implements
 
     //vars
     private ArrayList<Drawable> mStickers = new ArrayList<>();
-    private IMainActivity mIMainActivity;
+    private ICameraActivity mICameraActivity;
     private StickerAdapter mStickerAdapter;
 
     public static ViewStickersFragment newInstance() {
@@ -85,9 +85,9 @@ public class ViewStickersFragment extends Fragment implements
 
     @Override
     public void onStickerClicked(int position) {
-        mIMainActivity.addSticker(mStickers.get(position));
+        mICameraActivity.addSticker(mStickers.get(position));
 
-        mIMainActivity.toggleViewStickersFragment();
+        mICameraActivity.toggleViewStickersFragment();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ViewStickersFragment extends Fragment implements
         switch (view.getId()){
 
             case R.id.init_sticker_icon:{
-                mIMainActivity.toggleViewStickersFragment();
+                mICameraActivity.toggleViewStickersFragment();
                 break;
             }
         }
@@ -106,7 +106,7 @@ public class ViewStickersFragment extends Fragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         try{
-            mIMainActivity = (IMainActivity) getActivity();
+            mICameraActivity = (ICameraActivity) getActivity();
         }catch (ClassCastException e){
             Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage() );
         }

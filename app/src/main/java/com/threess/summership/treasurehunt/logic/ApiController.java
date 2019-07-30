@@ -1,19 +1,14 @@
 package com.threess.summership.treasurehunt.logic;
 
-import android.content.Context;
-
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
-import com.threess.summership.treasurehunt.util.Constant;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
@@ -70,7 +65,6 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
-     //   Log.d("HALASZ", user.getPassword() + "   " + user.getUsername());
         mUserService.loginUser(user).enqueue(callback);
     }
 

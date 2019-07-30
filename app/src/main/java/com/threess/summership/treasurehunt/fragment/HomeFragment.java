@@ -105,11 +105,11 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
-                    toolbar.setTitle(R.string.recent);
+                    toolbar.setTitle("Treasures");
                     bottomNavigationView.setSelectedItemId(R.id.action_recent);
                     break;
                 case 2:
-                    toolbar.setTitle(R.string.favorites);
+                    toolbar.setTitle("Top list");
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
