@@ -152,12 +152,14 @@
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/blue500"
+        android:layout_marginBottom="@dimen/hide_treasure_bottom_button_margin"
+        android:textAllCaps="false"
         android:textColor="@color/gray900"
         android:padding="10dp"
         android:text="@string/createtreasurebutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/button_selector"/>
         app:layout_constraintTop_toBottomOf="@+id/passcode_edit_text" />
 </android.support.constraint.ConstraintLayout>

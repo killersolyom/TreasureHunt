@@ -24,6 +24,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Constant;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -199,19 +200,21 @@ public class FragmentNavigation extends Fragment {
      */
     public void onBackPressed(MainActivity activity) {
 
+        // If Home page is open: double press exit:
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            // If Home page is open: double press exit:
-
             doublePressExit(activity);
+            return;
+        }
 
-        }else {
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment
+                || getCurrentFragment(mMainActivityFragmentContainer) instanceof UserDetails) {
+            showHomeFragment();
+            return;
+        }
 
-            // If Hide treasure page is open --> show home page
-            if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment) {
-                showHomeFragment();
-                return;
-            }
-
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment ){
+            popBackstack();
+            return;
         }
 
         // Other cases:

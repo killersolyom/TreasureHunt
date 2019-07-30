@@ -168,16 +168,7 @@ public class Animator {
 
     public void Start(int delayMs){
         // Start Animations:
-        new Handler().postDelayed(() -> {
-            mView.setAnimation(mAnimationSet);
-            if(mInvisibleBeforeAnimation) {
-                mView.setVisibility(View.VISIBLE);
-            }
-        },delayMs);
-    }
-
-    public void ClearAnimationSet(){
-        mAnimationSet = new AnimationSet(false);
+        new Handler().postDelayed(this::Start, delayMs);
     }
 
     /**
