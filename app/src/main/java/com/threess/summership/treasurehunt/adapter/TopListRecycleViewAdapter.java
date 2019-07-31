@@ -35,13 +35,13 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
     @Override
     public void onBindViewHolder(TopListViewHolder holder, final int position) {
-
         holder.nameTextView.setText(list.get(position).getUsername());
-        holder.scoreNumberTextView.setText( String.valueOf(list.get(position).getScore()).trim());
+        holder.scoreNumberTextView.setText( String.valueOf(list.get(position).getScore()));
         Glide.with(context)
                 .load(Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
                 .circleCrop()
                 .error(R.drawable.default_pic)
+                .override(250)
                 .placeholder(context
                         .getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
