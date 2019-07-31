@@ -2,7 +2,9 @@ package com.threess.summership.treasurehunt.adapter;
 
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +41,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.treasure_list_component, parent, false));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
@@ -59,21 +62,17 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
                 holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
             }
 
-            holder.layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    selectedTreasure = treasure;
-                    FragmentNavigation.getInstance(context).
-                             startNavigationToDestination(treasure,context);
-
-                }
+            holder.layout.setOnClickListener( v -> {
+                selectedTreasure = treasure;
+                FragmentNavigation.getInstance(context).
+                        startNavigationToDestination(treasure,context);
             });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -118,7 +117,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
         notifyDataSetChanged();
     }
-
 
     public Treasure getSelectedTreasure() {
         return selectedTreasure;

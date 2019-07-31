@@ -3,16 +3,15 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="6dip">
+    android:padding="0dip">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/pictureImageView"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -27,7 +26,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintStart_toEndOf="@+id/pictureImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -43,7 +42,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintStart_toEndOf="@+id/pictureImageView"
         app:layout_constraintTop_toBottomOf="@id/nameTextView">
 
         <!--<TextView
@@ -58,7 +57,7 @@
             android:textStyle="bold"/>-->
 
         <TextView
-            android:id="@+id/telNumberTextView"
+            android:id="@+id/scoreNumberTextView"
             android:layout_width="0dp"
             android:layout_height="@dimen/treasure_item_text_height"
             android:layout_weight="1"

@@ -1,26 +1,24 @@
 package com.threess.summership.treasurehunt.logic;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.service.TreasuresRetrofitService;
 import com.threess.summership.treasurehunt.service.UserRetrofitService;
-import com.threess.summership.treasurehunt.util.Constant;
 
+import com.threess.summership.treasurehunt.util.Constant;
 import java.io.File;
 import java.util.ArrayList;
-
-import okhttp3.MultipartBody;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.threess.summership.treasurehunt.util.Constant.ApiController.BASE_URL;
 
 public class ApiController {
     private static final String TAG = ApiController.class.getSimpleName();
@@ -31,19 +29,20 @@ public class ApiController {
     private TreasuresRetrofitService mTreasureService;
     private UserRetrofitService mUserService;
     private TreasuresRetrofitService mClaimedTreasure;
+    private static int cacheSize = 100 * 1048576; // 100 MB
+    private static Cache cache;
+    private Activity activity;
 
     private ApiController() {
-
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl( BASE_URL )
+                .baseUrl( Constant.ApiController.BASE_URL )
+                .client(setupClient())
                 .build();
         mTreasureService = mRetrofit.create(TreasuresRetrofitService.class);
         mUserService = mRetrofit.create(UserRetrofitService.class);
         mClaimedTreasure = mRetrofit.create(TreasuresRetrofitService.class);
     }
-
-
 
     /**
      * Returns the ApiController instance.
@@ -53,6 +52,13 @@ public class ApiController {
         if( sInstance == null ){
             sInstance = new ApiController();
         }
+        return sInstance;
+    }
+
+    public static ApiController getInstance(Activity activity){
+        cache = new Cache(activity.getCacheDir(), cacheSize);
+        sInstance = new ApiController();
+        sInstance.activity = activity;
         return sInstance;
     }
 
@@ -70,7 +76,6 @@ public class ApiController {
     }
 
     public void loginUser(final User user, final Callback<Object> callback){
-     //   Log.d("HALASZ", user.getPassword() + "   " + user.getUsername());
         mUserService.loginUser(user).enqueue(callback);
     }
 
@@ -94,6 +99,10 @@ public class ApiController {
 
     public void createTreasure(Treasure treasure, Callback<Treasure> treasureCallback) {
         mTreasureService.createTreasure(treasure).enqueue(treasureCallback);
+    }
+
+    private OkHttpClient setupClient(){
+        return new OkHttpClient.Builder().cache(cache).build();
     }
 
     public void uploadTreasureImageClue(MultipartBody.Part file, RequestBody requestBody, String username, String passcode, Callback<ResponseBody> callback){
