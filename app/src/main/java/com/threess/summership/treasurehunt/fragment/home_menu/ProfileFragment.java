@@ -153,8 +153,6 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                setUITreasuresHidden(0);
-                setUITreasuresDiscovered(0);
             }
         });
     }
