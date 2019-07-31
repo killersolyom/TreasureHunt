@@ -17,6 +17,13 @@ public class Constant {
         public static final String FILE = "File";
     }
 
+    public static class FavoriteTreasure{
+        public static final int STOP_SWIPE_REFRESHING_TIME = 2000;
+    }
+
+    public static class TOP_LIST{
+        public static final int STOP_SWIPE_REFRESHING_TIME = 2000;
+    }
 
     public static class ClaimTreasure {
         public static final String KEY_STRING_TREASURE = "treasureName";

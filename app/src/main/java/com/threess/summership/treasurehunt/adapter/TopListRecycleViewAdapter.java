@@ -20,19 +20,16 @@ import java.util.ArrayList;
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
 
-    private ArrayList<User> list;
-
+    private ArrayList<User> list = new ArrayList<>();
     private Context context;
 
-    public TopListRecycleViewAdapter(ArrayList<User> list, Context context) {
-        this.list = list;
+    public TopListRecycleViewAdapter(Context context) {
         this.context = context;
     }
 
     @Override
     public TopListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.toplist_item_layout, parent, false);
-
         return new TopListViewHolder(view);
     }
 
@@ -74,6 +71,12 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setView(view);
         alertDialog.show();
+    }
+
+    public void addComponents(ArrayList<User> users){
+        list.clear();
+        list.addAll(users);
+        notifyDataSetChanged();
     }
 
     @Override
