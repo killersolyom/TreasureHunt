@@ -42,7 +42,7 @@ public class FavoriteTreasureFragment extends Fragment {
     public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
-    private static TreasureAdapter adapter;
+    private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
     private static boolean mFirstStart = true;
@@ -173,10 +173,6 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    public static void notifyAdatpter(){
-        adapter.notifyDataSetChanged();
     }
 
 }

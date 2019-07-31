@@ -52,12 +52,6 @@ public class ProfileFragment extends Fragment {
     private TextView mTreasuresDiscoveredTextView;
     private TextView mTreasuresHiddenTextView;
     private TextView profileScoreTextView;
-    private ImageView profileStarImageView;
-    private TextView profileTreasureshiddenTextView;
-    private TextView profileTreasuresdiscoveredTextView;
-    private Button profileUpdateImageButton;
-    private TextView profileUsernameImageView;
-    private Button profileHomeButton;
     public static SavedData mDataManager;
     private static String mUserName;
     private static User mCurrentUser;

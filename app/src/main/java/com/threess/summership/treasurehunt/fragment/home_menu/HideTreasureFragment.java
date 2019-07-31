@@ -218,7 +218,6 @@ public class HideTreasureFragment extends Fragment {
                 if (response.errorBody() == null) {
                     if(!myIMGFile.getAbsolutePath().equals("")){
                         uploadToServer(myIMGFile.getAbsolutePath());
-                        FavoriteTreasureFragment.notifyAdatpter();
                         getFragmentManager().popBackStack();
                     }else{
                         uploadToServer("");

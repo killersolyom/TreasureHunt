@@ -28,7 +28,7 @@ public class TopListFragment extends Fragment {
     private static final String TAG = TopListFragment.class.getSimpleName();
 
     private RecyclerView recyclerview;
-    private static TopListRecycleViewAdapter adapter;
+    private TopListRecycleViewAdapter adapter;
     private RecyclerView.LayoutManager layoutmanager;
     private ArrayList<User> list = new ArrayList<>();
 
@@ -74,9 +74,5 @@ public class TopListFragment extends Fragment {
         if(adapter!=null){
             adapter.notifyDataSetChanged();
         }
-    }
-
-    public static void notifyAdatpter(){
-        adapter.notifyDataSetChanged();
     }
 }
