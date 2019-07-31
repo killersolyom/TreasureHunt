@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
+import com.threess.summership.treasurehunt.logic.SavedData;
 
 
 public class HomeFragment extends Fragment {
@@ -82,6 +83,10 @@ public class HomeFragment extends Fragment {
                             viewPager.setCurrentItem(3);
                             return true;
                         }
+                        case R.id.action_hide_treasure: {
+                            viewPager.setCurrentItem(4);
+                            return true;
+                        }
                     }
                     return false;
                 });
@@ -96,22 +101,25 @@ public class HomeFragment extends Fragment {
         public void onPageSelected(int position) {
             switch (position) {
                 case 0:
-                    toolbar.setTitle(R.string.profile);
+                    toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
                     toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
-                    toolbar.setTitle(R.string.recent);
+                    toolbar.setTitle("Treasures");
                     bottomNavigationView.setSelectedItemId(R.id.action_recent);
                     break;
                 case 2:
-                    toolbar.setTitle(R.string.favorites);
+                    toolbar.setTitle("Top list");
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
                     toolbar.setTitle(R.string.location);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
+                case 4:
+                    toolbar.setTitle("Hide treasure");
+                    bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
             }
         }
 

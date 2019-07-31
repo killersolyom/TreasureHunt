@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
@@ -24,6 +25,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         mFragmentList.add(new FavoriteTreasureFragment());
         mFragmentList.add(new TopListFragment());
         mFragmentList.add(new MapViewFragment());
+        mFragmentList.add(new HideTreasureFragment());
     }
 
     @Override

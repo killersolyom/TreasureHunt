@@ -69,7 +69,7 @@ public class ClaimTreasureFragment extends Fragment {
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
-        mDescriptionText=view.findViewById(R.id.textView_Claim);
+        mDescriptionText=view.findViewById(R.id.textView);
         mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
@@ -95,7 +95,7 @@ public class ClaimTreasureFragment extends Fragment {
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.blue300);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
@@ -106,7 +106,6 @@ public class ClaimTreasureFragment extends Fragment {
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
-                    Log.e("boti", "failureFirst");
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
@@ -150,15 +149,13 @@ public class ClaimTreasureFragment extends Fragment {
         ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call1, Response<Object> response1) {
-                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue);
-                Log.e("boti", response1.message());
+                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
                 Util.makeSnackbar(mView,R.string.Claim_Error4,Snackbar.LENGTH_SHORT,R.color.orange900);
-                Log.e("boti", t.getMessage());
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
