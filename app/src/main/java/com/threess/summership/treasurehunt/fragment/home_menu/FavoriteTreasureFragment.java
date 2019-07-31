@@ -163,6 +163,7 @@ public class FavoriteTreasureFragment extends Fragment {
             FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(treasure);
             mShowClaimTreasure = false;
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
