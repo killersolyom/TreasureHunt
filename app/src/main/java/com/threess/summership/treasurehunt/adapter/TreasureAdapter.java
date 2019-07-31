@@ -46,9 +46,9 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
             final Treasure treasure = treasureList.get(position);
-            Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
+            Glide.with(context).load(treasure.getPhotoClue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
             holder.treasureText.setText(treasure.getDescription());
-            double score = treasure.getPrize_points();
+            double score = treasure.getPrizePoints();
             int roundedScore = (int) Math.round(score);
             if( score == roundedScore){
                 holder.treasureScore.setText("+" + roundedScore);
@@ -108,7 +108,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
         for(Treasure t : treasures){
             if (t != null) {
-                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
+                if (t.getClaimedBy().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
                     treasureList.add(t);
                 }
             }

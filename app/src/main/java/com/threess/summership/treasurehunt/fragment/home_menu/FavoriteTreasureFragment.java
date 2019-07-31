@@ -95,8 +95,8 @@ public class FavoriteTreasureFragment extends Fragment {
                 Location location = locations.get(0);
                 if (adapter.getSelectedTreasure() != null) {
                     LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
-                            adapter.getSelectedTreasure().getLocation_lon());
+                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocationLat(),
+                            adapter.getSelectedTreasure().getLocationLon());
 
                     if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));

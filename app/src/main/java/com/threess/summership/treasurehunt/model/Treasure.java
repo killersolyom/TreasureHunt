@@ -73,35 +73,35 @@ public class Treasure implements Serializable {
         this.description = description;
     }
 
-    public String getPhoto_clue() {
+    public String getPhotoClue() {
         return photo_clue;
     }
 
-    public void setPhoto_clue(String photo_clue) {
+    public void setPhotoClue(String photo_clue) {
         this.photo_clue = photo_clue;
     }
 
-    public double getLocation_lat() {
+    public double getLocationLat() {
         return location_lat;
     }
 
-    public void setLocation_lat(double location_lat) {
+    public void setLocationLat(double location_lat) {
         this.location_lat = location_lat;
     }
 
-    public double getLocation_lon() {
+    public double getLocationLon() {
         return location_lon;
     }
 
-    public void setLocation_lon(double location_lon) {
+    public void setLocationLon(double location_lon) {
         this.location_lon = location_lon;
     }
 
-    public double getPrize_points() {
+    public double getPrizePoints() {
         return prize_points;
     }
 
-    public void setPrize_points(double prize_points) {
+    public void setPrizePoints(double prize_points) {
         this.prize_points = prize_points;
     }
 
@@ -110,7 +110,7 @@ public class Treasure implements Serializable {
         return claimed;
     }
 
-    public String getClaimed_by() {
+    public String getClaimedBy() {
         return claimed_by;
     }
 

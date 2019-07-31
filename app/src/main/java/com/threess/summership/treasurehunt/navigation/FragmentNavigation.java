@@ -178,8 +178,8 @@ public class FragmentNavigation extends Fragment {
     public void startNavigationToDestination(Treasure treasure, Context context) {
         if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment && !treasure.isClaimed()) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
-                    treasure.getLocation_lat() + "," +
-                    treasure.getLocation_lon() + "&mode=w");
+                    treasure.getLocationLat() + "," +
+                    treasure.getLocationLon() + "&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             context.startActivity(mapIntent);
