@@ -91,7 +91,7 @@ public class ClaimTreasureFragment extends Fragment {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
-            sd.setScore((float)(mTreasure.getPrize_points()+ sd.getScore()));
+            sd.setScore((float)(mTreasure.getPrizePoints()+ sd.getScore()));
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
