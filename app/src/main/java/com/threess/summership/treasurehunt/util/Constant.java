@@ -12,6 +12,7 @@ public class Constant {
         public static final int INTERNAL_SERVER_ERROR = 500;
     }
 
+
     public static class ClaimTreasure {
         public static final String KEY_STRING_TREASURE = "treasureName";
         public static final String KEY_STRING_USERNAME = "username";
@@ -49,6 +50,7 @@ public class Constant {
         public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
         public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
         public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
+        public static final String USER_SCORE = "user_score";
     }
 
     public static class Camera {

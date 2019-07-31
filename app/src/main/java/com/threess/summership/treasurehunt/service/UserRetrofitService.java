@@ -30,6 +30,10 @@ public interface UserRetrofitService {
     @GET("/users")
     Call <ArrayList<User>> listAllUsers ();
 
+    @POST("/users/update/{username}")
+    @FormUrlEncoded
+    Call<Object> updateScore(@Path("username") String username, @Field("score") Double score);
+
     @GET("/users/{username}")
     Call<User> getUser(@Path("username") String username);
 

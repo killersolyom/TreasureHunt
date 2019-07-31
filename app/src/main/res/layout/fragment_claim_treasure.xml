@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_Claim"
             android:layout_width="@dimen/claim_textView_width"
             android:layout_height="@dimen/claim_textView_height"
             android:text="@string/write_pass_code"
@@ -108,15 +108,16 @@
 
         android:id="@+id/image_succsesfull_icon"
         android:layout_width="match_parent"
-        android:visibility="invisible"
         android:layout_height="@dimen/Claim_imageView_hight"
-        android:src="@drawable/succsesfull_image"
+        android:src="@drawable/ic_image_succsesful"
+        android:tint="@color/colorPrimary"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.426" />
 
 
 </android.support.constraint.ConstraintLayout>
