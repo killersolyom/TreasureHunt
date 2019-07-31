@@ -48,12 +48,6 @@ public class ProfileFragment extends Fragment {
     private static TextView mTreasuresDiscoveredTextView;
     private static TextView mTreasuresHiddenTextView;
     private static TextView profileScoreTextView;
-    private static ImageView profileStarImageView;
-    private static TextView profileTreasureshiddenTextView;
-    private static TextView profileTreasuresdiscoveredTextView;
-    private static Button profileUpdateImageButton;
-    private static TextView profileUsernameImageView;
-    private static Button profileHomeButton;
     private static SavedData mDataManager;
     private static String mUserName;
     private static User mCurrentUser;
@@ -74,16 +68,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         bindViews(view);
-
         mDataManager = new SavedData(getContext());
         setUserData();
-
         mUserName = mDataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
-
         loadProfileImage(mDataManager.getProfileImage());
         loadUserData();
+        calculateUserTreasureStatus();
     }
 
 
@@ -93,7 +84,6 @@ public class ProfileFragment extends Fragment {
         mTreasuresDiscoveredTextView = view.findViewById(R.id.treasures_discovered);
         mTreasuresHiddenTextView = view.findViewById(R.id.treasures_hidden);
         profileScoreTextView = view.findViewById(R.id.score);
-        profileStarImageView = view.findViewById(R.id.star_button);
         mLogoutButton = view.findViewById(R.id.logout_button);
         mUpdateButton = view.findViewById(R.id.update);
         profileImageView.setOnClickListener(v -> profileImagePressed());
@@ -110,15 +100,15 @@ public class ProfileFragment extends Fragment {
 
 
     private void loadUserData() {
+        setUITreasuresHidden(mDataManager.readUserCreateTreasureNumber());
+        setUITreasuresDiscovered(mDataManager.readUserClaimedTreasureNumber());
         ApiController.getInstance().getUser(mUserName, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 mCurrentUser = response.body();
                 if (mCurrentUser != null) {
-
                     setUIUserName(mCurrentUser.getUsername());
                     setUIScore(mCurrentUser.getScore());
-                    calculateUserTreasureStatus();
                 }
             }
 
@@ -144,6 +134,8 @@ public class ProfileFragment extends Fragment {
                             createdTreasures++;
                         }
                     }
+                    mDataManager.saveUserClaimedTreasureNumber(discoveredTreasures);
+                    mDataManager.saveUserCreateTreasureNumber(createdTreasures);
                     setUITreasuresHidden(createdTreasures);
                     setUITreasuresDiscovered(discoveredTreasures);
                 }
