@@ -1,5 +1,8 @@
 package com.threess.summership.treasurehunt.util;
 
+import android.util.SparseIntArray;
+import android.view.Surface;
+
 public class Constant {
 
     public static class Common{
@@ -45,8 +48,45 @@ public class Constant {
         public static final String USER_PASSWORD_KEY = "user_password_key";
         public static final String REMEMBER_ME_SWITCH_KEY = "RememberMeSwitch";
         public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
+        public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
+        public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
         public static final String USER_SCORE = "user_score";
     }
 
+    public static class Camera {
+        /** Camera state: Showing camera preview. */
+        public static final int STATE_PREVIEW = 0;
+
+        /** Camera state: Waiting for the focus to be locked. */
+        public static final int STATE_WAITING_LOCK = 1;
+
+        /** Camera state: Waiting for the exposure to be precapture state. */
+        public static final int STATE_WAITING_PRECAPTURE = 2;
+
+        /** Camera state: Waiting for the exposure state to be something other than precapture. */
+        public static final int STATE_WAITING_NON_PRECAPTURE = 3;
+
+        /** Camera state: Picture was taken. */
+        public static final int STATE_PICTURE_TAKEN = 4;
+
+        /** States for the flash */
+        public static final int FLASH_STATE_OFF = 0;
+        public static final int FLASH_STATE_ON = 1;
+        public static final int FLASH_STATE_AUTO = 2;
+
+        public static final int REQUEST_CAMERA_PERMISSION = 1;
+        public static final String FRAGMENT_DIALOG = "dialog";
+
+        /** Time it takes for icons to fade (in milliseconds) */
+        public static final int ICON_FADE_DURATION  = 400;
+
+        public static final SparseIntArray ORIENTATIONS = new SparseIntArray();
+        static {
+            ORIENTATIONS.append(Surface.ROTATION_0, 90);
+            ORIENTATIONS.append(Surface.ROTATION_90, 0);
+            ORIENTATIONS.append(Surface.ROTATION_180, 270);
+            ORIENTATIONS.append(Surface.ROTATION_270, 180);
+        }
+    }
 
 }

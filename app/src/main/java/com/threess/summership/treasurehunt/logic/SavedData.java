@@ -59,6 +59,26 @@ public class SavedData {
         return imageUri;
     }
 
+    public void saveUserClaimedTreasureNumber(int number){
+        SharedPreferences.Editor editor = preference.edit();
+        editor.putInt(Constant.SavedData.USER_CLAIMED_TREASURE_NUMBER, number);
+        editor.apply();
+    }
+
+    public void saveUserCreateTreasureNumber(int number){
+        SharedPreferences.Editor editor = preference.edit();
+        editor.putInt(Constant.SavedData.USER_CREATED_TREASURE_NUMBER, number);
+        editor.apply();
+    }
+
+    public int readUserClaimedTreasureNumber(){
+        return preference.getInt(Constant.SavedData.USER_CLAIMED_TREASURE_NUMBER,0);
+    }
+
+    public int readUserCreateTreasureNumber(){
+        return preference.getInt(Constant.SavedData.USER_CREATED_TREASURE_NUMBER,0);
+    }
+
     public void saveProfileImage(Uri imageUri) {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageUri.toString());

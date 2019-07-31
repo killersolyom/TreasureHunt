@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
  * Created by User on 6/5/2018.
  */
 
-public interface IMainActivity {
+public interface ICameraActivity {
 
     void setCameraFrontFacing();
 
