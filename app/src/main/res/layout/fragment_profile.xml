@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".fragment.home_menu.ProfileFragment">
+    tools:context=".fragment.home_menu.ProfileFragment"
+    android:background="@color/gray900">
 
     <ImageView
         android:id="@+id/profile_image_view"
@@ -14,7 +15,6 @@
         android:layout_marginTop="4dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +23,8 @@
         android:layout_height="@dimen/profile_edit_image_view_size"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_mode_edit_orange_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
         app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
 
@@ -32,9 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/update_height"
         android:layout_marginTop="@dimen/profile_horizontal_view_distance"
-        android:background="@drawable/button_selector"
         android:text="@string/refresh"
-        android:textColor="@color/black"
+        android:textColor="@color/gray900"
+        android:textAllCaps="false"
+        android:background="@drawable/button_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score_holder" />
@@ -76,7 +78,7 @@
         <ImageView
             android:layout_width="@dimen/profile_text_height"
             android:layout_height="@dimen/profile_text_height"
-            android:src="@drawable/ic_star_black_24dp"
+            android:src="@drawable/ic_star_orange_24dp"
             android:tint="@color/orange400"/>
 
     </LinearLayout>
@@ -122,8 +124,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/button_selector"
+        android:textColor="@color/gray900"
         android:text="@string/profile_logout"
-        android:textColor="@color/black"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

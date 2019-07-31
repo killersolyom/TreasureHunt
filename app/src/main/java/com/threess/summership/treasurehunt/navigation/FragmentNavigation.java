@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
@@ -23,6 +23,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Util;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -178,8 +179,8 @@ public class FragmentNavigation extends Fragment {
     public void startNavigationToDestination(Treasure treasure, Context context) {
         if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment && !treasure.isClaimed()) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
-                    treasure.getLocation_lat() + "," +
-                    treasure.getLocation_lon() + "&mode=w");
+                    treasure.getLocationLat() + "," +
+                    treasure.getLocationLon() + "&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             context.startActivity(mapIntent);
@@ -217,17 +218,16 @@ public class FragmentNavigation extends Fragment {
 
 
 
-    private void doublePressExit(MainActivity activity) {
+    private void doublePressExit(Context context) {
 
         if (mDoubleBackToExitPressedOnce) {
             mDoubleBackToExitPressedOnce = false;
-            activity.moveTaskToBack(true);
+            ((Activity)context).moveTaskToBack(true);
             return;
         }
 
         mDoubleBackToExitPressedOnce = true;
-        Toast.makeText(activity, getString(R.string.back_button_press), Toast.LENGTH_SHORT).show();
-
+        Util.makeSnackbar(getView(), R.string.back_button_press, Toast.LENGTH_SHORT, R.color.blue300 );
         mHandler.postDelayed(() -> mDoubleBackToExitPressedOnce = false, 2000);
     }
 

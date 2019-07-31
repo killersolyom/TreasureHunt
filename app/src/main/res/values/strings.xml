@@ -35,8 +35,6 @@
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
-    <string name="recent">Recent</string>
-    <string name="favorites">Favorites</string>
     <string name="map">Show on map</string>
     <string name="missing_permission">Permission not granted!</string>
     <string name="invalid_pass_code">Invalid pass code or wrong treasure!</string>
@@ -48,8 +46,11 @@
     <string name="no">No!</string>
     <string name="turn_on_your_gps">Please Turn ON your GPS Connection!</string>
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
+    <string name="Claim_error3">This is your treasure. It is not fair!</string>
     <string name="Claim_snackBarError1">Invalid pass code or wrong treasure!</string>
-    <string name="Claim_Available">This treasure pass code: </string>
+    <string name="Claim_Error4">Your score did not change.</string>
+    <string name="Claim_snackBar_scoreUpdate">Your score now is bigger!</string>
+    <string name="Claim_Available">This treasure pass code is valid! </string>
     <string name="Claim_Available2"> is valid! </string>
     <string name="Claim_SnackBarError2"> Not available treasure on server </string>
     <string name="Claim_SnackBarError_Internet"> No internet connection!Please turn on the wifi </string>
@@ -65,7 +66,7 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Can\'t be empty.</string>
-    <string name="hidetitle">Teasing title:</string>
+    <string name="hidetitle">Treasure title:</string>
     <string name="hidedescript">Description:</string>
     <string name="hidephoto">Photo clue:</string>
     <string name="hideloc">Location:</string>

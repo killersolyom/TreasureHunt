@@ -6,6 +6,8 @@ import android.net.Uri;
 
 import com.threess.summership.treasurehunt.util.Constant;
 
+import java.util.zip.DeflaterOutputStream;
+
 public class SavedData {
     private static final String TAG = SavedData.class.getSimpleName();
 
@@ -37,6 +39,14 @@ public class SavedData {
 
     public Boolean readBooleanData(String key) {
         return preference.getBoolean(key, false);
+    }
+
+    public double readFloatData(String key) {return preference.getFloat(key, 0); }
+
+    public  void writeFloatData(String key, float value){
+        SharedPreferences.Editor editor= preference.edit();
+        editor.putFloat(key, value);
+        editor.apply();
     }
 
     public Uri getProfileImage() {
@@ -90,7 +100,7 @@ public class SavedData {
     public boolean getRememberMeSwitch() {
         return readBooleanData(Constant.SavedData.REMEMBER_ME_SWITCH_KEY);
     }
-    public String getCurrentUserName(){
+    public String getUserName(){
         return readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
     }
 
@@ -106,5 +116,12 @@ public class SavedData {
         setPassword(password);
         setUserName(userName);
         setRememberMeSwitch(true);
+    }
+    public double getScore(){
+        return  readFloatData(Constant.SavedData.USER_SCORE );
+    }
+
+    public void setScore(float score){
+        writeFloatData(Constant.SavedData.USER_SCORE,score);
     }
 }

@@ -1,7 +1,6 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.HideTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
@@ -109,8 +106,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     private void drawMarkers(GoogleMap googleMap) {
         for (Treasure it : treasures) {
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocation_lat(),
-                    it.getLocation_lon())).title(it.getDescription()))
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocationLat(),
+                    it.getLocationLon())).title(it.getDescription()))
                     .setIcon(BitmapDescriptorFactory
                             .fromBitmap(Util.getDrawableTreasureImage(getContext())));
         }

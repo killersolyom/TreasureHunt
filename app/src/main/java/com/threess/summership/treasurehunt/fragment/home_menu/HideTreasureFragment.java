@@ -1,7 +1,8 @@
-package com.threess.summership.treasurehunt.fragment;
+package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -204,12 +206,12 @@ public class HideTreasureFragment extends Fragment {
         treasure = new Treasure();
         treasure.setTitle(titleEditText.getText().toString().trim());
         treasure.setDescription(descriptionEditText.getText().toString().trim());
-        treasure.setPrize_points(Double.parseDouble(pointsEditText.getText().toString()));
+        treasure.setPrizePoints(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
-        treasure.setPhoto_clue(photoEditText.getText().toString().trim());
+        treasure.setPhotoClue(photoEditText.getText().toString().trim());
         treasure.setUsername(dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY));
-        treasure.setLocation_lat(latitude);
-        treasure.setLocation_lon(longitude);
+        treasure.setLocationLat(latitude);
+        treasure.setLocationLon(longitude);
         return treasure;
     }
 

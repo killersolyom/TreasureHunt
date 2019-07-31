@@ -47,7 +47,6 @@ public class FavoriteTreasureFragment extends Fragment {
     private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
-    private FloatingActionButton addTreasureFab;
     private static boolean mFirstStart = true;
 
 
@@ -68,8 +67,6 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
-        addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
 
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -95,8 +92,8 @@ public class FavoriteTreasureFragment extends Fragment {
                 Location location = locations.get(0);
                 if (adapter.getSelectedTreasure() != null) {
                     LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
-                            adapter.getSelectedTreasure().getLocation_lon());
+                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocationLat(),
+                            adapter.getSelectedTreasure().getLocationLon());
 
                     if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
@@ -118,7 +115,7 @@ public class FavoriteTreasureFragment extends Fragment {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.refreshTreasure(response.body());
+                adapter.setTreasureList(response.body());
             }
 
             @Override
@@ -136,11 +133,7 @@ public class FavoriteTreasureFragment extends Fragment {
             Animator recViewAnim = new Animator(getContext(), recycle, true);
             recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
 
-            Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
-            fabAnim.AddSlide(250, 0, 0, 0, 1000);
-
             recViewAnim.Start();
-            fabAnim.Start(1200);
         }
     }
 
@@ -152,10 +145,6 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Glide.with(getContext())
-                .load(R.drawable.ic_add_treasure)
-                .error(R.mipmap.ic_launcher_foreground)
-                .into(addTreasureFab);
         adapter.notifyDataSetChanged();
         if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();
@@ -163,12 +152,12 @@ public class FavoriteTreasureFragment extends Fragment {
             FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(treasure);
             mShowClaimTreasure = false;
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Glide.with(getContext()).clear(addTreasureFab);
     }
 
     @Override
