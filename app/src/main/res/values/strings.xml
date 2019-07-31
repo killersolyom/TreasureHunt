@@ -61,6 +61,8 @@
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     <string name="location">Show on map</string>
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
 
     <!-- fragment tags -->
     <string name="fragment_camera2">Camera2</string>
