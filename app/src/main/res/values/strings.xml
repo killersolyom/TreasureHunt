@@ -15,6 +15,8 @@
     <string name="Username">Username</string>
     <string name="treasures_hidden">Treasures hidden</string>
     <string name="refresh">Refresh</string>
+    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="update">Update photo</string>
     <string name="score">Score</string>
     <string name="successful">Successful</string>
     <string name="registration_failed">Registration failed!</string>
@@ -35,6 +37,8 @@
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
     <string name="map">Show on map</string>
     <string name="missing_permission">Permission not granted!</string>
     <string name="invalid_pass_code">Invalid pass code or wrong treasure!</string>
@@ -68,7 +72,7 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Can\'t be empty.</string>
-    <string name="hidetitle">Treasure title:</string>
+    <string name="hidetitle">Teasing title:</string>
     <string name="hidedescript">Description:</string>
     <string name="hidephoto">Photo clue:</string>
     <string name="hideloc">Location:</string>

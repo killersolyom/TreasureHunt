@@ -34,6 +34,7 @@ public class ApiController {
     private Activity activity;
 
     private ApiController() {
+
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl( Constant.ApiController.BASE_URL )
