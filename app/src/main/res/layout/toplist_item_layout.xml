@@ -70,8 +70,7 @@
         <ImageView
             android:layout_width="@dimen/treasure_item_text_height"
             android:layout_height="@dimen/treasure_item_text_height"
-            android:src="@drawable/ic_star_black_24dp"
-            android:tint="@color/orange400"/>
+            android:src="@drawable/ic_star_orange_24dp"/>
 
     </LinearLayout>
 
