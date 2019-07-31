@@ -11,22 +11,34 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.model.Language;
 
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public final class Util {
     private static final String TAG = Util.class.getSimpleName();
     private static Random randomNumber = new Random(5);
+    private static ArrayList<Language> mLanguages = new ArrayList<>();
 
-    public static void hideKeyboard(Context context, Button button) {
+    public static ArrayList<Language> getLanguages(){
+        if( mLanguages.isEmpty() ){
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
+        }
+        return mLanguages;
+    }
+
+
+public static void hideKeyboard(Context context, Button button) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(button.getWindowToken(), 0);
     }
@@ -119,5 +131,20 @@ public final class Util {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
         return isConnected;
+    }
+
+    public static void ChangeLanguage(Language language, Context context) {
+        if(language == null){
+            return;
+        }
+        String lang = language.getKey();
+        Locale myLocale;
+        myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        ((Activity)context).getBaseContext()
+                .getResources()
+                .updateConfiguration(config,((Activity)context).getBaseContext().getResources().getDisplayMetrics());
     }
 }

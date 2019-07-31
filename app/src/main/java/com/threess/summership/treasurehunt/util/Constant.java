@@ -3,6 +3,11 @@ package com.threess.summership.treasurehunt.util;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
+import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.model.Language;
+
+import java.util.ArrayList;
+
 public class Constant {
 
     public static class Common{
@@ -51,6 +56,10 @@ public class Constant {
         public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
         public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
         public static final String USER_SCORE = "user_score";
+        public static final String LANGUAGE_KEY = "language";
+        public static final String LANGUAGE_KEY_ENGLISH = "en";
+        public static final String LANGUAGE_KEY_ROMANIA = "ro";
+        public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
     public static class Camera {
@@ -87,11 +96,6 @@ public class Constant {
             ORIENTATIONS.append(Surface.ROTATION_180, 270);
             ORIENTATIONS.append(Surface.ROTATION_270, 180);
         }
-    }
-    public static class Language {
-        public static final String LANGUAGE_KEY_ENGLISH = "en";
-        public static final String LANGUAGE_KEY_ROMANIA = "ro";
-        public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
 

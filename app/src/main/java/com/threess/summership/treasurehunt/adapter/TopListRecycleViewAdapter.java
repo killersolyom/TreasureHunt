@@ -60,7 +60,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
     private void showUserProfile(User user, String imageUrl){
         LayoutInflater factory = LayoutInflater.from(context);
-        View view = factory.inflate(R.layout.custom_alert_dialog_view, null);
+        View view = factory.inflate(R.layout.alert_dialog_user_profile, null);
         ImageView profilePicture = view.findViewById(R.id.dialog_imageview);
         TextView userName = view.findViewById(R.id.dialog_username);
         TextView userScore = view.findViewById(R.id.dialog_userscore);

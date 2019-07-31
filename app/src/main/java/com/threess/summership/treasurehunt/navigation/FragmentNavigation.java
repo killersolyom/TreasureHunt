@@ -23,7 +23,6 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.util.Util;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -218,16 +217,18 @@ public class FragmentNavigation extends Fragment {
 
 
 
-    private void doublePressExit(Context context) {
+    private void doublePressExit(MainActivity activity) {
 
         if (mDoubleBackToExitPressedOnce) {
             mDoubleBackToExitPressedOnce = false;
-            ((Activity)context).moveTaskToBack(true);
+            activity.moveTaskToBack(true);
             return;
         }
 
         mDoubleBackToExitPressedOnce = true;
-        Util.makeSnackbar(getView(), R.string.back_button_press, Toast.LENGTH_SHORT, R.color.blue300 );
+
+        Toast.makeText(activity, getString(R.string.back_button_press), Toast.LENGTH_SHORT).show();
+
         mHandler.postDelayed(() -> mDoubleBackToExitPressedOnce = false, 2000);
     }
 

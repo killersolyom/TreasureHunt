@@ -1,19 +1,30 @@
 package com.threess.summership.treasurehunt.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.LanguageRecyclerViewAdapter;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
+import com.threess.summership.treasurehunt.model.Language;
+import com.threess.summership.treasurehunt.util.Util;
+
+import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
@@ -23,6 +34,8 @@ public class HomeFragment extends Fragment {
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private Button toolbarButton;
+    private LanguageRecyclerViewAdapter mLanguageAdapter;
+    private RecyclerView mLanguageRecyclerView;
 
     public HomeFragment() {
     }
@@ -46,8 +59,28 @@ public class HomeFragment extends Fragment {
 
     private void bindClickListeners(){
         toolbarButton.setOnClickListener(v -> {
+            showLanguages();
         });
     }
+
+    private void showLanguages(){
+
+        LayoutInflater factory = LayoutInflater.from(getContext());
+        View view = factory.inflate(R.layout.language_select_item, null);
+        // ImageView flagImageTextView = view.findViewById(R.id.flag_image_view);
+        // TextView languageNameTextView = view.findViewById(R.id.language_name_text_view);
+
+        mLanguageAdapter = new LanguageRecyclerViewAdapter(getContext());
+        mLanguageAdapter.setDataSet( Util.getLanguages() );
+        mLanguageRecyclerView = getView().findViewById(R.id.recycler_view);
+        mLanguageRecyclerView.setAdapter( mLanguageAdapter );
+        mLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setView(view);
+        alertDialog.show();
+    }
+
     private void bindViews(View view) {
         viewPager = view.findViewById(R.id.home_viewpager);
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
