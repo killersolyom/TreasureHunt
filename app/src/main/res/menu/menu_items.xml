@@ -32,6 +32,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/new_treasure"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_treasure"
+        android:title="@string/add_treasure"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_hide_treasure"
         android:enabled="true"
         android:icon="@drawable/ic_add_treasure"

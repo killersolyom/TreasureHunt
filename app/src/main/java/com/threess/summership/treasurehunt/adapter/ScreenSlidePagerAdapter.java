@@ -28,7 +28,6 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         mFragmentList.add(new HideTreasureFragment());
     }
 
-
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
