@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindClickListeners(){
-        toolbarButton = toolbar.findViewById(R.id.toolbar_settings);
         toolbarButton.setOnClickListener(v -> {
         });
     }
@@ -52,6 +51,7 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.home_viewpager);
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         toolbar = view.findViewById(R.id.home_toolbar);
+        toolbarButton = toolbar.findViewById(R.id.toolbar_settings);
         bindClickListeners();
     }
 
