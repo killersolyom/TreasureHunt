@@ -47,7 +47,6 @@ public class FavoriteTreasureFragment extends Fragment {
     private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mShowClaimTreasure;
-    private FloatingActionButton addTreasureFab;
     private static boolean mFirstStart = true;
 
 
@@ -68,8 +67,6 @@ public class FavoriteTreasureFragment extends Fragment {
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        addTreasureFab = view.findViewById(R.id.add_treasure_floating_action_button);
-        addTreasureFab.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).showHideTreasureFragment());
 
         getAllActiveTreasures();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -136,11 +133,7 @@ public class FavoriteTreasureFragment extends Fragment {
             Animator recViewAnim = new Animator(getContext(), recycle, true);
             recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
 
-            Animator fabAnim = new Animator(getContext(), addTreasureFab, true);
-            fabAnim.AddSlide(250, 0, 0, 0, 1000);
-
             recViewAnim.Start();
-            fabAnim.Start(1200);
         }
     }
 
@@ -152,10 +145,6 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Glide.with(getContext())
-                .load(R.drawable.ic_add_treasure)
-                .error(R.mipmap.ic_launcher_foreground)
-                .into(addTreasureFab);
         adapter.notifyDataSetChanged();
         if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();
@@ -169,7 +158,6 @@ public class FavoriteTreasureFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Glide.with(getContext()).clear(addTreasureFab);
     }
 
     @Override

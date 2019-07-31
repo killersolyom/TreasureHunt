@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.HideTreasureFragment"
+    tools:context=".fragment.home_menu.HideTreasureFragment"
     android:layout_margin="20dp">
 
     <TextView
@@ -13,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hidetitle"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/hidedescript"
+        android:layout_marginLeft="4dp"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/teasing_edit_text" />
 
@@ -56,7 +60,7 @@
         android:text="@string/hidephoto"
         android:textColorHint="@color/white_transparent_30"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description_edit_text"
         android:singleLine="true"/>
@@ -78,7 +82,7 @@
         android:layout_marginTop="@dimen/arrowmargtop"
         android:layout_marginRight="@dimen/arrowmargright"
         android:padding="5dp"
-        android:src="@drawable/ic_photo_camera_black_24dp"
+        android:src="@drawable/ic_photo_camera_orange_24dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phototextview" />
 
@@ -90,7 +94,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/hideloc"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/photo_edit_text" />
 
@@ -104,6 +108,80 @@
         app:layout_constraintTop_toBottomOf="@id/locationtextview"
         android:singleLine="true"/>
 
+    <LinearLayout
+        android:id="@+id/current_location_getter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_edit_text">
+
+        <ImageView
+            android:layout_width="@dimen/arrowimagesize"
+            android:layout_height="@dimen/arrowimagesize"
+            android:padding="5dp"
+            android:src="@drawable/ic_my_location_orange_24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get current location"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/location_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_location_getter">
+
+        <ImageView
+            android:layout_width="@dimen/arrowimagesize"
+            android:layout_height="@dimen/arrowimagesize"
+            android:padding="5dp"
+            android:src="@drawable/ic_location_on_orange_24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick location"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/image_location_getter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_picker">
+
+        <ImageView
+            android:layout_width="@dimen/arrowimagesize"
+            android:layout_height="@dimen/arrowimagesize"
+            android:padding="5dp"
+            android:src="@drawable/ic_camera_enhance_orange_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location of the image"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/pointstextview"
         android:layout_width="wrap_content"
@@ -111,9 +189,9 @@
         android:layout_marginTop="10dp"
         android:text="@string/hidepoints"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/image_location_getter" />
 
     <EditText
         android:id="@+id/prize_edit_text"
@@ -133,7 +211,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/hidepass"
         android:textSize="@dimen/hide_textsize"
-        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/prize_edit_text" />
 
@@ -152,14 +230,16 @@
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/hide_treasure_bottom_button_margin"
         android:textAllCaps="false"
         android:textColor="@color/gray900"
         android:padding="10dp"
         android:text="@string/createtreasurebutton"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="46dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/button_selector"/>
+        android:background="@drawable/button_selector"
         app:layout_constraintTop_toBottomOf="@+id/passcode_edit_text" />
 </android.support.constraint.ConstraintLayout>
+</ScrollView>
