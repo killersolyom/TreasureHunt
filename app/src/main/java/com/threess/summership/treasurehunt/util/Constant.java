@@ -15,7 +15,6 @@ public class Constant {
         public static final int INTERNAL_SERVER_ERROR = 500;
     }
 
-
     public static class ClaimTreasure {
         public static final String KEY_STRING_TREASURE = "treasureName";
         public static final String KEY_STRING_USERNAME = "username";

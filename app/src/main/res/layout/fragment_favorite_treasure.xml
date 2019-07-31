@@ -14,18 +14,4 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/favorite_recycler_view_margin"
         android:layout_marginRight="@dimen/favorite_recycler_view_margin" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_treasure_floating_action_button"
-        android:layout_width="@dimen/favorite_floating_action_button_size"
-        android:layout_height="@dimen/favorite_floating_action_button_size"
-        android:layout_marginEnd="@dimen/favorite_floating_action_button_margin"
-        android:layout_marginBottom="@dimen/favorite_floating_action_button_margin"
-        app:fabSize="mini"
-        android:tint="@color/white"
-        android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_add_treasure"
-        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_contacts"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
