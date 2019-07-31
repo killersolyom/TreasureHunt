@@ -59,9 +59,7 @@
     <string name="unreachable">The server is unreachable!</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
-    <string name="intro_message">intro message</string>
     <string name="location">Show on map</string>
-
 
     <!-- fragment tags -->
     <string name="fragment_camera2">Camera2</string>
@@ -89,16 +87,10 @@
     <string name="profile_user_name_format">Username: %1$s</string>
     <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
     <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
-
-
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
     <string name="score_with_plus">+%1$s</string>
-
     <string name="no_internet_connection">No internet connection!</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
