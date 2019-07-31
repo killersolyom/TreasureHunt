@@ -27,45 +27,68 @@
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
         app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
 
-    <ImageView
-        android:id="@+id/star_button"
-        android:layout_width="31dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="80dp"
-        android:src="@drawable/ic_star_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
-
     <Button
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/update_height"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:background="@drawable/button_selector"
         android:text="@string/refresh"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score" />
+        app:layout_constraintTop_toBottomOf="@+id/score_holder" />
 
-    <TextView
-        android:id="@+id/score"
+    <LinearLayout
+        android:id="@+id/score_holder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/score"
-        android:textColorHighlight="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/profile_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+        android:layout_height="@dimen/profile_text_height"
+        android:minWidth="80dp"
+        android:orientation="horizontal"
+        android:text="@string/empty_string"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark"
+        app:layout_constraintStart_toStartOf="@id/profile_image_view"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_view">
+
+        <!-- Score text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_height"
+            android:text="@string/profile_score"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Score value -->
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_marginLeft="8dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/orange400"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Score icon -->
+        <ImageView
+            android:layout_width="@dimen/profile_text_height"
+            android:layout_height="@dimen/profile_text_height"
+            android:src="@drawable/ic_star_black_24dp"
+            android:tint="@color/orange400"/>
+
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/treasures_discovered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/treasures_discovered_marginStar"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:ems="10"
         android:text="@string/treasures_discovered"
         android:textColor="@color/white"
@@ -76,7 +99,7 @@
         android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:ems="10"
         android:text="@string/Username"
         android:textColor="@color/white"
@@ -87,7 +110,7 @@
         android:id="@+id/treasures_hidden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:text="@string/treasures_hidden"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
