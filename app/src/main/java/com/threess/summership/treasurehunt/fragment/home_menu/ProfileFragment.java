@@ -165,7 +165,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void logOutButtonPressed() {
-        new SavedData(getContext()).clearUserData();
+        mDataManager.clearUserData();
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
