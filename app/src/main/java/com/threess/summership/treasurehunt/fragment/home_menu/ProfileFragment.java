@@ -127,10 +127,10 @@ public class ProfileFragment extends Fragment {
                     int createdTreasures = 0;
                     int discoveredTreasures = 0;
                     for (Treasure it : response.body()) {
-                        if (it.getClaimedBy().equals(mCurrentUser.getUsername())) {
+                        if (it.getClaimedBy() != null && it.getClaimedBy().equals(mDataManager.getUserName())) {
                             discoveredTreasures++;
                         }
-                        if (it.getUsername().equals(mCurrentUser.getUsername())) {
+                        if (it.getUsername() != null && it.getUsername().equals(mDataManager.getUserName())) {
                             createdTreasures++;
                         }
                     }
