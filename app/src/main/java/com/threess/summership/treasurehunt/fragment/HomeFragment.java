@@ -25,6 +25,7 @@ import com.threess.summership.treasurehunt.model.Language;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
+import com.threess.summership.treasurehunt.logic.SavedData;
 
 
 public class HomeFragment extends Fragment {
@@ -58,21 +59,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindClickListeners(){
-        toolbarButton.setOnClickListener(v -> {
-            showLanguages();
-        });
+        toolbarButton.setOnClickListener(v -> showLanguages() );
     }
 
     private void showLanguages(){
 
         LayoutInflater factory = LayoutInflater.from(getContext());
-        View view = factory.inflate(R.layout.language_select_item, null);
-        // ImageView flagImageTextView = view.findViewById(R.id.flag_image_view);
-        // TextView languageNameTextView = view.findViewById(R.id.language_name_text_view);
+        View view = factory.inflate(R.layout.alert_dialog_select_language, null);
 
         mLanguageAdapter = new LanguageRecyclerViewAdapter(getContext());
         mLanguageAdapter.setDataSet( Util.getLanguages() );
-        mLanguageRecyclerView = getView().findViewById(R.id.recycler_view);
+
+        mLanguageRecyclerView = view.findViewById(R.id.language_selector_recycler_view);
         mLanguageRecyclerView.setAdapter( mLanguageAdapter );
         mLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -115,6 +113,10 @@ public class HomeFragment extends Fragment {
                             viewPager.setCurrentItem(3);
                             return true;
                         }
+                        case R.id.action_hide_treasure: {
+                            viewPager.setCurrentItem(4);
+                            return true;
+                        }
                     }
                     return false;
                 });
@@ -129,21 +131,25 @@ public class HomeFragment extends Fragment {
         public void onPageSelected(int position) {
             switch (position) {
                 case 0:
-                    toolbar.setTitle(R.string.profile);
+                    toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
                     toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
-                    toolbar.setTitle(R.string.recent);
+                    toolbar.setTitle("Treasures");
                     bottomNavigationView.setSelectedItemId(R.id.action_recent);
                     break;
                 case 2:
-                    toolbar.setTitle(R.string.favorites);
+                    toolbar.setTitle("Top list");
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
                     toolbar.setTitle(R.string.location);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
+                    break;
+                case 4:
+                    toolbar.setTitle("Hide treasure");
+                    bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
                     break;
             }
         }

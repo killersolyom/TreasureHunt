@@ -5,12 +5,12 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +49,7 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
             // Set flag image:
             Glide.with(mContext)
                     .load(language.getDrawableId())
+                    .centerCrop()
                     .error(R.drawable.circle_white)
                     .circleCrop()
                     .into(holder.mFlagImage);
@@ -58,7 +59,7 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
 
             holder.mLayout.setOnClickListener(v -> {
                 mSelectedLanguage = language;
-                Util.ChangeLanguage(language, mContext);
+                Util.changeLanguage(mContext, language);
             });
 
         } catch (Exception e) {
@@ -73,13 +74,13 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout mLayout;
+        private LinearLayout mLayout;
         private ImageView mFlagImage;
         private TextView mLanguageName;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
-            mLayout = itemView.findViewById(R.id.language_selector_recycler_view);
+            mLayout = itemView.findViewById(R.id.language_item_linear_layout);
             mFlagImage = itemView.findViewById(R.id.flag_image_view);
             mLanguageName = itemView.findViewById(R.id.language_name_text_view);
         }

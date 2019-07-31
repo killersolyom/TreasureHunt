@@ -15,6 +15,11 @@ public class Constant {
         public static final int REQUEST_LOCATION = 1;
         public static final int GALLERY_REQUEST_CODE = 862;
         public static final int INTERNAL_SERVER_ERROR = 500;
+        public static final int REQUEST_IMAGE_CAPTURE = 1;
+    }
+
+    public static class Prodile {
+        public static final String FILE = "File";
     }
 
 

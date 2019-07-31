@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt.fragment;
+package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
-import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -275,7 +274,7 @@ public class HideTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("TAG", "Sikertelen", t);
+                Log.e(TAG, "Sikertelen", t);
             }
         });
     }

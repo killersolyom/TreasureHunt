@@ -1,16 +1,23 @@
 package com.threess.summership.treasurehunt.util;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,17 +35,8 @@ public final class Util {
     private static Random randomNumber = new Random(5);
     private static ArrayList<Language> mLanguages = new ArrayList<>();
 
-    public static ArrayList<Language> getLanguages(){
-        if( mLanguages.isEmpty() ){
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
-        }
-        return mLanguages;
-    }
 
-
-public static void hideKeyboard(Context context, Button button) {
+    public static void hideKeyboard(Context context, Button button) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(button.getWindowToken(), 0);
     }
@@ -82,34 +80,39 @@ public static void hideKeyboard(Context context, Button button) {
 
     public static void errorHandling(View view, String message, int requestCode) {
         if (message != null) {
-            switch (requestCode){
-            case (Constant.LogIn.LOGIN_REQUEST_CODE)://LOGIN
-                if (message.contains(Constant.LogIn.INCORRECT_PASSWORD)) {
-                    Util.makeSnackbar(view, R.string.incorrect_password, Snackbar.LENGTH_LONG, R.color.orangeA300);
-                } else if (message.contains(Constant.LogIn.USERNAME_NOT_EXISTS)) {
-                    Util.makeSnackbar(view, R.string.username_not_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
-                } else {
-                    Util.makeSnackbar(view, R.string.login_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
-                }
-                case(Constant.Registration.REGISTRATION_REQUEST_CODE)://REGISTER
-                if (message.contains(Constant.HideTreasure.ALREADY_EXISTS)) {
-                    Util.makeSnackbar(view, R.string.username_already_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
-                } else {
-                    Util.makeSnackbar(view, R.string.registration_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
-                }
+            switch (requestCode) {
+                case (Constant.LogIn.LOGIN_REQUEST_CODE)://LOGIN
+                    if (message.contains(Constant.LogIn.INCORRECT_PASSWORD)) {
+                        Util.makeSnackbar(view, R.string.incorrect_password, Snackbar.LENGTH_LONG, R.color.orangeA300);
+                    } else if (message.contains(Constant.LogIn.USERNAME_NOT_EXISTS)) {
+                        Util.makeSnackbar(view, R.string.username_not_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
+                    } else {
+                        Util.makeSnackbar(view, R.string.login_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
+                    }
+                    break;
+                case (Constant.Registration.REGISTRATION_REQUEST_CODE)://REGISTER
+                    if (message.contains(Constant.HideTreasure.ALREADY_EXISTS)) {
+                        Util.makeSnackbar(view, R.string.username_already_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
+                    } else {
+                        Util.makeSnackbar(view, R.string.registration_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
+                    }
+                    break;
                 case (Constant.HideTreasure.HIDE_TREASURE_REQUEST_CODE)://HIDE TREASURE
-                if (message.contains(Constant.HideTreasure.ALL_FIELDS_ARE_REQUIRED)) {
-                    Util.makeSnackbar(view, R.string.all_fields_are_required, Snackbar.LENGTH_LONG, R.color.orangeA300);
-                } else {
+                    if (message.contains(Constant.HideTreasure.ALL_FIELDS_ARE_REQUIRED)) {
+                        Util.makeSnackbar(view, R.string.all_fields_are_required, Snackbar.LENGTH_LONG, R.color.orangeA300);
+                    } else {
+                        Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
+                    }
+                    break;
+                default:
                     Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
-                }
-             default:
-                Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
+                    break;
             }
         } else {
             Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
         }
     }
+
 
     public static String getRealPathFromURIPath(Uri contentURI, Activity activity) {
         Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
@@ -124,6 +127,7 @@ public static void hideKeyboard(Context context, Button button) {
 
     /**
      * Checks if internet connection is available
+     *
      * @return true if there is internet connection and false if not.
      */
     public static boolean requireInternetConnection(Context context) {
@@ -133,18 +137,16 @@ public static void hideKeyboard(Context context, Button button) {
         return isConnected;
     }
 
-    public static void ChangeLanguage(Language language, Context context) {
-        if(language == null){
-            return;
+    public static ArrayList<Language> getLanguages(){
+        if( mLanguages.isEmpty() ){
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
+            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
         }
-        String lang = language.getKey();
-        Locale myLocale;
-        myLocale = new Locale(lang);
-        Locale.setDefault(myLocale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = myLocale;
-        ((Activity)context).getBaseContext()
-                .getResources()
-                .updateConfiguration(config,((Activity)context).getBaseContext().getResources().getDisplayMetrics());
+        return mLanguages;
+    }
+
+    public static void changeLanguage(Context context, Language language) {
+        LocaleHelper.setLocale(context, language.getKey());
     }
 }

@@ -15,6 +15,8 @@
     <string name="Username">Username</string>
     <string name="treasures_hidden">Treasures hidden</string>
     <string name="refresh">Refresh</string>
+    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="update">Update photo</string>
     <string name="score">Score</string>
     <string name="successful">Successful</string>
     <string name="registration_failed">Registration failed!</string>
@@ -35,8 +37,6 @@
     <string name="hide_treasure">Hide treasure</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
-    <string name="recent">Recent</string>
-    <string name="favorites">Favorites</string>
     <string name="map">Show on map</string>
     <string name="missing_permission">Permission not granted!</string>
     <string name="invalid_pass_code">Invalid pass code or wrong treasure!</string>
@@ -62,9 +62,9 @@
     <string name="unreachable">The server is unreachable!</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
-    <string name="intro_message">intro message</string>
     <string name="location">Show on map</string>
-
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
 
     <!-- fragment tags -->
     <string name="fragment_camera2">Camera2</string>
@@ -92,25 +92,27 @@
     <string name="profile_user_name_format">Username: %1$s</string>
     <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
     <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
-
-
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
     <string name="score_with_plus">+%1$s</string>
-
     <string name="no_internet_connection">No internet connection!</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
     <string name="file_string">File</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="take_picture">Take Picture</string>
     <string name="profile_score">Score:</string>
     <string name="add_treasure">Add treasure</string>
     <string name="top_list">Top list</string>
     <string name="treasures">Treasures</string>
     <string name="my_profile">Profile</string>
+    <string name="Chooser_dialog_message">Choose an option for upload an image</string>
+    <string name="upload_profile_image">Upload profile image</string>
+    <string name="get_current_location">Get current location</string>
+    <string name="pick_location">Pick location</string>
+    <string name="location_of_the_image">Location of the image"</string>
+
     <string name="back_button_press">Please back again to exit.</string>
 
 </resources>
