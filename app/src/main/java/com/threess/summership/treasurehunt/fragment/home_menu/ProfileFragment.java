@@ -228,8 +228,8 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void setUIScore(int score) {
-        profileScoreTextView.setText(getString(R.string.profile_score_format, score));
+    private void setUIScore(int score){
+        profileScoreTextView.setText(score+"");
     }
 
 

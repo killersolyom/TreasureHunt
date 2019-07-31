@@ -47,21 +47,27 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         try {
             final Treasure treasure = treasureList.get(position);
             Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
-            if(treasure.isClaimed()){
-                holder.layout.setForeground(context.getDrawable(R.drawable.claimed_image));
-                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
-                holder.layout.setOnClickListener(null);
+            holder.treasureText.setText(treasure.getDescription());
+            //holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
+            double score = treasure.getPrize_points();
+            int roundedScore = (int) Math.round(score);
+            if( score == roundedScore){
+                holder.treasureScore.setText("+" + roundedScore);
             }else{
-                holder.treasureText.setText(treasure.getDescription());
-                holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
-                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_forward_black_24dp));
-                holder.layout.setForeground(null);
-                holder.layout.setOnClickListener(v -> {
-                    selectedTreasure = treasure;
-                    FragmentNavigation.getInstance(context).
-                            startNavigationToDestination(treasure,context);
-                });
+                holder.treasureScore.setText("+"+ score);
             }
+
+
+            if(treasure.isClaimed()){
+                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
+            }
+
+            holder.layout.setOnClickListener( v -> {
+                selectedTreasure = treasure;
+                FragmentNavigation.getInstance(context).
+                        startNavigationToDestination(treasure,context);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -86,23 +86,28 @@
     <string name="all_fields_are_required">"All the fields are required"</string>
     <string name="hide_treasure_gps_get_location_failed">Can\'t get current location!</string>
     <string name="user_profile_no_informations_error_message">"Can't download user informations."</string>
-    <string name="profile_score_format">Score: %1$d</string>
     <string name="profile_user_name_format">Username: %1$s</string>
     <string name="profile_treasures_discovered_format">Treasures discovered: %1$d</string>
     <string name="profile_treasures_hidden_format">Treasures hidden: %1$d</string>
-    <string name="back_button_press">Please click BACK again to exit!</string>
 
 
     <string name="profile_logout">Logout</string>
     <string name="profile_username">Username: %1$s</string>
+    <string name="score_with_plus">+%1$s</string>
+
+    <string name="no_internet_connection">No internet connection!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_qr_code">Read QR code</string>
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
     <string name="file_string">File</string>
+    <string name="profile_score">Score:</string>
     <string name="add_treasure">Add treasure</string>
     <string name="top_list">Top list</string>
     <string name="treasures">Treasures</string>
     <string name="my_profile">Profile</string>
+    <string name="back_button_press">Please back again to exit.</string>
 
 </resources>

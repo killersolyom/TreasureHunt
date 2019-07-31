@@ -86,5 +86,11 @@ public class Constant {
             ORIENTATIONS.append(Surface.ROTATION_270, 180);
         }
     }
+    public static class Language {
+        public static final String LANGUAGE_KEY_ENGLISH = "en";
+        public static final String LANGUAGE_KEY_ROMANIA = "ro";
+        public static final String LANGUAGE_KEY_HUNGARY = "hu";
+    }
+
 
 }
