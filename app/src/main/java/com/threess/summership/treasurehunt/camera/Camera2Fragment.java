@@ -379,7 +379,7 @@ public class Camera2Fragment extends Fragment implements
             Log.d(TAG, "saveCapturedStillshotToDisk: saving image to disk.");
 
             final ICallback callback = (e, file) -> {
-                if(e == null){//todo: save - POST img
+                if(e == null && file.exists()){//todo: save - POST img
                     Intent result = new Intent();
                     result.putExtra(getActivity().getString(R.string.file_string),file.getAbsolutePath());
                     getActivity().setResult(Activity.RESULT_OK,result);
