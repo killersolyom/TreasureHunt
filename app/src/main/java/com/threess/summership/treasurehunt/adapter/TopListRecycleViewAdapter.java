@@ -17,7 +17,6 @@ import com.threess.summership.treasurehunt.util.Constant;
 import java.util.ArrayList;
 
 
-
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
 
@@ -29,7 +28,6 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         this.list = list;
         this.context = context;
     }
-
 
     @Override
     public TopListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

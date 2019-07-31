@@ -100,5 +100,9 @@
     <string name="pass_code">Pass code</string>
     <string name="prevent_mem_leaks">"To prevent memory leaks barcode scanner has been stopped"</string>
     <string name="file_string">File</string>
+    <string name="add_treasure">Add treasure</string>
+    <string name="top_list">Top list</string>
+    <string name="treasures">Treasures</string>
+    <string name="my_profile">Profile</string>
 
 </resources>

@@ -25,7 +25,7 @@ public interface TreasuresRetrofitService {
 
     //TODO GET All treasures created or claimed by one user: /treasures/:username
     @GET("/treasures/{username}")
-    Call<ArrayList<Treasure>> claimedTreasureByUser (@Query("username") String userName);
+    Call<ArrayList<Treasure>> claimedTreasureByUser (@Path("username") String userName);
 
     //TODO POST Create a treasure: /treasures/create
     @POST("/treasures/create")
@@ -34,9 +34,6 @@ public interface TreasuresRetrofitService {
     //TODO POST a treasure what was founded
     @POST("/treasures/claim")
     Call<String> createdTreasureClaim (@Body TreasureClaim treasureClaim);
-
-    @POST("/treasures/update/:{passcode}/:{username}")///treasures/update/:passcode/:username
-    Call<Treasure> createTreasurePicture(@Query ("passcode") String passcode, @Query("username") String username);
 
     @Multipart
     @POST("/treasures/update/{passcode}/{username}")
