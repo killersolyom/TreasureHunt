@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 
 import java.util.Random;
@@ -70,6 +69,7 @@ public final class Util {
 
     public static void errorHandling(View view, String message, int requestCode) {
         if (message != null) {
+            Log.e("3ss",message + " code: "+ requestCode);
             switch (requestCode){
             case (Constant.LogIn.LOGIN_REQUEST_CODE)://LOGIN
                 if (message.contains(Constant.LogIn.INCORRECT_PASSWORD)) {

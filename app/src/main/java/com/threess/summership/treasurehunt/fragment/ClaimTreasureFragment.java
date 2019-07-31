@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -88,6 +90,8 @@ public class ClaimTreasureFragment extends Fragment {
             Log.e(TAG, mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
         }
         if (isValidTreasure()) {
+            TopListFragment.notifyAdatpter();
+            FavoriteTreasureFragment.notifyAdatpter();
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());

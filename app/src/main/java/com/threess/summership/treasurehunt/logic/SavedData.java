@@ -25,6 +25,12 @@ public class SavedData {
         editor.apply();
     }
 
+    public void clearUserData(){
+        setAutoLoginSwitch(false);
+        clearProfileImage();
+        writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
+    }
+
     public String readStringData(String key) {
         return preference.getString(key, "");
     }
@@ -83,7 +89,7 @@ public class SavedData {
         myPrefsEdit.apply();
     }
 
-    public void clearProfileImage() {
+    private void clearProfileImage() {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, "");
         myPrefsEdit.apply();

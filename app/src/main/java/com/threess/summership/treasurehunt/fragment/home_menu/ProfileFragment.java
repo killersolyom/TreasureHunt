@@ -165,10 +165,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void logOutButtonPressed() {
-        SavedData dataManager = new SavedData(getContext());
-        dataManager.setAutoLoginSwitch(false);
-        mDataManager.clearProfileImage();
-        dataManager.writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
+        new SavedData(getContext()).clearUserData();
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
@@ -191,7 +188,6 @@ public class ProfileFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE){
             ProfileFragment.mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
             ProfileFragment.sInstance.loadProfileImage(data.getStringExtra(Constant.Prodile.FILE));
-            //updateUserProfileField();
             ProfileFragment.sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
         }
 
