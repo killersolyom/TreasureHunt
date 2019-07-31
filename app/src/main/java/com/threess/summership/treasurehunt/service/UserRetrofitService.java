@@ -20,7 +20,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserRetrofitService {
-     public static String BASE_URL = "http://5.254.125.248:3000/";
 
     @POST("/users/register")
     Call<Object> createUser(@Body User user);

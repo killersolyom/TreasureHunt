@@ -7,21 +7,21 @@
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_supervisor_account_black_24dp"
-        android:title="Profile"
+        android:title="@string/my_profile"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_recent"
         android:enabled="true"
-        android:icon="@drawable/ic_history"
-        android:title="Recent"
+        android:icon="@drawable/ic_chest"
+        android:title="@string/treasures"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_favorites"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite_black"
-        android:title="Favorite"
+        android:icon="@drawable/ic_cup"
+        android:title="@string/top_list"
         app:showAsAction="ifRoom" />
 
     <item
@@ -29,5 +29,12 @@
         android:enabled="true"
         android:icon="@drawable/ic_location"
         android:title="@string/location"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/new_treasure"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_treasure"
+        android:title="@string/add_treasure"
         app:showAsAction="ifRoom" />
 </menu>

@@ -26,7 +26,6 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         mFragmentList.add(new MapViewFragment());
     }
 
-
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
