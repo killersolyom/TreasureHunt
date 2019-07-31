@@ -48,7 +48,6 @@ public class ProfileFragment extends Fragment {
     private static TextView mTreasuresDiscoveredTextView;
     private static TextView mTreasuresHiddenTextView;
     private static TextView profileScoreTextView;
-    private static ImageView profileStarImageView;
     private static TextView profileTreasureshiddenTextView;
     private static TextView profileTreasuresdiscoveredTextView;
     private static Button profileUpdateImageButton;
@@ -94,7 +93,6 @@ public class ProfileFragment extends Fragment {
         mTreasuresDiscoveredTextView = view.findViewById(R.id.treasures_discovered);
         mTreasuresHiddenTextView = view.findViewById(R.id.treasures_hidden);
         profileScoreTextView = view.findViewById(R.id.score);
-        profileStarImageView = view.findViewById(R.id.star_button);
         mLogoutButton = view.findViewById(R.id.logout_button);
         mUpdateButton = view.findViewById(R.id.update);
         profileImageView.setOnClickListener( v -> profileImagePressed());
@@ -207,7 +205,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUIScore(int score){
-        profileScoreTextView.setText( getString( R.string.profile_score_format, score ) );
+        profileScoreTextView.setText(score+"");
     }
 
 

@@ -33,5 +33,11 @@ public class Constant {
         public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
     }
 
+    public static class Language {
+        public static final String LANGUAGE_KEY_ENGLISH = "en";
+        public static final String LANGUAGE_KEY_ROMANIA = "ro";
+        public static final String LANGUAGE_KEY_HUNGARY = "hu";
+    }
+
 
 }

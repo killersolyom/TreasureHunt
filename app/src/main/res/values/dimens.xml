@@ -112,6 +112,8 @@
     <dimen name="favorite_floating_action_button_margin">16dp</dimen>
 
     <dimen name="profile_edit_image_view_size">50dp</dimen>
+    <dimen name="profile_horizontal_view_distance">8dp</dimen>
+    <dimen name="profile_text_height">25dp</dimen>
 
     <dimen name="hide_treasure_bottom_button_margin">16dp</dimen>
 
