@@ -92,7 +92,7 @@ public class ApiController {
     }
 
 
-    public void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<String>callback){
+    public void createdTreasureClaim(final TreasureClaim treasureClaim, final Callback<Object>callback){
         mTreasureService.createdTreasureClaim(treasureClaim).enqueue(callback);
     }
 

@@ -92,9 +92,9 @@ public class ClaimTreasureFragment extends Fragment {
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
             sd.setScore((float)(mTreasure.getPrize_points()+ sd.getScore()));
-            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<Object> call, Response<Object> response) {
                     Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
@@ -104,7 +104,7 @@ public class ClaimTreasureFragment extends Fragment {
                     },3500);
                 }
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
+                public void onFailure(Call<Object> call, Throwable t) {
                     Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
                     Log.e("boti", "failureFirst");
                     FragmentNavigation.getInstance(getContext()).popBackstack();
