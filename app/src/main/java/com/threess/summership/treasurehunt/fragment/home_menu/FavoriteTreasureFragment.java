@@ -92,8 +92,8 @@ public class FavoriteTreasureFragment extends Fragment {
                 Location location = locations.get(0);
                 if (adapter.getSelectedTreasure() != null) {
                     LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocation_lat(),
-                            adapter.getSelectedTreasure().getLocation_lon());
+                    LatLng treasurePosition = new LatLng(adapter.getSelectedTreasure().getLocationLat(),
+                            adapter.getSelectedTreasure().getLocationLon());
 
                     if (Util.distanceBetweenLatLngInMeter(currentPosition, treasurePosition) <= 10 && adapter.getSelectedTreasure() != null) {
                         startActivity(new Intent(getContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
@@ -115,7 +115,7 @@ public class FavoriteTreasureFragment extends Fragment {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.refreshTreasure(response.body());
+                adapter.setTreasureList(response.body());
             }
 
             @Override
@@ -131,7 +131,7 @@ public class FavoriteTreasureFragment extends Fragment {
             mFirstStart = false;
 
             Animator recViewAnim = new Animator(getContext(), recycle, true);
-            recViewAnim.AddSlide(0, 0, -1000, 0, 1800);
+            recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
 
             recViewAnim.Start();
         }

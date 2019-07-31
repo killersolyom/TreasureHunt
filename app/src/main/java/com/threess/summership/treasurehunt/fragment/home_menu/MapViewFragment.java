@@ -106,8 +106,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     private void drawMarkers(GoogleMap googleMap) {
         for (Treasure it : treasures) {
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocation_lat(),
-                    it.getLocation_lon())).title(it.getDescription()))
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(it.getLocationLat(),
+                    it.getLocationLon())).title(it.getDescription()))
                     .setIcon(BitmapDescriptorFactory
                             .fromBitmap(Util.getDrawableTreasureImage(getContext())));
         }
