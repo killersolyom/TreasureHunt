@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
         public void onPageSelected(int position) {
             switch (position) {
                 case 0:
-                    toolbar.setTitle("Profile - " + new SavedData(getContext()).getCurrentUserName());
+                    toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
                     toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
