@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
-    private Button imageButton;
+    private Button toolbarButton;
 
     public HomeFragment() {
     }
@@ -42,19 +41,18 @@ public class HomeFragment extends Fragment {
         bindViews(view);
         setupViewPager();
         setupBottomNavigation();
-        bindClickListeners();
     }
 
     private void bindClickListeners(){
-        imageButton = toolbar.findViewById(R.id.toolbar_settings);
-        imageButton.setOnClickListener(v -> {
-            Log.e("3ss","toolbar");
+        toolbarButton = toolbar.findViewById(R.id.toolbar_settings);
+        toolbarButton.setOnClickListener(v -> {
         });
     }
     private void bindViews(View view) {
         viewPager = view.findViewById(R.id.home_viewpager);
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         toolbar = view.findViewById(R.id.home_toolbar);
+        bindClickListeners();
     }
 
     @SuppressWarnings("deprecation")
