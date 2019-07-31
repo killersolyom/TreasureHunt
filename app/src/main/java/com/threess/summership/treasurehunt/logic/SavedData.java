@@ -84,6 +84,11 @@ public class SavedData {
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageUri.toString());
         myPrefsEdit.apply();
     }
+    public void saveProfileImage(String imageStr) {
+        SharedPreferences.Editor myPrefsEdit = preference.edit();
+        myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageStr);
+        myPrefsEdit.apply();
+    }
 
     public void setAutoLoginSwitch(boolean bool) {
         writeBooleanData(Constant.SavedData.AUTO_LOGIN_SWITCH_KEY, bool);
