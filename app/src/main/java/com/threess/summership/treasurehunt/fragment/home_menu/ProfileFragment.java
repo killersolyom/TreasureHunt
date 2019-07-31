@@ -48,11 +48,6 @@ public class ProfileFragment extends Fragment {
     private static TextView mTreasuresDiscoveredTextView;
     private static TextView mTreasuresHiddenTextView;
     private static TextView profileScoreTextView;
-    private static TextView profileTreasureshiddenTextView;
-    private static TextView profileTreasuresdiscoveredTextView;
-    private static Button profileUpdateImageButton;
-    private static TextView profileUsernameImageView;
-    private static Button profileHomeButton;
     private static SavedData mDataManager;
     private static String mUserName;
     private static User mCurrentUser;
@@ -73,16 +68,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         bindViews(view);
-
         mDataManager = new SavedData(getContext());
         setUserData();
-
         mUserName = mDataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
-
         loadProfileImage(mDataManager.getProfileImage());
         loadUserData();
+        calculateUserTreasureStatus();
     }
 
 
@@ -108,15 +100,15 @@ public class ProfileFragment extends Fragment {
 
 
     private void loadUserData() {
+        setUITreasuresHidden(mDataManager.readUserCreateTreasureNumber());
+        setUITreasuresDiscovered(mDataManager.readUserClaimedTreasureNumber());
         ApiController.getInstance().getUser(mUserName, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 mCurrentUser = response.body();
                 if (mCurrentUser != null) {
-
                     setUIUserName(mCurrentUser.getUsername());
                     setUIScore(mCurrentUser.getScore());
-                    calculateUserTreasureStatus();
                 }
             }
 
@@ -142,6 +134,8 @@ public class ProfileFragment extends Fragment {
                             createdTreasures++;
                         }
                     }
+                    mDataManager.saveUserClaimedTreasureNumber(discoveredTreasures);
+                    mDataManager.saveUserCreateTreasureNumber(createdTreasures);
                     setUITreasuresHidden(createdTreasures);
                     setUITreasuresDiscovered(discoveredTreasures);
                 }
@@ -167,6 +161,11 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    private void updateButtonPressed() {
+        pickFromGallery();
+    }
+
+
     private void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -180,8 +179,12 @@ public class ProfileFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             mDataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
+            //updateUserProfileField();
             uploadImageToServer(data.getData());
         }
+    }
+
+    private void updateUserProfileField() {
     }
 
 

@@ -3,9 +3,6 @@ package com.threess.summership.treasurehunt.util;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
-import com.google.android.gms.common.api.Api;
-import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-
 public class Constant {
 
     public static class Common{
@@ -50,6 +47,8 @@ public class Constant {
         public static final String USER_PASSWORD_KEY = "user_password_key";
         public static final String REMEMBER_ME_SWITCH_KEY = "RememberMeSwitch";
         public static final String AUTO_LOGIN_SWITCH_KEY = "AutoLoginSwitch";
+        public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
+        public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
     }
 
     public static class Camera {
