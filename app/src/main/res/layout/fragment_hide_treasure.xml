@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get current location"
+            android:text="@string/get_current_location"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"/>
     </LinearLayout>
@@ -152,7 +152,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pick location"
+            android:text="@string/pick_location"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"/>
     </LinearLayout>
@@ -177,7 +177,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location of the image"
+            android:text="@string/location_of_the_image"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"/>
     </LinearLayout>

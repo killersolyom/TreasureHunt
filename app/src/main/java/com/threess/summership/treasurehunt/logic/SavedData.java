@@ -6,8 +6,6 @@ import android.net.Uri;
 
 import com.threess.summership.treasurehunt.util.Constant;
 
-import java.util.zip.DeflaterOutputStream;
-
 public class SavedData {
     private static final String TAG = SavedData.class.getSimpleName();
 
@@ -25,6 +23,12 @@ public class SavedData {
         SharedPreferences.Editor editor = preference.edit();
         editor.putString(key, value);
         editor.apply();
+    }
+
+    public void clearUserData(){
+        setAutoLoginSwitch(false);
+        clearProfileImage();
+        writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
     }
 
     public String readStringData(String key) {
@@ -84,6 +88,13 @@ public class SavedData {
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageUri.toString());
         myPrefsEdit.apply();
     }
+
+    private void clearProfileImage() {
+        SharedPreferences.Editor myPrefsEdit = preference.edit();
+        myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, "");
+        myPrefsEdit.apply();
+    }
+
     public void saveProfileImage(String imageStr) {
         SharedPreferences.Editor myPrefsEdit = preference.edit();
         myPrefsEdit.putString(Constant.SavedData.PROFILE_IMAGE_KEY, imageStr);

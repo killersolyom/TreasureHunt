@@ -67,4 +67,12 @@ public class TopListFragment extends Fragment {
                 });
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
+    }
 }
