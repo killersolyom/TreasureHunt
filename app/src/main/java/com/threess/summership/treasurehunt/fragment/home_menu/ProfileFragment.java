@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -24,10 +23,8 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.util.ChooserDialog;
-import com.threess.summership.treasurehunt.util.Constant;
-
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.ChooserDialog;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -170,6 +167,7 @@ public class ProfileFragment extends Fragment {
     private void logOutButtonPressed() {
         SavedData dataManager = new SavedData(getContext());
         dataManager.setAutoLoginSwitch(false);
+        mDataManager.clearProfileImage();
         dataManager.writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }

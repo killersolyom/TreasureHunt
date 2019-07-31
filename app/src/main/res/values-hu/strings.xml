@@ -50,7 +50,7 @@
     <string name="turn_on_your_gps">Kérjük kapcsolja be a gps-t!</string>
     <string name="Claim_editText_EmptyError">A mező üres!/nKérjük töltse ki!</string>
     <string name="Claim_snackBarError1">Érvénytelen kincs vagy kincs azonosító!</string>
-    <string name="Claim_Available">A kincs azonosítója: </string>
+    <string name="Claim_Available">A kincs azonosítva! </string>
     <string name="Claim_Available2"> érvényes! </string>
     <string name="Claim_SnackBarError2"> Nem található ilyen kincs a szerveren! </string>
     <string name="Claim_SnackBarError_Internet"> Nincs internetkapcsolat! </string>
