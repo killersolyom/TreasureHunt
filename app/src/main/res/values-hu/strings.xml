@@ -72,6 +72,8 @@
     <string name="location_of_the_image">Kép készítési helye"</string>
     <string name="choose_from_gallery">Választás galériából</string>
     <string name="take_picture">Kép készítése</string>
+    <string name="Treasures_hidden">Elrejtett kincs</string>
+    <string name="update">Kép frissítése</string>
 
 
     <!-- fragment tags -->

@@ -112,5 +112,7 @@
     <string name="location_of_the_image">Location of the image"</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="take_picture">Take Picture</string>
+    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="update">Update photo</string>
 
 </resources>
