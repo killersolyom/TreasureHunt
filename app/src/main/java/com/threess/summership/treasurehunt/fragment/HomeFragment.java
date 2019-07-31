@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
         bindViews(view);
         setupViewPager();
         setupBottomNavigation();
+        bindClickListeners();
     }
 
     private void bindClickListeners(){
@@ -52,7 +53,6 @@ public class HomeFragment extends Fragment {
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         toolbar = view.findViewById(R.id.home_toolbar);
         toolbarButton = toolbar.findViewById(R.id.toolbar_settings);
-        bindClickListeners();
     }
 
     @SuppressWarnings("deprecation")
