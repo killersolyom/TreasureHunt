@@ -2,7 +2,6 @@ package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
-import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -37,7 +35,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -277,7 +274,7 @@ public class HideTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("TAG", "Sikertelen", t);
+                Log.e(TAG, "Sikertelen", t);
             }
         });
     }

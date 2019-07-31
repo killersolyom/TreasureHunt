@@ -120,6 +120,7 @@ public class HomeFragment extends Fragment {
                 case 4:
                     toolbar.setTitle("Hide treasure");
                     bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
+                    break;
             }
         }
 
