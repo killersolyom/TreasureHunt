@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,7 +31,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return view;
     }
 
     @Override
@@ -64,33 +65,30 @@ public class HomeFragment extends Fragment {
 
     private void setupBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_profile: {
-                                viewPager.setCurrentItem(0);
-                                return true;
-                            }
-                            case R.id.action_recent: {
-                                viewPager.setCurrentItem(1);
-                                return true;
-                            }
-                            case R.id.action_favorites: {
-                                viewPager.setCurrentItem(2);
-                                return true;
-                            }
-                            case R.id.action_location: {
-                                viewPager.setCurrentItem(3);
-                                return true;
-                            }
-                            case R.id.action_hide_treasure: {
-                                viewPager.setCurrentItem(4);
-                                return true;
-                            }
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.action_profile: {
+                            viewPager.setCurrentItem(0);
+                            return true;
                         }
-                        return false;
+                        case R.id.action_recent: {
+                            viewPager.setCurrentItem(1);
+                            return true;
+                        }
+                        case R.id.action_favorites: {
+                            viewPager.setCurrentItem(2);
+                            return true;
+                        }
+                        case R.id.action_location: {
+                            viewPager.setCurrentItem(3);
+                            return true;
+                        }
+                        case R.id.action_hide_treasure: {
+                            viewPager.setCurrentItem(4);
+                            return true;
+                        }
                     }
+                    return false;
                 });
     }
 
