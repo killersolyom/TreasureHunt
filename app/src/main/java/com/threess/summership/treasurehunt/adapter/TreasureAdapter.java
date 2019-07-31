@@ -25,15 +25,17 @@ import java.util.ArrayList;
 
 
 public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.RecyclerViewHolder> {
-    private static final String TAG = TreasureAdapter.class.getSimpleName();
 
-    private Context context;
-    private ArrayList<Treasure> treasureList = new ArrayList<>();
-    private Treasure selectedTreasure = null;
+    private static final String TAG = TreasureAdapter.class.getSimpleName();
+    private Context mContext;
+    private ArrayList<Treasure> mTreasureList = new ArrayList<>();
+    private Treasure mSelectedTreasure = null;
+
 
     public TreasureAdapter(Context context) {
-        this.context = context;
-        }
+        this.mContext = context;
+    }
+
 
     @NonNull
     @Override
@@ -41,27 +43,34 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.treasure_list_component, parent, false));
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
-            final Treasure treasure = treasureList.get(position);
-            Glide.with(context).load(treasure.getPhoto_clue()).error(R.drawable.app_icon).circleCrop().into(holder.treasureImage);
-            if(treasure.isClaimed()){
-                holder.layout.setForeground(context.getDrawable(R.drawable.claimed_image));
-                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_circle_black_24dp));
-                holder.layout.setOnClickListener(null);
+            final Treasure treasure = mTreasureList.get(position);
+            Glide.with(mContext).load(treasure.getPhotoClue()).error(R.drawable.app_icon).circleCrop().into(holder.mTreasureImage);
+            holder.mTreasureText.setText(treasure.getDescription());
+
+            double score = treasure.getPrizePoints();
+            int roundedScore = (int) Math.round(score);
+
+            if( score == roundedScore){
+                holder.mTreasureScore.setText("+" + roundedScore);
             }else{
-                holder.treasureText.setText(treasure.getDescription());
-                holder.treasureScore.setText(String.valueOf(treasure.getPrize_points()));
-                holder.treasureButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_arrow_forward_black_24dp));
-                holder.layout.setForeground(null);
-                holder.layout.setOnClickListener(v -> {
-                    selectedTreasure = treasure;
-                    FragmentNavigation.getInstance(context).
-                            startNavigationToDestination(treasure,context);
-                });
+                holder.mTreasureScore.setText("+"+ score);
             }
+
+            if(treasure.isClaimed()){
+                holder.mTreasureButton.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_check_circle_black_24dp));
+            }
+
+            holder.mLayout.setOnClickListener(v -> {
+                mSelectedTreasure = treasure;
+                FragmentNavigation.getInstance(mContext).
+                        startNavigationToDestination(treasure, mContext);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,42 +79,35 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     @Override
     public int getItemCount() {
-        return treasureList.size();
+        return mTreasureList.size();
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout layout;
-        private TextView treasureText;
-        private ImageView treasureImage;
-        private ImageView treasureButton;
-        private TextView treasureScore;
+        private ConstraintLayout mLayout;
+        private TextView mTreasureText;
+        private ImageView mTreasureImage;
+        private ImageView mTreasureButton;
+        private TextView mTreasureScore;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
-            treasureText = itemView.findViewById(R.id.treasureName);
-            treasureImage = itemView.findViewById(R.id.treasureImage);
-            treasureButton = itemView.findViewById(R.id.treasureButton);
-            treasureScore = itemView.findViewById(R.id.treasureScore);
-            layout = itemView.findViewById(R.id.treasureListComponentLayout);
+            mLayout = itemView.findViewById(R.id.treasureListComponentLayout);
+            mTreasureText = itemView.findViewById(R.id.treasureName);
+            mTreasureImage = itemView.findViewById(R.id.treasureImage);
+            mTreasureButton = itemView.findViewById(R.id.treasureButton);
+            mTreasureScore = itemView.findViewById(R.id.treasureScore);
         }
     }
 
-    public void addTreasureComponent(Treasure treasure){
-        treasureList.add(treasure);
-        notifyDataSetChanged();
-    }
-
-    public void refreshTreasure(ArrayList<Treasure> treasures){
+    public void setTreasureList(ArrayList<Treasure> treasures){
         if(treasures.size()!=0) {
-            treasureList.clear();
+            mTreasureList.clear();
         }
-
-        //treasureList.addAll(treasures);
 
         for(Treasure t : treasures){
             if (t != null) {
-                if (t.getClaimed_by().equals(new SavedData(context).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
-                    treasureList.add(t);
+                if (t.getClaimedBy().equals(new SavedData(mContext).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
+                    mTreasureList.add(t);
                 }
             }
         }
@@ -113,11 +115,11 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     public Treasure getSelectedTreasure() {
-        return selectedTreasure;
+        return mSelectedTreasure;
     }
 
     public void clearSelectedTreasure(){
-        selectedTreasure = null;
+        mSelectedTreasure = null;
     }
 
 

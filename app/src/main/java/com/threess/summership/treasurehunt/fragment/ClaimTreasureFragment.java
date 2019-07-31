@@ -91,7 +91,7 @@ public class ClaimTreasureFragment extends Fragment {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
-            sd.setScore((float)(mTreasure.getPrize_points()+ sd.getScore()));
+            sd.setScore((float)(mTreasure.getPrizePoints()+ sd.getScore()));
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -99,7 +99,7 @@ public class ClaimTreasureFragment extends Fragment {
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
-                        scoreUpdate(sd,mTreasure.getPrize_points()+sd.getScore());
+                        scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
 
                     },3500);
                 }

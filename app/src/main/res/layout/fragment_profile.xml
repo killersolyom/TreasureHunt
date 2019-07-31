@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/update_height"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:text="@string/refresh"
         android:textColor="@color/gray900"
         android:textAllCaps="false"
@@ -74,17 +74,17 @@
             android:textColorHighlight="@color/white"
             tools:layout_editor_absoluteX="164dp"
             tools:layout_editor_absoluteY="279dp" />
-
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/treasures_discovered"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/treasures_discovered_marginStar"
-        android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:paddingTop="15sp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:ems="10"
         android:text="@string/treasures_discovered"
         android:textColor="@color/white"
@@ -99,6 +99,7 @@
         android:textAlignment="center"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:ems="10"
         android:text="@string/Username"
         android:textColor="@color/white"
@@ -111,7 +112,7 @@
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:text="@string/treasures_hidden"
         android:paddingTop="15dp"
         android:textColor="@color/white"

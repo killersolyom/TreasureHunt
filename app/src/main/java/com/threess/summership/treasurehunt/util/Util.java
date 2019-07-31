@@ -5,15 +5,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 
 import java.util.Random;
@@ -106,5 +110,14 @@ public final class Util {
         }
     }
 
-
+    /**
+     * Checks if internet connection is available
+     * @return true if there is internet connection and false if not.
+     */
+    public static boolean requireInternetConnection(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+        return isConnected;
+    }
 }
