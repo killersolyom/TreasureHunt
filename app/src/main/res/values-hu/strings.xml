@@ -13,7 +13,7 @@
     <string name="home">Otthon</string>
     <string name="logout">Kijelentkezés</string>
     <string name="treasures_discovered">Felfedezett kincsek</string>
-    <string name="Username">Felhasználónév</string>
+    <string name="username">Felhasználónév</string>
     <string name="treasures_hidden">Elrejtett kincsek</string>
     <string name="refresh">Frissítés</string>
     <string name="score">Pontszáma</string>

@@ -1,29 +1,37 @@
 <resources>
+    <!-- common -->
     <string name="app_name">TreasureHunt</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello Summer ship!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="successful">Successful</string>
+
+    <!-- login fragment -->
     <string name="remember_me">Remember me</string>
     <string name="auto_login">Auto login</string>
-    <string name="name">Name</string>
-    <string name="password">Password</string>
     <string name="log_in">Log in</string>
-    <string name="confirm_password">Confirm password</string>
     <string name="create_account">Create account</string>
-    <string name="home">Home</string>
-    <string name="logout">Logout</string>
+
+    <!-- registration fragment -->
+    <string name="confirm_password">Confirm password</string>
+
+    <!-- profile fragment -->
     <string name="treasures_discovered">Treasures discovered</string>
-    <string name="Username">Username</string>
     <string name="treasures_hidden">Treasures hidden</string>
     <string name="refresh">Refresh</string>
-    <string name="Treasures_hidden">Treasures hidden</string>
-    <string name="update">Update photo</string>
+
+    <!-- toplist fragmen -->
     <string name="score">Score</string>
-    <string name="successful">Successful</string>
+
+    <!-- error messages -->
     <string name="registration_failed">Registration failed!</string>
     <string name="username_already_exists">Username already exists. Try a different one!</string>
     <string name="invalid_username">Invalid username!</string>
     <string name="invalid_password">Invalid password!</string>
     <string name="failed_operation">Operation failed!</string>
+
+
+
+    <!-- TODO -->
     <string name="invalid_password_confirm">The passwords do not match!</string>
     <string name="login_failed">Login failed!</string>
     <string name="incorrect_password">Incorrect password!</string>

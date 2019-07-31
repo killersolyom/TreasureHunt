@@ -14,7 +14,7 @@
     <string name="home">Acasa</string>
     <string name="logout">Deconectare</string>
     <string name="treasures_discovered">Comori descoperite</string>
-    <string name="Username">Nume de utilizator</string>
+    <string name="username">Nume de utilizator</string>
     <string name="treasures_hidden">Comori ascunse</string>
     <string name="refresh">Reimprospatare</string>
     <string name="score">Punctaj</string>

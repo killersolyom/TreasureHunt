@@ -64,7 +64,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         ImageView profilePicture = view.findViewById(R.id.dialog_imageview);
         TextView userName = view.findViewById(R.id.dialog_username);
         TextView userScore = view.findViewById(R.id.dialog_userscore);
-        userName.setText(context.getString(R.string.Username) +": " + user.getUsername());
+        userName.setText(context.getString(R.string.username) +": " + user.getUsername());
         userScore.setText(context.getString(R.string.score)+ ": " + user.getScore());
         Glide.with(context)
                 .load(imageUrl)

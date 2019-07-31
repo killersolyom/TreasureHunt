@@ -50,7 +50,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         try {
             final Treasure treasure = mTreasureList.get(position);
             Glide.with(mContext).load(treasure.getPhotoClue()).error(R.drawable.app_icon).circleCrop().into(holder.mTreasureImage);
-            holder.mTreasureText.setText(treasure.getDescription());
+            holder.mTreasureText.setText(treasure.getTitle());
 
             double score = treasure.getPrizePoints();
             int roundedScore = (int) Math.round(score);

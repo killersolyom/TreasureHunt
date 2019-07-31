@@ -84,9 +84,6 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void verifyResult(){
-        if(mHasQRCode) {
-            Log.e(TAG, mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
-        }
         if (isValidTreasure()) {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
@@ -110,7 +107,6 @@ public class ClaimTreasureFragment extends Fragment {
                 }
             });
         }
-
     }
 
     private void playSuccessImageAnimation() {

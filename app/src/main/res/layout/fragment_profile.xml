@@ -102,7 +102,7 @@
         android:paddingTop="20dp"
         android:layout_marginTop="@dimen/profile_horizontal_view_distance"
         android:ems="10"
-        android:text="@string/Username"
+        android:text="@string/username"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
