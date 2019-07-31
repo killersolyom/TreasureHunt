@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,9 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
+import com.threess.summership.treasurehunt.util.ChooserDialog;
+import com.threess.summership.treasurehunt.util.Constant;
+
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
@@ -38,21 +42,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.threess.summership.treasurehunt.util.Constant.Common.REQUEST_IMAGE_CAPTURE;
 
 public class ProfileFragment extends Fragment {
-
     private static String TAG = ProfileFragment.class.getSimpleName();
 
-    private static ImageView profileImageView;
-    private static TextView mUserNameTextView;
-    private static TextView mTreasuresDiscoveredTextView;
-    private static TextView mTreasuresHiddenTextView;
-    private static TextView profileScoreTextView;
-    private static SavedData mDataManager;
+    public static ProfileFragment sInstance;
+
+
+    private ImageView profileImageView;
+    private TextView mUserNameTextView;
+    private TextView mTreasuresDiscoveredTextView;
+    private TextView mTreasuresHiddenTextView;
+    private TextView profileScoreTextView;
+    private ImageView profileStarImageView;
+    private TextView profileTreasureshiddenTextView;
+    private TextView profileTreasuresdiscoveredTextView;
+    private Button profileUpdateImageButton;
+    private TextView profileUsernameImageView;
+    private Button profileHomeButton;
+    public static SavedData mDataManager;
     private static String mUserName;
     private static User mCurrentUser;
-    private static Button mLogoutButton;
-    private static Button mUpdateButton;
+    private Button mLogoutButton;
+    private Button mUpdateButton;
 
     public ProfileFragment() {
         // constructor
@@ -68,6 +81,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sInstance = this;
         bindViews(view);
         mDataManager = new SavedData(getContext());
         setUserData();
@@ -148,8 +162,8 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void profileImagePressed() {
-        pickFromGallery();
+    private void profileImagePressed(){
+        new ChooserDialog().show(getChildFragmentManager(), TAG);
     }
 
 
@@ -161,12 +175,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void updateButtonPressed() {
-        pickFromGallery();
-    }
-
-
-    private void pickFromGallery() {
+    public void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         String[] mimeTypes = {"image/jpeg", "image/png"};
@@ -174,21 +183,24 @@ public class ProfileFragment extends Fragment {
         startActivityForResult(intent, Constant.Common.GALLERY_REQUEST_CODE);
     }
 
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             mDataManager.saveProfileImage(data.getData());
             loadProfileImage(data.getData());
-            //updateUserProfileField();
             uploadImageToServer(data.getData());
         }
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE){
+            ProfileFragment.mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
+            ProfileFragment.sInstance.loadProfileImage(data.getStringExtra(Constant.Prodile.FILE));
+            //updateUserProfileField();
+            ProfileFragment.sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
+        }
+
     }
 
-    private void updateUserProfileField() {
-    }
 
-
-    private void loadProfileImage(Uri imageUri) {
+    public void loadProfileImage(Uri imageUri) {
         if (imageUri != null) {
             Glide.with(getContext())
                     .load(imageUri)
@@ -197,11 +209,28 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    public void loadProfileImage(String image) {
+        if (image != null) {
+            Glide.with(getContext())
+                    .load(image)
+                    .centerCrop()
+                    .into(profileImageView);
+        }
+    }
 
-    private void uploadImageToServer(Uri fileUri) {
+    public void uploadImageToServer(Uri fileUri) {
+        String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext() );
+        uploadImageToServer_(filePath);
+    }
+
+    public void uploadImageToServer(String fileStr) {
+        uploadImageToServer_(fileStr);
+    }
+
+    private void uploadImageToServer_(String fileStr) {
         // Create a file object using file path
-        String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext());
-        File file = new File(filePath);
+
+        File file = new File(fileStr);
         // Create a request body with file and image media type
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
         // Create MultipartBody.Part using file request-body,file name and part name
