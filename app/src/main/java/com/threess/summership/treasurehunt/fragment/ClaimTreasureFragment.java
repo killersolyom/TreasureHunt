@@ -99,7 +99,7 @@ public class ClaimTreasureFragment extends Fragment {
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
-                        scoreUpdate(sd,mTreasure.getPrize_points()+sd.getScore());
+                        scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
 
                     },3500);
                 }
