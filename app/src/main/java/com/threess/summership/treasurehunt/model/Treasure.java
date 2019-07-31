@@ -10,132 +10,143 @@ public class Treasure implements Serializable {
 
     @SerializedName("username")
     @Expose
-    private String username;
+    private String mUserName;
+
     @SerializedName("passcode")
     @Expose
-    private String passcode;
+    private String mPassCode;
+
     @SerializedName("title")
     @Expose
-    private String title;
+    private String mTitle;
+
     @SerializedName("description")
     @Expose
-    private String description;
+    private String mDescription;
+
     @SerializedName("photo_clue")
     @Expose
-    private String photo_clue;
+    private String mPphotoClue;
+
     @SerializedName("location_lat")
     @Expose
-    private double location_lat;
+    private double mLocationLat;
+
     @SerializedName("location_lon")
     @Expose
-    private double location_lon;
+    private double mLocationLon;
+
     @SerializedName("prize_points")
     @Expose
-    private double prize_points;
+    private double mPrizePoints;
+
     @SerializedName("claimed")
     @Expose
-    private boolean claimed;
+    private boolean mClaimed;
+
     @SerializedName("claimed_by")
     @Expose
-    private String claimed_by;
+    private String mClaimedBy;
+
     @SerializedName("createdAt")
     @Expose
-    private String createdAt;
+    private String mCreatedAt;
+
     @SerializedName("updatedAt")
     @Expose
-    private String updatedAt;
+    private String mUpdatedAt;
 
     public String getUsername() {
-        return username;
+        return mUserName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.mUserName = username;
     }
 
     public String getPasscode() {
-        return passcode;
+        return mPassCode;
     }
 
     public void setPasscode(String passcode) {
-        this.passcode = passcode;
+        this.mPassCode = passcode;
     }
 
-    public String getTitle() { return title; }
+    public String getTitle() { return mTitle; }
 
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String title) { this.mTitle = title; }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mDescription = description;
     }
 
     public String getPhotoClue() {
-        return photo_clue;
+        return mPphotoClue;
     }
 
     public void setPhotoClue(String photo_clue) {
-        this.photo_clue = photo_clue;
+        this.mPphotoClue = photo_clue;
     }
 
     public double getLocationLat() {
-        return location_lat;
+        return mLocationLat;
     }
 
     public void setLocationLat(double location_lat) {
-        this.location_lat = location_lat;
+        this.mLocationLat = location_lat;
     }
 
     public double getLocationLon() {
-        return location_lon;
+        return mLocationLon;
     }
 
     public void setLocationLon(double location_lon) {
-        this.location_lon = location_lon;
+        this.mLocationLon = location_lon;
     }
 
     public double getPrizePoints() {
-        return prize_points;
+        return mPrizePoints;
     }
 
     public void setPrizePoints(double prize_points) {
-        this.prize_points = prize_points;
+        this.mPrizePoints = prize_points;
     }
 
 
     public boolean isClaimed() {
-        return claimed;
+        return mClaimed;
     }
 
     public String getClaimedBy() {
-        return claimed_by;
+        return mClaimedBy;
     }
 
     public String getCreatedAt() {
-        return createdAt;
+        return mCreatedAt;
     }
 
     public String getUpdatedAt() {
-        return updatedAt;
+        return mUpdatedAt;
     }
 
     public void setClaimed(boolean claimed) {
-        this.claimed = claimed;
+        this.mClaimed = claimed;
     }
 
     public void setClaimed_by(String claimed_by) {
-        this.claimed_by = claimed_by;
+        this.mClaimedBy = claimed_by;
     }
 
     public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+        this.mCreatedAt = createdAt;
     }
 
     public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+        this.mUpdatedAt = updatedAt;
     }
 
 }

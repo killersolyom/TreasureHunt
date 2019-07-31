@@ -118,7 +118,7 @@ public class FavoriteTreasureFragment extends Fragment {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
-                adapter.refreshTreasure(response.body());
+                adapter.setTreasureList(response.body());
             }
 
             @Override
