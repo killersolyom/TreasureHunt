@@ -64,14 +64,18 @@
     <string name="Claim_Error4">Az ön pontszáma nem változott.</string>
     <string name="Claim_snackBar_scoreUpdate">Az ön pontszáma nagyobb lett!</string>
     <string name="Claim_error3">A saját kincsét nem gyűjtheti be!</string>
+    <string name="claim_error_no_score_change">Your score did not change.</string>
+    <string name="claim_snack_bar_error_treasure_not_available"> Not available treasure on server </string>
+    <string name="claim_snack_bar_error_internet"> No internet connection!Please turn on the wifi </string>
+
 
     <string name="Chooser_dialog_message">Válasszon képfeltöltési opciót</string>
     <string name="upload_profile_image">Kép feltöltése</string>
     <string name="get_current_location">Jelenlegi tartózkodási hely</string>
     <string name="pick_location">Hely választása térképről</string>
     <string name="location_of_the_image">Kép készítési helye"</string>
-    <string name="choose_from_gallery">Választás galériából</string>
-    <string name="take_picture">Kép készítése</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="take_picture">Take Picture</string>
     <string name="Treasures_hidden">Elrejtett kincs</string>
     <string name="update">Kép frissítése</string>
 
