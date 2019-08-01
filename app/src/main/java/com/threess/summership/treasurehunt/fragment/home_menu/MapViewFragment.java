@@ -21,9 +21,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -163,8 +165,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
                 title("Your Treasure").icon(BitmapDescriptorFactory.
                 fromBitmap(Util.getDrawableTreasureImage(getContext()))));
 
-        FragmentNavigation.getInstance(getContext()).showHideTreasureFragment(latLng.latitude,latLng.longitude);
-
+        HideTreasureFragment.setMapPickCoordinates(latLng.latitude, latLng.longitude);
+        HomeFragment.showPage(4);
     }
 
     public static HideTreasureFragment newInstance(double latitude ,double longitude){

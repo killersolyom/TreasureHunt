@@ -105,5 +105,11 @@ public class Constant {
         }
     }
 
-
+    public static class HomeViewPager{
+        public static final int PROFILE_IDX = 0;
+        public static final int TREASURE_IDX = 1;
+        public static final int TOPLIST_IDX = 2;
+        public static final int MAP_IDX = 3;
+        public static final int HIDE_TREASURE_IDX = 4;
+    }
 }
