@@ -1,55 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">Cautare de comori</string>
+    <resources>
+    <!-- login fragment -->
     <string name="remember_me">Tine-ma minte</string>
     <string name="auto_login">Logare automata</string>
-    <string name="password">Parola</string>
     <string name="log_in">Logare</string>
-    <string name="confirm_password">Confirma parola</string>
     <string name="create_account">Creaza cont</string>
-    <string name="treasures_discovered">Comori descoperite</string>
-    <string name="username">Nume de utilizator</string>
-    <string name="treasures_hidden">Comori ascunse</string>
-    <string name="refresh">Reimprospatare</string>
-    <string name="score">Punctaj</string>
-    <string name="successful">Reusit</string>
-    <string name="registration_failed">Inregistrare esuata!</string>
-    <string name="username_already_exists">Numele de utilizator exista deja. Incearca unul diferit!</string>
-    <string name="invalid_username">Nume de utilizator invalid!</string>
-    <string name="invalid_password">Parola invalida!</string>
-    <string name="failed_operation">Operatiune esuata!</string>
+    <string name="no_internet_connection">Nu exista conexiune la internet!</string>
+
+    <!-- registration fragment -->
+    <string name="confirm_password">Confirma parola</string>
     <string name="invalid_password_confirm">Parolele nu se potrivesc!</string>
-    <string name="login_failed">Logare esuata!</string>
-    <string name="incorrect_password">Parola incorecta!</string>
-    <string name="username_not_exists">Acest nume de utilizator nu este inregistrat inca!</string>
-    <string name="empty_string"> </string>
     <string name="register">Inregistreaza-te</string>
+
+    <!-- home fragment -->
+    <string name="my_profile">Profil</string>
+    <string name="treasures">Comori</string>
+    <string name="top_list">Lista de top</string>
+    <string name="show_on_map">Arata pe mapa</string>
+    <string name="hide_treasure">Comoara ascunsa</string>
+
+    <!-- profile fragment -->
+    <string name="refresh">Reimprospatare</string>
+    <string name="user_profile_no_information_error_message">"Nu se poate descarca informatia utilizatorului."</string>
+    <string name="profile_user_name_format">Nume de utilizator: %1$s</string>
+    <string name="treasures_discovered">Comori descoperite</string>
+    <string name="treasures_hidden">Comori ascunse</string>
+    <string name="profile_treasures_discovered_format">Comori descoperite: %1$d</string>
+    <string name="profile_treasures_hidden_format">Comori ascunse: %1$d</string>
+    <string name="profile_username">Nume de urilizator: %1$s</string>
+    <string name="profile_logout">Delogare</string>
+
+    <!-- picture upload dialog -->
     <string name="cancel">Anulare</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <!-- todo --> <string name="take_picture">Take Picture</string>
+    <!-- todo --><string name="chooser_dialog_message">Choose an option for upload an image</string>
+    <!-- todo --><string name="upload_profile_image">Upload profile image</string>
+
+    <!-- claim treasure fragment -->
     <string name="claim_treasure">Revendica comoara</string>
     <string name="write_pass_code">Scrie codul de trecere pentru obiect!</string>
     <string name="confirm_and_claim">Confirma si revendica comoara!</string>
-    <string name="hide_treasure">Comoara ascunsa</string>
-    <string name="missing_permission">Permisiune neacordata!</string>
-    <string name="online_mode">Conectat la internet!</string>
-    <string name="offline_mode">Deconectat de la internet!</string>
-    <string name="correct_pass_code">Cod de trecere corect!</string>
-    <string name="yes">Da!</string>
-    <string name="no">Nu!</string>
-    <string name="turn_on_your_gps">Te rog porneste conexiunea la GPS!</string>
     <string name="do_not_claim_your_treasure">Aceasta e comoara ta. Asta nu e corect!</string>
     <string name="invalid_pass_code_or_treasure">Cod de trecere invalid sau comoara gresita!</string>
     <string name="score_did_not_changed">Scorul tau nu s-a schimbat.</string>
     <string name="score_increased">Acum scorul tau e mai mare!</string>
-    <string name="server_not_found"> Comoara indisponibila pe server </string>
-    <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
-    <string name="camera_error">Acest device nu supoarta Camera2 API.</string>
-    <string name="show_on_map">Arata pe mapa</string>
+    <string name="correct_pass_code">Cod de trecere corect!</string>
+    <string name="read_qr_code">Citeste QR cod</string>
 
-    <!-- fragment tags -->
-    <string name="fragment_camera2">Camera2</string>
-    <string name="fragment_view_stickers">Vezi sticarele</string>
-    <string name="textview_empry_error">Poate/Nu poate sa fie gol.</string>
+    <!-- hide treasure fragment -->
+    <string name="yes">Da!</string>
+    <string name="no">Nu!</string>
+    <string name="turn_on_your_gps">Te rog porneste conexiunea la GPS!</string>
     <string name="treasure_title">Titlu de tachinare:</string>
     <string name="treasure_description">Descriere:</string>
     <string name="photo_clue">Cheie pentru poza:</string>
@@ -63,28 +65,37 @@
     <string name="prize_hint">Cat de multe din propriile tale puncte de premiere ai acorda?</string>
     <string name="pass_hint">Identificator unic, astfel incat poate fi validat atunci cand e revendicat </string>
     <string name="create_treasure">Creaza comoara</string>
-    <string name="all_fields_are_required">"Toate campurile sunt necesare"</string>
-    <string name="user_profile_no_information_error_message">"Nu se poate descarca informatia utilizatorului."</string>
-    <string name="profile_user_name_format">Nume de utilizator: %1$s</string>
-    <string name="profile_treasures_discovered_format">Comori descoperite: %1$d</string>
-    <string name="profile_treasures_hidden_format">Comori ascunse: %1$d</string>
-    <string name="profile_logout">Delogare</string>
-    <string name="profile_username">Nume de urilizator: %1$s</string>
-    <string name="no_internet_connection">Nu exista conexiune la internet!</string>
-    <string name="read_qr_code">Citeste QR cod</string>
+    <!-- todo --><string name="get_current_location">Get current location</string>
+    <!-- todo --><string name="pick_location">Pick location</string>
+    <!-- todo --><string name="location_of_the_image">Location of the image"</string>
+
+    <!-- camera -->
+    <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
+    <string name="camera_error">Acest device nu supoarta Camera2 API.</string>
+    <string name="fragment_camera2">Camera2</string>
+    <string name="fragment_view_stickers">Vezi sticarele</string>
     <string name="file_string">Fila</string>
-    <string name="top_list">Lista de top</string>
-    <string name="treasures">Comori</string>
-    <string name="my_profile">Profil</string>
+
+    <!-- common -->
+    <string name="app_name">Cautare de comori</string>
+    <string name="password">Parola</string>
+    <string name="username">Nume de utilizator</string>
+    <string name="score">Punctaj</string>
+    <string name="successful">Reusit</string>
+    <string name="empty_string"> </string>
     <string name="back_button_press">Apasa inapoi pentru a iesi.</string>
-
-    <!-- to translate -->
-    <string name="get_current_location">Get current location</string>
-    <string name="pick_location">Pick location</string>
-    <string name="location_of_the_image">Location of the image"</string>
-    <string name="choose_from_gallery">Choose From Gallery</string>
-    <string name="take_picture">Take Picture</string>
-    <string name="chooser_dialog_message">Choose an option for upload an image</string>
-    <string name="upload_profile_image">Upload profile image</string>
-
+    <string name="registration_failed">Inregistrare esuata!</string>
+    <string name="username_already_exists">Numele de utilizator exista deja. Incearca unul diferit!</string>
+    <string name="invalid_username">Nume de utilizator invalid!</string>
+    <string name="invalid_password">Parola invalida!</string>
+    <string name="failed_operation">Operatiune esuata!</string>
+    <string name="login_failed">Logare esuata!</string>
+    <string name="incorrect_password">Parola incorecta!</string>
+    <string name="username_not_exists">Acest nume de utilizator nu este inregistrat inca!</string>
+    <string name="missing_permission">Permisiune neacordata!</string>
+    <string name="online_mode">Conectat la internet!</string>
+    <string name="offline_mode">Deconectat de la internet!</string>
+    <string name="server_not_found"> Comoara indisponibila pe server </string>
+    <string name="textview_empry_error">Poate/Nu poate sa fie gol.</string>
+    <string name="all_fields_are_required">"Toate campurile sunt necesare"</string>
 </resources>

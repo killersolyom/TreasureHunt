@@ -1,5 +1,4 @@
 <resources>
-
     <!-- login fragment -->
     <string name="remember_me">Remember me</string>
     <string name="auto_login">Auto login</string>

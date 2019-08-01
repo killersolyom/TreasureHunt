@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">TreasureHunt</string>
+    <resources>
+    <!-- login fragment -->
     <string name="remember_me">Adatok megjegyzése</string>
     <string name="auto_login">Automatikus bejelentkezést</string>
-    <string name="password">Jelszó</string>
     <string name="log_in">Bejelentkezés</string>
-    <string name="confirm_password">Jelszó mégegyszer</string>
     <string name="create_account">Regisztráció</string>
-    <string name="treasures_discovered">Felfedezett kincsek</string>
-    <string name="username">Felhasználónév</string>
-    <string name="treasures_hidden">Elrejtett kincsek</string>
-    <string name="refresh">Frissítés</string>
-    <string name="score">Pontszáma</string>
-    <string name="successful">Sikeres bejelentkezés!</string>
-    <string name="registration_failed">Sikertelen regisztráció!</string>
-    <string name="username_already_exists">Foglalt felhasználónév!</string>
-    <string name="invalid_username">Érvénytelen felhasználónév!</string>
-    <string name="invalid_password">Érvénytelen jelszó!</string>
-    <string name="failed_operation">Sikertelen művelet!</string>
-    <string name="invalid_password_confirm">A jelszó nem egyezik!</string>
-    <string name="login_failed">Érvénytelen bejelentkezés!</string>
-    <string name="incorrect_password">Helytelen jelszó!</string>
-    <string name="username_not_exists">A felhasználónév nem létezik!</string>
-    <string name="empty_string"> </string>
+    <string name="no_internet_connection">Nincs internetkapcsolat!</string>
+
+    <!-- registration fragment -->
+    <string name="confirm_password">Jelszó mégegyszer</string>
+    <string name="invalid_password_confirm">A jelszavak nem egyeznek!</string>
     <string name="register">Regisztráció</string>
+
+    <!-- home fragment -->
+    <string name="my_profile">Profil</string>
+    <string name="treasures">Kincsek</string>
+    <string name="top_list">Toplista</string>
+    <string name="show_on_map">Kincsek a térképen</string>
+    <string name="hide_treasure">Kincs elrejtése</string>
+
+    <!-- profile fragment -->
+    <string name="refresh">Frissítés</string>
+    <string name="user_profile_no_information_error_message">"Nincs elérhető adat"</string>
+    <string name="profile_user_name_format">Felhasználónév: %1$s</string>
+    <string name="treasures_discovered">Felfedezett kincsek</string>
+    <string name="treasures_hidden">Elrejtett kincsek</string>
+    <string name="profile_treasures_discovered_format">Felfedezett kincsek száma: %1$d</string>
+    <string name="profile_treasures_hidden_format">Elrejtett kincsek száma: %1$d</string>
+    <string name="profile_username">Felhasználónév: %1$s</string>
+    <string name="profile_logout">Kijelentkezés</string>
+
+    <!-- picture upload dialog -->
     <string name="cancel">Mégsem</string>
+    <string name="choose_from_gallery">Választás galériából</string>
+    <string name="take_picture">Kép készítése</string>
+    <string name="chooser_dialog_message">Válasszon képfeltöltési opciót</string>
+    <string name="upload_profile_image">Kép feltöltése</string>
+
+    <!-- claim treasure fragment -->
     <string name="claim_treasure">Kincs begyüjtése</string>
     <string name="write_pass_code">Írja be a kincs azonosítóját!</string>
     <string name="confirm_and_claim">Kincs begyűjtése!</string>
-    <string name="hide_treasure">Kincs elrejtése</string>
-    <string name="missing_permission">Hiányzó jogosultság(ok)!</string>
-    <string name="online_mode">Online mód!</string>
-    <string name="offline_mode">Offline mód!</string>
+    <string name="do_not_claim_your_treasure">A saját kincsét nem gyűjtheti be!</string>
+    <string name="invalid_pass_code_or_treasure">Érvénytelen kincs vagy kincs azonosító!</string>
+    <string name="score_did_not_changed">Az ön pontszáma nem változott.</string>
+    <string name="score_increased">Az ön pontszáma nagyobb lett!</string>
     <string name="correct_pass_code">Érvényes kincs azonosító!</string>
+    <string name="read_qr_code">QR kód beolvasása</string>
+
+    <!-- hide treasure fragment -->
     <string name="yes">Igen!</string>
     <string name="no">Nem!</string>
     <string name="turn_on_your_gps">Kérjük kapcsolja be a gps-t!</string>
-    <string name="invalid_pass_code_or_treasure">Érvénytelen kincs vagy kincs azonosító!</string>
-    <string name="server_not_found"> Nem található ilyen kincs a szerveren! </string>
-    <string name="request_permission">Kamera hozzáférés szükséges!.</string>
-    <string name="camera_error">Az eszköz nem támogatja a Camera2 API-t.</string>
-    <string name="show_on_map">Kincsek a térképen</string>
-    <string name="score_did_not_changed">Az ön pontszáma nem változott.</string>
-    <string name="score_increased">Az ön pontszáma nagyobb lett!</string>
-    <string name="do_not_claim_your_treasure">A saját kincsét nem gyűjtheti be!</string>
-
-    <string name="chooser_dialog_message">Válasszon képfeltöltési opciót</string>
-    <string name="upload_profile_image">Kép feltöltése</string>
-    <string name="get_current_location">Jelenlegi tartózkodási hely</string>
-    <string name="pick_location">Hely választása térképről</string>
-    <string name="location_of_the_image">Kép készítési helye"</string>
-    <string name="choose_from_gallery">Választás galériából</string>
-    <string name="take_picture">Kép készítése</string>
-
-    <string name="fragment_camera2">Camera2</string>
-    <string name="fragment_view_stickers">View Stickers</string>
-    <string name="textview_empry_error">Nem lehet üress.</string>
     <string name="treasure_title">Cím:</string>
     <string name="treasure_description">Leírás:</string>
     <string name="photo_clue">Fénykép:</string>
@@ -69,19 +65,37 @@
     <string name="prize_hint">Elrejtendő kincs értéke</string>
     <string name="pass_hint">Egy egyedi azonosító szám</string>
     <string name="create_treasure">Kincs elrejtése</string>
-    <string name="all_fields_are_required">"Minden mező kitöltése kötelező!"</string>
-    <string name="user_profile_no_information_error_message">"Nincs elérhető adat"</string>
-    <string name="profile_user_name_format">Felhasználónév: %1$s</string>
-    <string name="profile_treasures_discovered_format">Felfedezett kincsek száma: %1$d</string>
-    <string name="profile_treasures_hidden_format">Elrejtett kincsek száma: %1$d</string>
-    <string name="profile_logout">Kijelentkezés</string>
-    <string name="profile_username">Felhasználónév: %1$s</string>
-    <string name="no_internet_connection">Nincs internetkapcsolat!</string>
-    <string name="read_qr_code">QR kód beolvasása</string>
+    <string name="get_current_location">Jelenlegi tartózkodási hely</string>
+    <string name="pick_location">Hely választása térképről</string>
+    <string name="location_of_the_image">Kép készítési helye"</string>
 
+    <!-- camera -->
+    <string name="request_permission">Kamera hozzáférés szükséges!.</string>
+    <string name="camera_error">Az eszköz nem támogatja a Camera2 API-t.</string>
+    <string name="fragment_camera2">Camera2</string>
+    <string name="fragment_view_stickers">View Stickers</string>
     <string name="file_string">Fájt</string>
-    <string name="top_list">Toplista</string>
-    <string name="treasures">Kincsek</string>
-    <string name="my_profile">Profil</string>
+
+    <!-- common -->
+    <string name="app_name">TreasureHunt</string>
+    <string name="password">Jelszó</string>
+    <string name="username">Felhasználónév</string>
+    <string name="score">Pontszáma</string>
+    <string name="successful">Sikeres bejelentkezés!</string>
+    <string name="empty_string"> </string>
     <string name="back_button_press">Nyomja meg mégegyszer a vissza gombot a kilépéshez.</string>
+    <string name="registration_failed">Sikertelen regisztráció!</string>
+    <string name="username_already_exists">Foglalt felhasználónév!</string>
+    <string name="invalid_username">Érvénytelen felhasználónév!</string>
+    <string name="invalid_password">Érvénytelen jelszó!</string>
+    <string name="failed_operation">Sikertelen művelet!</string>
+    <string name="login_failed">Érvénytelen bejelentkezés!</string>
+    <string name="incorrect_password">Helytelen jelszó!</string>
+    <string name="username_not_exists">A felhasználónév nem létezik!</string>
+    <string name="missing_permission">Hiányzó jogosultság(ok)!</string>
+    <string name="online_mode">Online mód!</string>
+    <string name="offline_mode">Offline mód!</string>
+    <string name="server_not_found"> Nem található ilyen kincs a szerveren! </string>
+    <string name="textview_empry_error">Nem lehet üress.</string>
+    <string name="all_fields_are_required">"Minden mező kitöltése kötelező!"</string>
 </resources>
