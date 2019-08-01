@@ -233,6 +233,7 @@ public class HideTreasureFragment extends Fragment {
                 if (response.errorBody() == null) {
                     if(!myIMGFile.getAbsolutePath().equals("")){
                         uploadToServer(myIMGFile.getAbsolutePath());
+                        Util.makeSnackbar(getView(),R.string.hidetreasurecreate,Snackbar.LENGTH_SHORT,R.color.blue);
                         getFragmentManager().popBackStack();
                     }else{
                         uploadToServer("");
