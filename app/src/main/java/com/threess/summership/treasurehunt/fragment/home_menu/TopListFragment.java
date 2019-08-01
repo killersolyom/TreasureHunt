@@ -1,7 +1,6 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,7 +34,6 @@ public class TopListFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<User> list = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout = null;
-    private Handler handler;
     private Runnable runnable;
 
     public TopListFragment() {
@@ -60,12 +58,11 @@ public class TopListFragment extends Fragment {
         recyclerview.setAdapter(adapter);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerview.setLayoutManager(layoutManager);
-        initPostDelayHandler();
+        initRunnable();
         initSwipeRefreshLayout(view);
     }
 
-    private void initPostDelayHandler(){
-        handler = new Handler();
+    private void initRunnable(){
         runnable = () -> {
             if(getContext()!=null){
                 swipeRefreshLayout.setRefreshing(false);
@@ -79,7 +76,7 @@ public class TopListFragment extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getAllUser();
-            stopRefreshingAfterDelay();
+            swipeRefreshLayout.postDelayed(runnable,Constant.FavoriteTreasure.STOP_SWIPE_REFRESHING_TIME);
         });
     }
 
@@ -88,6 +85,7 @@ public class TopListFragment extends Fragment {
                 new Callback<ArrayList<User>>() {
                     @Override
                     public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                        swipeRefreshLayout.setRefreshing(false);
                         list = response.body();
                         Collections.sort(list, (user, user2) -> Integer.compare(user2.getScore(), user.getScore()));
                         adapter.addComponents(list);
@@ -99,15 +97,10 @@ public class TopListFragment extends Fragment {
                 });
     }
 
-    private void stopRefreshingAfterDelay(){
-        handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, Constant.TOP_LIST.STOP_SWIPE_REFRESHING_TIME);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
-        handler.removeCallbacks(runnable);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

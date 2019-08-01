@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 mCurrentUser = response.body();
-                if (mCurrentUser != null) {
+                if (mCurrentUser != null && !isDetached()) {
                     setUIUserName(mCurrentUser.getUsername());
                     setUIScore(mCurrentUser.getScore());
                 }

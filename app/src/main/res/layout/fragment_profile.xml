@@ -55,7 +55,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/update"
         android:paddingTop="20dp">
-        
+
         <ImageView
             android:id="@+id/star_button"
             android:layout_width="34dp"

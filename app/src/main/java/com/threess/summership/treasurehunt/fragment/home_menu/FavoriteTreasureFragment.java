@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -50,7 +49,6 @@ public class FavoriteTreasureFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout = null;
     private boolean mShowClaimTreasure;
     private static boolean mFirstStart = true;
-    private Handler handler;
     private Runnable runnable;
 
 
@@ -77,7 +75,7 @@ public class FavoriteTreasureFragment extends Fragment {
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         initSwipeRefreshLayout(view);
-        initPostDelayHandler();
+        initRunnable();
         initLocationClient();
     }
 
@@ -87,12 +85,11 @@ public class FavoriteTreasureFragment extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getAllActiveTreasures();
-            stopRefreshingAfterDelay();
+            swipeRefreshLayout.postDelayed(runnable,Constant.FavoriteTreasure.STOP_SWIPE_REFRESHING_TIME);
         });
     }
 
-    private void initPostDelayHandler(){
-        handler = new Handler();
+    private void initRunnable(){
         runnable = () -> {
             if(getContext()!=null){
                 swipeRefreshLayout.setRefreshing(false);
@@ -149,6 +146,7 @@ public class FavoriteTreasureFragment extends Fragment {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
             public void onResponse(Call<ArrayList<Treasure>> call, Response<ArrayList<Treasure>> response) {
+                swipeRefreshLayout.setRefreshing(false);
                 adapter.setTreasureList(response.body());
             }
 
@@ -163,12 +161,16 @@ public class FavoriteTreasureFragment extends Fragment {
     private void playAnimations() {
         if(mFirstStart) {
             mFirstStart = false;
-
             Animator recViewAnim = new Animator(getContext(), recycle, true);
             recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
-
             recViewAnim.Start();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -188,17 +190,6 @@ public class FavoriteTreasureFragment extends Fragment {
             FragmentNavigation.getInstance(getContext()).showClaimTreasureFragment(treasure);
             mShowClaimTreasure = false;
         }
-    }
-
-    private void stopRefreshingAfterDelay(){
-        handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, Constant.FavoriteTreasure.STOP_SWIPE_REFRESHING_TIME);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        handler.removeCallbacks(runnable);
     }
 
     @Override
