@@ -33,9 +33,9 @@
     <!-- picture upload dialog -->
     <string name="cancel">Anulare</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
-    <!-- todo --> <string name="take_picture">Take Picture</string>
-    <!-- todo --><string name="chooser_dialog_message">Choose an option for upload an image</string>
-    <!-- todo --><string name="upload_profile_image">Upload profile image</string>
+     <string name="take_picture">Realizare fotografie</string>
+    <string name="chooser_dialog_message">Alege metoda de incarcare a imaginii</string>
+    <string name="upload_profile_image">Incarcare imagine profil</string>
 
     <!-- claim treasure fragment -->
     <string name="claim_treasure">Revendica comoara</string>
@@ -65,9 +65,9 @@
     <string name="prize_hint">Cat de multe din propriile tale puncte de premiere ai acorda?</string>
     <string name="pass_hint">Identificator unic, astfel incat poate fi validat atunci cand e revendicat </string>
     <string name="create_treasure">Creaza comoara</string>
-    <!-- todo --><string name="get_current_location">Get current location</string>
-    <!-- todo --><string name="pick_location">Pick location</string>
-    <!-- todo --><string name="location_of_the_image">Location of the image"</string>
+    <!-- todo --><string name="get_current_location">Locatia curenta</string>
+    <!-- todo --><string name="pick_location">Alege locatia</string>
+    <!-- todo --><string name="location_of_the_image">Locatia fotografiei</string>
 
     <!-- camera -->
     <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
