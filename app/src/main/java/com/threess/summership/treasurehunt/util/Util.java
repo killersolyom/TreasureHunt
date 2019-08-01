@@ -112,7 +112,6 @@ public final class Util {
             return cursor.getString(idx);
         }
     }
-
     /**
      * Checks if internet connection is available
      *

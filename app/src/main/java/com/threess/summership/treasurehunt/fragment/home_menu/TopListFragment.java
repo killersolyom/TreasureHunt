@@ -32,7 +32,6 @@ public class TopListFragment extends Fragment {
     private RecyclerView recyclerview;
     private TopListRecycleViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<User> list = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout = null;
     private Runnable runnable;
 
@@ -49,7 +48,6 @@ public class TopListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
-        getAllUser();
     }
 
     private void initComponents(View view){
@@ -86,7 +84,7 @@ public class TopListFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                         swipeRefreshLayout.setRefreshing(false);
-                        list = response.body();
+                        ArrayList<User> list = response.body();
                         Collections.sort(list, (user, user2) -> Integer.compare(user2.getScore(), user.getScore()));
                         adapter.addComponents(list);
                     }
@@ -100,14 +98,17 @@ public class TopListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if(adapter!=null){
-            adapter.notifyDataSetChanged();
+            if(adapter.isEmpty()){
+                getAllUser();
+            }else{
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 }

@@ -6,8 +6,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -28,7 +29,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     private static final String TAG = TreasureAdapter.class.getSimpleName();
     private Context mContext;
-    private ArrayList<Treasure> mTreasureList = new ArrayList<>();
+    private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure mSelectedTreasure = null;
 
 
@@ -48,29 +49,28 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
-            final Treasure treasure = mTreasureList.get(position);
-            Glide.with(mContext).load(treasure.getPhotoClue()).error(R.drawable.app_icon).circleCrop().into(holder.mTreasureImage);
+            final Treasure treasure =  treasureList.get(position);
+            Log.e("3ss",treasure.getTitle() + " " +treasure.isClaimed() + " " + treasureList.size() +" "+ treasure.getTitle().length());
+            if (!treasure.isClaimed() && treasure.getTitle().length() > 4) {
+            Glide.with(mContext).load(treasure.getPhotoClue())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.app_icon)
+                    .circleCrop()
+                    .into(holder.mTreasureImage);
             holder.mTreasureText.setText(treasure.getTitle());
-
             double score = treasure.getPrizePoints();
             int roundedScore = (int) Math.round(score);
-
-            if( score == roundedScore){
+            if (score == roundedScore) {
                 holder.mTreasureScore.setText("+" + roundedScore);
-            }else{
-                holder.mTreasureScore.setText("+"+ score);
+            } else {
+                holder.mTreasureScore.setText("+" + score);
             }
-
-            if(treasure.isClaimed()){
-                holder.mTreasureButton.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_check_circle_black_24dp));
+                holder.mLayout.setOnClickListener(v -> {
+                    mSelectedTreasure = treasure;
+                    FragmentNavigation.getInstance(mContext).
+                            startNavigationToDestination(treasure, mContext);
+                });
             }
-
-            holder.mLayout.setOnClickListener(v -> {
-                mSelectedTreasure = treasure;
-                FragmentNavigation.getInstance(mContext).
-                        startNavigationToDestination(treasure, mContext);
-            });
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     @Override
     public int getItemCount() {
-        return mTreasureList.size();
+        return  treasureList.size();
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -99,25 +99,27 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
     }
 
-    public void setTreasureList(ArrayList<Treasure> treasures){
-        if(treasures.size()!=0) {
-            mTreasureList.clear();
-        }
-        for(Treasure t : treasures){
+    public void setTreasureList(ArrayList<Treasure> treasures) {
+        treasureList.clear();
+        for (Treasure t : treasures) {
             if (t != null) {
                 if (t.getClaimedBy().equals(new SavedData(mContext).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
-                    mTreasureList.add(t);
+                    treasureList.add(t);
                 }
             }
         }
         notifyDataSetChanged();
     }
 
+    public boolean isEmpty(){
+        return treasureList.isEmpty();
+    }
+
     public Treasure getSelectedTreasure() {
         return mSelectedTreasure;
     }
 
-    public void clearSelectedTreasure(){
+    public void clearSelectedTreasure() {
         mSelectedTreasure = null;
     }
 
