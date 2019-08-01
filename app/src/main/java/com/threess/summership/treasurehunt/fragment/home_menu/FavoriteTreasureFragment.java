@@ -155,7 +155,7 @@ public class FavoriteTreasureFragment extends Fragment {
             }
         });
     }
-    
+
     private void playAnimations() {
         if(mFirstStart) {
             mFirstStart = false;

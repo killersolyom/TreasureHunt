@@ -57,7 +57,19 @@
     <dimen name="score_marginStar">96dp</dimen>
     <dimen name="score_marginTop">16dp</dimen>
 
+    <dimen name="claim_textView_width">244dp</dimen>
+    <dimen name="claim_textView_height">73dp</dimen>
+    <dimen name="Claim_textView_textSize">25sp</dimen>
+    <dimen name="claim_editText_width">262dp</dimen>
+    <dimen name="claim_editText_height">95dp</dimen>
+    <dimen name="Claim_confimButton_widht">261dp</dimen>
+    <dimen name="Claim_confimButton_hight">91dp</dimen>
+    <dimen name="Claim_confimButton_TextSie">20sp</dimen>
+    <dimen name="Claim_imageView_hight">485dp</dimen>
+    <dimen name="Claim_imageView2_width">72dp</dimen>
+    <dimen name="Claim_imageView2_hight">53dp</dimen>
     <dimen name="Claim_Toolbar_hight">60dp</dimen>
+
 
     <dimen name="cam_toolbar_elevation">4dp</dimen>
     <dimen name="cam_content_inset_primary">8dp</dimen>

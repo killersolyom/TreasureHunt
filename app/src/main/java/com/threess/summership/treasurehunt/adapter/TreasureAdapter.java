@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
             final Treasure treasure =  treasureList.get(position);
-            Log.e("3ss",treasure.getTitle() + " " +treasure.isClaimed() + " " + treasureList.size() +" "+ treasure.getTitle().length());
             if (!treasure.isClaimed() && treasure.getTitle().length() > 4) {
             Glide.with(mContext).load(treasure.getPhotoClue())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -86,7 +84,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         private ConstraintLayout mLayout;
         private TextView mTreasureText;
         private ImageView mTreasureImage;
-        private ImageView mTreasureButton;
         private TextView mTreasureScore;
 
         RecyclerViewHolder(View itemView) {
@@ -94,7 +91,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
             mLayout = itemView.findViewById(R.id.treasureListComponentLayout);
             mTreasureText = itemView.findViewById(R.id.treasureName);
             mTreasureImage = itemView.findViewById(R.id.treasureImage);
-            mTreasureButton = itemView.findViewById(R.id.treasureButton);
             mTreasureScore = itemView.findViewById(R.id.treasureScore);
         }
     }

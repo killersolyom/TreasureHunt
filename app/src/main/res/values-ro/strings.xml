@@ -65,8 +65,6 @@
     <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
     <string name="camera_error">Acest device nu supoarta Camera2 API.</string>
     <string name="location">Arata pe mapa</string>
-    <string name="Treasures_hidden">Treasures hidden</string>
-    <string name="update">Update photo</string>
 
     <!-- fragment tags -->
     <string name="fragment_camera2">Camera2</string>
@@ -108,6 +106,11 @@
     <string name="treasures">Comori</string>
     <string name="my_profile">Profil</string>
     <string name="back_button_press">Apasa inapoi pentru a iesi.</string>
+    <string name="Treasures_hidden">Treasures hidden</string>
+    <string name="update">Update photo</string>
+    <string name="claim_error_no_score_change">Your score did not change.</string>
+    <string name="claim_snack_bar_error_treasure_not_available"> Not available treasure on server </string>
+    <string name="claim_snack_bar_error_internet"> No internet connection!Please turn on the wifi </string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="take_picture">Take Picture</string>
     <string name="Chooser_dialog_message">Choose an option for upload an image</string>
