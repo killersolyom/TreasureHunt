@@ -1,6 +1,5 @@
 package com.threess.summership.treasurehunt.util;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ public class ChooserDialog extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Dialog_Alert)
                 .setTitle(getActivity().getString(R.string.upload_profile_image))
-                .setMessage(getActivity().getString(R.string.Chooser_dialog_message))
+                .setMessage(getActivity().getString(R.string.chooser_dialog_message))
                 .setNegativeButton(getActivity().getString(R.string.choose_from_gallery), (dialog, which) -> ProfileFragment.sInstance.pickFromGallery())
                 .setPositiveButton(getActivity().getString(R.string.take_picture), (dialog, which)
                         -> {

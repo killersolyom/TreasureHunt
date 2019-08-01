@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +91,7 @@ public class ClaimTreasureFragment extends Fragment {
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.blue300);
+                    Util.makeSnackbar(mView, R.string.correct_pass_code, Snackbar.LENGTH_SHORT, R.color.blue300);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
@@ -102,7 +101,7 @@ public class ClaimTreasureFragment extends Fragment {
                 }
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
+                    Util.makeSnackbar(mView, R.string.server_not_found, Snackbar.LENGTH_SHORT, R.color.orange900);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
@@ -134,10 +133,10 @@ public class ClaimTreasureFragment extends Fragment {
                         && !this.mTreasure.getUsername().equals(sd.getUserName()))
         );
         if(!ok && this.mTreasure.getUsername().equals(sd.getUserName())){
-            Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.orange900);
+            Util.makeSnackbar(mView,R.string.do_not_claim_your_treasure,Snackbar.LENGTH_SHORT,R.color.orange900);
         }
         if(!ok && !(myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
-            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.orange900);
+            Util.makeSnackbar( mView, R.string.invalid_pass_code_or_treasure, Snackbar.LENGTH_LONG, R.color.orange900);
         }
         return  ok;
     }
@@ -145,13 +144,13 @@ public class ClaimTreasureFragment extends Fragment {
         ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call1, Response<Object> response1) {
-                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
+                Util.makeSnackbar(mView, R.string.score_increased, Snackbar.LENGTH_SHORT, R.color.blue300);
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
-                Util.makeSnackbar(mView,R.string.Claim_Error4,Snackbar.LENGTH_SHORT,R.color.orange900);
+                Util.makeSnackbar(mView,R.string.score_did_not_changed,Snackbar.LENGTH_SHORT,R.color.orange900);
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });

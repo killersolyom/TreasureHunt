@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
-                    toolbar.setTitle(R.string.location);
+                    toolbar.setTitle(R.string.show_on_map);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
                 case 4:

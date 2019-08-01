@@ -168,32 +168,32 @@ public class HideTreasureFragment extends Fragment {
     private boolean checkInputFields() {
         if (titleEditText.getText().toString().isEmpty()) {
             titleEditText.requestFocus();
-            titleEditText.setError(getString(R.string.hidetreasureerror));
+            titleEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         if (descriptionEditText.getText().toString().isEmpty()) {
             descriptionEditText.requestFocus();
-            descriptionEditText.setError(getString(R.string.hidetreasureerror));
+            descriptionEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         if (photoEditText.getText().toString().isEmpty()) {
             photoEditText.requestFocus();
-            photoEditText.setError(getString(R.string.hidetreasureerror));
+            photoEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         if (locationEditText.getText().toString().isEmpty()) {
             locationEditText.requestFocus();
-            locationEditText.setError(getString(R.string.hidetreasureerror));
+            locationEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         if (pointsEditText.getText().toString().isEmpty()) {
             pointsEditText.requestFocus();
-            pointsEditText.setError(getString(R.string.hidetreasureerror));
+            pointsEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         if (passcodeEditText.getText().toString().isEmpty()) {
             passcodeEditText.requestFocus();
-            passcodeEditText.setError(getString(R.string.hidetreasureerror));
+            passcodeEditText.setError(getString(R.string.textview_empry_error));
             return false;
         }
         return true;
@@ -230,7 +230,7 @@ public class HideTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Treasure> call, Throwable t) {
-                Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
+                Util.makeSnackbar(getView(), R.string.server_not_found, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
     }

@@ -94,7 +94,7 @@ public class RegistrationFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
+                Util.makeSnackbar(getView(), R.string.server_not_found, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
     }

@@ -28,13 +28,13 @@
         android:id="@+id/action_location"
         android:enabled="true"
         android:icon="@drawable/ic_location"
-        android:title="@string/location"
+        android:title="@string/show_on_map"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_hide_treasure"
         android:enabled="true"
         android:icon="@drawable/ic_add_treasure"
-        android:title="Hide treasure"
+        android:title="@string/hide_treasure"
         app:showAsAction="ifRoom" />
 </menu>
