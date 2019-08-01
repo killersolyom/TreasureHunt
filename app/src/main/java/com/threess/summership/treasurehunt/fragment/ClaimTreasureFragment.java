@@ -84,9 +84,7 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void verifyResult(){
-        if(mHasQRCode) {
-            Log.e(TAG, mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
-        }
+        Log.e("3ss",mTreasure.getPasscode());
         if (isValidTreasure()) {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
@@ -150,14 +148,15 @@ public class ClaimTreasureFragment extends Fragment {
         ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call1, Response<Object> response1) {
-                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
+                try {
+                    Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
+                }catch (Exception ignored){}
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
                 Util.makeSnackbar(mView,R.string.claim_error_no_score_change,Snackbar.LENGTH_SHORT,R.color.orange900);
-                Log.e("boti", t.getMessage());
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
