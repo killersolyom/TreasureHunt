@@ -10,20 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -37,9 +31,7 @@ public class FragmentNavigation extends Fragment {
     private static Handler mHandler = new Handler();
     private Activity act;
     private static int mMainActivityFragmentContainer;
-    //private static int mHomeFragmentContainer;
     private static int mHomeTreasereFragmentContainer;
-
 
     public static FragmentNavigation getInstance(Context context) {
 
@@ -77,38 +69,6 @@ public class FragmentNavigation extends Fragment {
     public void showClaimTreasureFragment(Treasure treasure) {
         addFragment(new ClaimTreasureFragment(treasure), mMainActivityFragmentContainer);
     }
-
-    public void showHideTreasureFragment() {
-        replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
-    }
-
-    public void showHideTreasureFragment(double latitude, double longitude) {
-        replaceFragment(MapViewFragment.newInstance(latitude, longitude), R.id.fragment_container);
-    }
-
-    public void showMapViewFragmentInHomeFragment() {
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new MapViewFragment(), mHomeTreasereFragmentContainer);
-        }
-    }
-
-    public void showFavoriteTreasureListFragmentInHomeFragment() {
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new FavoriteTreasureFragment(), mHomeTreasereFragmentContainer);
-        }
-    }
-
-    public void showProfileFragmentInHomeFragment() {
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new ProfileFragment(), mHomeTreasereFragmentContainer);
-        }
-    }
-
-    public void showTopListFragment() {
-        replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
-    }
-
-    private boolean doubleBackToExitPressedOnce = false;
 
 
     /**
