@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
@@ -31,8 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Load saved language if exists. If not, then load default language:
+        //Util.loadSavedLanguage( getApplicationContext() );
+        //recreate();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentNavigation.getInstance(this).showSplashScreenFragment();
         ApiController.getInstance(this);
         handler = new Handler();
@@ -53,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED){
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
     }
@@ -125,4 +132,5 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
+
 }

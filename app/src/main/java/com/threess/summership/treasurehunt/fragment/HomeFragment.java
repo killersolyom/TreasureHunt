@@ -14,17 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.LanguageRecyclerViewAdapter;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
-import com.threess.summership.treasurehunt.model.Language;
 import com.threess.summership.treasurehunt.util.Util;
 
-import java.util.ArrayList;
 import com.threess.summership.treasurehunt.logic.SavedData;
 
 
@@ -35,8 +30,10 @@ public class HomeFragment extends Fragment {
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private Button toolbarButton;
+    // Language selector:
     private LanguageRecyclerViewAdapter mLanguageAdapter;
     private RecyclerView mLanguageRecyclerView;
+    private static AlertDialog.Builder mLanguageAlertDialog;
 
     public HomeFragment() {
     }
@@ -45,7 +42,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         return view;
     }
 
@@ -59,10 +55,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindClickListeners(){
-        toolbarButton.setOnClickListener(v -> showLanguages() );
+        toolbarButton.setOnClickListener(v -> showLanguageSelector() );
     }
 
-    private void showLanguages(){
+    private void showLanguageSelector(){
 
         LayoutInflater factory = LayoutInflater.from(getContext());
         View view = factory.inflate(R.layout.alert_dialog_select_language, null);
@@ -74,9 +70,11 @@ public class HomeFragment extends Fragment {
         mLanguageRecyclerView.setAdapter( mLanguageAdapter );
         mLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        alertDialog.setView(view);
-        alertDialog.show();
+        mLanguageAlertDialog = new AlertDialog.Builder(getContext());
+        mLanguageAlertDialog.setView(view);
+        //mLanguageAlertDialog.show();
+        mLanguageAlertDialog.show();
+        view.setOnClickListener( v -> mLanguageAlertDialog.create().dismiss());
     }
 
     private void bindViews(View view) {

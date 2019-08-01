@@ -23,7 +23,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Language;
 
 import java.util.ArrayList;
@@ -139,14 +141,43 @@ public final class Util {
 
     public static ArrayList<Language> getLanguages(){
         if( mLanguages.isEmpty() ){
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
-            mLanguages.add(new Language( Constant.SavedData.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
         }
         return mLanguages;
     }
 
-    public static void changeLanguage(Context context, Language language) {
-        LocaleHelper.setLocale(context, language.getKey());
+    public static void changeApplicationLanguage(Context context, Language language) {
+        changeApplicationLanguage(context, language.getKey());
+    }
+
+    public static void changeApplicationLanguage(Context context, String languageKey) {
+        Locale locale = new Locale( languageKey );
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        new SavedData(context).setLanguage( Util.getLanguageById(languageKey) );
+    }
+
+    public static void loadSavedLanguage(Context context){
+        Language language = new SavedData(context).getLanguage();
+        if( language != null ){
+            changeApplicationLanguage(context, language);
+        }else{
+            // load default english
+            Language defaultLang = getLanguages().get(0);
+            changeApplicationLanguage(context, defaultLang );
+        }
+    }
+
+    public static Language getLanguageById(String id){
+        for( Language lang : getLanguages() ){
+            if( lang.getKey().equals(id) ){
+                return lang;
+            }
+        }
+        return null;
     }
 }

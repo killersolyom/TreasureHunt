@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import com.threess.summership.treasurehunt.model.Language;
 import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.Util;
 
 public class SavedData {
     private static final String TAG = SavedData.class.getSimpleName();
@@ -139,5 +141,17 @@ public class SavedData {
 
     public void setScore(float score){
         writeFloatData(Constant.SavedData.USER_SCORE,score);
+    }
+
+    public void setLanguage(Language language){
+        writeStringData(language.getKey(), Constant.SavedData.Language.LANGUAGE_KEY);
+    }
+
+    public Language getLanguage(){
+        String langStr = readStringData(Constant.SavedData.Language.LANGUAGE_KEY);
+        if( langStr.isEmpty() ){
+            return null; // error
+        }
+        return Util.getLanguageById(langStr);
     }
 }

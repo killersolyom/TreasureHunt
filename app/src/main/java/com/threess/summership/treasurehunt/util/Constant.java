@@ -61,10 +61,12 @@ public class Constant {
         public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
         public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
         public static final String USER_SCORE = "user_score";
-        public static final String LANGUAGE_KEY = "language";
-        public static final String LANGUAGE_KEY_ENGLISH = "en";
-        public static final String LANGUAGE_KEY_ROMANIA = "ro";
-        public static final String LANGUAGE_KEY_HUNGARY = "hu";
+        public static class Language {
+            public static final String LANGUAGE_KEY = "language";
+            public static final String LANGUAGE_KEY_ENGLISH = "en";
+            public static final String LANGUAGE_KEY_ROMANIA = "ro";
+            public static final String LANGUAGE_KEY_HUNGARY = "hu";
+        }
     }
 
     public static class Camera {

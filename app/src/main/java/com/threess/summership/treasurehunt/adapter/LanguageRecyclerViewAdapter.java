@@ -1,24 +1,32 @@
 package com.threess.summership.treasurehunt.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Language;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRecyclerViewAdapter.RecyclerViewHolder> {
 
@@ -57,9 +65,18 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
             // Set language name:
             holder.mLanguageName.setText(language.getName());
 
+            if(new SavedData(mContext).getLanguage().getKey().equals(language.getKey())) {
+                holder.mLanguageName.setTextColor(mContext.getResources().getColor( R.color.blue300) );
+            }
+
             holder.mLayout.setOnClickListener(v -> {
                 mSelectedLanguage = language;
-                Util.changeLanguage(mContext, language);
+
+                //new SavedData(mContext).setLanguage( language );
+
+                Util.changeApplicationLanguage(mContext, language);
+
+                ((MainActivity)mContext).recreate(); // Refresh layout
             });
 
         } catch (Exception e) {
