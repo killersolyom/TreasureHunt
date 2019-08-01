@@ -49,7 +49,8 @@ public class ClaimTreasureFragment extends Fragment {
     private boolean mHasQRCode = false;
     Handler mHandler;
 
-    public ClaimTreasureFragment() {}
+    public ClaimTreasureFragment() {
+    }
 
     @SuppressLint("ValidFragment")
     public ClaimTreasureFragment(Treasure treasure) {
@@ -64,12 +65,12 @@ public class ClaimTreasureFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mHandler=new Handler();
+        mHandler = new Handler();
         myEditText = view.findViewById(R.id.editText);
         myConfirmButton = view.findViewById(R.id.confirmButton);
         backImageButton = view.findViewById(R.id.imageView2);
         qrCodeReaderButtn = view.findViewById(R.id.qrCode_button);
-        mDescriptionText=view.findViewById(R.id.textView);
+        mDescriptionText = view.findViewById(R.id.textView);
         mView = view;
         backImageButton.setOnClickListener(view12 -> FragmentNavigation.getInstance(getContext()).popBackstack());
         qrCodeReaderButtn.setOnClickListener(v -> {
@@ -83,26 +84,22 @@ public class ClaimTreasureFragment extends Fragment {
         });
     }
 
-    private void verifyResult(){
-        if(mHasQRCode) {
-            Log.e(TAG, mTreasure.getPasscode() + " " + resultPassCodeFromQrCodeScanner);
-        }
+    private void verifyResult() {
         if (isValidTreasure()) {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
-            sd.setScore((float)(mTreasure.getPrizePoints()+ sd.getScore()));
+            sd.setScore((float) (mTreasure.getPrizePoints() + sd.getScore()));
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
-                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.blue300);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
-//                        FavoriteTreasureFragment favoriteTreasureFragment= (FavoriteTreasureFragment)FragmentNavigation.getInstance(getContext()).getCurrentFragmentOnHomeFragment();
-//                        favoriteTreasureFragment.refreshTreasures();
-                        scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
-                    },3500);
+                        scoreUpdate(sd, mTreasure.getPrizePoints() + sd.getScore());
+
+                    }, 3500);
                 }
                 @Override
                 public void onFailure(Call<Object> call, Throwable t) {
@@ -118,47 +115,50 @@ public class ClaimTreasureFragment extends Fragment {
         ImageView im = mView.findViewById(R.id.image_succsesfull_icon);
         hideItems();
 
-        Animator animator= new Animator(getContext(),im,true);
-        animator.AddScale(0,1.2f,0,1.2f,.5f,.5f,1000);
-        animator.AddAlpha(1,0.40f, 0,false,6000);
+        Animator animator = new Animator(getContext(), im, true);
+        animator.AddScale(0, 1.2f, 0, 1.2f, .5f, .5f, 1000);
+        animator.AddAlpha(1, 0.40f, 0, false, 6000);
         animator.Start();
 
-        Animator animator2 = new Animator(getContext(),im);
-        animator2.AddScale(1.2f,0.75f,1.2f,0.75f,.5f,.5f,1000);
-        animator.AddAlpha(0.25f,1,0,true,3000);
+        Animator animator2 = new Animator(getContext(), im);
+        animator2.AddScale(1.2f, 0.75f, 1.2f, 0.75f, .5f, .5f, 1000);
+        animator.AddAlpha(0.25f, 1, 0, true, 3000);
         animator2.Start(2000);
 
-        mHandler.postDelayed(() -> im.setVisibility(View.INVISIBLE),1000);
+        mHandler.postDelayed(() -> im.setVisibility(View.INVISIBLE), 1000);
     }
 
-    private boolean isValidTreasure(){
+    private boolean isValidTreasure() {
         SavedData sd = new SavedData(getContext());
-        boolean ok= ((this.mTreasure!=null && !mTreasure.isClaimed()
+        boolean ok = ((this.mTreasure != null && !mTreasure.isClaimed()
                 && (this.mTreasure.getPasscode().equals(resultPassCodeFromQrCodeScanner)))
-                    || (myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode())
-                        && !this.mTreasure.getUsername().equals(sd.getUserName()))
+                || (myEditText.getText().toString().trim().equals(this.mTreasure.getPasscode())
+                && !this.mTreasure.getUsername().equals(sd.getUserName()))
         );
-        if(!ok && this.mTreasure.getUsername().equals(sd.getUserName())){
-            Util.makeSnackbar(mView,R.string.Claim_error3,Snackbar.LENGTH_SHORT,R.color.orange900);
+        if (!ok && this.mTreasure.getUsername().equals(sd.getUserName())) {
+            Util.makeSnackbar(mView, R.string.Claim_error3, Snackbar.LENGTH_SHORT, R.color.orange900);
         }
-        if(!ok && !(myEditText.getText().toString().trim().equals( this.mTreasure.getPasscode()))){
-            Util.makeSnackbar( mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.orange900);
+        if (!ok && !(myEditText.getText().toString().trim().equals(this.mTreasure.getPasscode()))) {
+            Util.makeSnackbar(mView, R.string.Claim_snackBarError1, Snackbar.LENGTH_LONG, R.color.orange900);
         }
-        return  ok;
+        return ok;
     }
-    private void scoreUpdate(SavedData sd,Double newScore){
+
+    private void scoreUpdate(SavedData sd, Double newScore) {
         ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call1, Response<Object> response1) {
-                try {
-                    Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
-                }catch (Exception ignored){}
+                if (!isDetached()) {
+                    Util.makeSnackbar(getView(), R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
+                }
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
-                Util.makeSnackbar(mView,R.string.claim_error_no_score_change,Snackbar.LENGTH_SHORT,R.color.orange900);
+                if (!isDetached()){
+                    Util.makeSnackbar(getView(), R.string.claim_error_no_score_change, Snackbar.LENGTH_SHORT, R.color.orange900);
+                }
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
@@ -175,7 +175,7 @@ public class ClaimTreasureFragment extends Fragment {
         }
     }
 
-    public void hideItems(){
+    public void hideItems() {
         backImageButton.setVisibility(mView.INVISIBLE);
         qrCodeReaderButtn.setVisibility(mView.INVISIBLE);
         myConfirmButton.setVisibility(mView.INVISIBLE);
