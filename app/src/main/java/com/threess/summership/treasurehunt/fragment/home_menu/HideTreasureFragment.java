@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
@@ -27,6 +29,8 @@ import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -129,6 +133,7 @@ public class HideTreasureFragment extends Fragment {
     }
 
 
+
     private void findIds(View view) {
         button = view.findViewById(R.id.Button);
         titleEditText = view.findViewById(R.id.teasing_edit_text);
@@ -145,6 +150,8 @@ public class HideTreasureFragment extends Fragment {
         if (checkInputFields()) {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
+            HomeFragment.showPage(1);
+
         }
     }
 
@@ -186,6 +193,12 @@ public class HideTreasureFragment extends Fragment {
             passcodeEditText.setError(getString(R.string.hidetreasureerror));
             return false;
         }
+        if(TreasureAdapter.checkThisPasscodeIsAvailable(passcodeEditText.getText().toString())){
+            Util.makeSnackbar(getView(),R.string.hidetreasureerror2,Snackbar.LENGTH_SHORT,R.color.orange900);
+            return false;
+
+        }
+
         return true;
     }
 

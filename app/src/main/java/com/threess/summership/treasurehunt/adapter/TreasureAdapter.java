@@ -28,7 +28,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     private static final String TAG = TreasureAdapter.class.getSimpleName();
     private Context mContext;
-    private ArrayList<Treasure> treasureList = new ArrayList<>();
+    private static ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure mSelectedTreasure = null;
 
 
@@ -74,6 +74,15 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         }
 
     }
+
+    public static boolean checkThisPasscodeIsAvailable(String passcode){
+        for (Treasure treasure: treasureList)
+        {
+            if(!treasure.getPasscode().isEmpty() && treasure.getPasscode().equals(passcode))return true;
+        }
+        return false;
+    }
+
 
     @Override
     public int getItemCount() {

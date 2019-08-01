@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static java.lang.StrictMath.abs;
 
 
 public class ClaimTreasureFragment extends Fragment {
@@ -89,7 +90,7 @@ public class ClaimTreasureFragment extends Fragment {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
-            sd.setScore((float) (mTreasure.getPrizePoints() + sd.getScore()));
+            sd.setScore((float) (abs(mTreasure.getPrizePoints()) + abs(sd.getScore())));
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
@@ -101,11 +102,9 @@ public class ClaimTreasureFragment extends Fragment {
 
                     }, 3500);
                 }
-
                 @Override
                 public void onFailure(Call<Object> call, Throwable t) {
-                    Util.makeSnackbar(mView, R.string.claim_snack_bar_error_treasure_not_available, Snackbar.LENGTH_SHORT, R.color.orange900);
-                    Log.e("boti", "failureFirst");
+                    Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
