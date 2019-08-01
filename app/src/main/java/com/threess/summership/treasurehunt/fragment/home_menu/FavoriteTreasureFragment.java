@@ -44,12 +44,12 @@ public class FavoriteTreasureFragment extends Fragment {
     public static final String TAG = FavoriteTreasureFragment.class.getSimpleName();
 
     private RecyclerView recycle;
-    private TreasureAdapter adapter;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private SwipeRefreshLayout swipeRefreshLayout = null;
     private boolean mShowClaimTreasure;
     private static boolean mFirstStart = true;
     private Runnable runnable;
+    private TreasureAdapter adapter;
 
 
     public FavoriteTreasureFragment() {
@@ -65,7 +65,6 @@ public class FavoriteTreasureFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
-        getAllActiveTreasures();
         playAnimations();
     }
 
@@ -153,7 +152,6 @@ public class FavoriteTreasureFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
                 adapter.setTreasureList(response.body());
             }
-
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
@@ -182,11 +180,16 @@ public class FavoriteTreasureFragment extends Fragment {
         super.onStart();
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
         if(adapter!=null){
-            adapter.notifyDataSetChanged();
+            if(adapter.isEmpty()){
+                getAllActiveTreasures();
+            }else{
+                adapter.notifyDataSetChanged();
+            }
         }
         if (mShowClaimTreasure && adapter.getSelectedTreasure() != null) {
             Treasure treasure = adapter.getSelectedTreasure();

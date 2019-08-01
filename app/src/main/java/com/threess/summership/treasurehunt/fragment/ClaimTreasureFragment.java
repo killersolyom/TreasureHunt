@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -151,20 +150,19 @@ public class ClaimTreasureFragment extends Fragment {
         ApiController.getInstance().updateScore(sd.getUserName(), newScore, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call1, Response<Object> response1) {
-                Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue);
-                Log.e("boti", response1.message());
+                try {
+                    Util.makeSnackbar(mView, R.string.Claim_snackBar_scoreUpdate, Snackbar.LENGTH_SHORT, R.color.blue300);
+                }catch (Exception ignored){}
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
-                Util.makeSnackbar(mView,R.string.Claim_Error4,Snackbar.LENGTH_SHORT,R.color.orange900);
-                Log.e("boti", t.getMessage());
+                Util.makeSnackbar(mView,R.string.claim_error_no_score_change,Snackbar.LENGTH_SHORT,R.color.orange900);
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

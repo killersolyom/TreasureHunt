@@ -21,11 +21,9 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 import com.threess.summership.treasurehunt.util.Util;
@@ -58,10 +56,9 @@ public class HideTreasureFragment extends Fragment {
     private EditText locationEditText;
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private double latitude,longitude;
+    private double latitude, longitude;
     private Treasure treasure;
     private File myIMGFile;
-    private HashMap<String,Treasure> mCurrentTreasures;
 
     public HideTreasureFragment() {
         // constructor
@@ -78,11 +75,11 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
-        if(getArguments() != null){
-            latitude=getArguments().getDouble(MapViewFragment.KEY1);
-            longitude=getArguments().getDouble(MapViewFragment.KEY2);
-            locationEditText.setText( latitude +" , "+longitude);
-        }else{
+        if (getArguments() != null) {
+            latitude = getArguments().getDouble(MapViewFragment.KEY1);
+            longitude = getArguments().getDouble(MapViewFragment.KEY2);
+            locationEditText.setText(latitude + " , " + longitude);
+        } else {
             locationEditText.setText(LocatingUserLocation.getInstance().tryToGetLocationString(getContext()));
         }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
@@ -130,10 +127,7 @@ public class HideTreasureFragment extends Fragment {
 
 
         photoClueArrow.setOnClickListener(view12 -> buttonCameraPress());
-
         button.setOnClickListener(view1 -> buttonPress());
-
-        playAnimations(view);
         myIMGFile = null;
 
     }
@@ -161,17 +155,11 @@ public class HideTreasureFragment extends Fragment {
         }
     }
 
-    private void buttonCameraPress(){
-        Intent takePictureIntent = new Intent(getActivity(),CameraActivity.class);
+    private void buttonCameraPress() {
+        Intent takePictureIntent = new Intent(getActivity(), CameraActivity.class);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-        // Take image
-
-        // Upload image (API)
-
-        // get->set link
-
     }
 
     private boolean checkInputFields() {
@@ -216,14 +204,15 @@ public class HideTreasureFragment extends Fragment {
 
     private Treasure getInputFields() {
         treasure = new Treasure();
+        LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
         treasure.setTitle(titleEditText.getText().toString().trim());
         treasure.setDescription(descriptionEditText.getText().toString().trim());
         treasure.setPrizePoints(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhotoClue(photoEditText.getText().toString().trim());
         treasure.setUsername(dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY));
-        treasure.setLocationLat(latitude);
-        treasure.setLocationLon(longitude);
+        treasure.setLocationLat(latLng.latitude);
+        treasure.setLocationLon(latLng.longitude);
         return treasure;
     }
 
@@ -231,16 +220,21 @@ public class HideTreasureFragment extends Fragment {
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    if(!myIMGFile.getAbsolutePath().equals("")){
-                        uploadToServer(myIMGFile.getAbsolutePath());
-                        Util.makeSnackbar(getView(),R.string.hidetreasurecreate,Snackbar.LENGTH_SHORT,R.color.blue);
-                        getFragmentManager().popBackStack();
-                    }else{
-                        uploadToServer("");
-                        getFragmentManager().popBackStack();
+                    try {
+                        if (!myIMGFile.getAbsolutePath().equals("")) {
+                            uploadToServer(myIMGFile.getAbsolutePath());
+                            Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                            HomeFragment.viewPager.setCurrentItem(1);
+
+                        }
+                    }catch (Exception ignored){
+                        uploadToServer(photoEditText.getText().toString());
+                        Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                        HomeFragment.viewPager.setCurrentItem(1);
                     }
                 } else {
-                    Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
+                    Util.errorHandling(getView(), response.errorBody().source().toString(), response.code());
+                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.orange900);
                 }
             }
 
@@ -251,23 +245,21 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
-    private void playAnimations(View view) {
-
-        Context c = getContext();
-        // TODO implement after finishing the .xml
-
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
-            myIMGFile = new File(filePath);
-            LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
-            this.latitude = latLng.latitude;
-            this.longitude = latLng.longitude;
-            locationEditText.setText(latLng.latitude+ "," + latLng.longitude);
-            photoEditText.setText(filePath);
+            try {
+                String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
+                myIMGFile = new File(filePath);
+                LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
+                this.latitude = latLng.latitude;
+                this.longitude = latLng.longitude;
+                locationEditText.setText(latLng.latitude + "," + latLng.longitude);
+                photoEditText.setText(filePath);
+            }catch (Exception e){
+                Util.makeSnackbar(getView(),R.string.camera_error,Snackbar.LENGTH_SHORT,R.color.orange800);
+            }
+
         }
     }
 

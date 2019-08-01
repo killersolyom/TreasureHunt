@@ -19,6 +19,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        app:layout_constraintEnd_toEndOf="@+id/profile_image_view"
+        app:layout_constraintStart_toStartOf="@+id/profile_image_view"
+        app:layout_constraintTop_toTopOf="@+id/profile_image_view"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        />
+
     <ImageView
         android:layout_width="@dimen/profile_edit_image_view_size"
         android:layout_height="@dimen/profile_edit_image_view_size"

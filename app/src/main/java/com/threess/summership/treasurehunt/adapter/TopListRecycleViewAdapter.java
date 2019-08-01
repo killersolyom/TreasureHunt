@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.model.User;
 import com.threess.summership.treasurehunt.util.Constant;
@@ -19,8 +20,7 @@ import java.util.ArrayList;
 
 public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecycleViewAdapter.TopListViewHolder> {
     private static final String TAG = TopListRecycleViewAdapter.class.getSimpleName();
-
-    private ArrayList<User> list = new ArrayList<>();
+    private ArrayList<User> userList = new ArrayList<>();
     private Context context;
 
     public TopListRecycleViewAdapter(Context context) {
@@ -35,20 +35,23 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
 
     @Override
     public void onBindViewHolder(TopListViewHolder holder, final int position) {
-        holder.nameTextView.setText(list.get(position).getUsername());
-        holder.scoreNumberTextView.setText( String.valueOf(list.get(position).getScore()));
+        holder.nameTextView.setText(userList.get(position).getUsername());
+        holder.scoreNumberTextView.setText( String.valueOf(userList.get(position).getScore()));
         Glide.with(context)
-                .load(Constant.ApiController.BASE_URL + list.get(position).getProfilpicture())
+                .load(Constant.ApiController.BASE_URL +
+                        userList.get(position).getProfilpicture())
                 .circleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_pic)
                 .override(250)
                 .placeholder(context
                         .getDrawable(R.drawable.default_pic)).into(holder.pictureImageView);
 
         holder.itemView.setOnClickListener(view -> {
-            if (list.get(position) != null) {
-                showUserProfile(list.get(position),
-                        Constant.ApiController.BASE_URL + list.get(position).getProfilpicture());
+            if (userList.get(position) != null) {
+                showUserProfile(userList.get(position),
+                        Constant.ApiController.BASE_URL +
+                                userList.get(position).getProfilpicture());
             }
         });
 
@@ -66,6 +69,7 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
         Glide.with(context)
                 .load(imageUrl)
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_pic)
                 .into(profilePicture);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -74,23 +78,25 @@ public class TopListRecycleViewAdapter extends RecyclerView.Adapter<TopListRecyc
     }
 
     public void addComponents(ArrayList<User> users){
-        list.clear();
-        list.addAll(users);
+        userList.clear();
+        userList.addAll(users);
         notifyDataSetChanged();
+    }
+
+    public boolean isEmpty(){
+        return userList.isEmpty();
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return userList.size();
     }
 
     public static class TopListViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView scoreNumberTextView;
         public ImageView pictureImageView;
-
         public TopListViewHolder(View itemView) {
-
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             scoreNumberTextView = itemView.findViewById(R.id.scoreNumberTextView);
