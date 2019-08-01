@@ -1,7 +1,6 @@
 package com.threess.summership.treasurehunt;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver networkReceiver;
     private Handler handler;
     private Runnable runnable;
-    public static MainActivity sInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +41,25 @@ public class MainActivity extends AppCompatActivity {
         // Load saved language if exists. If not, then load default language:
         //Util.loadSavedLanguage( getApplicationContext() );
         //recreate();
-        sInstance = this;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         FragmentNavigation.getInstance(this).showSplashScreenFragment();
         ApiController.getInstance(this);
-        handler = new Handler();
-        runnable = () -> {
-            if(getApplicationContext()!=null){
-                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
-                registerNetworkBroadcastReceiver();
-            }
-        };
-
+        initNetworkHandler();
         networkHandler();
+        checkPermission();
+    }
+
+
+    private void checkPermission(){
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -75,9 +70,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initNetworkHandler() {
+        handler = new Handler();
+        runnable = () -> {
+            if (getApplicationContext() != null) {
+                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
+                registerNetworkBroadcastReceiver();
+            }
+        };
+    }
+
     private void registerNetworkBroadcastReceiver() {
-            registerReceiver(networkReceiver,
-                    new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(networkReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     protected void unregisterNetworkBroadcastReceiver() {
@@ -94,16 +99,15 @@ public class MainActivity extends AppCompatActivity {
         unregisterNetworkBroadcastReceiver();
     }
 
-    public void networkHandler(){
+    public void networkHandler() {
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, 2000);
     }
 
 
-
     @Override
     public void onBackPressed() {
-        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this);
+        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this, findViewById(R.id.fragment_container));
     }
 
     @Override
@@ -116,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        for(int it: grantResults){
-            if(it != PERMISSION_GRANTED){
-                Util.makeSnackbar(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG,R.color.orange700);
+        for (int it : grantResults) {
+            if (it != PERMISSION_GRANTED) {
+                Util.makeSnackbar(findViewById(R.id.fragment_container), R.string.missing_permission, Snackbar.LENGTH_LONG, R.color.orange700);
                 return;
             }
         }

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.Toast;
 
 import com.threess.summership.treasurehunt.MainActivity;
@@ -23,6 +25,7 @@ import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Util;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
@@ -192,11 +195,11 @@ public class FragmentNavigation extends Fragment {
      * pages.
      * @param activity activity instance
      */
-     public void onBackPressed(MainActivity activity) {
+     public void onBackPressed(MainActivity activity, View view) {
 
         // If Home page is open: double press exit:
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            doublePressExit(activity);
+            doublePressExit(activity, view);
             return;
         }
 
@@ -205,8 +208,7 @@ public class FragmentNavigation extends Fragment {
              return;
          }
 
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment
-                || getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment) {
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment) {
             showHomeFragment();
             return;
         }
@@ -217,7 +219,7 @@ public class FragmentNavigation extends Fragment {
 
 
 
-    private void doublePressExit(MainActivity activity) {
+    private void doublePressExit(MainActivity activity, View view) {
 
         if (mDoubleBackToExitPressedOnce) {
             mDoubleBackToExitPressedOnce = false;
@@ -227,7 +229,7 @@ public class FragmentNavigation extends Fragment {
 
         mDoubleBackToExitPressedOnce = true;
 
-        Toast.makeText(activity, getString(R.string.back_button_press), Toast.LENGTH_SHORT).show();
+        Util.makeSnackbar(view, R.string.back_button_press, Snackbar.LENGTH_SHORT, R.color.blue300);
 
         mHandler.postDelayed(() -> mDoubleBackToExitPressedOnce = false, 2000);
     }

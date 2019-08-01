@@ -1,17 +1,10 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -32,17 +25,13 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.util.ChooserDialog;
-import com.threess.summership.treasurehunt.util.Constant;
-
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.ChooserDialog;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -271,7 +260,6 @@ public class ProfileFragment extends Fragment {
 
     private void uploadImageToServer_(String fileStr) {
         // Create a file object using file path
-
         File file = new File(fileStr);
         // Create a request body with file and image media type
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -296,22 +284,30 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUIUserName(String userName) {
-        mUserNameTextView.setText(getString(R.string.profile_user_name_format, userName));
+        if(!isDetached()){
+            mUserNameTextView.setText(getString(R.string.profile_user_name_format, userName));
+        }
     }
 
 
     private void setUIScore(int score){
-        profileScoreTextView.setText(score+"");
+        if(!isDetached()){
+            profileScoreTextView.setText(String.valueOf(score));
+        }
     }
 
 
     private void setUITreasuresHidden(int treasuresHidden) {
-        mTreasuresHiddenTextView.setText(getString(R.string.profile_treasures_discovered_format, treasuresHidden));
+        if(!isDetached()){
+            mTreasuresHiddenTextView.setText(getString(R.string.profile_treasures_discovered_format, treasuresHidden));
+        }
     }
 
 
     private void setUITreasuresDiscovered(int treasuresDiscovered) {
-        mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
+        if(!isDetached()){
+            mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
+        }
     }
 
     public interface MyCallBack{

@@ -3,11 +3,6 @@ package com.threess.summership.treasurehunt.util;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
-import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.model.Language;
-
-import java.util.ArrayList;
-
 public class Constant {
 
     public static class Common{
@@ -22,6 +17,13 @@ public class Constant {
         public static final String FILE = "File";
     }
 
+    public static class FavoriteTreasure{
+        public static final int STOP_SWIPE_REFRESHING_TIME = 1500;
+    }
+
+    public static class TOP_LIST{
+        public static final int STOP_SWIPE_REFRESHING_TIME = 1500;
+    }
 
     public static class ClaimTreasure {
         public static final String KEY_STRING_TREASURE = "treasureName";

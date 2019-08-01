@@ -149,4 +149,21 @@ public class Treasure implements Serializable {
         this.mUpdatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        return "Treasure{" +
+                "mUserName='" + mUserName + '\'' +
+                ", mPassCode='" + mPassCode + '\'' +
+                ", mTitle='" + mTitle + '\'' +
+                ", mDescription='" + mDescription + '\'' +
+                ", mPphotoClue='" + mPphotoClue + '\'' +
+                ", mLocationLat=" + mLocationLat +
+                ", mLocationLon=" + mLocationLon +
+                ", mPrizePoints=" + mPrizePoints +
+                ", mClaimed=" + mClaimed +
+                ", mClaimedBy='" + mClaimedBy + '\'' +
+                ", mCreatedAt='" + mCreatedAt + '\'' +
+                ", mUpdatedAt='" + mUpdatedAt + '\'' +
+                '}';
+    }
 }

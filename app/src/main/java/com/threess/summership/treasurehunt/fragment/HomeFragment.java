@@ -18,15 +18,15 @@ import android.widget.Button;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.LanguageRecyclerViewAdapter;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
-import com.threess.summership.treasurehunt.util.Util;
-
 import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.Util;
 
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    private static ViewPager viewPager;
+    public static ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private Button toolbarButton;
@@ -91,28 +91,34 @@ public class HomeFragment extends Fragment {
         viewPager.setCurrentItem(1);
     }
 
+    public static void showPage(int idx){
+        if( idx > 0 && idx <= 4 ) {
+            viewPager.setCurrentItem(idx);
+        }
+    }
+
     private void setupBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.action_profile: {
-                            viewPager.setCurrentItem(0);
+                            viewPager.setCurrentItem(Constant.HomeViewPager.PROFILE_IDX);
                             return true;
                         }
                         case R.id.action_recent: {
-                            viewPager.setCurrentItem(1);
+                            viewPager.setCurrentItem(Constant.HomeViewPager.TREASURE_IDX);
                             return true;
                         }
                         case R.id.action_favorites: {
-                            viewPager.setCurrentItem(2);
+                            viewPager.setCurrentItem(Constant.HomeViewPager.TOPLIST_IDX);
                             return true;
                         }
                         case R.id.action_location: {
-                            viewPager.setCurrentItem(3);
+                            viewPager.setCurrentItem(Constant.HomeViewPager.MAP_IDX);
                             return true;
                         }
                         case R.id.action_hide_treasure: {
-                            viewPager.setCurrentItem(4);
+                            viewPager.setCurrentItem(Constant.HomeViewPager.HIDE_TREASURE_IDX);
                             return true;
                         }
                     }
@@ -128,24 +134,24 @@ public class HomeFragment extends Fragment {
         @Override
         public void onPageSelected(int position) {
             switch (position) {
-                case 0:
+                case Constant.HomeViewPager.PROFILE_IDX:
                     toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
                     toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
-                case 1:
+                case Constant.HomeViewPager.TREASURE_IDX:
                     toolbar.setTitle(R.string.treasures);
                     bottomNavigationView.setSelectedItemId(R.id.action_recent);
                     break;
-                case 2:
+                case Constant.HomeViewPager.TOPLIST_IDX:
                     toolbar.setTitle(R.string.top_list);
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
-                case 3:
+                case Constant.HomeViewPager.MAP_IDX:
                     toolbar.setTitle(R.string.location);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
-                case 4:
+                case Constant.HomeViewPager.HIDE_TREASURE_IDX:
                     toolbar.setTitle(R.string.hide_treasure);
                     bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
                     break;
@@ -156,11 +162,4 @@ public class HomeFragment extends Fragment {
         public void onPageScrollStateChanged(int state) {
         }
     }
-
-    public static void showPage(int idx){
-        if( idx > 0 && idx <= 4){
-            viewPager.setCurrentItem(idx);
-        }
-    }
-
 }

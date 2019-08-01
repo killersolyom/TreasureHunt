@@ -24,7 +24,6 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -47,8 +46,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_map_view, container, false);
     }
 
     @Override
@@ -125,11 +123,9 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
     private CameraUpdate changeFocus(MarkerOptions position) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder().include(position.getPosition());
         LatLngBounds bounds = builder.build();
-
         int width = getResources().getDisplayMetrics().widthPixels;
         int height = getResources().getDisplayMetrics().heightPixels;
         int padding = (int) (width * 0.12);
-
         return CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
     }
 
@@ -166,7 +162,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
                 fromBitmap(Util.getDrawableTreasureImage(getContext()))));
 
         HideTreasureFragment.setMapPickCoordinates(latLng.latitude, latLng.longitude);
-        HomeFragment.showPage(4);
+        HomeFragment.showPage( Constant.HomeViewPager.HIDE_TREASURE_IDX );
     }
 
     public static HideTreasureFragment newInstance(double latitude ,double longitude){

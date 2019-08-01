@@ -70,6 +70,8 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">Vezi sticarele</string>
     <string name="hidetreasureerror">Poate/Nu poate sa fie gol.</string>
+    <string name="hidetreasureerror2">IDul comoarei este deja folosita</string>
+    <string name="hidetreasurecreate">Comoara este creata</string>
     <string name="hidetitle">Titlu de tachinare:</string>
     <string name="hidedescript">Descriere:</string>
     <string name="hidephoto">Cheie pentru poza:</string>

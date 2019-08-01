@@ -1,7 +1,6 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +19,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
-import com.threess.summership.treasurehunt.camera.ViewStickersFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
@@ -156,13 +155,11 @@ public class HideTreasureFragment extends Fragment {
         });
 
         photoClueArrow.setOnClickListener(view12 -> buttonCameraPress());
-
         button.setOnClickListener(view1 -> buttonPress());
-
-        playAnimations(view);
         myIMGFile = null;
 
     }
+
 
 
     private void findIds(View view) {
@@ -189,7 +186,7 @@ public class HideTreasureFragment extends Fragment {
                 break;
             }
             case PICK_LOCATION_FROM_MAP:{
-                HomeFragment.showPage(3);
+                HomeFragment.showPage(Constant.HomeViewPager.MAP_IDX);
                 break;
             }
             case LOCATION_OF_THE_IMAGE:{
@@ -207,6 +204,8 @@ public class HideTreasureFragment extends Fragment {
         if (checkInputFields()) {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
+            HomeFragment.showPage(1);
+
         }
     }
 
@@ -215,12 +214,6 @@ public class HideTreasureFragment extends Fragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-        // Take image
-
-        // Upload image (API)
-
-        // get->set link
-
     }
 
     private boolean checkInputFields() {
@@ -254,19 +247,26 @@ public class HideTreasureFragment extends Fragment {
             passcodeEditText.setError(getString(R.string.hidetreasureerror));
             return false;
         }
+        if(TreasureAdapter.checkThisPasscodeIsAvailable(passcodeEditText.getText().toString())){
+            Util.makeSnackbar(getView(),R.string.hidetreasureerror2,Snackbar.LENGTH_SHORT,R.color.orange900);
+            return false;
+
+        }
+
         return true;
     }
 
     private Treasure getInputFields() {
         treasure = new Treasure();
+        LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
         treasure.setTitle(titleEditText.getText().toString().trim());
         treasure.setDescription(descriptionEditText.getText().toString().trim());
         treasure.setPrizePoints(Double.parseDouble(pointsEditText.getText().toString()));
         treasure.setPasscode(passcodeEditText.getText().toString().trim());
         treasure.setPhotoClue(photoEditText.getText().toString().trim());
         treasure.setUsername(dataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY));
-        treasure.setLocationLat(latitude);
-        treasure.setLocationLon(longitude);
+        treasure.setLocationLat(latLng.latitude);
+        treasure.setLocationLon(latLng.longitude);
         return treasure;
     }
 
@@ -274,15 +274,21 @@ public class HideTreasureFragment extends Fragment {
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    if (!myIMGFile.getAbsolutePath().equals("")) {
-                        uploadToServer(myIMGFile.getAbsolutePath());
-                        getFragmentManager().popBackStack();
-                    } else {
-                        uploadToServer("");
-                        getFragmentManager().popBackStack();
+                    try {
+                        if (!myIMGFile.getAbsolutePath().equals("")) {
+                            uploadToServer(myIMGFile.getAbsolutePath());
+                            Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                            HomeFragment.viewPager.setCurrentItem(1);
+
+                        }
+                    }catch (Exception ignored){
+                        uploadToServer(photoEditText.getText().toString());
+                        Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                        HomeFragment.viewPager.setCurrentItem(1);
                     }
                 } else {
                     Util.errorHandling(getView(), response.errorBody().source().toString(), response.code());
+                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.orange900);
                 }
             }
 
@@ -293,23 +299,21 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
-    private void playAnimations(View view) {
-
-        Context c = getContext();
-        // TODO implement after finishing the .xml
-
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
-            myIMGFile = new File(filePath);
-            LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
-            SavedCameraImageLocation.latitude = latLng.latitude;
-            SavedCameraImageLocation.longitude = latLng.longitude;
-            SavedCameraImageLocation.isSet = true;
-            photoEditText.setText(filePath);
+            try {
+                String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
+                myIMGFile = new File(filePath);
+                LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
+                SavedCameraImageLocation.latitude = latLng.latitude;
+                SavedCameraImageLocation.longitude = latLng.longitude;
+                SavedCameraImageLocation.isSet = true;
+                photoEditText.setText(filePath);
+            }catch (Exception e){
+                Util.makeSnackbar(getView(),R.string.camera_error,Snackbar.LENGTH_SHORT,R.color.orange800);
+            }
+
         }
     }
 

@@ -84,6 +84,8 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Nem lehet üress.</string>
+    <string name="hidetreasureerror2">Kincs azonosítòja már foglalt</string>
+    <string name="hidetreasurecreate">A kincs létrejött</string>
     <string name="hidetitle">Cím:</string>
     <string name="hidedescript">Leírás:</string>
     <string name="hidephoto">Fénykép:</string>
