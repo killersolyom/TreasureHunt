@@ -84,7 +84,6 @@ public class ClaimTreasureFragment extends Fragment {
     }
 
     private void verifyResult(){
-        Log.e("3ss",mTreasure.getPasscode());
         if (isValidTreasure()) {
             playSuccessImageAnimation();
             SavedData sd = new SavedData(getContext());
