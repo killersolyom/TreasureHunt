@@ -119,6 +119,9 @@ public class SavedData {
     public String getUserName(){
         return readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
     }
+    public String getUserPassword(){
+        return readStringData(Constant.SavedData.USER_PASSWORD_KEY);
+    }
 
     private void setPassword(String password){
         writeStringData(password,Constant.SavedData.USER_PASSWORD_KEY);

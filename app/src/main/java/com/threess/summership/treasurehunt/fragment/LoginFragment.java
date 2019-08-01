@@ -111,7 +111,6 @@ public class LoginFragment extends Fragment {
     private void login(){
         if( ! Util.requireInternetConnection(getContext()) ){
             Util.makeSnackbar(getView(), R.string.no_internet_connection, Snackbar.LENGTH_SHORT, R.color.orange800);
-            return;
         }
         Util.hideKeyboard(getContext(), login);
         user = new User(nameText.getText().toString().trim(), passwordText.getText().toString().trim());

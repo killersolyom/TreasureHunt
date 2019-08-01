@@ -1,17 +1,9 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -32,17 +24,13 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.util.ChooserDialog;
-import com.threess.summership.treasurehunt.util.Constant;
-
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.ChooserDialog;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,8 +64,8 @@ public class ProfileFragment extends Fragment {
     private MyCallBack callBack = new MyCallBack() {
         @Override
         public void updateProfileDone() {
-            Log.e("3ss","Itt vagyok");
-            ApiController.getInstance().getUser(mDataManager.getUserName(),new Callback<User>() {
+            Log.e("3ss", "Itt vagyok");
+            ApiController.getInstance().getUser(mDataManager.getUserName(), new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     User user = response.body();
@@ -89,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Log.e("3ss",t.getMessage());
+                    Log.e("3ss", t.getMessage());
                 }
             });
             spinner.setVisibility(View.GONE);
@@ -150,24 +138,23 @@ public class ProfileFragment extends Fragment {
         setUITreasuresHidden(mDataManager.readUserCreateTreasureNumber());
         setUITreasuresDiscovered(mDataManager.readUserClaimedTreasureNumber());
         spinner.setVisibility(View.VISIBLE);
-        ApiController.getInstance().getUser(mUserName, new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                mCurrentUser = response.body();
-                if (mCurrentUser != null) {
-                    setUIUserName(mCurrentUser.getUsername());
-                    setUIScore(mCurrentUser.getScore());
-                    loadProfileImage(Constant.ApiController.BASE_URL + mCurrentUser.getProfilpicture());
-                    spinner.setVisibility(View.GONE);
+            ApiController.getInstance().getUser(mUserName, new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    mCurrentUser = response.body();
+                    if (mCurrentUser != null) {
+                        setUIUserName(mCurrentUser.getUsername());
+                        setUIScore(mCurrentUser.getScore());
+                        loadProfileImage(Constant.ApiController.BASE_URL + mCurrentUser.getProfilpicture());
+                        spinner.setVisibility(View.GONE);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Util.makeSnackbar(getView(), R.string.user_profile_no_informations_error_message, Snackbar.LENGTH_SHORT, Color.RED);
-            }
-        });
-
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Util.makeSnackbar(getView(), R.string.user_profile_no_informations_error_message, Snackbar.LENGTH_SHORT, R.color.orange900);
+                }
+            });
     }
 
     private void calculateUserTreasureStatus() {
@@ -191,6 +178,7 @@ public class ProfileFragment extends Fragment {
                     setUITreasuresDiscovered(discoveredTreasures);
                 }
             }
+
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
                 setUITreasuresHidden(0);
@@ -199,7 +187,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void profileImagePressed(){
+    private void profileImagePressed() {
         new ChooserDialog().show(getChildFragmentManager(), TAG);
     }
 
@@ -228,7 +216,7 @@ public class ProfileFragment extends Fragment {
             sInstance.uploadImageToServer(data.getData());
 
         }
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE){
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
             mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
             spinner.setVisibility(View.VISIBLE);
             sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
@@ -259,9 +247,8 @@ public class ProfileFragment extends Fragment {
     }
 
 
-
     public void uploadImageToServer(Uri fileUri) {
-        String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext() );
+        String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext());
         uploadImageToServer_(filePath);
     }
 
@@ -295,33 +282,33 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUIUserName(String userName) {
-        if(!isDetached()){
+        if (!isDetached()) {
             mUserNameTextView.setText(getString(R.string.profile_user_name_format, userName));
         }
     }
 
 
-    private void setUIScore(int score){
-        if(!isDetached()){
+    private void setUIScore(int score) {
+        if (!isDetached()) {
             profileScoreTextView.setText(String.valueOf(score));
         }
     }
 
 
     private void setUITreasuresHidden(int treasuresHidden) {
-        if(!isDetached()){
+        if (!isDetached()) {
             mTreasuresHiddenTextView.setText(getString(R.string.profile_treasures_discovered_format, treasuresHidden));
         }
     }
 
 
     private void setUITreasuresDiscovered(int treasuresDiscovered) {
-        if(!isDetached()){
+        if (!isDetached()) {
             mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
         }
     }
 
-    public interface MyCallBack{
+    public interface MyCallBack {
         void updateProfileDone();
     }
 
