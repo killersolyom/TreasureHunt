@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -19,6 +20,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -91,7 +96,7 @@ public class Camera2Fragment extends Fragment implements
 
     private static final String TAG = "Camera2Fragment";
 
-
+    private static int orientation;
     /** The current state of camera state for taking pictures.
      * @see #mCaptureCallback */
     private int mState = Constant.Camera.STATE_PREVIEW;
@@ -381,7 +386,7 @@ public class Camera2Fragment extends Fragment implements
             final ICallback callback = (e, file) -> {
                 if(e == null && file.exists()){//todo: save - POST img
                     Intent result = new Intent();
-                    result.putExtra(getActivity().getString(R.string.file_string),file.getAbsolutePath());
+                    result.putExtra(Constant.Prodile.FILE,file.getAbsolutePath());
                     getActivity().setResult(Activity.RESULT_OK,result);
                     getActivity().finish();
                     Log.d(TAG, "onImageSavedCallback: image saved!");
@@ -909,6 +914,8 @@ public class Camera2Fragment extends Fragment implements
 
                             Glide.with(activity)
                                     .load(mCapturedImage)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
                                     .into(mStillshotImageView);
 
                             showStillshotContainer();
@@ -1499,6 +1506,8 @@ public class Camera2Fragment extends Fragment implements
                     Glide.with(activity)
                             .setDefaultRequestOptions(options)
                             .load(background)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
                             .into(mStillshotImageView);
 
                     showStillshotContainer();
@@ -1540,7 +1549,7 @@ public class Camera2Fragment extends Fragment implements
             try {
                 ExifInterface exif = new ExifInterface(tempImageUri.getPath());
                 bitmap = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), tempImageUri);
-                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                 mCapturedBitmap = rotateBitmap(bitmap, orientation);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1631,8 +1640,25 @@ public class Camera2Fragment extends Fragment implements
 
         private Bitmap mBitmap;
 
+        public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+            int width = bm.getWidth();
+            int height = bm.getHeight();
+            float scaleWidth = ((float) newWidth) / width;
+            float scaleHeight = ((float) newHeight) / height;
+            // CREATE A MATRIX FOR THE MANIPULATION
+            Matrix matrix = new Matrix();
+            // RESIZE THE BIT MAP
+            matrix.postScale(scaleWidth, scaleHeight);
+
+            // "RECREATE" THE NEW BITMAP
+            Bitmap resizedBitmap = Bitmap.createBitmap(
+                    bm, 0, 0, width, height, matrix, false);
+            bm.recycle();
+            return resizedBitmap;
+        }
+
         ImageSaver(Bitmap bitmap, File file, ICallback callback) {
-            mBitmap = bitmap;
+            mBitmap = getResizedBitmap(bitmap, 720, 1366);
             mFile = file;
             mCallback = callback;
         }
@@ -1642,6 +1668,8 @@ public class Camera2Fragment extends Fragment implements
             mFile = file;
             mCallback = callback;
         }
+
+
 
         @Override
         public void run() {
@@ -1701,7 +1729,14 @@ public class Camera2Fragment extends Fragment implements
                 }
             }
         }
+
+
+
     }
+
+
+
+
 
 
     /**

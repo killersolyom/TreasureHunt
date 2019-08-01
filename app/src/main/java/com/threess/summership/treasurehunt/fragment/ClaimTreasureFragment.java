@@ -88,9 +88,9 @@ public class ClaimTreasureFragment extends Fragment {
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
             sd.setScore((float)(mTreasure.getPrizePoints()+ sd.getScore()));
-            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<Object> call, Response<Object> response) {
                     Util.makeSnackbar(mView, R.string.correct_pass_code, Snackbar.LENGTH_SHORT, R.color.blue300);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
@@ -100,12 +100,13 @@ public class ClaimTreasureFragment extends Fragment {
                     },3500);
                 }
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
+                public void onFailure(Call<Object> call, Throwable t) {
                     Util.makeSnackbar(mView, R.string.server_not_found, Snackbar.LENGTH_SHORT, R.color.orange900);
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
         }
+
     }
 
     private void playSuccessImageAnimation() {
@@ -155,7 +156,6 @@ public class ClaimTreasureFragment extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
