@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -209,14 +210,18 @@ public class HideTreasureFragment extends Fragment {
                     try {
                         if (!myIMGFile.getAbsolutePath().equals("")) {
                             uploadToServer(myIMGFile.getAbsolutePath());
-                            getFragmentManager().popBackStack();
+                            Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                            HomeFragment.viewPager.setCurrentItem(1);
+
                         }
                     }catch (Exception ignored){
                         uploadToServer(photoEditText.getText().toString());
-                        getFragmentManager().popBackStack();
+                        Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.blue300);
+                        HomeFragment.viewPager.setCurrentItem(1);
                     }
                 } else {
                     Util.errorHandling(getView(), response.errorBody().source().toString(), response.code());
+                    Util.makeSnackbar(getView(),R.string.successful,Snackbar.LENGTH_SHORT,R.color.orange900);
                 }
             }
 
