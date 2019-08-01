@@ -1,4 +1,7 @@
 <resources>
+    <string name="Claim_Available2"> érvényes! </string>
+    <string name="Claim_SnackBarError2"> Nem található ilyen kincs a szerveren! </string>
+    <string name="Claim_SnackBarError_Internet"> Nincs internetkapcsolat! </string>
     <string name="app_name">TreasureHunt</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello Summer ship!</string>
@@ -28,7 +31,6 @@
     <string name="login_failed">Login failed!</string>
     <string name="incorrect_password">Incorrect password!</string>
     <string name="username_not_exists">This username is not registered yet!</string>
-    <string name="empty_string"> </string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
     <string name="claim_treasure">Claim Treasure</string>
@@ -50,12 +52,11 @@
     <string name="Claim_editText_EmptyError">Is empty!/nPlease write here something!</string>
     <string name="Claim_error3">This is your treasure. It is not fair!</string>
     <string name="Claim_snackBarError1">Invalid pass code or wrong treasure!</string>
-    <string name="Claim_Error4">Your score did not change.</string>
+    <string name="claim_error_no_score_change">Your score did not change.</string>
     <string name="Claim_snackBar_scoreUpdate">Your score now is bigger!</string>
     <string name="Claim_Available">This treasure pass code is valid! </string>
-    <string name="Claim_Available2"> is valid! </string>
-    <string name="Claim_SnackBarError2"> Not available treasure on server </string>
-    <string name="Claim_SnackBarError_Internet"> No internet connection!Please turn on the wifi </string>
+    <string name="claim_snack_bar_error_treasure_not_available"> Not available treasure on server </string>
+    <string name="claim_snack_bar_error_internet"> No internet connection!Please turn on the wifi </string>
     <string name="top_list_score">Score: </string>
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>
@@ -112,7 +113,9 @@
     <string name="get_current_location">Get current location</string>
     <string name="pick_location">Pick location</string>
     <string name="location_of_the_image">Location of the image"</string>
+    <string name="Claim_Error4">Az ön pontszáma nem változott.</string>
 
     <string name="back_button_press">Please back again to exit.</string>
+    <string name="empty_string">\"\"</string>
 
 </resources>

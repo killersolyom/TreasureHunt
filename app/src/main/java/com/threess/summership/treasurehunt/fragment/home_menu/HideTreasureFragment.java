@@ -52,7 +52,7 @@ public class HideTreasureFragment extends Fragment {
     private EditText locationEditText;
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private double latitude,longitude;
+    private double latitude, longitude;
     private Treasure treasure;
     private File myIMGFile;
 
@@ -71,11 +71,11 @@ public class HideTreasureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
-        if(getArguments() != null){
-            latitude=getArguments().getDouble(MapViewFragment.KEY1);
-            longitude=getArguments().getDouble(MapViewFragment.KEY2);
-            locationEditText.setText( latitude +" , "+longitude);
-        }else{
+        if (getArguments() != null) {
+            latitude = getArguments().getDouble(MapViewFragment.KEY1);
+            longitude = getArguments().getDouble(MapViewFragment.KEY2);
+            locationEditText.setText(latitude + " , " + longitude);
+        } else {
             locationEditText.setText(LocatingUserLocation.getInstance().tryToGetLocationString(getContext()));
         }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
@@ -132,7 +132,6 @@ public class HideTreasureFragment extends Fragment {
     }
 
 
-
     private void findIds(View view) {
         button = view.findViewById(R.id.Button);
         titleEditText = view.findViewById(R.id.teasing_edit_text);
@@ -152,8 +151,8 @@ public class HideTreasureFragment extends Fragment {
         }
     }
 
-    private void buttonCameraPress(){
-        Intent takePictureIntent = new Intent(getActivity(),CameraActivity.class);
+    private void buttonCameraPress() {
+        Intent takePictureIntent = new Intent(getActivity(), CameraActivity.class);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -216,15 +215,15 @@ public class HideTreasureFragment extends Fragment {
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
-                    if(!myIMGFile.getAbsolutePath().equals("")){
+                    if (!myIMGFile.getAbsolutePath().equals("")) {
                         uploadToServer(myIMGFile.getAbsolutePath());
                         getFragmentManager().popBackStack();
-                    }else{
+                    } else {
                         uploadToServer("");
                         getFragmentManager().popBackStack();
                     }
                 } else {
-                    Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
+                    Util.errorHandling(getView(), response.errorBody().source().toString(), response.code());
                 }
             }
 
@@ -250,7 +249,7 @@ public class HideTreasureFragment extends Fragment {
             LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
             this.latitude = latLng.latitude;
             this.longitude = latLng.longitude;
-            locationEditText.setText(latLng.latitude+ "," + latLng.longitude);
+            locationEditText.setText(latLng.latitude + "," + latLng.longitude);
             photoEditText.setText(filePath);
         }
     }

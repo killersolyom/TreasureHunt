@@ -1,10 +1,17 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,21 +22,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.ChooserDialog;
+import com.threess.summership.treasurehunt.util.Constant;
+
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.LogRecord;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -46,6 +59,8 @@ public class ProfileFragment extends Fragment {
 
     public static ProfileFragment sInstance;
 
+    public static String fileAbslutePath;
+
 
     private ImageView profileImageView;
     private TextView mUserNameTextView;
@@ -57,6 +72,29 @@ public class ProfileFragment extends Fragment {
     private static User mCurrentUser;
     private Button mLogoutButton;
     private Button mUpdateButton;
+    private ProgressBar spinner;
+    private MyCallBack callBack = new MyCallBack() {
+        @Override
+        public void updateProfileDone() {
+            Log.e("3ss","Itt vagyok");
+            ApiController.getInstance().getUser(mDataManager.getUserName(),new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+                    if (user != null) {
+                        fileAbslutePath = Constant.ApiController.BASE_URL + user.getProfilpicture();
+                        loadProfileImage(fileAbslutePath);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.e("3ss",t.getMessage());
+                }
+            });
+            spinner.setVisibility(View.GONE);
+        }
+    };
 
     public ProfileFragment() {
         // constructor
@@ -77,7 +115,9 @@ public class ProfileFragment extends Fragment {
         mDataManager = new SavedData(getContext());
         setUserData();
         mUserName = mDataManager.readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY);
+        spinner.setVisibility(View.VISIBLE);
         loadProfileImage(mDataManager.getProfileImage());
+        spinner.setVisibility(View.GONE);
         loadUserData();
         calculateUserTreasureStatus();
     }
@@ -91,6 +131,8 @@ public class ProfileFragment extends Fragment {
         profileScoreTextView = view.findViewById(R.id.score);
         mLogoutButton = view.findViewById(R.id.logout_button);
         mUpdateButton = view.findViewById(R.id.update);
+        spinner = view.findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
         profileImageView.setOnClickListener(v -> profileImagePressed());
         mLogoutButton.setOnClickListener(v -> logOutButtonPressed());
         mUpdateButton.setOnClickListener(v -> loadUserData());
@@ -107,6 +149,7 @@ public class ProfileFragment extends Fragment {
     private void loadUserData() {
         setUITreasuresHidden(mDataManager.readUserCreateTreasureNumber());
         setUITreasuresDiscovered(mDataManager.readUserClaimedTreasureNumber());
+        spinner.setVisibility(View.VISIBLE);
         ApiController.getInstance().getUser(mUserName, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -114,6 +157,8 @@ public class ProfileFragment extends Fragment {
                 if (mCurrentUser != null) {
                     setUIUserName(mCurrentUser.getUsername());
                     setUIScore(mCurrentUser.getScore());
+                    loadProfileImage(Constant.ApiController.BASE_URL + mCurrentUser.getProfilpicture());
+                    spinner.setVisibility(View.GONE);
                 }
             }
 
@@ -122,6 +167,7 @@ public class ProfileFragment extends Fragment {
                 Util.makeSnackbar(getView(), R.string.user_profile_no_informations_error_message, Snackbar.LENGTH_SHORT, Color.RED);
             }
         });
+
     }
 
     private void calculateUserTreasureStatus() {
@@ -132,10 +178,10 @@ public class ProfileFragment extends Fragment {
                     int createdTreasures = 0;
                     int discoveredTreasures = 0;
                     for (Treasure it : response.body()) {
-                        if (it.getClaimedBy() != null && it.getClaimedBy().equals(mDataManager.getUserName())) {
+                        if (it.getClaimedBy().equals(mDataManager.getUserName())) {
                             discoveredTreasures++;
                         }
-                        if (it.getUsername() != null && it.getUsername().equals(mDataManager.getUserName())) {
+                        if (it.getUsername().equals(mDataManager.getUserName())) {
                             createdTreasures++;
                         }
                     }
@@ -147,6 +193,8 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
+                setUITreasuresHidden(0);
+                setUITreasuresDiscovered(0);
             }
         });
     }
@@ -157,7 +205,9 @@ public class ProfileFragment extends Fragment {
 
 
     private void logOutButtonPressed() {
-        mDataManager.clearUserData();
+        SavedData dataManager = new SavedData(getContext());
+        dataManager.setAutoLoginSwitch(false);
+        dataManager.writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
@@ -174,15 +224,15 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.Common.GALLERY_REQUEST_CODE) {
             mDataManager.saveProfileImage(data.getData());
-            loadProfileImage(data.getData());
-            uploadImageToServer(data.getData());
+            spinner.setVisibility(View.VISIBLE);
+            sInstance.uploadImageToServer(data.getData());
+
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE){
-            ProfileFragment.mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
-            ProfileFragment.sInstance.loadProfileImage(data.getStringExtra(Constant.Prodile.FILE));
-            ProfileFragment.sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
+            mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
+            spinner.setVisibility(View.VISIBLE);
+            sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
         }
-
     }
 
 
@@ -190,6 +240,8 @@ public class ProfileFragment extends Fragment {
         if (imageUri != null) {
             Glide.with(getContext())
                     .load(imageUri)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .centerCrop()
                     .into(profileImageView);
         }
@@ -199,10 +251,14 @@ public class ProfileFragment extends Fragment {
         if (image != null) {
             Glide.with(getContext())
                     .load(image)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .centerCrop()
                     .into(profileImageView);
         }
     }
+
+
 
     public void uploadImageToServer(Uri fileUri) {
         String filePath = Util.getRealPathFromURIPath(fileUri, (Activity) getContext() );
@@ -227,6 +283,7 @@ public class ProfileFragment extends Fragment {
         ApiController.getInstance().uploadProfileImage(part, description, mUserName, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                callBack.updateProfileDone();
                 Log.e(TAG, response.message());
             }
 
@@ -257,5 +314,8 @@ public class ProfileFragment extends Fragment {
         mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
     }
 
+    public interface MyCallBack{
+        void updateProfileDone();
+    }
 
 }
