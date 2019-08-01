@@ -65,9 +65,9 @@
     <string name="prize_hint">Cat de multe din propriile tale puncte de premiere ai acorda?</string>
     <string name="pass_hint">Identificator unic, astfel incat poate fi validat atunci cand e revendicat </string>
     <string name="create_treasure">Creaza comoara</string>
-    <!-- todo --><string name="get_current_location">Locatia curenta</string>
-    <!-- todo --><string name="pick_location">Alege locatia</string>
-    <!-- todo --><string name="location_of_the_image">Locatia fotografiei</string>
+    <string name="get_current_location">Locatia curenta</string>
+    <string name="pick_location">Alege locatia</string>
+    <string name="location_of_the_image">Locatia fotografiei</string>
 
     <!-- camera -->
     <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
