@@ -16,23 +16,23 @@ public class Language {
         return mKey;
     }
 
-    public void setKey(String mKey) {
-        this.mKey = mKey;
+    public void setKey(String key) {
+        this.mKey = key;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.mName = name;
     }
 
     public int getDrawableId() {
         return mDrawableId;
     }
 
-    public void setDrawableId(int mDrawableId) {
-        this.mDrawableId = mDrawableId;
+    public void setDrawableId(int drawableId) {
+        this.mDrawableId = drawableId;
     }
 }
