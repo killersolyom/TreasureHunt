@@ -271,7 +271,6 @@ public class ProfileFragment extends Fragment {
 
     private void uploadImageToServer_(String fileStr) {
         // Create a file object using file path
-
         File file = new File(fileStr);
         // Create a request body with file and image media type
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -296,22 +295,30 @@ public class ProfileFragment extends Fragment {
 
 
     private void setUIUserName(String userName) {
-        mUserNameTextView.setText(getString(R.string.profile_user_name_format, userName));
+        if(!isDetached()){
+            mUserNameTextView.setText(getString(R.string.profile_user_name_format, userName));
+        }
     }
 
 
     private void setUIScore(int score){
-        profileScoreTextView.setText(score+"");
+        if(!isDetached()){
+            profileScoreTextView.setText(String.valueOf(score));
+        }
     }
 
 
     private void setUITreasuresHidden(int treasuresHidden) {
-        mTreasuresHiddenTextView.setText(getString(R.string.profile_treasures_discovered_format, treasuresHidden));
+        if(!isDetached()){
+            mTreasuresHiddenTextView.setText(getString(R.string.profile_treasures_discovered_format, treasuresHidden));
+        }
     }
 
 
     private void setUITreasuresDiscovered(int treasuresDiscovered) {
-        mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
+        if(!isDetached()){
+            mTreasuresDiscoveredTextView.setText(getString(R.string.profile_treasures_hidden_format, treasuresDiscovered));
+        }
     }
 
     public interface MyCallBack{
