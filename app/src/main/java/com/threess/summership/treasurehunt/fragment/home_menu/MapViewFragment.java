@@ -45,8 +45,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_map_view, container, false);
     }
 
     @Override
@@ -123,11 +122,9 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
     private CameraUpdate changeFocus(MarkerOptions position) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder().include(position.getPosition());
         LatLngBounds bounds = builder.build();
-
         int width = getResources().getDisplayMetrics().widthPixels;
         int height = getResources().getDisplayMetrics().heightPixels;
         int padding = (int) (width * 0.12);
-
         return CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
     }
 
@@ -162,7 +159,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
         googleMap.addMarker(new MarkerOptions().position(latLng).
                 title("Your Treasure").icon(BitmapDescriptorFactory.
                 fromBitmap(Util.getDrawableTreasureImage(getContext()))));
-
         FragmentNavigation.getInstance(getContext()).showHideTreasureFragment(latLng.latitude,latLng.longitude);
 
     }

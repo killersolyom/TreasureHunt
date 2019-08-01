@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -24,10 +23,8 @@ import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
-import com.threess.summership.treasurehunt.util.ChooserDialog;
-import com.threess.summership.treasurehunt.util.Constant;
-
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.util.ChooserDialog;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -55,12 +52,6 @@ public class ProfileFragment extends Fragment {
     private TextView mTreasuresDiscoveredTextView;
     private TextView mTreasuresHiddenTextView;
     private TextView profileScoreTextView;
-    private ImageView profileStarImageView;
-    private TextView profileTreasureshiddenTextView;
-    private TextView profileTreasuresdiscoveredTextView;
-    private Button profileUpdateImageButton;
-    private TextView profileUsernameImageView;
-    private Button profileHomeButton;
     public static SavedData mDataManager;
     private static String mUserName;
     private static User mCurrentUser;
@@ -120,7 +111,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 mCurrentUser = response.body();
-                if (mCurrentUser != null) {
+                if (mCurrentUser != null && !isDetached()) {
                     setUIUserName(mCurrentUser.getUsername());
                     setUIScore(mCurrentUser.getScore());
                 }
@@ -141,10 +132,10 @@ public class ProfileFragment extends Fragment {
                     int createdTreasures = 0;
                     int discoveredTreasures = 0;
                     for (Treasure it : response.body()) {
-                        if (it.getClaimedBy().equals(mCurrentUser.getUsername())) {
+                        if (it.getClaimedBy() != null && it.getClaimedBy().equals(mDataManager.getUserName())) {
                             discoveredTreasures++;
                         }
-                        if (it.getUsername().equals(mCurrentUser.getUsername())) {
+                        if (it.getUsername() != null && it.getUsername().equals(mDataManager.getUserName())) {
                             createdTreasures++;
                         }
                     }
@@ -156,8 +147,6 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                setUITreasuresHidden(0);
-                setUITreasuresDiscovered(0);
             }
         });
     }
@@ -168,9 +157,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void logOutButtonPressed() {
-        SavedData dataManager = new SavedData(getContext());
-        dataManager.setAutoLoginSwitch(false);
-        dataManager.writeStringData("", Constant.SavedData.USER_PASSWORD_KEY);
+        mDataManager.clearUserData();
         FragmentNavigation.getInstance(getContext()).showLoginFragment();
     }
 
@@ -193,7 +180,6 @@ public class ProfileFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE){
             ProfileFragment.mDataManager.saveProfileImage(data.getStringExtra(Constant.Prodile.FILE));
             ProfileFragment.sInstance.loadProfileImage(data.getStringExtra(Constant.Prodile.FILE));
-            //updateUserProfileField();
             ProfileFragment.sInstance.uploadImageToServer(data.getStringExtra(Constant.Prodile.FILE));
         }
 

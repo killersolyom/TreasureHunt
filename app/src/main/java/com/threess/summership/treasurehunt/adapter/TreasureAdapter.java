@@ -51,7 +51,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         try {
             final Treasure treasure = mTreasureList.get(position);
             Glide.with(mContext).load(treasure.getPhotoClue()).error(R.drawable.app_icon).circleCrop().into(holder.mTreasureImage);
-            holder.mTreasureText.setText(treasure.getDescription());
+            holder.mTreasureText.setText(treasure.getTitle());
 
             double score = treasure.getPrizePoints();
             int roundedScore = (int) Math.round(score);
@@ -118,7 +118,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
         if(treasures.size()!=0) {
             mTreasureList.clear();
         }
-
         for(Treasure t : treasures){
             if (t != null) {
                 if (t.getClaimedBy().equals(new SavedData(mContext).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {

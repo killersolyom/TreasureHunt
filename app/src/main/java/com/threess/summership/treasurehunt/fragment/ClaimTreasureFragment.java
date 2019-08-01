@@ -24,9 +24,9 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.TreasureClaim;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
+import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 import com.threess.summership.treasurehunt.util.Animator;
 import com.threess.summership.treasurehunt.util.Util;
-import com.threess.summership.treasurehunt.qr_code_reader.QRCodeReader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
