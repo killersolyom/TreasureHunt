@@ -111,6 +111,9 @@ public class FavoriteTreasureFragment extends Fragment {
     };
 
 
+    public  void  refreshTreasures(){
+        getAllActiveTreasures();
+    }
     private void getAllActiveTreasures() {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override
@@ -153,6 +156,8 @@ public class FavoriteTreasureFragment extends Fragment {
             mShowClaimTreasure = false;
         }
         adapter.notifyDataSetChanged();
+
+
     }
 
     @Override

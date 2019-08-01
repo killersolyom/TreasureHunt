@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
@@ -99,8 +100,10 @@ public class ClaimTreasureFragment extends Fragment {
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
-                        scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
+//                        FavoriteTreasureFragment favoriteTreasureFragment= (FavoriteTreasureFragment)FragmentNavigation.getInstance(getContext()).getCurrentFragmentOnHomeFragment();
+//                        favoriteTreasureFragment.refreshTreasures();
 
+                        scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
                     },3500);
                 }
                 @Override
