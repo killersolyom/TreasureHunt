@@ -72,6 +72,7 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Can\'t be empty.</string>
+    <string name="hidetreasureerror2">"is treasure passcode is occupired</string>
     <string name="hidetitle">Teasing title:</string>
     <string name="hidedescript">Description:</string>
     <string name="hidephoto">Photo clue:</string>

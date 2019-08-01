@@ -20,7 +20,7 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    private ViewPager viewPager;
+    private static ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private Button toolbarButton;
@@ -61,6 +61,12 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);
+    }
+
+    public static void showPage(int idx){
+        if( idx < 4 && idx > 0 ) {
+            viewPager.setCurrentItem(idx);
+        }
     }
 
     private void setupBottomNavigation() {

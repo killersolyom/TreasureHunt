@@ -102,7 +102,6 @@ public class ClaimTreasureFragment extends Fragment {
                         //new score value
 //                        FavoriteTreasureFragment favoriteTreasureFragment= (FavoriteTreasureFragment)FragmentNavigation.getInstance(getContext()).getCurrentFragmentOnHomeFragment();
 //                        favoriteTreasureFragment.refreshTreasures();
-
                         scoreUpdate(sd,mTreasure.getPrizePoints()+sd.getScore());
                     },3500);
                 }

@@ -19,16 +19,21 @@ import android.widget.ImageView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -58,6 +63,7 @@ public class HideTreasureFragment extends Fragment {
     private double latitude,longitude;
     private Treasure treasure;
     private File myIMGFile;
+    private HashMap<String,Treasure> mCurrentTreasures;
 
     public HideTreasureFragment() {
         // constructor
@@ -152,6 +158,8 @@ public class HideTreasureFragment extends Fragment {
         if (checkInputFields()) {
             Treasure treasure = getInputFields();
             uploadTreasure(treasure);
+            HomeFragment.showPage(1);
+
         }
     }
 
@@ -199,6 +207,12 @@ public class HideTreasureFragment extends Fragment {
             passcodeEditText.setError(getString(R.string.hidetreasureerror));
             return false;
         }
+        if(TreasureAdapter.checkThisPasscodeIsAvailable(passcodeEditText.getText().toString())){
+            Util.makeSnackbar(getView(),R.string.hidetreasureerror2,Snackbar.LENGTH_SHORT,R.color.orange900);
+            return false;
+
+        }
+
         return true;
     }
 
@@ -221,10 +235,10 @@ public class HideTreasureFragment extends Fragment {
                 if (response.errorBody() == null) {
                     if(!myIMGFile.getAbsolutePath().equals("")){
                         uploadToServer(myIMGFile.getAbsolutePath());
-                        getFragmentManager().popBackStack();
+                        //FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
                     }else{
                         uploadToServer("");
-                        getFragmentManager().popBackStack();
+                        //FragmentNavigation.getInstance(getContext()).showFavoriteTreasureListFragmentInHomeFragment();
                     }
                 } else {
                     Util.errorHandling(getView(),response.errorBody().source().toString(),response.code());
@@ -280,6 +294,10 @@ public class HideTreasureFragment extends Fragment {
                 Log.e("TAG", "Sikertelen", t);
             }
         });
+    }
+    private void setmCurrentTreasures(){
+        ArrayList<Treasure> treasures= new ArrayList<>();
+        //ApiController.getInstance().getAllTreasures(Callback<treasures> callback);
     }
 
 }
