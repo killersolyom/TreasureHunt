@@ -1,9 +1,13 @@
 package com.threess.summership.treasurehunt;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +25,8 @@ import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
+import java.util.Locale;
+
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver networkReceiver;
     private Handler handler;
     private Runnable runnable;
+    public static MainActivity sInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Load saved language if exists. If not, then load default language:
         //Util.loadSavedLanguage( getApplicationContext() );
         //recreate();
+        sInstance = this;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -132,5 +140,24 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        // Load the last used language:
+
+        Resources res = base.getResources();
+
+        String langKey = new SavedData(base).getLanguage().getKey();
+        Locale locale = new Locale(langKey);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        res.updateConfiguration(config, res.getDisplayMetrics());
+
+        super.attachBaseContext(base);
+    }
+
 
 }

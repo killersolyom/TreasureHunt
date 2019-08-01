@@ -2,7 +2,10 @@ package com.threess.summership.treasurehunt.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -179,5 +182,15 @@ public final class Util {
             }
         }
         return null;
+    }
+
+    public static void restartApp() {
+        Intent mStartActivity = new Intent(MainActivity.sInstance.getApplicationContext(), MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.sInstance.getApplicationContext(), mPendingIntentId, mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) MainActivity.sInstance.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
     }
 }

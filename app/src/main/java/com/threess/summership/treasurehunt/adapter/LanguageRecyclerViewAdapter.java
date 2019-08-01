@@ -1,10 +1,14 @@
 package com.threess.summership.treasurehunt.adapter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
@@ -72,11 +76,14 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
             holder.mLayout.setOnClickListener(v -> {
                 mSelectedLanguage = language;
 
-                //new SavedData(mContext).setLanguage( language );
+                // Save language: (Restart needed)
+                new SavedData(mContext).setLanguage( language );
 
-                Util.changeApplicationLanguage(mContext, language);
+                new Handler().postDelayed(Util::restartApp,250); // Call restartApp() after 250 ms.
 
-                ((MainActivity)mContext).recreate(); // Refresh layout
+                // Load language: (Layout refresh needed)
+                //Util.changeApplicationLanguage(mContext, language);
+                //((MainActivity)mContext).recreate(); // Refresh layout
             });
 
         } catch (Exception e) {
