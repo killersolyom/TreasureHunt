@@ -203,7 +203,6 @@ public class HideTreasureFragment extends Fragment {
     }
 
     private void uploadTreasure(Treasure treasure) {
-        Log.e("3ss",treasure.toString());
         ApiController.getInstance().createTreasure(treasure, new Callback<Treasure>() {
             public void onResponse(@NonNull Call<Treasure> call, @Nullable Response<Treasure> response) {
                 if (response.errorBody() == null) {
