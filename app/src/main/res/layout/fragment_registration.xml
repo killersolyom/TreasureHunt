@@ -45,7 +45,7 @@
 
     <Button
         android:id="@+id/register"
-        android:layout_width="@dimen/register_fragment_button_width"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/register_fragment_button_height"
         android:textStyle="bold"
         android:textColor="@color/gray900"

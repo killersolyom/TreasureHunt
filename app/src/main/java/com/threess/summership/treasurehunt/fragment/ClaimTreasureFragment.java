@@ -92,7 +92,7 @@ public class ClaimTreasureFragment extends Fragment {
             ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
-                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
+                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.blue300);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
