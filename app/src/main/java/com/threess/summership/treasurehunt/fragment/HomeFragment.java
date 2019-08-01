@@ -20,7 +20,7 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    private ViewPager viewPager;
+    public static ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private Button toolbarButton;

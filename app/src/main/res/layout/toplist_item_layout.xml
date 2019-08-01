@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/scoreNumberTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/treasure_item_text_height"
             android:layout_weight="1"
             android:textAlignment="textStart"

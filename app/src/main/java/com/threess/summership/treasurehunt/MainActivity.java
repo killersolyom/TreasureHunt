@@ -35,34 +35,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FragmentNavigation.getInstance(this).showSplashScreenFragment();
         ApiController.getInstance(this);
-        handler = new Handler();
-        runnable = () -> {
-            if(getApplicationContext()!=null){
-                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
-                registerNetworkBroadcastReceiver();
-            }
-        };
-
+        initNetworkHandler();
         networkHandler();
+        checkPermission();
+    }
+
+
+    private void checkPermission(){
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED){
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     Constant.Common.PERMISSION_REQUEST_CODE);
         }
     }
 
+    private void initNetworkHandler() {
+        handler = new Handler();
+        runnable = () -> {
+            if (getApplicationContext() != null) {
+                networkReceiver = new NetworkChangeReceiver(MainActivity.this);
+                registerNetworkBroadcastReceiver();
+            }
+        };
+    }
+
     private void registerNetworkBroadcastReceiver() {
-            registerReceiver(networkReceiver,
-                    new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(networkReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     protected void unregisterNetworkBroadcastReceiver() {
@@ -79,11 +87,10 @@ public class MainActivity extends AppCompatActivity {
         unregisterNetworkBroadcastReceiver();
     }
 
-    public void networkHandler(){
+    public void networkHandler() {
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, 2000);
     }
-
 
 
     @Override
@@ -101,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        for(int it: grantResults){
-            if(it != PERMISSION_GRANTED){
-                Util.makeSnackbar(findViewById(R.id.fragment_container),R.string.missing_permission,Snackbar.LENGTH_LONG,R.color.orange700);
+        for (int it : grantResults) {
+            if (it != PERMISSION_GRANTED) {
+                Util.makeSnackbar(findViewById(R.id.fragment_container), R.string.missing_permission, Snackbar.LENGTH_LONG, R.color.orange700);
                 return;
             }
         }
