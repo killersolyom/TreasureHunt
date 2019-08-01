@@ -33,7 +33,7 @@ public interface TreasuresRetrofitService {
 
     //TODO POST a treasure what was founded
     @POST("/treasures/claim")
-    Call<String> createdTreasureClaim (@Body TreasureClaim treasureClaim);
+    Call<Object> createdTreasureClaim (@Body TreasureClaim treasureClaim);
 
     @POST("/treasures/update/:{passcode}/:{username}")///treasures/update/:passcode/:username
     Call<Treasure> createTreasurePicture(@Query ("passcode") String passcode, @Query("username") String username);

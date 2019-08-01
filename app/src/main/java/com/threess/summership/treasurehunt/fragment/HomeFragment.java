@@ -134,11 +134,11 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
-                    toolbar.setTitle("Treasures");
+                    toolbar.setTitle(R.string.treasures);
                     bottomNavigationView.setSelectedItemId(R.id.action_recent);
                     break;
                 case 2:
-                    toolbar.setTitle("Top list");
+                    toolbar.setTitle(R.string.top_list);
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
                 case 4:
-                    toolbar.setTitle("Hide treasure");
+                    toolbar.setTitle(R.string.hide_treasure);
                     bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
                     break;
             }

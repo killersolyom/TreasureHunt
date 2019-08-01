@@ -92,10 +92,10 @@ public class ClaimTreasureFragment extends Fragment {
             SavedData sd = new SavedData(getContext());
             TreasureClaim treasureClaim = new TreasureClaim(sd.getUserName(), mTreasure.getPasscode());
             sd.setScore((float)(mTreasure.getPrizePoints()+ sd.getScore()));
-            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<String>() {
+            ApiController.getInstance().createdTreasureClaim(treasureClaim, new Callback<Object>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.blue300);
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    Util.makeSnackbar(mView, R.string.Claim_Available, Snackbar.LENGTH_SHORT, R.color.green);
                     playSuccessImageAnimation();
                     mHandler.postDelayed(() -> {
                         //new score value
@@ -104,8 +104,9 @@ public class ClaimTreasureFragment extends Fragment {
                     },3500);
                 }
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    Util.makeSnackbar(mView, R.string.Claim_SnackBarError2, Snackbar.LENGTH_SHORT, R.color.orange900);
+                public void onFailure(Call<Object> call, Throwable t) {
+                    Util.makeSnackbar(mView, R.string.claim_snack_bar_error_treasure_not_available, Snackbar.LENGTH_SHORT, R.color.orange900);
+                    Log.e("boti", "failureFirst");
                     FragmentNavigation.getInstance(getContext()).popBackstack();
                 }
             });
@@ -155,12 +156,12 @@ public class ClaimTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Object> calll, Throwable t) {
-                Util.makeSnackbar(mView,R.string.Claim_Error4,Snackbar.LENGTH_SHORT,R.color.orange900);
+                Util.makeSnackbar(mView,R.string.claim_error_no_score_change,Snackbar.LENGTH_SHORT,R.color.orange900);
+                Log.e("boti", t.getMessage());
                 FragmentNavigation.getInstance(getContext()).popBackstack();
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
