@@ -153,7 +153,7 @@ public class SavedData {
     public Language getLanguage(Context context){
         String langStr = readStringData(Constant.SavedData.Language.LANGUAGE_KEY);
         if( langStr.isEmpty() ){
-            return null; // error
+            return Util.getLanguageById(context, Constant.SavedData.Language.LANGUAGE_KEY_ENGLISH);
         }
         return Util.getLanguageById(context, langStr);
     }

@@ -32,7 +32,6 @@ public class HomeFragment extends Fragment {
     private Toolbar toolbar;
     private Button toolbarLanguageButton;
     private Button toolbarMapButton;
-    private Button toolbarButton;
     // Language selector:
     private LanguageRecyclerViewAdapter mLanguageAdapter;
     private RecyclerView mLanguageRecyclerView;
@@ -59,9 +58,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindClickListeners(){
-        toolbarButton.setOnClickListener(v -> showLanguageSelector() );
-        toolbarLanguageButton.setOnClickListener(v -> {
-        });
+        toolbarLanguageButton.setOnClickListener(v -> showLanguageSelector() );
         toolbarMapButton.setOnClickListener(v -> {
             FragmentNavigation.getInstance(getContext()).showMapViewFragmentInHomeFragment();
         });
