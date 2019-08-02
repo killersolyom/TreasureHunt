@@ -59,7 +59,7 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
             // Set language name:
             holder.mLanguageName.setText(language.getName());
 
-            if(new SavedData(mContext).getLanguage().getKey().equals(language.getKey())) {
+            if(new SavedData(mContext).getLanguage(mContext).getKey().equals(language.getKey())) {
                 holder.mLanguageName.setTextColor(mContext.getResources().getColor( R.color.blue300) );
             }
 

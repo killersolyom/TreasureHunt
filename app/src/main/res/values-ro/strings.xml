@@ -124,4 +124,8 @@
     <string name="select_language">Selecteaza limba</string>
     <string name="no_image_selected">Imaginea nu este selectata</string>
 
+    <string name="language_eng">Enghleza</string>
+    <string name="language_ro">Romana</string>
+    <string name="language_hu">Maghiara</string>
+
 </resources>

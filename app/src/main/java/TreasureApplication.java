@@ -1,7 +1,5 @@
 import android.app.Application;
 
-import com.threess.summership.treasurehunt.model.Language;
-
 
 public class TreasureApplication extends Application {
 
@@ -10,7 +8,5 @@ public class TreasureApplication extends Application {
         super.onCreate();
 
     }
-
-
 
 }

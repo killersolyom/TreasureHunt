@@ -6,10 +6,8 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
-import com.threess.summership.treasurehunt.util.Util;
 
 public class SplashProgressTask extends AsyncTask<Void, Integer, Void> {
     private static final String TAG = SplashScreenFragment.class.getSimpleName();

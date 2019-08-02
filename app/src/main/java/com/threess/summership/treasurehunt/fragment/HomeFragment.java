@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
         View view = factory.inflate(R.layout.alert_dialog_select_language, null);
 
         mLanguageAdapter = new LanguageRecyclerViewAdapter(getContext());
-        mLanguageAdapter.setDataSet( Util.getLanguages() );
+        mLanguageAdapter.setDataSet( Util.getLanguages(getContext()) );
 
         mLanguageRecyclerView = view.findViewById(R.id.language_selector_recycler_view);
         mLanguageRecyclerView.setAdapter( mLanguageAdapter );

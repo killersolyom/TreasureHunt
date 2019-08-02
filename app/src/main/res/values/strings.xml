@@ -71,7 +71,7 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Can\'t be empty.</string>
-    <string name="hidetreasureerror2">"This treasure's passcode is occupired</string>
+    <string name="hidetreasureerror2">This treasure\'s passcode is occupied</string>
     <string name="hidetreasurecreate">Your treasure is created!</string>
     <string name="hidetitle">Teasing title:</string>
     <string name="hidedescript">Description:</string>
@@ -122,5 +122,9 @@
 
     <string name="select_language">Select language</string>
     <string name="no_image_selected">No image selected</string>
+
+    <string name="language_eng">English</string>
+    <string name="language_ro">Romania</string>
+    <string name="language_hu">Hungary</string>
 
 </resources>

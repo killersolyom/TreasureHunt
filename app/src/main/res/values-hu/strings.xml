@@ -125,4 +125,8 @@
 
     <string name="select_language">Nyelv kiválasztása</string>
     <string name="no_image_selected">Nincs kep kivalasztva</string>
+
+    <string name="language_eng">Angol</string>
+    <string name="language_ro">Román</string>
+    <string name="language_hu">Magyar</string>
 </resources>

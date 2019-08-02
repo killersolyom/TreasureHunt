@@ -135,11 +135,11 @@ public final class Util {
         return isConnected;
     }
 
-    public static ArrayList<Language> getLanguages(){
+    public static ArrayList<Language> getLanguages(Context context){
         if( mLanguages.isEmpty() ){
-            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ENGLISH, "English", R.mipmap.ic_flag_eng));
-            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ROMANIA, "Romania", R.mipmap.ic_flag_ro));
-            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_HUNGARY, "Hungary", R.mipmap.ic_flag_hu));
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ENGLISH, context.getResources().getString(R.string.language_eng), R.mipmap.ic_flag_eng) );
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ROMANIA, context.getResources().getString(R.string.language_ro), R.mipmap.ic_flag_ro) );
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_HUNGARY, context.getResources().getString(R.string.language_hu), R.mipmap.ic_flag_hu) );
         }
         return mLanguages;
     }
@@ -154,22 +154,22 @@ public final class Util {
         Configuration config = new Configuration();
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-        new SavedData(context).setLanguage( Util.getLanguageById(languageKey) );
+        new SavedData(context).setLanguage( Util.getLanguageById(context, languageKey) );
     }
 
     public static void loadSavedLanguage(Context context){
-        Language language = new SavedData(context).getLanguage();
+        Language language = new SavedData(context).getLanguage(context);
         if( language != null ){
             changeApplicationLanguage(context, language);
         }else{
             // load default english
-            Language defaultLang = getLanguages().get(0);
+            Language defaultLang = getLanguages(context).get(0);
             changeApplicationLanguage(context, defaultLang );
         }
     }
 
-    public static Language getLanguageById(String id){
-        for( Language lang : getLanguages() ){
+    public static Language getLanguageById(Context context, String id){
+        for( Language lang : getLanguages(context) ){
             if( lang.getKey().equals(id) ){
                 return lang;
             }

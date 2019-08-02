@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         Resources res = base.getResources();
 
-        String langKey = new SavedData(base).getLanguage().getKey();
+        String langKey = new SavedData(base).getLanguage(base).getKey();
         Locale locale = new Locale(langKey);
         Locale.setDefault(locale);
 
