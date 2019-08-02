@@ -24,8 +24,6 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         mFragmentList.add(new ProfileFragment());
         mFragmentList.add(new FavoriteTreasureFragment());
         mFragmentList.add(new TopListFragment());
-        mFragmentList.add(new TopListFragment());
-        //mFragmentList.add(new MapViewFragment());
         mFragmentList.add(new HideTreasureFragment());
     }
 

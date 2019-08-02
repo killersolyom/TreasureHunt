@@ -120,4 +120,6 @@
     <string name="treasures">Kincsek</string>
     <string name="my_profile">Profil</string>
     <string name="back_button_press">Nyomja meg mégegyszer a vissza gombot a kilépéshez.</string>
+    <string name="hidetreasureerror2">"Hamis azonosító!"</string>
+    <string name="hidetreasurecreate">Kincs sikeresen elrejtve!</string>
 </resources>

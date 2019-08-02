@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
 import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 
 
 public class HomeFragment extends Fragment {
@@ -23,7 +24,8 @@ public class HomeFragment extends Fragment {
     public static ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
-    private Button toolbarButton;
+    private Button toolbarLanguageButton;
+    private Button toolbarMapButton;
 
     public HomeFragment() {
     }
@@ -46,14 +48,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindClickListeners(){
-        toolbarButton.setOnClickListener(v -> {
+        toolbarLanguageButton.setOnClickListener(v -> {
+        });
+        toolbarMapButton.setOnClickListener(v -> {
+            FragmentNavigation.getInstance(getContext()).showMapViewFragmentInHomeFragment();
         });
     }
     private void bindViews(View view) {
         viewPager = view.findViewById(R.id.home_viewpager);
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         toolbar = view.findViewById(R.id.home_toolbar);
-        toolbarButton = toolbar.findViewById(R.id.toolbar_settings);
+        toolbarLanguageButton = toolbar.findViewById(R.id.toolbar_settings);
+        toolbarMapButton = toolbar.findViewById(R.id.toolbar_map_view);
     }
 
     @SuppressWarnings("deprecation")
@@ -61,6 +67,12 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);
+    }
+
+    public static void showPage(int idx){
+        if( idx < 4 && idx > 0 ) {
+            viewPager.setCurrentItem(idx);
+        }
     }
 
     private void setupBottomNavigation() {
@@ -79,12 +91,8 @@ public class HomeFragment extends Fragment {
                             viewPager.setCurrentItem(2);
                             return true;
                         }
-                        case R.id.action_location: {
-                            viewPager.setCurrentItem(3);
-                            return true;
-                        }
                         case R.id.action_hide_treasure: {
-                            viewPager.setCurrentItem(4);
+                            viewPager.setCurrentItem(3);
                             return true;
                         }
                     }
@@ -114,10 +122,6 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
-                    toolbar.setTitle(R.string.location);
-                    bottomNavigationView.setSelectedItemId(R.id.action_location);
-                    break;
-                case 4:
                     toolbar.setTitle(R.string.hide_treasure);
                     bottomNavigationView.setSelectedItemId(R.id.action_hide_treasure);
                     break;

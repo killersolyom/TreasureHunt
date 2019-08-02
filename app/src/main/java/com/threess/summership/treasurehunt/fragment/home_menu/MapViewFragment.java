@@ -2,6 +2,7 @@ package com.threess.summership.treasurehunt.fragment.home_menu;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,8 +21,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -32,10 +35,10 @@ import retrofit2.Response;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback{
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
     public static final String TAG = MapViewFragment.class.getSimpleName();
-    public static final String LATITUDE ="latitude";
-    public static final String LONGITUDE ="longitude";
+    public static final String KEY1="key1";
+    public static final String KEY2="key2";
 
     private MapView mMapView;
     private ArrayList<Treasure> treasures = new ArrayList<>();
@@ -98,6 +101,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         changeFocus(googleMap);
         drawMarkers(googleMap);
         getCurrentLocation(googleMap);
+        googleMap.setOnMapLongClickListener(this);
     }
 
     private void drawMarkers(GoogleMap googleMap) {
@@ -150,5 +154,25 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
             }
         });
     }
+
+    @Override
+    public void onMapLongClick(@NonNull LatLng latLng) {
+        googleMap.addMarker(new MarkerOptions().position(latLng).
+                title("Your Treasure").icon(BitmapDescriptorFactory.
+                fromBitmap(Util.getDrawableTreasureImage(getContext()))));
+        HideTreasureFragment.setMapPickCoordinates(latLng.latitude, latLng.longitude);
+        HomeFragment.showPage( Constant.HomeViewPager.HIDE_TREASURE_IDX );
+    }
+
+    public static HideTreasureFragment newInstance(double latitude ,double longitude){
+        HideTreasureFragment hideTreasureFragment=new HideTreasureFragment();
+        Bundle args=new Bundle();
+        args.putDouble(KEY1,latitude);
+        args.putDouble(KEY2,longitude);
+        hideTreasureFragment.setArguments(args);
+
+        return hideTreasureFragment;
+    }
+
 
 }

@@ -20,6 +20,12 @@
             android:layout_height="@dimen/toolbar_size"
             android:background="@drawable/ic_settings_black_24dp"
             android:layout_gravity="end"/>
+        <Button
+            android:id="@+id/toolbar_map_view"
+            android:layout_width="@dimen/toolbar_size"
+            android:layout_height="@dimen/toolbar_size"
+            android:background="@drawable/ic_location"
+            android:layout_gravity="end"/>
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager

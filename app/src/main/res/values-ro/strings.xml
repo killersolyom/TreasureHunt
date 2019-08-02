@@ -118,5 +118,7 @@
     <string name="get_current_location">Get current location</string>
     <string name="pick_location">Pick location</string>
     <string name="location_of_the_image">Location of the image"</string>
+    <string name="hidetreasureerror2">"This treasure's passcode is occupired</string>
+    <string name="hidetreasurecreate">Your treasure is created!</string>
 
 </resources>

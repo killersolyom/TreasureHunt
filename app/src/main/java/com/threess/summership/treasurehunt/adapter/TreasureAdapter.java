@@ -76,6 +76,15 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     }
 
+    public static boolean checkThisPasscodeIsAvailable(String passcode){
+        for (Treasure treasure: Util.treasureList)
+        {
+            if(!treasure.getPasscode().isEmpty() && treasure.getPasscode().equals(passcode))return true;
+        }
+        return false;
+    }
+
+
     @Override
     public int getItemCount() {
         return  Util.treasureList.size();

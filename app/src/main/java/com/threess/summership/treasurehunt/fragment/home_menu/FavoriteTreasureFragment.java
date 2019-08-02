@@ -139,7 +139,6 @@ public class FavoriteTreasureFragment extends Fragment {
         }
     };
 
-
     private void getAllActiveTreasures() {
         ApiController.getInstance().getAllTreasures(new Callback<ArrayList<Treasure>>() {
             @Override

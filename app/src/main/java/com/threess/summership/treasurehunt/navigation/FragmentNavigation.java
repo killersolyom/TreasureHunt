@@ -17,11 +17,8 @@ import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -36,15 +33,13 @@ public class FragmentNavigation extends Fragment {
     private Activity act;
     private static int mMainActivityFragmentContainer;
     //private static int mHomeFragmentContainer;
-    private static int mHomeTreasereFragmentContainer;
+    //private static int mHomeTreasereFragmentContainer;
 
 
     public static FragmentNavigation getInstance(Context context) {
 
         if (sInstance == null) {
             mMainActivityFragmentContainer = R.id.fragment_container;
-            //mHomeFragmentContainer =  R.id.home_viewpager;
-            mHomeTreasereFragmentContainer = R.id.home_treasures_fragment_container;
             sInstance = new FragmentNavigation();
             mFragmentManager = ((MainActivity) context).getSupportFragmentManager();
         }
@@ -76,33 +71,11 @@ public class FragmentNavigation extends Fragment {
         addFragment(new ClaimTreasureFragment(treasure), mMainActivityFragmentContainer);
     }
 
-    public void showHideTreasureFragment() {
-        replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
-    }
-
     public void showMapViewFragmentInHomeFragment() {
         if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new MapViewFragment(), mHomeTreasereFragmentContainer);
+            replaceFragment(new MapViewFragment(), mMainActivityFragmentContainer);
         }
     }
-
-    public void showFavoriteTreasureListFragmentInHomeFragment() {
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new FavoriteTreasureFragment(), mHomeTreasereFragmentContainer);
-        }
-    }
-
-    public void showProfileFragmentInHomeFragment() {
-        if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            replaceFragment(new ProfileFragment(), mHomeTreasereFragmentContainer);
-        }
-    }
-
-    public void showTopListFragment() {
-        replaceFragment(new TopListFragment(), mMainActivityFragmentContainer);
-    }
-
-    private boolean doubleBackToExitPressedOnce = false;
 
 
     /**
@@ -162,16 +135,6 @@ public class FragmentNavigation extends Fragment {
         return mFragmentManager.findFragmentById(container);
     }
 
-
-    public Fragment getCurrentFragmentOnMainActivity() {
-        return getCurrentFragment(R.id.fragment_container);
-    }
-
-    public Fragment getCurrentFragmentOnHomeFragment() {
-        return getCurrentFragment(R.id.home_treasures_fragment_container);
-    }
-
-
     public void startNavigationToDestination(Treasure treasure, Context context) {
         if (getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment && !treasure.isClaimed()) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
@@ -197,18 +160,16 @@ public class FragmentNavigation extends Fragment {
             return;
         }
 
-         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof RegistrationFragment) {
+         if( (getCurrentFragment(mMainActivityFragmentContainer) instanceof RegistrationFragment)){
              popBackstack();
              return;
          }
-
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HideTreasureFragment
-                || getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment) {
+                || getCurrentFragment(mMainActivityFragmentContainer) instanceof ClaimTreasureFragment
+                || (getCurrentFragment(mMainActivityFragmentContainer) instanceof MapViewFragment)) {
             showHomeFragment();
             return;
         }
-
-        // Other cases:
         activity.moveTaskToBack(true);
     }
 
