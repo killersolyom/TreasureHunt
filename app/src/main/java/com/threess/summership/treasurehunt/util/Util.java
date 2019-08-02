@@ -17,12 +17,17 @@ import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.model.User;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public final class Util {
     private static final String TAG = Util.class.getSimpleName();
     private static Random randomNumber = new Random(5);
+    public static ArrayList<Treasure> treasureList = new ArrayList<>();
+    public static ArrayList<User> userList = new ArrayList<>();
 
     public static void hideKeyboard(Context context, Button button) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);

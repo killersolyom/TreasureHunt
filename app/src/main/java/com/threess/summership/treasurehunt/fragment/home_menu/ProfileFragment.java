@@ -64,7 +64,6 @@ public class ProfileFragment extends Fragment {
     private MyCallBack callBack = new MyCallBack() {
         @Override
         public void updateProfileDone() {
-            Log.e("3ss", "Itt vagyok");
             ApiController.getInstance().getUser(mDataManager.getUserName(), new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -181,8 +180,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
-                setUITreasuresHidden(0);
-                setUITreasuresDiscovered(0);
             }
         });
     }

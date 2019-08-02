@@ -68,7 +68,7 @@ public class FavoriteTreasureFragment extends Fragment {
         playAnimations();
     }
 
-    private void initComponents(View view){
+    private void initComponents(View view) {
         recycle = view.findViewById(R.id.recycler_view_contacts);
         adapter = new TreasureAdapter(this.getContext());
         recycle.setAdapter(adapter);
@@ -78,25 +78,25 @@ public class FavoriteTreasureFragment extends Fragment {
         initLocationClient();
     }
 
-    private void initSwipeRefreshLayout(View view){
+    private void initSwipeRefreshLayout(View view) {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout_favorite_treasure);
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimary);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getAllActiveTreasures();
-            swipeRefreshLayout.postDelayed(runnable,Constant.FavoriteTreasure.STOP_SWIPE_REFRESHING_TIME);
+            swipeRefreshLayout.postDelayed(runnable, Constant.FavoriteTreasure.STOP_SWIPE_REFRESHING_TIME);
         });
     }
 
-    private void initRunnable(){
+    private void initRunnable() {
         runnable = () -> {
-            if(getContext()!=null){
+            if (getContext() != null) {
                 swipeRefreshLayout.setRefreshing(false);
             }
         };
     }
 
-    private void initLocationClient(){
+    private void initLocationClient() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -116,7 +116,6 @@ public class FavoriteTreasureFragment extends Fragment {
     private LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-
             List<Location> locations = locationResult.getLocations();
             if (!locations.isEmpty()) {
                 Location location = locations.get(0);
@@ -148,6 +147,7 @@ public class FavoriteTreasureFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
                 adapter.setTreasureList(response.body());
             }
+
             @Override
             public void onFailure(Call<ArrayList<Treasure>> call, Throwable t) {
 
@@ -157,7 +157,7 @@ public class FavoriteTreasureFragment extends Fragment {
     }
 
     private void playAnimations() {
-        if(mFirstStart) {
+        if (mFirstStart) {
             mFirstStart = false;
             Animator recViewAnim = new Animator(getContext(), recycle, true);
             recViewAnim.AddSlide(0, 0, 1000, 0, 1800);
@@ -166,24 +166,12 @@ public class FavoriteTreasureFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-
-    @Override
     public void onResume() {
         super.onResume();
-        if(adapter!=null){
-            if(adapter.isEmpty()){
+        if (adapter != null) {
+            if (adapter.isEmpty()) {
                 getAllActiveTreasures();
-            }else{
+            } else {
                 adapter.notifyDataSetChanged();
             }
         }
@@ -196,19 +184,9 @@ public class FavoriteTreasureFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 }

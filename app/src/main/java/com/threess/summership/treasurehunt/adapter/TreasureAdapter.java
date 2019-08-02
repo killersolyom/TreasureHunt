@@ -20,6 +20,7 @@ import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,6 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     private static final String TAG = TreasureAdapter.class.getSimpleName();
     private Context mContext;
-    private ArrayList<Treasure> treasureList = new ArrayList<>();
     private Treasure mSelectedTreasure = null;
 
 
@@ -48,11 +48,12 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         try {
-            final Treasure treasure =  treasureList.get(position);
+            final Treasure treasure =  Util.treasureList.get(position);
             if (!treasure.isClaimed() && treasure.getTitle().length() > 4) {
             Glide.with(mContext).load(treasure.getPhotoClue())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.app_icon)
+                    .override(150)
                     .circleCrop()
                     .into(holder.mTreasureImage);
             holder.mTreasureText.setText(treasure.getTitle());
@@ -77,7 +78,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
 
     @Override
     public int getItemCount() {
-        return  treasureList.size();
+        return  Util.treasureList.size();
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -96,11 +97,11 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     public void setTreasureList(ArrayList<Treasure> treasures) {
-        treasureList.clear();
+        Util.treasureList.clear();
         for (Treasure t : treasures) {
             if (t != null) {
                 if (t.getClaimedBy().equals(new SavedData(mContext).readStringData(Constant.SavedData.USER_PROFILE_NAME_KEY)) || !t.isClaimed()) {
-                    treasureList.add(t);
+                    Util.treasureList.add(t);
                 }
             }
         }
@@ -108,7 +109,7 @@ public class TreasureAdapter extends RecyclerView.Adapter<TreasureAdapter.Recycl
     }
 
     public boolean isEmpty(){
-        return treasureList.isEmpty();
+        return Util.treasureList.isEmpty();
     }
 
     public Treasure getSelectedTreasure() {

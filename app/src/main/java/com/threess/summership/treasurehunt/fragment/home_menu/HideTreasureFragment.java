@@ -72,8 +72,8 @@ public class HideTreasureFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
         if (getArguments() != null) {
-            latitude = getArguments().getDouble(MapViewFragment.KEY1);
-            longitude = getArguments().getDouble(MapViewFragment.KEY2);
+            latitude = getArguments().getDouble(MapViewFragment.LATITUDE);
+            longitude = getArguments().getDouble(MapViewFragment.LONGITUDE);
             locationEditText.setText(latitude + " , " + longitude);
         } else {
             locationEditText.setText(LocatingUserLocation.getInstance().tryToGetLocationString(getContext()));

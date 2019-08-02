@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
 
     @SuppressWarnings("deprecation")
     private void setupViewPager() {
-        viewPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
         viewPager.setCurrentItem(1);
     }

@@ -13,12 +13,12 @@ import android.widget.Toast;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.FavoriteTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.ProfileFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.TopListFragment;
@@ -78,10 +78,6 @@ public class FragmentNavigation extends Fragment {
 
     public void showHideTreasureFragment() {
         replaceFragment(new HideTreasureFragment(), mMainActivityFragmentContainer);
-    }
-
-    public void showHideTreasureFragment(double latitude, double longitude) {
-        replaceFragment(MapViewFragment.newInstance(latitude, longitude), R.id.fragment_container);
     }
 
     public void showMapViewFragmentInHomeFragment() {
