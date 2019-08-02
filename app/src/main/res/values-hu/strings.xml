@@ -68,6 +68,9 @@
     <string name="get_current_location">Jelenlegi tartózkodási hely</string>
     <string name="pick_location">Hely választása térképről</string>
     <string name="location_of_the_image">Kép készítési helye"</string>
+    <string name="empty_string_error">Nem lehet üress.</string>
+    <string name="occupied_passcode">Kincs azonosítója már foglalt</string>
+    <string name="treasure_created_successful">A kincs létrejött</string>
 
     <!-- camera -->
     <string name="request_permission">Kamera hozzáférés szükséges!.</string>

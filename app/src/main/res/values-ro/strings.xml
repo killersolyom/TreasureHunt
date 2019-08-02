@@ -68,6 +68,9 @@
     <string name="get_current_location">Locatia curenta</string>
     <string name="pick_location">Alege locatia</string>
     <string name="location_of_the_image">Locatia fotografiei</string>
+    <string name="empty_string_error">Poate/Nu poate sa fie gol.</string>
+    <string name="occupied_passcode">IDul comoarei este deja folosita</string>
+    <string name="treasure_created_successful">Comoara este creata</string>
 
     <!-- camera -->
     <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>

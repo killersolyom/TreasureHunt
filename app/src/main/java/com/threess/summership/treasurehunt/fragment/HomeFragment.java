@@ -63,6 +63,12 @@ public class HomeFragment extends Fragment {
         viewPager.setCurrentItem(1);
     }
 
+    public static void showPage(int idx){
+        if( idx < 4 && idx > 0 ) {
+            viewPager.setCurrentItem(idx);
+        }
+    }
+
     private void setupBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {

@@ -67,6 +67,9 @@
     <string name="get_current_location">Get current location</string>
     <string name="pick_location">Pick location</string>
     <string name="location_of_the_image">Location of the image"</string>
+    <string name="empty_string_error">Can\'t be empty.</string>
+    <string name="occupied_passcode">This treasure\'s passcode is occupied</string>
+    <string name="treasure_created_successful">Your treasure is created!</string>
 
     <!-- camera -->
     <string name="request_permission">This sample needs camera permission.</string>
