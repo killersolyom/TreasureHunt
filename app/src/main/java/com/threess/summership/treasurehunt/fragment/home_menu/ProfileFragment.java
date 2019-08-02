@@ -164,7 +164,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Util.makeSnackbar(getView(), R.string.user_profile_no_informations_error_message, Snackbar.LENGTH_SHORT, Color.RED);
+                Util.makeSnackbar(getView(), R.string.user_profile_no_information_error_message, Snackbar.LENGTH_SHORT, Color.RED);
             }
         });
 

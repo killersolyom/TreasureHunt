@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
             switch (position) {
                 case 0:
                     toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
-                    toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
+                    toolbar.setTitleTextColor(getActivity().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case 1:
@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
                     bottomNavigationView.setSelectedItemId(R.id.action_favorites);
                     break;
                 case 3:
-                    toolbar.setTitle(R.string.location);
+                    toolbar.setTitle(R.string.show_on_map);
                     bottomNavigationView.setSelectedItemId(R.id.action_location);
                     break;
                 case 4:
