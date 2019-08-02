@@ -29,7 +29,7 @@ public class LocatingUserLocation {
     public String tryToGetLocationString(Context context){
         LatLng currentPosition = tryToGetLocation(context);
         if (currentPosition!=null){
-            return  currentPosition.latitude + " , " + currentPosition.longitude;
+            return  "[" + currentPosition.latitude + ", " + currentPosition.longitude + "]";
         }
         return "";
     }

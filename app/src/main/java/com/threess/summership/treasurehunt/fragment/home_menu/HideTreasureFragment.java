@@ -1,5 +1,6 @@
 package com.threess.summership.treasurehunt.fragment.home_menu;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.threess.summership.treasurehunt.R;
@@ -50,12 +52,23 @@ public class HideTreasureFragment extends Fragment {
     private EditText pointsEditText;
     private EditText passcodeEditText;
     private EditText photoEditText;
-    private EditText locationEditText;
+    private static EditText locationEditText;
+    private LinearLayout mCurrentLocationGetter; // current_location_getter
+    private LinearLayout mLocationPicker; // location_picker
+    private LinearLayout mImageLocationGetter; //image_location_getter
     private SavedData dataManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private double latitude, longitude;
     private Treasure treasure;
     private File myIMGFile;
+
+    private enum FillMode {CURRENT_LOCATION, PICK_LOCATION_FROM_MAP, LOCATION_OF_THE_IMAGE}
+    private static class SavedCameraImageLocation{
+        public static boolean isSet = false;
+        public static double latitude;
+        public static double longitude;
+    }
+
 
     public HideTreasureFragment() {
         // constructor
@@ -72,11 +85,9 @@ public class HideTreasureFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         findIds(view);
         if (getArguments() != null) {
-            latitude = getArguments().getDouble(MapViewFragment.LATITUDE);
-            longitude = getArguments().getDouble(MapViewFragment.LONGITUDE);
-            locationEditText.setText(latitude + " , " + longitude);
-        } else {
-            locationEditText.setText(LocatingUserLocation.getInstance().tryToGetLocationString(getContext()));
+            latitude = getArguments().getDouble(MapViewFragment.KEY1);
+            longitude = getArguments().getDouble(MapViewFragment.KEY2);
+            locationEditText.setText("[" + latitude + " , " + longitude + "]");
         }
         titleEditText.setOnKeyListener((view18, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -121,6 +132,26 @@ public class HideTreasureFragment extends Fragment {
             return false;
         });
 
+        mCurrentLocationGetter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoFillLocationField(FillMode.CURRENT_LOCATION);
+            }
+        });
+
+        mLocationPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoFillLocationField(FillMode.PICK_LOCATION_FROM_MAP);
+            }
+        });
+
+        mImageLocationGetter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoFillLocationField(FillMode.LOCATION_OF_THE_IMAGE);
+            }
+        });
 
         photoClueArrow.setOnClickListener(view12 -> buttonCameraPress());
         button.setOnClickListener(view1 -> buttonPress());
@@ -140,6 +171,32 @@ public class HideTreasureFragment extends Fragment {
         photoEditText = view.findViewById(R.id.photo_edit_text);
         locationEditText = view.findViewById(R.id.location_edit_text);
         dataManager = new SavedData(getContext());
+        mCurrentLocationGetter = view.findViewById(R.id.current_location_getter);
+        mLocationPicker = view.findViewById(R.id.location_picker);
+        mImageLocationGetter = view.findViewById(R.id.image_location_getter);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void autoFillLocationField(FillMode fillMode){
+
+        switch (fillMode){
+            case CURRENT_LOCATION:{
+                locationEditText.setText( LocatingUserLocation.getInstance().tryToGetLocationString(getContext()) );
+                break;
+            }
+            case PICK_LOCATION_FROM_MAP:{
+                HomeFragment.showPage(Constant.HomeViewPager.MAP_IDX);
+                break;
+            }
+            case LOCATION_OF_THE_IMAGE:{
+                if( SavedCameraImageLocation.isSet) {
+                    locationEditText.setText("[" + SavedCameraImageLocation.latitude + ", " + SavedCameraImageLocation.latitude + "]");
+                }else{
+                    Util.makeSnackbar(getView(), R.string.no_image_selected, Snackbar.LENGTH_SHORT, R.color.orange800);
+                }
+                break;
+            }
+        }
     }
 
     private void buttonPress() {
@@ -248,9 +305,9 @@ public class HideTreasureFragment extends Fragment {
                 String filePath = data.getStringExtra(getActivity().getString(R.string.file_string));
                 myIMGFile = new File(filePath);
                 LatLng latLng = LocatingUserLocation.getInstance().tryToGetLocation(getContext());
-                this.latitude = latLng.latitude;
-                this.longitude = latLng.longitude;
-                locationEditText.setText(latLng.latitude + "," + latLng.longitude);
+                SavedCameraImageLocation.latitude = latLng.latitude;
+                SavedCameraImageLocation.longitude = latLng.longitude;
+                SavedCameraImageLocation.isSet = true;
                 photoEditText.setText(filePath);
             }catch (Exception e){
                 Util.makeSnackbar(getView(),R.string.camera_error,Snackbar.LENGTH_SHORT,R.color.orange800);
@@ -283,4 +340,7 @@ public class HideTreasureFragment extends Fragment {
         });
     }
 
+    public static void setMapPickCoordinates(double latitude, double longitude) {
+        locationEditText.setText("[" + latitude + " , " + longitude + "]");
+    }
 }

@@ -70,6 +70,8 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">Vezi sticarele</string>
     <string name="hidetreasureerror">Poate/Nu poate sa fie gol.</string>
+    <string name="hidetreasureerror2">IDul comoarei este deja folosita</string>
+    <string name="hidetreasurecreate">Comoara este creata</string>
     <string name="hidetitle">Titlu de tachinare:</string>
     <string name="hidedescript">Descriere:</string>
     <string name="hidephoto">Cheie pentru poza:</string>
@@ -120,5 +122,12 @@
     <string name="location_of_the_image">Location of the image"</string>
     <string name="hidetreasureerror2">"This treasure's passcode is occupired</string>
     <string name="hidetreasurecreate">Your treasure is created!</string>
+
+    <string name="select_language">Selecteaza limba</string>
+    <string name="no_image_selected">Imaginea nu este selectata</string>
+
+    <string name="language_eng">Enghleza</string>
+    <string name="language_ro">Romana</string>
+    <string name="language_hu">Maghiara</string>
 
 </resources>

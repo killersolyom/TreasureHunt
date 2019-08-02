@@ -160,6 +160,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
         googleMap.addMarker(new MarkerOptions().position(latLng).
                 title("Your Treasure").icon(BitmapDescriptorFactory.
                 fromBitmap(Util.getDrawableTreasureImage(getContext()))));
+
         HideTreasureFragment.setMapPickCoordinates(latLng.latitude, latLng.longitude);
         HomeFragment.showPage( Constant.HomeViewPager.HIDE_TREASURE_IDX );
     }
@@ -173,6 +174,4 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
         return hideTreasureFragment;
     }
-
-
 }

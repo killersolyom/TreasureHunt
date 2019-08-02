@@ -63,6 +63,12 @@ public class Constant {
         public static final String USER_CLAIMED_TREASURE_NUMBER = "claimed_treasure_number";
         public static final String USER_CREATED_TREASURE_NUMBER = "created_treasure_number";
         public static final String USER_SCORE = "user_score";
+        public static class Language {
+            public static final String LANGUAGE_KEY = "language";
+            public static final String LANGUAGE_KEY_ENGLISH = "en";
+            public static final String LANGUAGE_KEY_ROMANIA = "ro";
+            public static final String LANGUAGE_KEY_HUNGARY = "hu";
+        }
     }
 
     public static class Camera {
@@ -100,11 +106,12 @@ public class Constant {
             ORIENTATIONS.append(Surface.ROTATION_270, 180);
         }
     }
-    public static class Language {
-        public static final String LANGUAGE_KEY_ENGLISH = "en";
-        public static final String LANGUAGE_KEY_ROMANIA = "ro";
-        public static final String LANGUAGE_KEY_HUNGARY = "hu";
+
+    public static class HomeViewPager{
+        public static final int PROFILE_IDX = 0;
+        public static final int TREASURE_IDX = 1;
+        public static final int TOPLIST_IDX = 2;
+        public static final int MAP_IDX = 3;
+        public static final int HIDE_TREASURE_IDX = 4;
     }
-
-
 }

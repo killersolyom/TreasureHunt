@@ -2,8 +2,11 @@ package com.threess.summership.treasurehunt;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,9 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.NetworkChangeReceiver;
+import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.Util;
+
+import java.util.Locale;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -31,8 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Load saved language if exists. If not, then load default language:
+        //Util.loadSavedLanguage( getApplicationContext() );
+        //recreate();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentNavigation.getInstance(this).showSplashScreenFragment();
         ApiController.getInstance(this);
         initNetworkHandler();
@@ -95,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this);
+        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this, findViewById(R.id.fragment_container));
     }
 
     @Override
@@ -132,4 +144,24 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        // Load the last used language:
+
+        Resources res = base.getResources();
+
+        String langKey = new SavedData(base).getLanguage(base).getKey();
+        Locale locale = new Locale(langKey);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        res.updateConfiguration(config, res.getDisplayMetrics());
+
+        super.attachBaseContext(base);
+    }
+
+
 }

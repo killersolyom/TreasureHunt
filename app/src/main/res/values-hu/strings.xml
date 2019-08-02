@@ -84,6 +84,8 @@
     <string name="fragment_camera2">Camera2</string>
     <string name="fragment_view_stickers">View Stickers</string>
     <string name="hidetreasureerror">Nem lehet üress.</string>
+    <string name="hidetreasureerror2">Kincs azonosítòja már foglalt</string>
+    <string name="hidetreasurecreate">A kincs létrejött</string>
     <string name="hidetitle">Cím:</string>
     <string name="hidedescript">Leírás:</string>
     <string name="hidephoto">Fénykép:</string>
@@ -120,6 +122,11 @@
     <string name="treasures">Kincsek</string>
     <string name="my_profile">Profil</string>
     <string name="back_button_press">Nyomja meg mégegyszer a vissza gombot a kilépéshez.</string>
-    <string name="hidetreasureerror2">"Hamis azonosító!"</string>
-    <string name="hidetreasurecreate">Kincs sikeresen elrejtve!</string>
+
+    <string name="select_language">Nyelv kiválasztása</string>
+    <string name="no_image_selected">Nincs kep kivalasztva</string>
+
+    <string name="language_eng">Angol</string>
+    <string name="language_ro">Román</string>
+    <string name="language_hu">Magyar</string>
 </resources>

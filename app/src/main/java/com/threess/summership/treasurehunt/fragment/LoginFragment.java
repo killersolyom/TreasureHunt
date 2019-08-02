@@ -55,7 +55,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         login = view.findViewById(R.id.LogIn);
         dataManager = new SavedData(getContext());
         nameText = view.findViewById(R.id.loginName);

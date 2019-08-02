@@ -1,7 +1,11 @@
 package com.threess.summership.treasurehunt.util;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,16 +20,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
+import com.threess.summership.treasurehunt.logic.SavedData;
+import com.threess.summership.treasurehunt.model.Language;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.model.User;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public final class Util {
     private static final String TAG = Util.class.getSimpleName();
     private static Random randomNumber = new Random(5);
+    private static ArrayList<Language> mLanguages = new ArrayList<>();
+
     public static ArrayList<Treasure> treasureList = new ArrayList<>();
     public static ArrayList<User> userList = new ArrayList<>();
 
@@ -127,5 +137,57 @@ public final class Util {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
         return isConnected;
+    }
+
+    public static ArrayList<Language> getLanguages(Context context){
+        if( mLanguages.isEmpty() ){
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ENGLISH, context.getResources().getString(R.string.language_eng), R.mipmap.ic_flag_eng) );
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_ROMANIA, context.getResources().getString(R.string.language_ro), R.mipmap.ic_flag_eng) );
+            mLanguages.add(new Language( Constant.SavedData.Language.LANGUAGE_KEY_HUNGARY, context.getResources().getString(R.string.language_hu), R.mipmap.ic_flag_eng) );
+        }
+        return mLanguages;
+    }
+
+    public static void changeApplicationLanguage(Context context, Language language) {
+        changeApplicationLanguage(context, language.getKey());
+    }
+
+    public static void changeApplicationLanguage(Context context, String languageKey) {
+        Locale locale = new Locale( languageKey );
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        new SavedData(context).setLanguage( Util.getLanguageById(context, languageKey) );
+    }
+
+    public static void loadSavedLanguage(Context context){
+        Language language = new SavedData(context).getLanguage(context);
+        if( language != null ){
+            changeApplicationLanguage(context, language);
+        }else{
+            // load default english
+            Language defaultLang = getLanguages(context).get(0);
+            changeApplicationLanguage(context, defaultLang );
+        }
+    }
+
+    public static Language getLanguageById(Context context, String id){
+        for( Language lang : getLanguages(context) ){
+            if( lang.getKey().equals(id) ){
+                return lang;
+            }
+        }
+        return null;
+    }
+
+    public static void restartApp(MainActivity activity) {
+        Intent mStartActivity = new Intent(activity.getApplicationContext(), MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(activity.getApplicationContext(), mPendingIntentId, mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
     }
 }

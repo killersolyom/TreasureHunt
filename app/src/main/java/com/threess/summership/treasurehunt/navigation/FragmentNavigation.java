@@ -5,14 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
+import android.view.View;
 
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
@@ -34,7 +36,6 @@ public class FragmentNavigation extends Fragment {
     private static int mMainActivityFragmentContainer;
     //private static int mHomeFragmentContainer;
     //private static int mHomeTreasereFragmentContainer;
-
 
     public static FragmentNavigation getInstance(Context context) {
 
@@ -152,11 +153,11 @@ public class FragmentNavigation extends Fragment {
      * pages.
      * @param activity activity instance
      */
-     public void onBackPressed(MainActivity activity) {
+     public void onBackPressed(MainActivity activity, View view) {
 
         // If Home page is open: double press exit:
         if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
-            doublePressExit(activity);
+            doublePressExit(activity, view);
             return;
         }
 
@@ -175,16 +176,18 @@ public class FragmentNavigation extends Fragment {
 
 
 
-    private void doublePressExit(Context context) {
+    private void doublePressExit(MainActivity activity, View view) {
 
         if (mDoubleBackToExitPressedOnce) {
             mDoubleBackToExitPressedOnce = false;
-            ((Activity)context).moveTaskToBack(true);
+            activity.moveTaskToBack(true);
             return;
         }
 
         mDoubleBackToExitPressedOnce = true;
-        Util.makeSnackbar(getView(), R.string.back_button_press, Toast.LENGTH_SHORT, R.color.blue300 );
+
+        Util.makeSnackbar(view, R.string.back_button_press, Snackbar.LENGTH_SHORT, R.color.blue300);
+
         mHandler.postDelayed(() -> mDoubleBackToExitPressedOnce = false, 2000);
     }
 
