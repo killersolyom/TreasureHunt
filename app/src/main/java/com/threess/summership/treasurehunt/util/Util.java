@@ -86,33 +86,33 @@ public final class Util {
             switch (requestCode) {
                 case (Constant.LogIn.LOGIN_REQUEST_CODE)://LOGIN
                     if (message.contains(Constant.LogIn.INCORRECT_PASSWORD)) {
-                        Util.makeSnackbar(view, R.string.incorrect_password, Snackbar.LENGTH_LONG, R.color.orangeA300);
+                        Util.makeSnackbar(view, R.string.incorrect_password, Snackbar.LENGTH_LONG, R.color.orange900);
                     } else if (message.contains(Constant.LogIn.USERNAME_NOT_EXISTS)) {
                         Util.makeSnackbar(view, R.string.username_not_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
                     } else {
-                        Util.makeSnackbar(view, R.string.login_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
+                        Util.makeSnackbar(view, R.string.login_failed, Snackbar.LENGTH_SHORT, R.color.orange900);
                     }
                     break;
                 case (Constant.Registration.REGISTRATION_REQUEST_CODE)://REGISTER
                     if (message.contains(Constant.HideTreasure.ALREADY_EXISTS)) {
                         Util.makeSnackbar(view, R.string.username_already_exists, Snackbar.LENGTH_LONG, R.color.orangeA300);
                     } else {
-                        Util.makeSnackbar(view, R.string.registration_failed, Snackbar.LENGTH_SHORT, R.color.orange700);
+                        Util.makeSnackbar(view, R.string.registration_failed, Snackbar.LENGTH_SHORT, R.color.orange900);
                     }
                     break;
                 case (Constant.HideTreasure.HIDE_TREASURE_REQUEST_CODE)://HIDE TREASURE
                     if (message.contains(Constant.HideTreasure.ALL_FIELDS_ARE_REQUIRED)) {
                         Util.makeSnackbar(view, R.string.all_fields_are_required, Snackbar.LENGTH_LONG, R.color.orangeA300);
                     } else {
-                        Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
+                        Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange900);
                     }
                     break;
                 default:
-                    Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
+                    Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange900);
                     break;
             }
         } else {
-            Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange700);
+            Util.makeSnackbar(view, R.string.failed_operation, Snackbar.LENGTH_SHORT, R.color.orange900);
         }
     }
 

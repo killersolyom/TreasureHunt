@@ -1,131 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">Cautare de comori</string>
-    <string name="action_settings">Setari</string>
-    <string name="hello_world">Buna vara!</string>
+    <resources>
+    <!-- login fragment -->
     <string name="remember_me">Tine-ma minte</string>
     <string name="auto_login">Logare automata</string>
-    <string name="name">Nume</string>
-    <string name="password">Parola</string>
     <string name="log_in">Logare</string>
-    <string name="confirm_password">Confirma parola</string>
     <string name="create_account">Creaza cont</string>
-    <string name="home">Acasa</string>
-    <string name="logout">Deconectare</string>
-    <string name="treasures_discovered">Comori descoperite</string>
-    <string name="Username">Nume de utilizator</string>
-    <string name="treasures_hidden">Comori ascunse</string>
+    <string name="no_internet_connection">Nu exista conexiune la internet!</string>
+
+    <!-- registration fragment -->
+    <string name="confirm_password">Confirma parola</string>
+    <string name="invalid_password_confirm">Parolele nu se potrivesc!</string>
+    <string name="register">Inregistreaza-te</string>
+
+    <!-- home fragment -->
+    <string name="my_profile">Profil</string>
+    <string name="treasures">Comori</string>
+    <string name="top_list">Lista de top</string>
+    <string name="show_on_map">Arata pe mapa</string>
+    <string name="hide_treasure">Comoara ascunsa</string>
+
+    <!-- profile fragment -->
     <string name="refresh">Reimprospatare</string>
+    <string name="user_profile_no_information_error_message">"Nu se poate descarca informatia utilizatorului."</string>
+    <string name="profile_user_name_format">Nume de utilizator: %1$s</string>
+    <string name="treasures_discovered">Comori descoperite</string>
+    <string name="treasures_hidden">Comori ascunse</string>
+    <string name="profile_treasures_discovered_format">Comori descoperite: %1$d</string>
+    <string name="profile_treasures_hidden_format">Comori ascunse: %1$d</string>
+    <string name="profile_username">Nume de urilizator: %1$s</string>
+    <string name="profile_logout">Delogare</string>
+
+    <!-- picture upload dialog -->
+    <string name="cancel">Anulare</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+     <string name="take_picture">Realizare fotografie</string>
+    <string name="chooser_dialog_message">Alege metoda de incarcare a imaginii</string>
+    <string name="upload_profile_image">Incarcare imagine profil</string>
+
+    <!-- claim treasure fragment -->
+    <string name="claim_treasure">Revendica comoara</string>
+    <string name="write_pass_code">Scrie codul de trecere pentru obiect!</string>
+    <string name="confirm_and_claim">Confirma si revendica comoara!</string>
+    <string name="do_not_claim_your_treasure">Aceasta e comoara ta. Asta nu e corect!</string>
+    <string name="invalid_pass_code_or_treasure">Cod de trecere invalid sau comoara gresita!</string>
+    <string name="score_did_not_changed">Scorul tau nu s-a schimbat.</string>
+    <string name="score_increased">Acum scorul tau e mai mare!</string>
+    <string name="correct_pass_code">Cod de trecere corect!</string>
+    <string name="read_qr_code">Citeste QR cod</string>
+
+    <!-- hide treasure fragment -->
+    <string name="yes">Da!</string>
+    <string name="no">Nu!</string>
+    <string name="turn_on_your_gps">Te rog porneste conexiunea la GPS!</string>
+    <string name="treasure_title">Titlu de tachinare:</string>
+    <string name="treasure_description">Descriere:</string>
+    <string name="photo_clue">Cheie pentru poza:</string>
+    <string name="location">Locatie:</string>
+    <string name="prize_point">Puncte premiu:</string>
+    <string name="pass_code">Cod de trecere:</string>
+    <string name="title_hint">Introduce un titlu pentru obiectul tau</string>
+    <string name="description_hint">Ceva ce va motiva ceilalti jucatori</string>
+    <string name="photo_hint">Conectati o imagine reprezentativa</string>
+    <string name="location_hint">O pereche de coordonate [latitudine,longitudine]</string>
+    <string name="prize_hint">Cat de multe din propriile tale puncte de premiere ai acorda?</string>
+    <string name="pass_hint">Identificator unic, astfel incat poate fi validat atunci cand e revendicat </string>
+    <string name="create_treasure">Creaza comoara</string>
+    <string name="get_current_location">Locatia curenta</string>
+    <string name="pick_location">Alege locatia</string>
+    <string name="location_of_the_image">Locatia fotografiei</string>
+    <string name="empty_string_error">Poate/Nu poate sa fie gol.</string>
+    <string name="occupied_passcode">IDul comoarei este deja folosita</string>
+    <string name="treasure_created_successful">Comoara este creata</string>
+
+    <!-- camera -->
+    <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
+    <string name="camera_error">Acest device nu supoarta Camera2 API.</string>
+    <string name="fragment_camera2">Camera2</string>
+    <string name="fragment_view_stickers">Vezi sticarele</string>
+    <string name="file_string">Fila</string>
+
+    <!-- common -->
+    <string name="app_name">Cautare de comori</string>
+    <string name="password">Parola</string>
+    <string name="username">Nume de utilizator</string>
     <string name="score">Punctaj</string>
     <string name="successful">Reusit</string>
+    <string name="empty_string"> </string>
+    <string name="back_button_press">Apasa inapoi pentru a iesi.</string>
     <string name="registration_failed">Inregistrare esuata!</string>
     <string name="username_already_exists">Numele de utilizator exista deja. Incearca unul diferit!</string>
     <string name="invalid_username">Nume de utilizator invalid!</string>
     <string name="invalid_password">Parola invalida!</string>
     <string name="failed_operation">Operatiune esuata!</string>
-    <string name="invalid_password_confirm">Parolele nu se potrivesc!</string>
     <string name="login_failed">Logare esuata!</string>
     <string name="incorrect_password">Parola incorecta!</string>
     <string name="username_not_exists">Acest nume de utilizator nu este inregistrat inca!</string>
-    <string name="empty_string"> </string>
-    <string name="register">Inregistreaza-te</string>
-    <string name="cancel">Anulare</string>
-    <string name="claim_treasure">Revendica comoara</string>
-    <string name="write_pass_code">Scrie codul de trecere pentru obiect!</string>
-    <string name="confirm_and_claim">Confirma si revendica comoara!</string>
-    <string name="hide_treasure">Comoara ascunsa</string>
-    <string name="profile">Profil</string>
-    <string name="description">Descriere</string>
-    <string name="recent">Recent</string>
-    <string name="favorites">Favorite</string>
-    <string name="map">Arata pe harta</string>
     <string name="missing_permission">Permisiune neacordata!</string>
-    <string name="invalid_pass_code">Cod de trecere invalid sau comoara gresita!</string>
     <string name="online_mode">Conectat la internet!</string>
     <string name="offline_mode">Deconectat de la internet!</string>
-    <string name="correct_pass_code">Cod de trecere corect!</string>
-    <string name="not_available_treasure">Comoara indisponibila pe server!</string>
-    <string name="yes">Da!</string>
-    <string name="no">Nu!</string>
-    <string name="turn_on_your_gps">Te rog porneste conexiunea la GPS!</string>
-    <string name="Claim_editText_EmptyError">E gol!/nTe rog scrie aici ceva!</string>
-    <string name="Claim_error3">Aceasta e comoara ta. Asta nu e corect!</string>
-    <string name="Claim_snackBarError1">Cod de trecere invalid sau comoara gresita!</string>
-    <string name="Claim_Error4">Scorul tau nu s-a schimbat.</string>
-    <string name="Claim_snackBar_scoreUpdate">Acum scorul tau e mai mare!</string>
-    <string name="Claim_Available">Codul de trecere pentru aceasta comoara e invalid! </string>
-    <string name="Claim_Available2"> E valid! </string>
-    <string name="Claim_SnackBarError2"> Comoara indisponibila pe server </string>
-    <string name="Claim_SnackBarError_Internet"> Fara conectiune la internat!Porneste wifi </string>
-    <string name="top_list_score">Punctaj: </string>
-    <string name="picture">Poza</string>
-    <string name="description_info">Info</string>
-    <string name="unreachable">Serverul e de neatins!</string>
-    <string name="request_permission">Aceasta proba are nevoie de permisiune la camera.</string>
-    <string name="camera_error">Acest device nu supoarta Camera2 API.</string>
-    <string name="location">Arata pe mapa</string>
-
-    <!-- fragment tags -->
-    <string name="fragment_camera2">Camera2</string>
-    <string name="fragment_view_stickers">Vezi sticarele</string>
-    <string name="hidetreasureerror">Poate/Nu poate sa fie gol.</string>
-    <string name="hidetitle">Titlu de tachinare:</string>
-    <string name="hidedescript">Descriere:</string>
-    <string name="hidephoto">Cheie pentru poza:</string>
-    <string name="hideloc">Locatie:</string>
-    <string name="hidepoints">Puncte premiu:</string>
-    <string name="hidepass">Cod de trecere:</string>
-    <string name="titlehint">Introduce un titlu pentru obiectul tau</string>
-    <string name="descripthint">Ceva ce va motiva ceilalti jucatori</string>
-    <string name="photohint">Conectati o imagine reprezentativa</string>
-    <string name="lochint">O pereche de coordonate [latitudine,longitudine]</string>
-    <string name="prizehint">Cat de multe din propriile tale puncte de premiere ai acorda?</string>
-    <string name="passhint">Identificator unic, astfel incat poate fi validat atunci cand e revendicat </string>
-    <string name="claimed">Revendicat de </string>
-    <string name="createtreasurebutton">Creaza comoara</string>
-    <string name="create_treasure">Crearea comorii e invalida</string>
-    <string name="choose_another_passcode">"Te rog alege alta parola!"</string>
+    <string name="server_not_found"> Comoara indisponibila pe server </string>
+    <string name="textview_empry_error">Poate/Nu poate sa fie gol.</string>
     <string name="all_fields_are_required">"Toate campurile sunt necesare"</string>
-    <string name="hide_treasure_gps_get_location_failed">Poate/Nu poate lua locatia curenta!</string>
-    <string name="user_profile_no_informations_error_message">"Nu se poate descarca informatia utilizatorului."</string>
-    <string name="profile_user_name_format">Nume de utilizator: %1$s</string>
-    <string name="profile_treasures_discovered_format">Comori descoperite: %1$d</string>
-    <string name="profile_treasures_hidden_format">Comori ascunse: %1$d</string>
-    <string name="profile_logout">Delogare</string>
-    <string name="profile_username">Nume de urilizator: %1$s</string>
-    <string name="score_with_plus">+%1$s</string>
-    <string name="no_internet_connection">Nu exista conexiune la internet!</string>
-    <string name="read_qr_code">Citeste QR cod</string>
-    <string name="pass_code">Cod de trecere</string>
-    <string name="prevent_mem_leaks">"Pentru a preveni scurgeri de memorie scanerul de cod de bare a fost oprit"</string>
-    <string name="file_string">Fila</string>
-    <string name="profile_score">Punctaj:</string>
-    <string name="add_treasure">Adauga comoara</string>
-    <string name="top_list">Lista de top</string>
-    <string name="treasures">Comori</string>
-    <string name="my_profile">Profil</string>
-    <string name="back_button_press">Apasa inapoi pentru a iesi.</string>
-    <string name="Treasures_hidden">Treasures hidden</string>
-    <string name="update">Update photo</string>
-    <string name="claim_error_no_score_change">Your score did not change.</string>
-    <string name="claim_snack_bar_error_treasure_not_available"> Not available treasure on server </string>
-    <string name="claim_snack_bar_error_internet"> No internet connection!Please turn on the wifi </string>
-    <string name="choose_from_gallery">Choose From Gallery</string>
-    <string name="take_picture">Take Picture</string>
-    <string name="Chooser_dialog_message">Choose an option for upload an image</string>
-    <string name="upload_profile_image">Upload profile image</string>
-    <string name="get_current_location">Get current location</string>
-    <string name="pick_location">Pick location</string>
-    <string name="location_of_the_image">Location of the image"</string>
-    <string name="hidetreasureerror2">"This treasure's passcode is occupired</string>
-    <string name="hidetreasurecreate">Your treasure is created!</string>
 
-    <string name="select_language">Selecteaza limba</string>
+    <string name="select_language">Selectati limba</string>
     <string name="no_image_selected">Imaginea nu este selectata</string>
 
-    <string name="language_eng">Enghleza</string>
+    <string name="language_eng">Engleza</string>
     <string name="language_ro">Romana</string>
     <string name="language_hu">Maghiara</string>
-
 </resources>

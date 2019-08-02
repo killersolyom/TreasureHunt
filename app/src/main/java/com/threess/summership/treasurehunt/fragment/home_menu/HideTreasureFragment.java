@@ -22,9 +22,11 @@ import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.TreasureAdapter;
 import com.threess.summership.treasurehunt.camera.CameraActivity;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
+import com.threess.summership.treasurehunt.fragment.MapViewFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.model.Treasure;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
 import com.threess.summership.treasurehunt.util.LocatingUserLocation;
 import com.threess.summership.treasurehunt.util.Util;
@@ -185,7 +187,7 @@ public class HideTreasureFragment extends Fragment {
                 break;
             }
             case PICK_LOCATION_FROM_MAP:{
-                HomeFragment.showPage(Constant.HomeViewPager.MAP_IDX);
+                FragmentNavigation.getInstance(getContext()).showMapViewFragmentInHomeFragment();
                 break;
             }
             case LOCATION_OF_THE_IMAGE:{
@@ -218,36 +220,36 @@ public class HideTreasureFragment extends Fragment {
     private boolean checkInputFields() {
         if (titleEditText.getText().toString().isEmpty()) {
             titleEditText.requestFocus();
-            titleEditText.setError(getString(R.string.hidetreasureerror));
+            titleEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if (descriptionEditText.getText().toString().isEmpty()) {
             descriptionEditText.requestFocus();
-            descriptionEditText.setError(getString(R.string.hidetreasureerror));
+            descriptionEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if (photoEditText.getText().toString().isEmpty()) {
             photoEditText.requestFocus();
-            photoEditText.setError(getString(R.string.hidetreasureerror));
+            photoEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if (locationEditText.getText().toString().isEmpty()) {
             locationEditText.requestFocus();
-            locationEditText.setError(getString(R.string.hidetreasureerror));
+            locationEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if (pointsEditText.getText().toString().isEmpty()) {
             pointsEditText.requestFocus();
-            pointsEditText.setError(getString(R.string.hidetreasureerror));
+            pointsEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if (passcodeEditText.getText().toString().isEmpty()) {
             passcodeEditText.requestFocus();
-            passcodeEditText.setError(getString(R.string.hidetreasureerror));
+            passcodeEditText.setError(getString(R.string.occupied_passcode));
             return false;
         }
         if(TreasureAdapter.checkThisPasscodeIsAvailable(passcodeEditText.getText().toString())){
-            Util.makeSnackbar(getView(),R.string.hidetreasureerror2,Snackbar.LENGTH_SHORT,R.color.orange900);
+            Util.makeSnackbar(getView(),R.string.treasure_created_successful,Snackbar.LENGTH_SHORT,R.color.orange900);
             return false;
 
         }
@@ -293,7 +295,7 @@ public class HideTreasureFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Treasure> call, Throwable t) {
-                Util.makeSnackbar(getView(), R.string.unreachable, Snackbar.LENGTH_LONG, R.color.orange700);
+                Util.makeSnackbar(getView(), R.string.server_not_found, Snackbar.LENGTH_LONG, R.color.orange700);
             }
         });
     }

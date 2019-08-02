@@ -1,4 +1,4 @@
-package com.threess.summership.treasurehunt.fragment.home_menu;
+package com.threess.summership.treasurehunt.fragment;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -21,10 +21,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.threess.summership.treasurehunt.R;
-import com.threess.summership.treasurehunt.fragment.HomeFragment;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.logic.ApiController;
 import com.threess.summership.treasurehunt.model.Treasure;
-import com.threess.summership.treasurehunt.util.Constant;
+import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Util;
 
 import java.util.ArrayList;
@@ -161,11 +161,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
                 title("Your Treasure").icon(BitmapDescriptorFactory.
                 fromBitmap(Util.getDrawableTreasureImage(getContext()))));
 
-        HideTreasureFragment.setMapPickCoordinates(latLng.latitude, latLng.longitude);
-        HomeFragment.showPage( Constant.HomeViewPager.HIDE_TREASURE_IDX );
+        FragmentNavigation.getInstance(getContext()).showHomeFragmentWithPicker(latLng.latitude, latLng.longitude);
     }
 
-    public static HideTreasureFragment newInstance(double latitude ,double longitude){
+    public static HideTreasureFragment newInstance(double latitude , double longitude){
         HideTreasureFragment hideTreasureFragment=new HideTreasureFragment();
         Bundle args=new Bundle();
         args.putDouble(KEY1,latitude);

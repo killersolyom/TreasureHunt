@@ -28,6 +28,6 @@
         android:id="@+id/action_hide_treasure"
         android:enabled="true"
         android:icon="@drawable/ic_add_treasure"
-        android:title="Hide treasure"
+        android:title="@string/hide_treasure"
         app:showAsAction="ifRoom" />
 </menu>

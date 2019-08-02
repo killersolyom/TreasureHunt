@@ -2,6 +2,7 @@ package com.threess.summership.treasurehunt.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.adapter.LanguageRecyclerViewAdapter;
 import com.threess.summership.treasurehunt.adapter.ScreenSlidePagerAdapter;
+import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.logic.SavedData;
 import com.threess.summership.treasurehunt.navigation.FragmentNavigation;
 import com.threess.summership.treasurehunt.util.Constant;
@@ -36,9 +38,15 @@ public class HomeFragment extends Fragment {
     private LanguageRecyclerViewAdapter mLanguageAdapter;
     private RecyclerView mLanguageRecyclerView;
     private static AlertDialog.Builder mLanguageAlertDialog;
+    //
+    private boolean openHideTreasure = false;
+    private double latitude;
+    private double longitude;
 
     public HomeFragment() {
+
     }
+
 
 
     @Override
@@ -51,10 +59,22 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            showPage(Constant.HomeViewPager.HIDE_TREASURE_IDX);
+            openHideTreasure = getArguments().getBoolean("open_hide_treasure");
+            latitude = getArguments().getDouble(MapViewFragment.KEY1);
+            longitude = getArguments().getDouble(MapViewFragment.KEY2);
+        }
+
         bindViews(view);
         setupViewPager();
         setupBottomNavigation();
         bindClickListeners();
+
+
+
+
     }
 
     private void bindClickListeners(){
@@ -95,11 +115,24 @@ public class HomeFragment extends Fragment {
     private void setupViewPager() {
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new PageChange());
-        viewPager.setCurrentItem(1);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if( openHideTreasure ) {
+                    openHideTreasure = false;
+                    viewPager.setCurrentItem(Constant.HomeViewPager.HIDE_TREASURE_IDX);
+                    HideTreasureFragment.setMapPickCoordinates(latitude, longitude);
+
+                }else {
+                    viewPager.setCurrentItem(Constant.HomeViewPager.TREASURE_IDX);
+                }
+            }
+        },200);
+
     }
 
     public static void showPage(int idx){
-        if( idx > 0 && idx <= 4 ) {
+        if( idx > 0 && idx <= 3 ) {
             viewPager.setCurrentItem(idx);
         }
     }
@@ -140,7 +173,7 @@ public class HomeFragment extends Fragment {
             switch (position) {
                 case Constant.HomeViewPager.PROFILE_IDX:
                     toolbar.setTitle("Profile - " + new SavedData(getContext()).getUserName());
-                    toolbar.setTitleTextColor(getResources().getColor(R.color.gray900));
+                    toolbar.setTitleTextColor(getActivity().getColor(R.color.gray900));
                     bottomNavigationView.setSelectedItemId(R.id.action_profile);
                     break;
                 case Constant.HomeViewPager.TREASURE_IDX:

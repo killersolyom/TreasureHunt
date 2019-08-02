@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,13 +15,12 @@ import android.view.View;
 import com.threess.summership.treasurehunt.MainActivity;
 import com.threess.summership.treasurehunt.R;
 import com.threess.summership.treasurehunt.fragment.ClaimTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
 import com.threess.summership.treasurehunt.fragment.HomeFragment;
 import com.threess.summership.treasurehunt.fragment.LoginFragment;
 import com.threess.summership.treasurehunt.fragment.RegistrationFragment;
 import com.threess.summership.treasurehunt.fragment.SplashScreenFragment;
 import com.threess.summership.treasurehunt.fragment.home_menu.HideTreasureFragment;
-import com.threess.summership.treasurehunt.fragment.home_menu.MapViewFragment;
+import com.threess.summership.treasurehunt.fragment.MapViewFragment;
 import com.threess.summership.treasurehunt.model.Treasure;
 import com.threess.summership.treasurehunt.util.Util;
 
@@ -54,6 +54,19 @@ public class FragmentNavigation extends Fragment {
 
     public void showHomeFragment() {
         replaceFragment(new HomeFragment(), mMainActivityFragmentContainer);
+    }
+
+    public void showHomeFragmentWithPicker(double latitude, double longitude) {
+        HomeFragment homeFragment = new HomeFragment();
+        Bundle args=new Bundle();
+        args.putBoolean("open_hide_treasure",true);
+        args.putDouble(MapViewFragment.KEY1,latitude);
+        args.putDouble(MapViewFragment.KEY2,longitude);
+        homeFragment.setArguments(args);
+        replaceFragment(homeFragment, mMainActivityFragmentContainer);
+
+        //HomeFragment.showPage(Constant.HomeViewPager.HIDE_TREASURE_IDX);
+        //HideTreasureFragment.setMapPickCoordinates(latitude,longitude);
     }
 
     public void showSplashScreenFragment() {
